@@ -10,6 +10,7 @@ import routes from './routes';
 import DefaultLayout from './layout/DefaultLayout.tsx';
 import HomePage from './pages/Home/HomePage.tsx';
 import AuthLayout from './layout/AuthLayout.tsx';
+import SignOut from './pages/Authentication/SignOut.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -37,6 +38,7 @@ function App() {
         <Route path={'auth'} element={<AuthLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="signout" element={<SignOut />} />
         </Route>
         <Route path={'admin'} element={<AdminLayout />}>
           <Route index element={<ECommerce />} />

@@ -5,6 +5,11 @@ import './index.css';
 import './satoshi.css';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { loadTokenFromStorage } from './services/tokenService';
+
+if (localStorage.token) {
+  loadTokenFromStorage();
+}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>

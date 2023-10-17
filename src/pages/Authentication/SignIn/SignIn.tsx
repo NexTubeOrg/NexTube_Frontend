@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ILoginRequest, ILoginResult } from './types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import http_api from '../../../common/http_api';
+import http_api from '../../../services/http_api';
 import { AuthUserActionType, IUser } from '../../../store/reducers/auth/types';
 import jwtDecode from 'jwt-decode';
 import { useState } from 'react';
+import { storeToken } from '../../../services/tokenService';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -33,16 +34,7 @@ const SignIn = () => {
       if (result.result.succeeded != true) throw result.result.errors;
 
       const { token } = result;
-      const user = jwtDecode(token) as IUser;
-      dispatch({
-        type: AuthUserActionType.LOGIN_USER,
-        payload: {
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          roles: user.roles,
-        },
-      });
+      storeToken(token);
       navigator('/');
     } catch (errors) {
       let e: string[] | string;
