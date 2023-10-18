@@ -7,6 +7,7 @@ module.exports = function (app) {
     createProxyMiddleware({
       target: 'https://localhost:7192', // Replace with your API URL
       changeOrigin: true,
+      secure: false,
     }),
   );
 };
