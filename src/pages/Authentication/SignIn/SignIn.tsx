@@ -8,6 +8,7 @@ import { AuthUserActionType, IUser } from '../../../store/reducers/auth/types';
 import jwtDecode from 'jwt-decode';
 import { useState } from 'react';
 import { storeToken } from '../../../services/tokenService';
+import classNames from 'classnames';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,12 @@ const SignIn = () => {
 
   const requestSchema = yup.object({
     email: yup.string().required('Enter email').email('Enter valid email'),
-
     password: yup.string().required('Enter password').min(8),
   });
 
-  const onSubmit = async (values: ILoginRequest) => {
+  const onFormSubmit = async (values: ILoginRequest) => {
     try {
+      console.log(errors);
       setErrorMessage('');
       console.log(values);
       const result = (await http_api.post<ILoginResult>('auth/signin', values))
@@ -46,7 +47,7 @@ const SignIn = () => {
   const formik = useFormik({
     initialValues: request,
     validationSchema: requestSchema,
-    onSubmit: onSubmit,
+    onSubmit: onFormSubmit,
   });
 
   const { values, errors, touched, handleSubmit, handleChange } = formik;
@@ -60,25 +61,35 @@ const SignIn = () => {
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to NexTube
               </h2>
-
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <label
+                    htmlFor="email"
+                    className="mb-2.5 block font-medium text-black dark:text-white"
+                  >
                     Email
                   </label>
+
                   <div className="relative">
                     <input
                       id="email"
                       name="email"
                       value={values.email}
                       onChange={handleChange}
-                      type="email"
+                      type="text"
                       placeholder="Enter your email"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none 
-                      focus:border-primary focus-visible:shadow-none 
-                      dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary 
-                      dark:invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                      className={classNames(
+                        'w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary',
+                        {
+                          'dark:border-danger dark:text-danger': errors.email,
+                        },
+                      )}
                     />
+                    {errors.email && (
+                      <div className="mt-2 text-md dark:text-danger">
+                        {errors.email}
+                      </div>
+                    )}
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -101,7 +112,10 @@ const SignIn = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <label
+                    htmlFor="password"
+                    className="mb-2.5 block font-medium text-black dark:text-white"
+                  >
                     Re-type Password
                   </label>
                   <div className="relative">
@@ -112,8 +126,19 @@ const SignIn = () => {
                       onChange={handleChange}
                       type="password"
                       placeholder="8+ Characters"
-                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      className={classNames(
+                        'w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary',
+                        {
+                          'dark:border-danger dark:text-danger':
+                            errors.password,
+                        },
+                      )}
                     />
+                    {errors.password && (
+                      <div className="mt-2 text-md dark:text-danger">
+                        {errors.password}
+                      </div>
+                    )}
 
                     <span className="absolute right-4 top-4">
                       <svg
