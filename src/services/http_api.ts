@@ -3,7 +3,7 @@ import { APP_CONFIG } from '../env';
 import { getToken } from './tokenService';
 
 const http_api = axios.create({
-  baseURL: APP_CONFIG.API_URL,
+  // baseURL: APP_CONFIG.API_URL,
   headers: {
     'Content-Type': 'application/json',
     Authorization: `${getToken()}`,

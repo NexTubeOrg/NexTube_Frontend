@@ -1,16 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
-export default ({ mode }) => {
-  return defineConfig({
-    plugins: [react()],
+export default defineConfig({
+  server: {
     proxy: {
+      // Proxy /api requests to your API server
       '/api': {
-        target: 'https://localhost:7192',
+        target: 'https://localhost:7192', // Replace with your API server's URL
         changeOrigin: true,
         secure: false,
       },
     },
-  });
-};
+  },
+});

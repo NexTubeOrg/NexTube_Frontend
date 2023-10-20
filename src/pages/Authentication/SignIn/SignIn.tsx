@@ -30,8 +30,9 @@ const SignIn = () => {
       console.log(errors);
       setErrorMessage('');
       console.log(values);
-      const result = (await http_api.post<ILoginResult>('auth/signin', values))
-        .data;
+      const result = (
+        await http_api.post<ILoginResult>('/api/auth/signin', values)
+      ).data;
       if (result.result.succeeded != true) throw result.result.errors;
 
       const { token } = result;
