@@ -10,7 +10,7 @@ const DefaultLayout = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    if (isSignedIn() == false) navigator('/auth/signin');
+    // if (isSignedIn() == false) navigator('/auth/signin');
   }, []);
 
   return (
