@@ -4,11 +4,15 @@ import DarkModeSwitcher from './DarkModeSwitcher';
 import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
+import { useSelector } from 'react-redux';
+import { IAuthUser } from '../store/reducers/auth/types';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
+  const { isAuth } = useSelector((store: any) => store.auth as IAuthUser);
+
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
@@ -103,17 +107,37 @@ const Header = (props: {
             <DarkModeSwitcher />
             {/* <!-- Dark Mode Toggler --> */}
 
-            {/* <!-- Notification Menu Area --> */}
-            <DropdownNotification />
-            {/* <!-- Notification Menu Area --> */}
+            {isAuth && (
+              <>
+                {/* <!-- Notification Menu Area --> */}
+                <DropdownNotification />
+                {/* <!-- Notification Menu Area --> */}
 
-            {/* <!-- Chat Notification Area --> */}
-            <DropdownMessage />
-            {/* <!-- Chat Notification Area --> */}
+                {/* <!-- Chat Notification Area --> */}
+                <DropdownMessage />
+                {/* <!-- Chat Notification Area --> */}
+              </>
+            )}
           </ul>
 
           {/* <!-- User Area --> */}
-          <DropdownUser />
+          {isAuth && <DropdownUser />}
+          {!isAuth && (
+            <>
+              <Link
+                to="/auth/signup"
+                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              >
+                Sign Up
+              </Link>
+              <Link
+                to="/auth/signin"
+                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              >
+                Sign In
+              </Link>
+            </>
+          )}
           {/* <!-- User Area --> */}
         </div>
       </div>

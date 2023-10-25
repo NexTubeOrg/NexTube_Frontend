@@ -10,8 +10,8 @@ const DefaultLayout = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    if (isSignedIn() == false) navigator('/auth/signin');
-  });
+    // if (isSignedIn() == false) navigator('/auth/signin');
+  }, []);
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
