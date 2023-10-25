@@ -11,7 +11,7 @@ const DefaultLayout = () => {
 
   useEffect(() => {
     if (isSignedIn() == false) navigator('/auth/signin');
-  });
+  }, []);
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">

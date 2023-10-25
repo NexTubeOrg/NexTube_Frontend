@@ -20,7 +20,7 @@ const DropdownNotification = () => {
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
-  });
+  }, []);
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -30,7 +30,7 @@ const DropdownNotification = () => {
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  }, []);
 
   return (
     <li className="relative">

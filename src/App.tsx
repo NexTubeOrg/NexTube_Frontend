@@ -35,15 +35,16 @@ function App() {
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<HomePage />} />
         </Route>
-        <Route path={'auth'} element={<AuthLayout />}>
+        <Route path={'/auth'} element={<AuthLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
         </Route>
-        <Route path={'admin'} element={<AdminLayout />}>
+        <Route path={'/admin'} element={<AdminLayout />}>
           <Route index element={<ECommerce />} />
-          {routes.map(({ path, component: Component }) => (
+          {routes.map(({ path, component: Component }, id) => (
             <Route
+              key={id}
               path={path}
               element={
                 <Suspense fallback={<Loader />}>

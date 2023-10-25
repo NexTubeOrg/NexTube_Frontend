@@ -8,7 +8,7 @@ const SignOut = () => {
     removeToken();
     navigator('/');
     console.log('signed out');
-  });
+  }, []);
   return <></>;
 };
 export default SignOut;

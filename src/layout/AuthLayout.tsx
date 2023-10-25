@@ -8,7 +8,7 @@ const AuthLayout = () => {
 
   useEffect(() => {
     if (isSignedIn() == true) navigator('/');
-  });
+  }, []);
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
