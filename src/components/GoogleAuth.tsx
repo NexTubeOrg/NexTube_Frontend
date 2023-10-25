@@ -8,6 +8,7 @@ import { storeToken } from '../services/tokenService';
 import { useNavigate } from 'react-router-dom';
 import http_api from '../services/http_api';
 import { ILoginResult } from '../pages/Authentication/SignIn/types';
+import { APP_CONFIG } from '../env';
 
 const GoogleAuth = () => {
   const navigator = useNavigate();
@@ -16,8 +17,6 @@ const GoogleAuth = () => {
     try {
       // Handle the response from Google Authentication here
       console.log('google auth', response);
-      storeToken(response.credential ?? '');
-      navigator('/');
 
       var result = (
         await http_api.post<ILoginResult>('/api/auth/SignInWithProviderToken', {
@@ -43,7 +42,7 @@ const GoogleAuth = () => {
 
   return (
     <div>
-      <GoogleOAuthProvider clientId="1020050247777-8b9ibr89425mdnjv8h06jbqdsmrn0bau.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={APP_CONFIG.GOOGLE_CLIENT_ID}>
         <GoogleLogin
           onSuccess={responseGoogle}
           onError={() => {
