@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import UserOne from '../images/user/user-01.png';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../store/reducers/auth/types';
+import { Roles } from '../services/tokenService';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -50,7 +51,10 @@ const DropdownUser = () => {
           <span className="block text-sm font-medium text-black dark:text-white">
             {user?.firstName} {user?.lastName}
           </span>
-          <span className="block text-xs">{user?.roles}</span>
+          <span className="block text-xs">
+            {/* exclude display User role */}
+            {user?.roles?.filter((r) => r !== Roles.User).join(' ')}
+          </span>
         </span>
 
         <span className="h-12 w-12 rounded-full">

@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 
 import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignIn/SignIn.tsx';
-import SignUp from './pages/Authentication/SignUp';
+import SignUp from './pages/Authentication/SignUp/SignUp.tsx';
 import Loader from './common/Loader';
 import routes from './routes';
 import DefaultLayout from './layout/DefaultLayout.tsx';
