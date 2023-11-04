@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { IRegistrationRequest, IRegistrationResult } from './types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -7,10 +6,10 @@ import http_api from '../../../services/http_api';
 import { storeToken } from '../../../services/tokenService';
 import classNames from 'classnames';
 import GoogleAuth from '../../../components/GoogleAuth';
+import { handleError, handleSuccess } from '../../../common/handleError';
 
 const SignUp = () => {
   const navigator = useNavigate();
-  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const request: IRegistrationRequest = {
     email: '',
@@ -36,7 +35,6 @@ const SignUp = () => {
   const onFormSubmit = async (values: IRegistrationRequest) => {
     try {
       console.log(errors);
-      setErrorMessage('');
       console.log(values);
       const result = (
         await http_api.post<IRegistrationResult>('/api/auth/signup', values, {
@@ -49,11 +47,10 @@ const SignUp = () => {
 
       const { token } = result;
       storeToken(token);
+      handleSuccess('User created successfully');
       navigator('/');
-    } catch (errors) {
-      let e: string[] | string;
-      e = errors as string[];
-      setErrorMessage(e.join('\n'));
+    } catch (error: any) {
+      handleError(error);
     }
   };
 
