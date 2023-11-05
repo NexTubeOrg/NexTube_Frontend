@@ -4,6 +4,7 @@ import { NotificationType } from '../store/reducers/notifications/types';
 
 export const handleError = (error: any) => {
   const e = error as AxiosError;
+  console.log('handle error', e);
   switch (e.response?.status as HttpStatusCode) {
     case HttpStatusCode.InternalServerError: {
       store.dispatch({
