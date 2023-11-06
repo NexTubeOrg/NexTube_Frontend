@@ -4,13 +4,14 @@ import { Toaster } from 'react-hot-toast';
 
 import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignIn/SignIn.tsx';
-import SignUp from './pages/Authentication/SignUp';
+import SignUp from './pages/Authentication/SignUp/SignUp.tsx';
 import Loader from './common/Loader';
 import routes from './routes';
 import DefaultLayout from './layout/DefaultLayout.tsx';
 import HomePage from './pages/Home/HomePage.tsx';
 import AuthLayout from './layout/AuthLayout.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
+import { ToastContainer } from 'react-toastify';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -30,7 +31,6 @@ function App() {
         reverseOrder={false}
         containerClassName="overflow-auto"
       />
-
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<HomePage />} />
@@ -55,6 +55,7 @@ function App() {
           ))}
         </Route>
       </Routes>
+      <ToastContainer />
     </>
   );
 }

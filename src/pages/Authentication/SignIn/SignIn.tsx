@@ -10,11 +10,11 @@ import { useState } from 'react';
 import { storeToken } from '../../../services/tokenService';
 import classNames from 'classnames';
 import GoogleAuth from '../../../components/GoogleAuth';
+import { handleError, handleSuccess } from '../../../common/handleError';
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
-  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const request: ILoginRequest = {
     email: '',
@@ -29,20 +29,19 @@ const SignIn = () => {
   const onFormSubmit = async (values: ILoginRequest) => {
     try {
       console.log(errors);
-      setErrorMessage('');
       console.log(values);
       const result = (
         await http_api.post<ILoginResult>('/api/auth/signin', values)
       ).data;
-      if (result.result.succeeded != true) throw result.result.errors;
+      if (result.result.succeeded != true) throw result.result;
 
       const { token } = result;
       storeToken(token);
+      handleSuccess('Sign in successfully');
       navigator('/');
-    } catch (errors) {
-      let e: string[] | string;
-      e = errors as string[];
-      setErrorMessage(e.join('\n'));
+    } catch (error) {
+      console.log('signinerror', error);
+      handleError(error);
     }
   };
 
@@ -164,12 +163,6 @@ const SignIn = () => {
                       </svg>
                     </span>
                   </div>
-                </div>
-
-                <div className="mb-5">
-                  <label className="mb-2.5 block font-medium text-danger dark:text-danger">
-                    {errorMessage}
-                  </label>
                 </div>
 
                 <div className="mb-5">

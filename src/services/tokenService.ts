@@ -65,3 +65,8 @@ export const isSignedIn = (): boolean => {
   // todo add overdue check
   return t != null && t != '' && t != undefined;
 };
+
+export enum Roles {
+  Administrator = 'Administrator',
+  User = 'User',
+}
