@@ -37,7 +37,7 @@ const coreRoutes = [
     component: Tables,
   },
   {
-    path: 'settings',
+    path: 'update',
     title: 'Settings',
     component: Settings,
   },

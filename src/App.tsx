@@ -12,6 +12,7 @@ import HomePage from './pages/Home/HomePage.tsx';
 import AuthLayout from './layout/AuthLayout.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
+import UpdateUser from './pages/UpdateUser/UpdateUser.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
+          <Route path="update-user" element={<UpdateUser/>} />
         </Route>
         <Route path={'/admin'} element={<AdminLayout />}>
           <Route index element={<ECommerce />} />
