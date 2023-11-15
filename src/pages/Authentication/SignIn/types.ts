@@ -9,3 +9,11 @@ export interface ILoginResult {
   result: ICommonResult;
   token: string;
 }
+
+export interface IUserLookup {
+  userId: number | null;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  roles: string[] | null;
+}
