@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { APP_CONFIG } from '../env';
 import { getToken } from './tokenService';
 
 const http_api = axios.create({
