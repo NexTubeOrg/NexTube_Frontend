@@ -7,6 +7,10 @@ import { storeToken } from '../../../services/tokenService';
 import classNames from 'classnames';
 import GoogleAuth from '../../../components/GoogleAuth';
 import { handleError, handleSuccess } from '../../../common/handleError';
+import CropperDialog from '../../../common/CropperDialog';
+import { Modal } from '../../../components/ModalSettings';
+import { ModalCropper } from '../../../components/ModalCropper';
+import { ChangeEvent } from 'react';
 
 const SignUp = () => {
   const navigator = useNavigate();
@@ -17,6 +21,7 @@ const SignUp = () => {
     passwordConfirm: '',
     firstName: '',
     lastName: '',
+    channelPhoto: null,
   };
 
   const requestSchema = yup.object({
@@ -30,6 +35,7 @@ const SignUp = () => {
       }),
     firstName: yup.string().required('Enter first name').min(2),
     lastName: yup.string().required('Enter last name').min(2),
+    channelPhoto: yup.mixed().required('Image is required'),
   });
 
   const onFormSubmit = async (values: IRegistrationRequest) => {
@@ -52,6 +58,19 @@ const SignUp = () => {
     } catch (error: any) {
       handleError(error);
     }
+  };
+
+  const onImageChangeHandler = (f: File) => {
+    console.log('image input handle change', f);
+    if (f != null) {
+      onImageSaveHandler(f);
+    }
+  };
+  const onImageSaveHandler = (file: File) => {
+    console.log('image save handle', file);
+    values.channelPhoto = file;
+    console.log(values);
+    // setDto({ ...dto, image: file });
   };
 
   const formik = useFormik({
@@ -245,6 +264,27 @@ const SignUp = () => {
                     <span className="absolute right-4 top-4">
                       {/* insert here svg */}
                     </span>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Channel photo
+                  </label>
+                  <div className="relative">
+                    <ModalCropper
+                      onSave={onImageChangeHandler}
+                      error={''}
+                    ></ModalCropper>
+                    {/* <CropperDialog
+                      onSave={onImageChangeHandler}
+                      error={''}
+                    ></CropperDialog> */}
+                    {errors.channelPhoto && (
+                      <div className="mt-2 text-md dark:text-danger">
+                        {errors.channelPhoto}
+                      </div>
+                    )}
                   </div>
                 </div>
 
