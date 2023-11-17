@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import VideoPlayback from "../../../components/video/VideoPlayback";
-import http_api from "../../../services/http_api";
+import VideoPlayback from "../../components/video/VideoPlayback";
+import http_api from "../../services/http_api";
 import { useEffect, useState } from "react";
-import { IGetVideoResult, IVideoLookup } from "./types";
+import { IGetVideoResult, IVideoLookup } from "./common/types";
 
 const VideoPlaybackPage = () => {
     const { id } = useParams();

@@ -16,4 +16,5 @@ export interface IUserLookup {
   lastName: string | null;
   email: string | null;
   roles: string[] | null;
+  channelPhoto: string | null;
 }

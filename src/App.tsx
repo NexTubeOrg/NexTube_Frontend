@@ -13,7 +13,7 @@ import AuthLayout from './layout/AuthLayout.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
 import VideoLayout from './layout/VideoLayout.tsx';
-import VideoPlaybackPage from './pages/Video/VideoPlayback/VideoPlaybackPage.tsx';
+import VideoPlaybackPage from './pages/Video/VideoPlaybackPage.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 

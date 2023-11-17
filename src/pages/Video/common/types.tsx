@@ -13,3 +13,7 @@ export interface IVideoLookup {
 export interface IGetVideoResult {
     videoEntity: IVideoLookup | null;
 }
+
+export interface IGetVideoRecomendationResult {
+    videoEntities: IVideoLookup[] | null;
+}
