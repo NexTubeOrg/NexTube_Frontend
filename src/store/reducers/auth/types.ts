@@ -12,5 +12,6 @@ export interface IUser {
   email: string;
   firstName: string;
   lastName: string;
+  channelPhoto: string;
   roles: string[];
 }

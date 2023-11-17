@@ -6,6 +6,7 @@ export interface IRegistrationRequest {
   passwordConfirm: string;
   firstName: string;
   lastName: string;
+  channelPhoto: File | null;
 }
 
 export interface IRegistrationResult {

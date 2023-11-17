@@ -15,6 +15,7 @@ export const storeToken = (token: string) => {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
+      channelPhoto: user.channelPhoto,
       roles: user.roles,
     },
   });
@@ -30,6 +31,7 @@ export const loadTokenFromStorage = () => {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
+      channelPhoto: user.channelPhoto,
       roles: user.roles,
     },
   });
