@@ -7,7 +7,6 @@ import { storeToken } from '../../../services/tokenService';
 import classNames from 'classnames';
 import GoogleAuth from '../../../components/GoogleAuth';
 import { handleError, handleSuccess } from '../../../common/handleError';
-import CropperDialog from '../../../common/CropperDialog';
 import { Modal } from '../../../components/ModalSettings';
 import { ModalCropper } from '../../../components/ModalCropper';
 import { ChangeEvent } from 'react';
