@@ -57,8 +57,12 @@ const DropdownUser = () => {
           </span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+        <span>
+          <img
+            className="h-12 w-12 rounded-full"
+            src={'/api/Photo/GetPhotoUrl/' + user?.channelPhoto + '/50'}
+            alt="User"
+          />
         </span>
 
         <svg
