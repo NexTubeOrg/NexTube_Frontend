@@ -17,6 +17,7 @@ export interface IUser {
   lastName: string;
   nickname: string;
   description: string;
+  channelPhoto: string;
   roles: string[];
 }
  
