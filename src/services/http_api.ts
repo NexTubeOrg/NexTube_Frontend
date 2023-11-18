@@ -6,7 +6,7 @@ const http_api = axios.create({
     'Content-Type': 'application/json',
     Authorization: `${getToken()}`,
   },
-  baseURL: 'https://your-api-base-url.com',
+ 
 });
 
 http_api.interceptors.response.use(

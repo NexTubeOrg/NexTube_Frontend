@@ -40,7 +40,10 @@ function App() {
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
-          <Route path="update-user" element={<UpdateUser/>} />
+      
+        </Route>
+        <Route path={'/setings'}  element={<DefaultLayout />}>
+        <Route path="update-user" element={<UpdateUser/>} />
         </Route>
         <Route path={'/admin'} element={<AdminLayout />}>
           <Route index element={<ECommerce />} />
