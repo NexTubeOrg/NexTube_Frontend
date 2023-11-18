@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { getToken } from './tokenService';
+import { handleError } from '../common/handleError';
 
 const http_api = axios.create({
   headers: {
@@ -12,6 +13,12 @@ http_api.interceptors.response.use(
   (responce) => responce,
   (error: AxiosError) => {
     console.log('catched', error);
+    switch (error.response?.status) {
+      case 401: {
+        handleError('Please, sign in to act');
+        break;
+      }
+    }
     if (error.code == 'ERR_NETWORK') {
       window.location.href = '/auth/signin';
     }

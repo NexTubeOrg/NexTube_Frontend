@@ -10,3 +10,8 @@ export interface ICommentLookup {
 export interface IGetVideoCommentListResult {
   comments: ICommentLookup[];
 }
+
+export interface IAddNewCommentRequest {
+  content: string;
+  videoId: number;
+}

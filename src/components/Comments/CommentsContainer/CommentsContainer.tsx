@@ -4,6 +4,7 @@ import { ICommentLookup, IGetVideoCommentListResult } from '../Common/types';
 import { handleError } from '../../../common/handleError';
 import CommentItem from '../CommentItem/CommentItem';
 import HandleOnVisible from '../../HandleOnVisible';
+import AddNewCommentField from '../AddNewCommentField/AddNewCommentField';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -14,7 +15,13 @@ const CommentsContainer = (props: { videoId: number }) => {
   const [canLoad, setCanLoad] = useState<boolean>(true);
 
   const appendComments = (newComments: ICommentLookup[]) => {
+    console.log('try to append', newComments);
     setComments((prevComments) => [...prevComments, ...newComments]);
+  };
+
+  const pushToBeginComments = (newComments: ICommentLookup[]) => {
+    console.log('try to pushToBegin', newComments);
+    setComments((prevComments) => [...newComments, ...prevComments]);
   };
 
   useEffect(() => {
@@ -59,15 +66,26 @@ const CommentsContainer = (props: { videoId: number }) => {
 
   return (
     <>
-      <p>{comments.length} comments</p>
-      {renderedComments}
-      <>
-        <HandleOnVisible
-          onVisible={() => {
-            setNeedLoad((prevPages) => prevPages + 1);
-          }}
-        ></HandleOnVisible>
-      </>
+      {comments.length > 0 && (
+        <>
+          <p>{comments.length} comments</p>
+          <AddNewCommentField
+            onCommentAdd={(e) => {
+              console.log('new comment', e);
+              pushToBeginComments([e]);
+            }}
+            videoId={props.videoId}
+          ></AddNewCommentField>
+          {renderedComments}
+          <>
+            <HandleOnVisible
+              onVisible={() => {
+                setNeedLoad((prevPages) => prevPages + 1);
+              }}
+            ></HandleOnVisible>
+          </>
+        </>
+      )}
     </>
   );
 };

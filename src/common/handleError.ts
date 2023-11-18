@@ -1,8 +1,17 @@
 import { AxiosError, HttpStatusCode } from 'axios';
 import { store } from '../store';
 import { NotificationType } from '../store/reducers/notifications/types';
+import { string } from 'yup';
 
 export const handleError = (error: any) => {
+  if (typeof error === 'string') {
+    console.log('error is string');
+    store.dispatch({
+      type: NotificationType.STRING_ERROR,
+      payload: error,
+    });
+    return;
+  }
   const e = error as AxiosError;
   console.log('handle error', e);
   switch (e.response?.status as HttpStatusCode) {
