@@ -18,6 +18,10 @@ http_api.interceptors.response.use(
         handleError('Please, sign in to act');
         break;
       }
+      case 403: {
+        handleError('Forbidden action');
+        break;
+      }
     }
     if (error.code == 'ERR_NETWORK') {
       window.location.href = '/auth/signin';

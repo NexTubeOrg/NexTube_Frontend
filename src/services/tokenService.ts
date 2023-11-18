@@ -17,6 +17,7 @@ export const storeToken = (token: string) => {
       lastName: user.lastName,
       channelPhoto: user.channelPhoto,
       roles: user.roles,
+      userId: user.userId,
     },
   });
 };
@@ -33,6 +34,7 @@ export const loadTokenFromStorage = () => {
       lastName: user.lastName,
       channelPhoto: user.channelPhoto,
       roles: user.roles,
+      userId: user.userId,
     },
   });
 };

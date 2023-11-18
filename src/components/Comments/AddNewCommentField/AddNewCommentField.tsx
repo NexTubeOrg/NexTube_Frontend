@@ -34,6 +34,7 @@ const AddNewCommentField = (props: {
 
       handleSuccess('Add comment successfully');
       props.onCommentAdd(result);
+      resetForm();
     } catch (error) {
       console.error('Add commentn error', error);
       handleError(error);

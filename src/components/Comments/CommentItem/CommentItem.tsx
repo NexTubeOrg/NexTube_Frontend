@@ -3,15 +3,21 @@ import { ICommentLookup } from '../Common/types';
 import dayjs from 'dayjs';
 import { ChannelPhoto } from '../../ChannelPhoto';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import DeleteComment from '../DeleteComment/DeleteComment';
+import { EventHandler } from 'react';
+import { IAuthUser } from '../../../store/reducers/auth/types';
+import { useSelector } from 'react-redux';
 dayjs.extend(relativeTime);
 
-const CommentItem = (props: { commentLookup: ICommentLookup }) => {
+const CommentItem = (props: {
+  commentLookup: ICommentLookup;
+  onDelete: EventHandler<any>;
+}) => {
+  const { user } = useSelector((store: any) => store.auth as IAuthUser);
+
   return (
     <>
-      <Link
-        to="/"
-        className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
-      >
+      <div className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4">
         <div className="relative">
           <ChannelPhoto
             photoUrl={props.commentLookup.creator.channelPhoto ?? ''}
@@ -37,11 +43,16 @@ const CommentItem = (props: { commentLookup: ICommentLookup }) => {
               </span>
             </p>
           </div>
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
-            <span className="text-sm font-medium text-white">3</span>
+          <div>
+            {user?.userId == props.commentLookup.creator.userId && (
+              <DeleteComment
+                onCommentDelete={props.onDelete}
+                commentId={props.commentLookup.commentId}
+              ></DeleteComment>
+            )}
           </div>
         </div>
-      </Link>
+      </div>
     </>
   );
 };

@@ -24,6 +24,12 @@ const CommentsContainer = (props: { videoId: number }) => {
     setComments((prevComments) => [...newComments, ...prevComments]);
   };
 
+  const removeCommentFromList = (commentId: number) => {
+    setComments((prevComments) =>
+      prevComments.filter((e) => e.commentId != commentId),
+    );
+  };
+
   useEffect(() => {
     console.log('useEffect');
     const loadVideoCommentsAsync = async () => {
@@ -59,7 +65,12 @@ const CommentsContainer = (props: { videoId: number }) => {
   const renderedComments = comments.map((c) => (
     <>
       <div className="comment" key={c.commentId}>
-        <CommentItem commentLookup={c}></CommentItem>
+        <CommentItem
+          onDelete={(commentId) => {
+            removeCommentFromList(commentId);
+          }}
+          commentLookup={c}
+        ></CommentItem>
       </div>
     </>
   ));
