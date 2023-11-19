@@ -3,7 +3,7 @@ import { ProcessingButton } from './ProcessingButton';
 
 export const PrimaryProcessingButton = (props: {
   isLoading: boolean;
-  onClick: EventHandler<any>;
+  onClick: EventHandler<any> | undefined;
   text: string;
   type: 'submit' | 'reset' | 'button' | undefined;
 }) => {

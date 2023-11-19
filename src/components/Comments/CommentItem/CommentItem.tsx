@@ -42,7 +42,7 @@ const CommentItem = (props: {
               </span>
             </p>
           </div>
-          <div>
+          <div className="w-30">
             {user?.userId == props.commentLookup.creator.userId && (
               <DeleteComment
                 onCommentDelete={props.onDelete}

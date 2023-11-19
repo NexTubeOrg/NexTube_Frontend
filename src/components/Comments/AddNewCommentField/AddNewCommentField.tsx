@@ -80,7 +80,7 @@ const AddNewCommentField = (props: {
             </div>
           </div>
           <div className="flex justify-end">
-            <div className="mr-2">
+            <div className="mr-2 w-30">
               <SecondaryProcessingButton
                 isLoading={false}
                 text="Cancel"
@@ -90,7 +90,7 @@ const AddNewCommentField = (props: {
                 type="reset"
               ></SecondaryProcessingButton>
             </div>
-            <div>
+            <div className="w-30">
               <PrimaryProcessingButton
                 isLoading={isLoading}
                 text="Add comment"
