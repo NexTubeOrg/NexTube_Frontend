@@ -17,7 +17,7 @@ const CommentItem = (props: {
   return (
     <>
       <div className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4">
-        <div className="relative">
+        <div className="relative self-start">
           <ChannelPhoto
             photoUrl={props.commentLookup.creator.channelPhoto ?? ''}
           />
@@ -33,9 +33,12 @@ const CommentItem = (props: {
               {props.commentLookup.creator.lastName}
             </h5>
             <p>
-              <span className="text-sm text-black dark:text-white">
-                {props.commentLookup.content}
-              </span>
+              <div className="w-100">
+                <span className="text-sm text-black dark:text-white w-100 break-all">
+                  {props.commentLookup.content}
+                </span>
+              </div>
+
               <span className="text-xs">
                 {' '}
                 . {`${dayjs(props.commentLookup.dateCreated).fromNow()}`}

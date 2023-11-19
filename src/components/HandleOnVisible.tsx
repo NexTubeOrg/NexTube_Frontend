@@ -29,7 +29,7 @@ const HandleOnVisible = (props: { onVisible: EventHandler<any> }) => {
     return () => observer.disconnect();
   }, [myElementRef]);
 
-  return <div ref={myElementRef}>MyTestElement</div>;
+  return <div ref={myElementRef}> </div>;
 };
 
 export default HandleOnVisible;
