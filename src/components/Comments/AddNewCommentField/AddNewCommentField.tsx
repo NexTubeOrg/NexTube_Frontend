@@ -1,22 +1,19 @@
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { ILoginRequest, ILoginResult } from './types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
-import { AuthUserActionType, IUser } from '../../../store/reducers/auth/types';
-import jwtDecode from 'jwt-decode';
 import { EventHandler, useState } from 'react';
-import { storeToken } from '../../../services/tokenService';
 import classNames from 'classnames';
-import GoogleAuth from '../../../components/GoogleAuth';
 import { handleError, handleSuccess } from '../../../common/handleError';
 import { IAddNewCommentRequest, ICommentLookup } from '../Common/types';
+import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
+import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
 
 const AddNewCommentField = (props: {
   videoId: number;
   onCommentAdd: EventHandler<any>;
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const requestSchema = yup.object({
     videoId: yup.number().required('Enter video id'),
     content: yup.string().required('Enter comment'),
@@ -25,19 +22,21 @@ const AddNewCommentField = (props: {
   const onFormSubmit = async (values: IAddNewCommentRequest) => {
     try {
       console.log(values);
+      setIsLoading(() => true);
       const result = (
         await http_api.post<ICommentLookup>(
           '/api/Video/Comment/AddComment',
           values,
         )
       ).data;
-
       handleSuccess('Add comment successfully');
       props.onCommentAdd(result);
       resetForm();
     } catch (error) {
       console.error('Add commentn error', error);
       handleError(error);
+    } finally {
+      setIsLoading(() => false);
     }
   };
 
@@ -81,21 +80,24 @@ const AddNewCommentField = (props: {
             </div>
           </div>
           <div className="flex justify-end">
-            <button
-              type="reset"
-              onClick={() => {
-                resetForm();
-              }}
-              className="w-30 mr-2 cursor-pointer rounded-lg border border-graydark bg-graydark p-2 text-white transition hover:bg-opacity-90"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="w-30 cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90"
-            >
-              Add comment
-            </button>
+            <div className="mr-2">
+              <SecondaryProcessingButton
+                isLoading={false}
+                text="Cancel"
+                onClick={() => {
+                  resetForm();
+                }}
+                type="reset"
+              ></SecondaryProcessingButton>
+            </div>
+            <div>
+              <PrimaryProcessingButton
+                isLoading={isLoading}
+                text="Add comment"
+                onClick={() => {}}
+                type="submit"
+              ></PrimaryProcessingButton>
+            </div>
           </div>
         </div>
       </form>

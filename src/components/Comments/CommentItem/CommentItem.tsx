@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ICommentLookup } from '../Common/types';
 import dayjs from 'dayjs';
 import { ChannelPhoto } from '../../ChannelPhoto';
