@@ -32,7 +32,7 @@ const DeleteComment = (props: {
         onClick={() => {
           onDeleteClick();
         }}
-        type="reset"
+        type="button"
       ></DangerProcessingButton>
     </>
   );

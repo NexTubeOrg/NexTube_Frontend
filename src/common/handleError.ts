@@ -1,7 +1,6 @@
 import { AxiosError, HttpStatusCode } from 'axios';
 import { store } from '../store';
 import { NotificationType } from '../store/reducers/notifications/types';
-import { string } from 'yup';
 
 export const handleError = (error: any) => {
   if (typeof error === 'string') {

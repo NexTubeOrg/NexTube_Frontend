@@ -5,6 +5,7 @@ import { handleError } from '../../../common/handleError';
 import CommentItem from '../CommentItem/CommentItem';
 import HandleOnVisible from '../../HandleOnVisible';
 import AddNewCommentField from '../AddNewCommentField/AddNewCommentField';
+import OperationLoader from '../../../common/OperationLoader';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -13,6 +14,7 @@ const CommentsContainer = (props: { videoId: number }) => {
   const [page, setPage] = useState<number>(1);
   const [needLoad, setNeedLoad] = useState<number>(1);
   const [canLoad, setCanLoad] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const appendComments = (newComments: ICommentLookup[]) => {
     console.log('try to append', newComments);
@@ -43,6 +45,7 @@ const CommentsContainer = (props: { videoId: number }) => {
         await sleep(200);
 
         console.log(props.videoId, page);
+        setIsLoading(() => true);
         const result = (
           await http_api.get<IGetVideoCommentListResult>(
             `/api/Video/Comment/GetCommentsList?VideoId=${props.videoId}&Page=${page}`,
@@ -56,6 +59,8 @@ const CommentsContainer = (props: { videoId: number }) => {
       } catch (error) {
         console.error('loadVideoCommentsAsyncError', error);
         handleError(error);
+      } finally {
+        setIsLoading(() => false);
       }
     };
 
@@ -89,6 +94,8 @@ const CommentsContainer = (props: { videoId: number }) => {
           ></AddNewCommentField>
           {renderedComments}
           <>
+            {isLoading && <OperationLoader></OperationLoader>}
+
             <HandleOnVisible
               onVisible={() => {
                 setNeedLoad((prevPages) => prevPages + 1);
