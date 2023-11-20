@@ -11,9 +11,11 @@ const AuthLayout = () => {
   }, []);
 
   return (
-    <div className="dark:bg-boxdark-2 dark:text-bodydark">
-      <AuthHeader sidebarOpen={false} setSidebarOpen={() => {}}></AuthHeader>
-      <main>
+    <div className="dark:bg-boxdark-2 dark:text-bodydark flex flex-col h-screen">
+      <div className="top-0">
+        <AuthHeader sidebarOpen={false} setSidebarOpen={() => {}}></AuthHeader>
+      </div>
+      <main className="flex-1 overflow-y-auto items-center">
         <div className="mx-auto max-w-screen-2xl">
           <Outlet />
         </div>

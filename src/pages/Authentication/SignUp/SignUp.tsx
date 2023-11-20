@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
 import { storeToken } from '../../../services/tokenService';
 import classNames from 'classnames';
-import GoogleAuth from '../../../components/GoogleAuth';
+import GoogleAuth from '../../../components/Auth/Google/GoogleAuth';
 import { handleError, handleSuccess } from '../../../common/handleError';
 import { ModalCropper } from '../../../components/ModalCropper';
 import { useState } from 'react';

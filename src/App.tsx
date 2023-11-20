@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import ECommerce from './pages/Dashboard/ECommerce';
-import SignIn from './pages/Authentication/SignIn/SignIn.tsx';
+import SignIn from './pages/Authentication/SignInPage/SignInPage.tsx';
 import SignUp from './pages/Authentication/SignUp/SignUp.tsx';
 import Loader from './common/Loader';
 import routes from './routes';

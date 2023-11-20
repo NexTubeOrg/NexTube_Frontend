@@ -37,8 +37,8 @@ export const NotificationReducer = (state = initState, action: any): any => {
     }
     case NotificationType.GENERAL_ERROR: {
       const error = action.payload as any;
-
-      toast.error(error.result.errors.join('\n'), {
+      console.log('GENERAL_ERROR', error);
+      toast.error(error.title, {
         className: notificationStyles.error,
       });
       return state;
