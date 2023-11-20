@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../store/reducers/auth/types';
 import { Roles } from '../services/tokenService';
+import { ChannelPhoto } from './ChannelPhoto';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -55,13 +56,7 @@ const DropdownUser = () => {
           </span>
         </span>
 
-        <span>
-          <img
-            className="h-12 w-12 rounded-full"
-            src={'/api/Photo/GetPhotoUrl/' + user?.channelPhoto + '/50'}
-            alt="User"
-          />
-        </span>
+        <ChannelPhoto photoUrl={user?.channelPhoto ?? ''} />
 
         <svg
           className={`hidden fill-current sm:block ${
