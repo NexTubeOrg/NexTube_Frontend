@@ -7,11 +7,12 @@ import { storeToken } from '../../../services/tokenService';
 import classNames from 'classnames';
 import GoogleAuth from '../../../components/GoogleAuth';
 import { handleError, handleSuccess } from '../../../common/handleError';
-import { Modal } from '../../../components/ModalSettings';
 import { ModalCropper } from '../../../components/ModalCropper';
-import { ChangeEvent } from 'react';
+import { useState } from 'react';
+import { PrimaryProcessingButton } from '../../../components/common/buttons/PrimaryProcessingButton';
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigator = useNavigate();
 
   const request: IRegistrationRequest = {
@@ -41,6 +42,7 @@ const SignUp = () => {
     try {
       console.log(errors);
       console.log(values);
+      setIsLoading(() => true);
       const result = (
         await http_api.post<IRegistrationResult>('/api/auth/signup', values, {
           headers: {
@@ -48,7 +50,6 @@ const SignUp = () => {
           },
         })
       ).data;
-      if (result.result.succeeded != true) throw result.result.errors;
 
       const { token } = result;
       storeToken(token);
@@ -56,6 +57,8 @@ const SignUp = () => {
       navigator('/');
     } catch (error: any) {
       handleError(error);
+    } finally {
+      setIsLoading(() => false);
     }
   };
 
@@ -287,12 +290,13 @@ const SignUp = () => {
                   </div>
                 </div>
 
-                <div className="mb-5">
-                  <input
+                <div className="mb-5 w-full">
+                  <PrimaryProcessingButton
+                    onClick={() => {}}
+                    text="Create channel"
                     type="submit"
-                    value="Create account"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  />
+                    isLoading={isLoading}
+                  ></PrimaryProcessingButton>
                 </div>
 
                 <GoogleAuth></GoogleAuth>
