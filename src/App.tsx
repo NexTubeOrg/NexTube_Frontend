@@ -14,6 +14,7 @@ import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
 import VideoLayout from './layout/VideoLayout.tsx';
 import VideoPlaybackPage from './pages/Video/VideoPlaybackPage.tsx';
+import VideoUploadPage from './pages/Video/VideoUploadPage.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -48,6 +49,7 @@ function App() {
           <Route path={'watch'}>
             <Route path={':id'} element={<VideoPlaybackPage />} />
           </Route>
+          <Route path={'upload'} element={<VideoUploadPage />} />
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>
@@ -64,7 +66,7 @@ function App() {
             />
           ))}
         </Route>
-        
+
       </Routes>
       <ToastContainer />
     </>

@@ -17,3 +17,10 @@ export interface IGetVideoResult {
 export interface IGetVideoRecomendationResult {
     videoEntities: IVideoLookup[] | null;
 }
+
+export interface IVideoUploadRequest {
+    name: string;
+    description: string;
+    previewPhoto: File | null;
+    video: File | null;
+}
