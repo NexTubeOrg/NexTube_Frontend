@@ -19,8 +19,8 @@ const UpdateUser = () => {
 
   const onFormSubmit = async (values: IUserUpdate) => {
     try {
-      const result = await http_api.put(`/api/users/${userId}`, values);
-
+      const result = await http_api.put(`/update-user`, values);
+ 
       dispatch({ type: 'UPDATE_USER', payload: result.data });
       handleSuccess('User updated successfully');
     } catch (error) {
