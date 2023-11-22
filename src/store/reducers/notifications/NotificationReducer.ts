@@ -12,7 +12,6 @@ const notificationStyles = {
 };
 
 export const NotificationReducer = (state = initState, action: any): any => {
-  console.log(state);
   switch (action.type) {
     case NotificationType.INFO: {
       toast.success(action.payload, {

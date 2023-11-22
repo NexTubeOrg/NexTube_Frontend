@@ -1,5 +1,3 @@
-import { Modal } from '../../components/ModalSettings';
-
 const HomePage = () => {
   return (
     <>
