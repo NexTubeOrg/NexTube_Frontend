@@ -692,28 +692,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Sign In
                             </NavLink>
                           </li>
-                          <li>
-                            <NavLink
-                              to="/auth/signup"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                (isActive && '!text-white')
-                              }
-                            >
-                              Sign Up
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="update-user"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                (isActive && '!text-white')
-                              }
-                            >
-                              update
-                            </NavLink>
-                          </li>
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}

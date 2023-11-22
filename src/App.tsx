@@ -42,9 +42,8 @@ function App() {
           <Route path="signout" element={<SignOut />} />
       
         </Route>
-        <Route path={'/setings'}  element={<DefaultLayout />}>
-        <Route path="update-user" element={<UpdateUser/>} />
-        </Route>
+        <Route path={'/setings'}  element={<DefaultLayout />}> </Route>   
+         <Route path="update-user" element={<UpdateUser/>} />
         <Route path={'/admin'} element={<AdminLayout />}>
           <Route index element={<ECommerce />} />
           {routes.map(({ path, component: Component }, id) => (
