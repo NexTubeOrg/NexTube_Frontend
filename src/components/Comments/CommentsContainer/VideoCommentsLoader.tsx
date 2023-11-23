@@ -69,7 +69,12 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
       {comments.length > 0 && (
         <>
           <p>{comments.length} comments</p>
-          <AddNewCommentField videoId={props.videoId}></AddNewCommentField>
+          <AddNewCommentField
+            rootCommentId={undefined}
+            onCancel={() => {}}
+            onSubmit={() => {}}
+            videoId={props.videoId}
+          ></AddNewCommentField>
           <CommentsContainer
             temporaryVideoId={props.videoId}
             comments={comments}

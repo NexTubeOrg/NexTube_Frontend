@@ -6,6 +6,7 @@ import DeleteComment from '../DeleteComment/DeleteComment';
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
 import CommentRepliesLoader from '../CommentsContainer/CommentRepliesLoader';
+import AddNewCommentReply from '../AddNewCommentReply/AddNewCommentReply';
 dayjs.extend(relativeTime);
 
 const CommentItem = (props: {
@@ -48,6 +49,10 @@ const CommentItem = (props: {
                   rootCommentId={props.commentLookup.commentId}
                   temporaryVideoId={props.temporaryVideoId}
                 ></CommentRepliesLoader>
+                <AddNewCommentReply
+                  videoId={props.temporaryVideoId}
+                  rootCommentId={props.commentLookup.commentId}
+                ></AddNewCommentReply>
               </div>
             )}
           </div>

@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
-import { useState } from 'react';
+import { EventHandler, useState } from 'react';
 import classNames from 'classnames';
 import { handleError, handleSuccess } from '../../../common/handleError';
 import { IAddNewCommentRequest, ICommentLookup } from '../Common/types';
@@ -10,7 +10,12 @@ import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcess
 import { store } from '../../../store';
 import { VideoCommentsReducerActionTypes } from '../../../store/reducers/videoComments/types';
 
-const AddNewCommentField = (props: { videoId: number }) => {
+const AddNewCommentField = (props: {
+  videoId: number;
+  rootCommentId: number | undefined;
+  onSubmit: EventHandler<any>;
+  onCancel: EventHandler<any>;
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const requestSchema = yup.object({
@@ -22,17 +27,37 @@ const AddNewCommentField = (props: { videoId: number }) => {
     try {
       console.log(values);
       setIsLoading(() => true);
-      const result = (
-        await http_api.post<ICommentLookup>(
-          '/api/Video/Comment/AddComment',
-          values,
-        )
-      ).data;
-      handleSuccess('Add comment successfully');
-      store.dispatch({
-        type: VideoCommentsReducerActionTypes.BEGIN_APPEND_COMMENTS_LIST,
-        payload: [result],
-      });
+
+      if (props.rootCommentId == undefined) {
+        const result = (
+          await http_api.post<ICommentLookup>(
+            '/api/Video/Comment/AddComment',
+            values,
+          )
+        ).data;
+        handleSuccess('Add comment successfully');
+        store.dispatch({
+          type: VideoCommentsReducerActionTypes.BEGIN_APPEND_COMMENTS_LIST,
+          payload: [result],
+        });
+      } else {
+        const result = (
+          await http_api.post<ICommentLookup>(
+            '/api/Video/Comment/AddCommentReply',
+            values,
+          )
+        ).data;
+        handleSuccess('Add reply successfully');
+        store.dispatch({
+          type: VideoCommentsReducerActionTypes.APPEND_COMMENT_REPLIES,
+          payload: {
+            replies: [result],
+            rootCommentId: props.rootCommentId,
+          },
+        });
+        props.onSubmit(result);
+      }
+
       resetForm();
     } catch (error) {
       console.error('Add commentn error', error);
@@ -46,6 +71,7 @@ const AddNewCommentField = (props: { videoId: number }) => {
     initialValues: {
       content: '',
       videoId: props.videoId,
+      rootCommentId: props.rootCommentId,
     },
     validationSchema: requestSchema,
     onSubmit: onFormSubmit,
@@ -56,7 +82,7 @@ const AddNewCommentField = (props: { videoId: number }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onReset={() => props.onCancel(null)}>
         <div className="flex flex-col p-6.5">
           <div className="mb-2">
             <div className="relative">
