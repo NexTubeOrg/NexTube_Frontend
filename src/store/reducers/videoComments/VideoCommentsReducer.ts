@@ -1,5 +1,9 @@
 import { ICommentLookup } from '../../../components/Comments/Common/types';
-import { ICommentsList, VideoCommentsReducerActionTypes } from './types';
+import {
+  ICommentRepliesList,
+  ICommentsList,
+  VideoCommentsReducerActionTypes,
+} from './types';
 
 const initState: ICommentsList = {
   comments: [],
@@ -44,6 +48,25 @@ export const VideoCommentsReducer = (state = initState, action: any): any => {
       return {
         comments: currentState.comments,
         page: currentState.page + 1,
+      };
+    }
+    case VideoCommentsReducerActionTypes.APPEND_COMMENT_REPLIES: {
+      const commentReplies = action.payload as ICommentRepliesList;
+      console.log('dsaadsadsds');
+      const rootComment = state.comments.find(
+        (rootComment) => rootComment.commentId == commentReplies.rootCommentId,
+      );
+
+      if (rootComment === undefined) return state;
+
+      commentReplies.replies.forEach((r) => (r.canLoadReplies = false));
+      rootComment.replies = [
+        ...(rootComment?.replies ?? []),
+        ...commentReplies.replies,
+      ];
+      return {
+        comments: state.comments,
+        page: state.page,
       };
     }
     default:

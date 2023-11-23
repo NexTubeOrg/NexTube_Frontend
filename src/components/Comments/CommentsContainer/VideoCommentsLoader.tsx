@@ -70,7 +70,10 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
         <>
           <p>{comments.length} comments</p>
           <AddNewCommentField videoId={props.videoId}></AddNewCommentField>
-          <CommentsContainer comments={comments}></CommentsContainer>
+          <CommentsContainer
+            temporaryVideoId={props.videoId}
+            comments={comments}
+          ></CommentsContainer>
           <>
             {isLoading && <OperationLoader></OperationLoader>}
 
