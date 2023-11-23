@@ -3,15 +3,11 @@ import dayjs from 'dayjs';
 import { ChannelPhoto } from '../../ChannelPhoto';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import DeleteComment from '../DeleteComment/DeleteComment';
-import { EventHandler } from 'react';
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
 dayjs.extend(relativeTime);
 
-const CommentItem = (props: {
-  commentLookup: ICommentLookup;
-  onDelete: EventHandler<any>;
-}) => {
+const CommentItem = (props: { commentLookup: ICommentLookup }) => {
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
 
   return (
@@ -46,7 +42,6 @@ const CommentItem = (props: {
           <div className="w-30">
             {user?.userId == props.commentLookup.creator.userId && (
               <DeleteComment
-                onCommentDelete={props.onDelete}
                 commentId={props.commentLookup.commentId}
               ></DeleteComment>
             )}

@@ -69,16 +69,7 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
       {comments.length > 0 && (
         <>
           <p>{comments.length} comments</p>
-          <AddNewCommentField
-            onCommentAdd={(e) => {
-              console.log('new comment', e);
-              store.dispatch({
-                type: VideoCommentsReducerActionTypes.BEGIN_APPEND_COMMENTS_LIST,
-                payload: [e],
-              });
-            }}
-            videoId={props.videoId}
-          ></AddNewCommentField>
+          <AddNewCommentField videoId={props.videoId}></AddNewCommentField>
           <CommentsContainer comments={comments}></CommentsContainer>
           <>
             {isLoading && <OperationLoader></OperationLoader>}

@@ -1,17 +1,16 @@
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
-import { EventHandler, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
 import { handleError, handleSuccess } from '../../../common/handleError';
 import { IAddNewCommentRequest, ICommentLookup } from '../Common/types';
 import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
 import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
+import { store } from '../../../store';
+import { VideoCommentsReducerActionTypes } from '../../../store/reducers/videoComments/types';
 
-const AddNewCommentField = (props: {
-  videoId: number;
-  onCommentAdd: EventHandler<any>;
-}) => {
+const AddNewCommentField = (props: { videoId: number }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const requestSchema = yup.object({
@@ -30,7 +29,10 @@ const AddNewCommentField = (props: {
         )
       ).data;
       handleSuccess('Add comment successfully');
-      props.onCommentAdd(result);
+      store.dispatch({
+        type: VideoCommentsReducerActionTypes.BEGIN_APPEND_COMMENTS_LIST,
+        payload: [result],
+      });
       resetForm();
     } catch (error) {
       console.error('Add commentn error', error);
