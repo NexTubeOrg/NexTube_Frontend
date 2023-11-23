@@ -85,7 +85,10 @@ const CommentsContainer = (props: { videoId: number }) => {
           <AddNewCommentField
             onCommentAdd={(e) => {
               console.log('new comment', e);
-              // pushToBeginComments([e]);
+              store.dispatch({
+                type: VideoCommentsReducerActionTypes.BEGIN_APPEND_COMMENTS_LIST,
+                payload: [e],
+              });
             }}
             videoId={props.videoId}
           ></AddNewCommentField>

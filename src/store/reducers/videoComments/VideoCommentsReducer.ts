@@ -21,6 +21,15 @@ export const VideoCommentsReducer = (state = initState, action: any): any => {
         page: currentState.page,
       };
     }
+    case VideoCommentsReducerActionTypes.BEGIN_APPEND_COMMENTS_LIST: {
+      const commentList = action.payload as ICommentLookup[];
+      const currentState = state as ICommentsList;
+
+      return {
+        comments: [...commentList, ...currentState.comments],
+        page: currentState.page,
+      };
+    }
     case VideoCommentsReducerActionTypes.NEXT_COMMENTS_PAGE: {
       const currentState = state as ICommentsList;
 
