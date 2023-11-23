@@ -69,7 +69,10 @@ const CommentsContainer = (props: { videoId: number }) => {
       <div className="comment" key={c.commentId}>
         <CommentItem
           onDelete={(commentId) => {
-            // removeCommentFromList(commentId);
+            store.dispatch({
+              type: VideoCommentsReducerActionTypes.REMOVE_COMMENT_FROM_COMMENTS_LIST,
+              payload: commentId,
+            });
           }}
           commentLookup={c}
         ></CommentItem>

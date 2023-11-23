@@ -30,6 +30,14 @@ export const VideoCommentsReducer = (state = initState, action: any): any => {
         page: currentState.page,
       };
     }
+    case VideoCommentsReducerActionTypes.REMOVE_COMMENT_FROM_COMMENTS_LIST: {
+      const commentId = action.payload as number;
+
+      return {
+        comments: state.comments.filter((e) => e.commentId != commentId),
+        page: state.page,
+      };
+    }
     case VideoCommentsReducerActionTypes.NEXT_COMMENTS_PAGE: {
       const currentState = state as ICommentsList;
 
