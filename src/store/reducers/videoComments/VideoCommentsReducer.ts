@@ -37,8 +37,18 @@ export const VideoCommentsReducer = (state = initState, action: any): any => {
     case VideoCommentsReducerActionTypes.REMOVE_COMMENT_FROM_COMMENTS_LIST: {
       const commentId = action.payload as number;
 
+      const newComments = state.comments.filter(
+        (e) => e.commentId != commentId,
+      );
+
+      // try to find reply and remove it
+      newComments.forEach((c) => {
+        if (c.replies != undefined && c.replies.length > 0)
+          c.replies = c.replies.filter((r) => r.commentId != commentId);
+      });
+
       return {
-        comments: state.comments.filter((e) => e.commentId != commentId),
+        comments: newComments,
         page: state.page,
       };
     }
