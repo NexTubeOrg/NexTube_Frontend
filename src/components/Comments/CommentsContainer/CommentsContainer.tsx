@@ -6,31 +6,23 @@ import CommentItem from '../CommentItem/CommentItem';
 import HandleOnVisible from '../../HandleOnVisible';
 import AddNewCommentField from '../AddNewCommentField/AddNewCommentField';
 import OperationLoader from '../../../common/OperationLoader';
+import { useSelector } from 'react-redux';
+import { store } from '../../../store';
+import {
+  ICommentsList,
+  VideoCommentsReducerActionTypes,
+} from '../../../store/reducers/videoComments/types';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const CommentsContainer = (props: { videoId: number }) => {
-  const [comments, setComments] = useState<ICommentLookup[]>([]);
-  const [page, setPage] = useState<number>(1);
   const [needLoad, setNeedLoad] = useState<number>(1);
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const appendComments = (newComments: ICommentLookup[]) => {
-    console.log('try to append', newComments);
-    setComments((prevComments) => [...prevComments, ...newComments]);
-  };
-
-  const pushToBeginComments = (newComments: ICommentLookup[]) => {
-    console.log('try to pushToBegin', newComments);
-    setComments((prevComments) => [...newComments, ...prevComments]);
-  };
-
-  const removeCommentFromList = (commentId: number) => {
-    setComments((prevComments) =>
-      prevComments.filter((e) => e.commentId != commentId),
-    );
-  };
+  const { comments, page } = useSelector(
+    (store: any) => store.videoComments as ICommentsList,
+  );
 
   useEffect(() => {
     console.log('useEffect');
@@ -41,7 +33,9 @@ const CommentsContainer = (props: { videoId: number }) => {
           return;
         }
 
-        setPage(page + 1);
+        store.dispatch({
+          type: VideoCommentsReducerActionTypes.NEXT_COMMENTS_PAGE,
+        });
         await sleep(200);
 
         console.log(props.videoId, page);
@@ -54,7 +48,10 @@ const CommentsContainer = (props: { videoId: number }) => {
 
         if (result.comments.length == 0) setCanLoad(false);
 
-        appendComments(result.comments);
+        store.dispatch({
+          type: VideoCommentsReducerActionTypes.APPEND_COMMENTS_LIST,
+          payload: result.comments,
+        });
         console.log(result.comments);
       } catch (error) {
         console.error('loadVideoCommentsAsyncError', error);
@@ -72,7 +69,7 @@ const CommentsContainer = (props: { videoId: number }) => {
       <div className="comment" key={c.commentId}>
         <CommentItem
           onDelete={(commentId) => {
-            removeCommentFromList(commentId);
+            // removeCommentFromList(commentId);
           }}
           commentLookup={c}
         ></CommentItem>
@@ -88,7 +85,7 @@ const CommentsContainer = (props: { videoId: number }) => {
           <AddNewCommentField
             onCommentAdd={(e) => {
               console.log('new comment', e);
-              pushToBeginComments([e]);
+              // pushToBeginComments([e]);
             }}
             videoId={props.videoId}
           ></AddNewCommentField>
