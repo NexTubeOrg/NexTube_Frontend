@@ -1,5 +1,5 @@
 {
-  "name": "tailadmin-react-free",
+  "name": "nextube",
   "private": true,
   "version": "1.0.5",
   "type": "module",
@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "author": {
-    "name": "TailAdmin",
-    "email": "hello@tailadmin.com",
-    "url": "https://tailadmin.com"
+    "name": "NexTube",
+    "email": "noreply.nextube@ukr.net",
+    "url": "https://github.com/NexTubeOrg/NexTube_Backend"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",

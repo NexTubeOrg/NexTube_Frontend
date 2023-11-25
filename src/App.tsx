@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 
 import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignInPage/SignInPage.tsx';
-import SignUp from './pages/Authentication/SignUp/SignUp.tsx';
+import SignUp from './pages/Authentication/SignUp/SignUpPage.tsx';
 import Loader from './common/Loader';
 import routes from './routes';
 import DefaultLayout from './layout/DefaultLayout.tsx';
@@ -12,6 +12,8 @@ import HomePage from './pages/Home/HomePage.tsx';
 import AuthLayout from './layout/AuthLayout.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
+import { VideosListContainer } from './components/Videos/VideosListContainer.tsx';
+import { WatchVideo } from './components/Videos/WatchVideo.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -34,8 +36,10 @@ function App() {
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="profile" element={<VideosListContainer />} />
+          <Route path="search" element={<WatchVideo />} />
         </Route>
-        <Route path={'/auth'} element={<AuthLayout />}>
+        <Route path={'/auth'} element={<DefaultLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />

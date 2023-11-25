@@ -57,7 +57,17 @@ const GoogleAuth = (props: { onLoading: EventHandler<any> }) => {
   return (
     <>
       <button>
-        <BsGoogle className="w-8 h-8 text-secondary"></BsGoogle>
+        {/* <BsGoogle className="w-8 h-8 text-secondary"></BsGoogle> */}
+        <GoogleLogin
+          onSuccess={responseGoogle}
+          onError={() => {
+            console.log('oauth err');
+            handleError('Failed to sign in with Google');
+          }}
+          width={'100%'}
+          shape={'pill'}
+          theme={colorMode == 'dark' ? 'filled_black' : 'filled_blue'}
+        />
       </button>
     </>
   );

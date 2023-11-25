@@ -21,7 +21,7 @@ module.exports = {
       primary: '#7E2335',
       secondary: '#313234',
       stroke: '#E2E8F0',
-      gray: '#EFF4FB',
+      gray: '#666873',
       graydark: '#333A48',
       'gray-2': '#F7F9FC',
       'gray-3': '#FAFAFA',
