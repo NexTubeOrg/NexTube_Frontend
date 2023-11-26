@@ -22,6 +22,11 @@ http_api.interceptors.response.use(
         handleError('Forbidden action');
         break;
       }
+      case 422: {
+        console.log('422', error);
+        handleError(error);
+        break;
+      }
     }
     if (error.code == 'ERR_NETWORK') {
       window.location.href = '/auth/signin';

@@ -4,7 +4,7 @@ import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
 import classNames from 'classnames';
 import './../common/CropperDialog/style.css';
-const defaultThumb = '/imageThumb256.png';
+const defaultThumb = '/imageThumb.svg';
 
 export const ModalCropper: React.FC<ICroppedModal> = ({
   imageUri = defaultThumb,
@@ -96,17 +96,7 @@ export const ModalCropper: React.FC<ICroppedModal> = ({
   return (
     <>
       <div className="relative">
-        <div
-          className={classNames(
-            'w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary',
-            {
-              'dark:border-danger dark:text-danger': false,
-            },
-          )}
-        >
-          {/* title */}
-          <h1>My Cropper v.1</h1>
-
+        <div>
           {/* hidden file input */}
           <input
             type="file"
@@ -119,13 +109,16 @@ export const ModalCropper: React.FC<ICroppedModal> = ({
           />
 
           {/* cropped result and button to select and crop image again */}
-          <img
-            className="cur-pointer"
-            src={croppedImage}
-            ref={imagePreviewRef as LegacyRef<HTMLImageElement>}
-            alt="Result"
-            onClick={onCroppedImageResultClick}
-          />
+          <div className="wrapper dark:bg-secondary rounded-full p-7">
+            <img
+              className="cur-pointer w-20 fill-white rounded-full dark:bg-transparent"
+              src={croppedImage}
+              ref={imagePreviewRef as LegacyRef<HTMLImageElement>}
+              alt="Result"
+              onClick={onCroppedImageResultClick}
+            />
+          </div>
+
           {error && <div className="invalid-feedback">{error}</div>}
         </div>
         <span className="absolute right-4 top-4">{/* insert here svg */}</span>
