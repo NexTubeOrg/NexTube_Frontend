@@ -1,3 +1,6 @@
+import { VideosListContainer } from '../../components/Videos/VideosListContainer';
+import { WatchVideo } from '../../components/Videos/WatchVideo';
+
 import VideoRecomendationList from "../../components/video/VideoRecomendationList";
 
 const HomePage = () => {
@@ -12,6 +15,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      <WatchVideo></WatchVideo>
     </>
   );
 };

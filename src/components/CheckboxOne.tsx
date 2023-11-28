@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-const CheckboxOne = () => {
+const CheckboxOne = (props: {
+  text: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+}) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   return (
@@ -28,7 +31,7 @@ const CheckboxOne = () => {
             ></span>
           </div>
         </div>
-        Checkbox Text
+        {props.text}
       </label>
     </div>
   );
