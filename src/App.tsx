@@ -44,6 +44,7 @@ function App() {
         </Route>
         <Route path={'/setings'}  element={<DefaultLayout />}> </Route>   
          <Route path="update-user" element={<UpdateUser/>} />
+         <Route path="subsciption" element={<UpdateUser/>} />
         <Route path={'/admin'} element={<AdminLayout />}>
           <Route index element={<ECommerce />} />
           {routes.map(({ path, component: Component }, id) => (
