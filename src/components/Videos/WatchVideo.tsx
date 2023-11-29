@@ -11,6 +11,7 @@ import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessing
 import { DoubleIconedProcessingButton } from '../common/buttons/DoubleIconedButton';
 import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
+import { AddVideoReaction } from '../Reactions/AddVideoReaction';
 
 const WatchVideo = () => {
   return (
@@ -36,22 +37,7 @@ const WatchVideo = () => {
             </div>
           </Link>
           <div className="likes flex">
-            <div className="flex mr-5">
-              <DoubleIconedProcessingButton
-                isLoadingLeft={false}
-                onClickLeft={() => {}}
-                textLeft="59K"
-                typeLeft="button"
-                backgroundClassnameLeft="primary"
-                iconLeft={<HandThumbUpIcon></HandThumbUpIcon>}
-                isLoadingRight={false}
-                onClickRight={() => {}}
-                textRight=""
-                typeRight="button"
-                iconRight={<HandThumbDownIcon></HandThumbDownIcon>}
-                backgroundClassnameRight="secondary"
-              ></DoubleIconedProcessingButton>
-            </div>
+            <AddVideoReaction videoId={3}></AddVideoReaction>
             <div className="mr-5">
               <IconedProcessingButton
                 isLoading={false}
