@@ -3,20 +3,21 @@ import dayjs from 'dayjs';
 import { ChannelPhoto } from '../../ChannelPhoto';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import DeleteComment from '../DeleteComment/DeleteComment';
-import { EventHandler } from 'react';
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
+import CommentRepliesLoader from '../CommentsContainer/CommentRepliesLoader';
+import AddNewCommentReply from '../AddNewCommentReply/AddNewCommentReply';
 dayjs.extend(relativeTime);
 
 const CommentItem = (props: {
   commentLookup: ICommentLookup;
-  onDelete: EventHandler<any>;
+  temporaryVideoId: number;
 }) => {
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
 
   return (
     <>
-      <div className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4">
+      <div className="flex items-center gap-5 py-3 px-7.5">
         <div className="relative self-start">
           <ChannelPhoto
             photoUrl={props.commentLookup.creator.channelPhoto ?? ''}
@@ -30,7 +31,7 @@ const CommentItem = (props: {
               {props.commentLookup.creator.firstName}{' '}
               {props.commentLookup.creator.lastName}
             </h5>
-            <p>
+            <div>
               <div className="w-100">
                 <span className="text-sm text-black dark:text-white w-100 break-all">
                   {props.commentLookup.content}
@@ -41,12 +42,23 @@ const CommentItem = (props: {
                 {' '}
                 . {`${dayjs(props.commentLookup.dateCreated).fromNow()}`}
               </span>
-            </p>
+            </div>
+            {props.commentLookup.canLoadReplies != false && (
+              <div>
+                <CommentRepliesLoader
+                  rootCommentId={props.commentLookup.commentId}
+                  temporaryVideoId={props.temporaryVideoId}
+                ></CommentRepliesLoader>
+                <AddNewCommentReply
+                  videoId={props.temporaryVideoId}
+                  rootCommentId={props.commentLookup.commentId}
+                ></AddNewCommentReply>
+              </div>
+            )}
           </div>
           <div className="w-30">
             {user?.userId == props.commentLookup.creator.userId && (
               <DeleteComment
-                onCommentDelete={props.onDelete}
                 commentId={props.commentLookup.commentId}
               ></DeleteComment>
             )}

@@ -12,6 +12,8 @@ import HomePage from './pages/Home/HomePage.tsx';
 import AuthLayout from './layout/AuthLayout.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
+import { VideosListContainer } from './components/Videos/VideosListContainer.tsx';
+import { WatchVideo } from './components/Videos/WatchVideo.tsx';
 import UpdateUser from './pages/UpdateUser/UpdateUser.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
@@ -44,7 +46,7 @@ function App() {
         </Route>
         <Route path={'/setings'}  element={<DefaultLayout />}> </Route>   
          <Route path="update-user" element={<UpdateUser/>} />
-         <Route path="subsciption" element={<UpdateUser/>} />
+         <Route path="ubsciption" element={<UpdateUser/>} />
         <Route path={'/admin'} element={<AdminLayout />}>
           <Route index element={<ECommerce />} />
           {routes.map(({ path, component: Component }, id) => (

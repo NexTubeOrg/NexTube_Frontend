@@ -1,0 +1,32 @@
+import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
+import classNames from 'classnames';
+import { useState } from 'react';
+
+export const CollapseText = (props: { text: string }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  return (
+    <div
+      className={classNames('', {
+        'dark:hover:bg-gray': !isOpen,
+        'cursor-pointer': !isOpen,
+      })}
+    >
+      <div
+        className={classNames('overflow-hidden ', {
+          'h-25': !isOpen,
+        })}
+        onClick={() => setIsOpen(() => true)}
+      >
+        <p className="text-white text-md">{props.text}</p>
+      </div>
+      <div className="w-full flex justify-center">
+        <div
+          className="w-8 h-8 text-gray hover:text-white cursor-pointer"
+          onClick={() => setIsOpen((o) => !o)}
+        >
+          <EllipsisHorizontalIcon></EllipsisHorizontalIcon>
+        </div>
+      </div>
+    </div>
+  );
+};
