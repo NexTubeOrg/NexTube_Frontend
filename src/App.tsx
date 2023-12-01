@@ -8,14 +8,15 @@ import SignUp from './pages/Authentication/SignUp/SignUpPage.tsx';
 import Loader from './common/Loader';
 import DefaultLayout from './layout/DefaultLayout.tsx';
 import HomePage from './pages/Home/HomePage.tsx';
-import AuthLayout from './layout/AuthLayout.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
 import { VideosListContainer } from './components/Videos/VideosListContainer.tsx';
 import { WatchVideo } from './components/Videos/WatchVideo.tsx';
 import { ViewChannel } from './components/Channel/ViewChannel/ViewChannel.tsx';
-import routes, { channelRoutes } from './routes/index.ts';
+import routes, { channelRoutes, profileRoutes } from './routes/index.ts';
 import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
+import { Profile } from './components/Profile/Profile.tsx';
+import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -38,9 +39,23 @@ function App() {
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="profile" element={<ViewChannel />}>
+          <Route path="channel/:id" element={<ViewChannel />}>
             <Route index element={<ChannelHome></ChannelHome>}></Route>
             {channelRoutes.map(({ path, component: Component }, id) => (
+              <Route
+                key={id}
+                path={path}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Component />
+                  </Suspense>
+                }
+              />
+            ))}
+          </Route>
+          <Route path="profile" element={<Profile />}>
+            <Route index element={<ProfileBranding></ProfileBranding>}></Route>
+            {profileRoutes.map(({ path, component: Component }, id) => (
               <Route
                 key={id}
                 path={path}

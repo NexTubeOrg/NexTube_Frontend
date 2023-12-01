@@ -55,6 +55,7 @@ const ViewChannel = () => {
           </div>
           <div className="nav mt-6">
             <Navbar
+              routeLength={4}
               refs={[
                 { title: 'Home', url: '', index: true },
                 { title: 'Videos', url: 'videos', index: false },

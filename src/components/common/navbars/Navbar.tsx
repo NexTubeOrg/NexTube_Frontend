@@ -2,10 +2,14 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { INavbarReference } from './types';
 import classNames from 'classnames';
 
-export const Navbar = (props: { refs: INavbarReference[] }) => {
+export const Navbar = (props: {
+  refs: INavbarReference[];
+  routeLength: number;
+}) => {
   const location = useLocation();
   const parts = location.pathname.split('/');
-  const currentRoute = parts.length == 3 ? parts.findLast(() => true) : '';
+  const currentRoute =
+    parts.length == props.routeLength ? parts.findLast(() => true) : '';
   console.log(location.pathname.split('/'));
 
   const references = props.refs.map((r, id) => (
