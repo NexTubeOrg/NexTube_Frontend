@@ -1,4 +1,9 @@
 import { lazy } from 'react';
+import { ChannelHome } from '../components/Channel/Routes/Home';
+import { ChannelVideos } from '../components/Channel/Routes/Videos';
+import { ChannelLive } from '../components/Channel/Routes/Live';
+import { ChannelCommunity } from '../components/Channel/Routes/Community';
+import { ChannelPlaylist } from '../components/Channel/Routes/Playlist';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -58,5 +63,34 @@ const coreRoutes = [
   },
 ];
 
+const channelRoutes = [
+  {
+    path: 'home',
+    title: 'Home',
+    component: ChannelHome,
+  },
+  {
+    path: 'videos',
+    title: 'Videos',
+    component: ChannelVideos,
+  },
+  {
+    path: 'live',
+    title: 'Live',
+    component: ChannelLive,
+  },
+  {
+    path: 'community',
+    title: 'Community',
+    component: ChannelCommunity,
+  },
+  {
+    path: 'playlists',
+    title: 'Playlists',
+    component: ChannelPlaylist,
+  },
+];
+
 const routes = [...coreRoutes];
 export default routes;
+export { channelRoutes };
