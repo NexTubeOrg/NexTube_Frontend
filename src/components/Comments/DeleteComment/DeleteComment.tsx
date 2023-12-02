@@ -4,9 +4,12 @@ import http_api from '../../../services/http_api';
 import { DangerProcessingButton } from '../../common/buttons/DangerProcessingButton';
 import { store } from '../../../store';
 import { VideoCommentsReducerActionTypes } from '../../../store/reducers/videoComments/types';
+import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
+import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
 
 const DeleteComment = (props: { commentId: number }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onDeleteClick = async () => {
     try {
@@ -28,14 +31,29 @@ const DeleteComment = (props: { commentId: number }) => {
 
   return (
     <>
-      <DangerProcessingButton
-        isLoading={isLoading}
-        text="Remove"
+      <button
         onClick={() => {
-          onDeleteClick();
+          setIsOpen((o) => !o);
         }}
-        type="button"
-      ></DangerProcessingButton>
+      >
+        <div className="w-10 text-gray">
+          <EllipsisVerticalIcon></EllipsisVerticalIcon>
+        </div>
+      </button>
+      {isOpen && (
+        <div className="relative">
+          <div className="absolute">
+            <SecondaryProcessingButton
+              isLoading={isLoading}
+              text="Remove"
+              onClick={() => {
+                onDeleteClick();
+              }}
+              type="button"
+            ></SecondaryProcessingButton>
+          </div>
+        </div>
+      )}
     </>
   );
 };
