@@ -88,7 +88,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
         {/* video info */}
         <div className="description bg-secondary p-5 mt-5 rounded-lg">
           <h3 className="text-white text-2xl">
-            <span className="mr-5">832K</span>
+            <span className="mr-5">{props.video?.views}</span>
             <span>{dayjs(props.video?.dateCreated).format()}</span>
           </h3>
           <CollapseText

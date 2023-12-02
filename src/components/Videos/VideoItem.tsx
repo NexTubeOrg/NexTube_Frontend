@@ -27,7 +27,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
                 <h4 className="text-white text-sm">{props.video.creator?.firstName} {props.video.creator?.lastName}</h4>
               </Link>
               <h4 className="text-white text-sm">
-                <span className="mr-2">310K views</span>{' '}
+                <span className="mr-2">{props.video.views}</span>{' '}
                 <span>{dayjs(props.video.dateCreated).format()}</span>
               </h4>
             </div>

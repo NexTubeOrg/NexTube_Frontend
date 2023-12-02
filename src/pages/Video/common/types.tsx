@@ -8,6 +8,7 @@ export interface IVideoLookup {
     previewPhotoFile: string | null;
     creator: IUser  | null;
     dateCreated: string  | null;
+    views: number | null;
 }
 
 export interface IGetVideoResult {
