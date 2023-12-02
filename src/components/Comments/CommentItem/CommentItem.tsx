@@ -20,7 +20,7 @@ const CommentItem = (props: {
       <div className="flex items-center gap-5 py-3 px-7.5">
         <div className="relative self-start">
           <ChannelPhoto
-            photoUrl={props.commentLookup.creator.channelPhoto ?? ''}
+            photoFileId={props.commentLookup.creator.channelPhoto ?? ''}
           />
           <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-3"></span>
         </div>

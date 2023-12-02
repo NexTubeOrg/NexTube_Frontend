@@ -1,28 +1,34 @@
 import { Link } from 'react-router-dom';
+import { IVideoLookup } from '../../pages/Video/common/types';
+import { ChannelPhoto } from '../ChannelPhoto';
+import dayjs from 'dayjs';
 
-const VideoItem = () => {
+const VideoItem = (props: { video: IVideoLookup }) => {
+
   return (
     <>
       <div className="item mx-2 my-5">
-        <Link to={'/watch/1'}>
-          <div className="w-75 h-45 bg-white"></div>
+        <Link to={'/video/watch/' + props.video.id}>
+          <img className='w-75 h-45' src={'/api/photo/getPhotoUrl/' + props.video.previewPhotoFile + '/600'} />
         </Link>
 
         <div className="flex items-start mt-5">
           <Link to={'/channel/1'}>
-            <div className="rounded-full bg-white w-12 h-12 mr-5"></div>
+            <div className="w-12 h-12 mr-5">
+              <ChannelPhoto photoFileId={props.video.creator?.channelPhoto} />
+            </div>
           </Link>
           <div className="text">
-            <Link to={'/watch/1'}>
-              <h3 className="text-white text-lg">Video title</h3>
+            <Link to={'/video/watch/' + props.video.id}>
+              <h3 className="text-white text-lg">{props.video.name}</h3>
             </Link>
             <div className="mt-2">
               <Link to={'/channel/1'}>
-                <h4 className="text-white text-sm">Channel name</h4>
+                <h4 className="text-white text-sm">{props.video.creator?.firstName} {props.video.creator?.lastName}</h4>
               </Link>
               <h4 className="text-white text-sm">
                 <span className="mr-2">310K views</span>{' '}
-                <span>4 years ago</span>
+                <span>{dayjs(props.video.dateCreated).format()}</span>
               </h4>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import VideoUpload from "../../components/video/VideoUpload";
+import VideoUpload from "../../components/Videos/VideoUpload";
 
 const VideoUploadPage = () => {
 

@@ -56,7 +56,7 @@ const DropdownUser = () => {
           </span>
         </span>
 
-        <ChannelPhoto photoUrl={user?.channelPhoto ?? ''} />
+        <ChannelPhoto photoFileId={user?.channelPhoto ?? ''} />
 
         <svg
           className={`hidden fill-current sm:block ${

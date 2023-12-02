@@ -9,14 +9,11 @@ import Loader from './common/Loader';
 import routes from './routes';
 import DefaultLayout from './layout/DefaultLayout.tsx';
 import HomePage from './pages/Home/HomePage.tsx';
-import AuthLayout from './layout/AuthLayout.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
 import VideoLayout from './layout/VideoLayout.tsx';
-import VideoPlaybackPage from './pages/Video/VideoPlaybackPage.tsx';
+import VideoWatchPage from './pages/Video/VideoWatchPage.tsx';
 import VideoUploadPage from './pages/Video/VideoUploadPage.tsx';
-import { VideosListContainer } from './components/Videos/VideosListContainer.tsx';
-import { WatchVideo } from './components/Videos/WatchVideo.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -39,8 +36,6 @@ function App() {
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="profile" element={<VideosListContainer />} />
-          <Route path="search" element={<WatchVideo />} />
         </Route>
         <Route path={'/auth'} element={<DefaultLayout />}>
           <Route path="signin" element={<SignIn />} />
@@ -50,7 +45,7 @@ function App() {
 
         <Route path={'/video'} element={<VideoLayout />}>
           <Route path={'watch'}>
-            <Route path={':id'} element={<VideoPlaybackPage />} />
+            <Route path={':id'} element={<VideoWatchPage />} />
           </Route>
           <Route path={'upload'} element={<VideoUploadPage />} />
         </Route>

@@ -1,4 +1,4 @@
-import { IUserLookup } from '../../Authentication/SignIn/types';
+import { IUser } from '../../../store/reducers/auth/types';
 
 export interface IVideoLookup {
     id: number | null;
@@ -6,16 +6,16 @@ export interface IVideoLookup {
     description: string | null;
     videoFile: string | null;
     previewPhotoFile: string | null;
-    creator: IUserLookup  | null;
+    creator: IUser  | null;
     dateCreated: string  | null;
 }
 
 export interface IGetVideoResult {
-    videoEntity: IVideoLookup | null;
+    video: IVideoLookup;
 }
 
-export interface IGetVideoRecomendationResult {
-    videoEntities: IVideoLookup[] | null;
+export interface IGetVideoListResult {
+    videos: IVideoLookup[];
 }
 
 export interface IVideoUploadRequest {
