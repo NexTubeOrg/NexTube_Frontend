@@ -10,7 +10,9 @@ import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import { Player } from 'video-react';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+dayjs.extend(relativeTime);
 
 const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
 
@@ -89,7 +91,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
         <div className="description bg-secondary p-5 mt-5 rounded-lg">
           <h3 className="text-white text-2xl">
             <span className="mr-5">{props.video?.views}</span>
-            <span>{dayjs(props.video?.dateCreated).format()}</span>
+            <span>{dayjs(props.video?.dateCreated).fromNow()}</span>
           </h3>
           <CollapseText
             text={props.video?.description}

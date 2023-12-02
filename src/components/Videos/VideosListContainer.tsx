@@ -12,7 +12,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const VideosListContainer = () => {
 
-  const [needLoad, setNeedLoad] = useState<number>(0);
+  const [needLoad, setNeedLoad] = useState<number>(1);
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -23,6 +23,7 @@ const VideosListContainer = () => {
 
     const loadVideoAsync = async () => {
 
+      console.log(needLoad);
       if (needLoad == 0 || !canLoad) {
         console.log('abort loading');
         return;
@@ -49,6 +50,8 @@ const VideosListContainer = () => {
         type: VideoReducerActionsType.APPEND_VIDEO_LIST,
         payload: result
       });
+
+      setIsLoading(() => false);
     }
 
     loadVideoAsync();

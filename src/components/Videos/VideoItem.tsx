@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import { ChannelPhoto } from '../ChannelPhoto';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+dayjs.extend(relativeTime);
 
 const VideoItem = (props: { video: IVideoLookup }) => {
 
@@ -28,7 +30,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
               </Link>
               <h4 className="text-white text-sm">
                 <span className="mr-2">{props.video.views}</span>{' '}
-                <span>{dayjs(props.video.dateCreated).format()}</span>
+                <span>{dayjs(props.video.dateCreated).fromNow()}</span>
               </h4>
             </div>
           </div>
