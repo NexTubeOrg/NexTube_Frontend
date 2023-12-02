@@ -19,7 +19,7 @@ export const IconedProcessingButton = (props: {
         {props.isLoading && <OperationLoader></OperationLoader>}
         {!props.isLoading && (
           <div className="flex items-center">
-            <div className="h-8 w-8 mr-2">{props.icon}</div>
+            
             <span className="font-bold">{props.text}</span>
           </div>
         )}

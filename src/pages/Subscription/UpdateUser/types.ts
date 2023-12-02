@@ -1,7 +1,9 @@
  
 
-export interface IUserUpdate {
+ 
+
+export interface IUsersubscription {
  
     subscription: number;
   }
- 
+  

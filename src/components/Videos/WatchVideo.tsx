@@ -11,6 +11,7 @@ import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessing
 import { DoubleIconedProcessingButton } from '../common/buttons/DoubleIconedButton';
 import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
+import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
 
 const WatchVideo = () => {
   return (
@@ -35,6 +36,17 @@ const WatchVideo = () => {
               </div>
             </div>
           </Link>
+          <div className="">
+              <SubscribeButton
+              
+              isLoading={false}
+                onClick={() => {}}
+               text ="Subscribe"
+                type="button"
+                 backgroundClassname="primary"
+                subscribeId={40}
+              ></SubscribeButton>
+            </div>
           <div className="likes flex">
             <div className="flex mr-5">
               <DoubleIconedProcessingButton
