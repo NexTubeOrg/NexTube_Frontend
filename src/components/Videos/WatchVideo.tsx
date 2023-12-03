@@ -12,6 +12,7 @@ import { DoubleIconedProcessingButton } from '../common/buttons/DoubleIconedButt
 import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
 import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
+import UpdateUser from '../../pages/UpdateUser/UpdateUser';
 
 const WatchVideo = () => {
   return (
@@ -36,6 +37,8 @@ const WatchVideo = () => {
               </div>
             </div>
           </Link>
+       
+      
           <div className="">
               <SubscribeButton
               
@@ -85,6 +88,10 @@ const WatchVideo = () => {
               ></IconedProcessingButton>
             </div>
           </div>
+        </div>
+        <div>
+        <Link to="/update-user">Перейти на сторінку "Про нас"</Link>
+
         </div>
         {/* video info */}
         <div className="description bg-secondary p-5 mt-5 rounded-lg">

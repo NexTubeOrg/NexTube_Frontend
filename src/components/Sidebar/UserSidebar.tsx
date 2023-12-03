@@ -14,7 +14,8 @@ import {
   UserIcon,
   UsersIcon,
 } from '@heroicons/react/20/solid';
-import { PrimaryProcessingButton } from '../common/buttons/PrimaryProcessingButton';
+import http_api from '../../services/http_api';
+ 
 
 interface UserSidebarProps {
   sidebarOpen: boolean;
@@ -58,7 +59,9 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   }, []);
+   
 
+ 
   useEffect(() => {
     localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
     if (sidebarExpanded) {
@@ -68,6 +71,25 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     }
   }, [sidebarExpanded]);
 
+  const [subscriptions, setSubscriptions] = useState<ISubscriptionData[]>([]);
+
+  useEffect(() => {
+    const fetchSubscriptions = async () => {
+      try {
+        const response = await http_api.get(`/api/Subscription/Subscriptions?SubscribeUserTo=${41}`);
+        const subscriptionsData: ISubscriptionData[] = response.data.subscriptions;
+        setSubscriptions(subscriptionsData);
+        console.log("sss",subscriptions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSubscriptions();
+  }, []);
+  
+  
+  
   return (
     <aside
       ref={sidebar}
@@ -235,39 +257,22 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <SidebarItem
-                              active={true}
-                              url="/channel/1"
-                              title="Channel name 1"
-                              icon={
-                                <div className="thumb bg-success rounded-full w-8 h-8"></div>
-                              }
-                            ></SidebarItem>
-                          </li>
-                          <li>
-                            <SidebarItem
-                              active={true}
-                              url="/channel/2"
-                              title="Channel name 2"
-                              icon={
-                                <div className="thumb bg-warning rounded-full w-8 h-8"></div>
-                              }
-                            ></SidebarItem>
-                          </li>
-                          <li>
-                            <SidebarItem
-                              active={true}
-                              url="/channel/3"
-                              title="Channel name 3"
-                              icon={
-                                <div className="thumb bg-danger rounded-full w-8 h-8"></div>
-                              }
-                            ></SidebarItem>
-                          </li>
-                        </ul>
-                      </div>
+                     
+
+                     <ul>
+                     {subscriptions.map((subscription, index) => (
+        <li key={index}>
+          <SidebarItem
+            active={true}
+            url={`/channel/${subscription.subscription.userId}`}
+            title={`${subscription.subscription.firstName} ${subscription.subscription.lastName}`}
+            icon={ <div className="thumb bg-danger rounded-full w-8 h-8">
+            <img className="h-12 w-12 rounded-full" src={"/api/Photo/GetPhotoUrl/"+subscription.subscription.channelPhoto+"/50"} alt="User" />
+          </div>}
+          />
+        </li>
+      ))}
+      </ul> </div>
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
                   );

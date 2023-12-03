@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { IUsersubscription } from "./types";
 import http_api from "../../../services/http_api";
+import { useSelector } from "react-redux";
+import { IAuthUser } from "../../../store/reducers/auth/types";
 
 const SubscribeButton = (props: {
   isLoading: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
   text: string;
   backgroundClassname: string;
+ 
   type: 'submit' | 'reset' | 'button' | undefined;
  
   subscribeId: number;
@@ -28,10 +31,14 @@ const SubscribeButton = (props: {
     }
   };
 
+
+  const { isAuth } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
+  
+if(isAuth){
     const fetchIsSubscribed = async () => {
       try {
-        
+ 
         const response = await http_api.get(`/api/Subscription/isSubscriptions?SubscribeTo=${props.subscribeId}`);        
         const isSubscribed = await response.data;
         console.log("isSubscription",isSubscribed);
@@ -41,14 +48,14 @@ const SubscribeButton = (props: {
       }
     };
     fetchIsSubscribed();
-  }, [props.subscribeId]);
+}}, [props.subscribeId]);
 
   return (
     <button
       disabled={props.isLoading}
       onClick={handleToggleSubscription}
       type={props.type}
-      className={`w-full h-12 cursor-pointer rounded-md border border-${props.backgroundClassname} bg-${props.backgroundClassname} p-2 text-white transition hover:bg-opacity-90`}
+      className={`w-full h-12 cursor-pointer rounded-md border border-${props.backgroundClassname} bg-${!isSubscribed?props.backgroundClassname:"secondary"} p-2 text-white transition hover:bg-opacity-90`}
     >
       {!isSubscribed ? "Підписатися":"Відписатися"}
     </button>
