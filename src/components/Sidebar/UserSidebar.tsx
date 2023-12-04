@@ -15,6 +15,8 @@ import {
   UsersIcon,
 } from '@heroicons/react/20/solid';
 import http_api from '../../services/http_api';
+import { IAuthUser } from '../../store/reducers/auth/types';
+import { useSelector } from 'react-redux';
  
 
 interface UserSidebarProps {
@@ -72,21 +74,20 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   }, [sidebarExpanded]);
 
   const [subscriptions, setSubscriptions] = useState<ISubscriptionData[]>([]);
-
+  const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
     const fetchSubscriptions = async () => {
       try {
-        const response = await http_api.get(`/api/Subscription/Subscriptions?SubscribeUserTo=${41}`);
+        const response = await http_api.get(`/api/Subscription/Subscriptions?SubscribeUserTo=${user?.userId}`);
         const subscriptionsData: ISubscriptionData[] = response.data.subscriptions;
         setSubscriptions(subscriptionsData);
-        console.log("sss",subscriptions);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchSubscriptions();
-  }, []);
+  }, [user]);
   
   
   
