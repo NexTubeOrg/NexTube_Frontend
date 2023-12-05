@@ -7,6 +7,7 @@ export interface ICommentLookup {
   dateCreated: string;
   replies: ICommentLookup[];
   canLoadReplies: boolean | undefined;
+  repliesCount: number;
 }
 
 export interface IGetVideoCommentListResult {

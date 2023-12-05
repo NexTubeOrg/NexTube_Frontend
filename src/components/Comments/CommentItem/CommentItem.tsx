@@ -47,6 +47,7 @@ const CommentItem = (props: {
                   rootCommentId={props.commentLookup.commentId}
                 ></AddNewCommentReply>
                 <CommentRepliesLoader
+                  totalCommentRepliesCount={props.commentLookup.repliesCount}
                   rootCommentId={props.commentLookup.commentId}
                   temporaryVideoId={props.temporaryVideoId}
                 ></CommentRepliesLoader>
