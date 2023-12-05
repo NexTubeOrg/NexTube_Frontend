@@ -11,11 +11,12 @@ import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessing
 import { DoubleIconedProcessingButton } from '../common/buttons/DoubleIconedButton';
 import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
+import VideoCommentsLoader from '../Comments/CommentsContainer/VideoCommentsLoader';
 
 const WatchVideo = () => {
   return (
     <>
-      <div className="warp">
+      <div className="warp m-6">
         {/* video player */}
         <div className="video w-full h-125 bg-warning">video player</div>
         {/* video title */}
@@ -140,6 +141,7 @@ const WatchVideo = () => {
           ></CollapseText>
         </div>
       </div>
+      <VideoCommentsLoader videoId={3}></VideoCommentsLoader>
     </>
   );
 };
