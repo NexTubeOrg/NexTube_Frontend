@@ -38,7 +38,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                 className="rounded-full h-16 w-16"
                 src={
                   '/api/photo/getPhotoUrl/' +
-                  props.video?.previewPhotoFile +
+                  props.video?.creator?.channelPhoto +
                   '/600'
                 }
               ></img>
@@ -89,7 +89,9 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
           <CollapseText text={props.video?.description}></CollapseText>
         </div>
       </div>
-      <VideoCommentsLoader videoId={3}></VideoCommentsLoader>
+      <VideoCommentsLoader
+        videoId={props.video?.id ?? -1}
+      ></VideoCommentsLoader>
     </>
   );
 };

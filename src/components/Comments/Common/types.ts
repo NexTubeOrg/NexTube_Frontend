@@ -1,5 +1,4 @@
 import { IUser } from '../../../store/reducers/auth/types';
-import { ICommentRepliesList } from '../../../store/reducers/videoComments/types';
 
 export interface ICommentLookup {
   commentId: number;
@@ -12,6 +11,7 @@ export interface ICommentLookup {
 
 export interface IGetVideoCommentListResult {
   comments: ICommentLookup[];
+  totalCount: number;
 }
 
 export interface IAddNewCommentRequest {
