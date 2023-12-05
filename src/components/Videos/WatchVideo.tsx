@@ -8,6 +8,7 @@ import { IconedProcessingButton } from '../common/buttons/IconedButton';
 import { DoubleIconedProcessingButton } from '../common/buttons/DoubleIconedButton';
 import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
+import VideoCommentsLoader from '../Comments/CommentsContainer/VideoCommentsLoader';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import { Player } from 'video-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -18,7 +19,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
 
   return (
     <>
-      <div className="warp">
+      <div className="warp m-6">
         {/* video player */}
         <div className="video w-full">
           <Player>
@@ -90,7 +91,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
         {/* video info */}
         <div className="description bg-secondary p-5 mt-5 rounded-lg">
           <h3 className="text-white text-2xl">
-            <span className="mr-5">{props.video?.views}</span>
+            <span className="mr-3">{props.video?.views} views</span>
             <span>{dayjs(props.video?.dateCreated).fromNow()}</span>
           </h3>
           <CollapseText
@@ -98,6 +99,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
           ></CollapseText>
         </div>
       </div>
+      <VideoCommentsLoader videoId={3}></VideoCommentsLoader>
     </>
   );
 };

@@ -1,10 +1,17 @@
 import { lazy } from 'react';
+import { ChannelHome } from '../components/Channel/Routes/Home';
+import { ChannelVideos } from '../components/Channel/Routes/Videos';
+import { ChannelLive } from '../components/Channel/Routes/Live';
+import { ChannelCommunity } from '../components/Channel/Routes/Community';
+import { ChannelPlaylist } from '../components/Channel/Routes/Playlist';
+import { ProfileBranding } from '../components/Profile/Routes/Branding';
+import { ProfileInfo } from '../components/Profile/Routes/Info';
+import { ProfileVideos } from '../components/Profile/Routes/Videos';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
 const FormElements = lazy(() => import('../pages/Form/FormElements'));
 const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
-const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
 const Tables = lazy(() => import('../pages/Tables'));
 const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
@@ -15,11 +22,6 @@ const coreRoutes = [
     path: 'calendar',
     title: 'Calender',
     component: Calendar,
-  },
-  {
-    path: 'profile',
-    title: 'Profile',
-    component: Profile,
   },
   {
     path: 'forms/form-elements',
@@ -58,5 +60,52 @@ const coreRoutes = [
   },
 ];
 
+const channelRoutes = [
+  {
+    path: 'home',
+    title: 'Home',
+    component: ChannelHome,
+  },
+  {
+    path: 'videos',
+    title: 'Videos',
+    component: ChannelVideos,
+  },
+  {
+    path: 'live',
+    title: 'Live',
+    component: ChannelLive,
+  },
+  {
+    path: 'community',
+    title: 'Community',
+    component: ChannelCommunity,
+  },
+  {
+    path: 'playlists',
+    title: 'Playlists',
+    component: ChannelPlaylist,
+  },
+];
+
+const profileRoutes = [
+  {
+    path: '',
+    title: 'Branding',
+    component: ProfileBranding,
+  },
+  {
+    path: 'info',
+    title: 'Info',
+    component: ProfileInfo,
+  },
+  {
+    path: 'videos',
+    title: 'Videos',
+    component: ProfileVideos,
+  },
+];
+
 const routes = [...coreRoutes];
 export default routes;
+export { channelRoutes, profileRoutes };
