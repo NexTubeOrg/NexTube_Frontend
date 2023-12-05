@@ -19,6 +19,7 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
   const [needLoad, setNeedLoad] = useState<number>(1);
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [totalCount, setTotalCount] = useState<number>(0);
 
   const { comments, page } = useSelector(
     (store: any) => store.videoComments as ICommentsList,
@@ -52,6 +53,7 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
           type: VideoCommentsReducerActionTypes.APPEND_COMMENTS_LIST,
           payload: result.comments,
         });
+        setTotalCount(() => result.totalCount);
         console.log(result.comments);
       } catch (error) {
         console.error('loadVideoCommentsAsyncError', error);
@@ -66,15 +68,16 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
 
   return (
     <>
+      <p className="text-white ml-6">{totalCount} Comments</p>
+      <AddNewCommentField
+        focus={false}
+        rootCommentId={undefined}
+        onCancel={() => {}}
+        onSubmit={() => {}}
+        videoId={props.videoId}
+      ></AddNewCommentField>
       {comments.length > 0 && (
         <>
-          <p className="text-white ml-6">{comments.length} Comments</p>
-          <AddNewCommentField
-            rootCommentId={undefined}
-            onCancel={() => {}}
-            onSubmit={() => {}}
-            videoId={props.videoId}
-          ></AddNewCommentField>
           <CommentsContainer
             temporaryVideoId={props.videoId}
             comments={comments}
