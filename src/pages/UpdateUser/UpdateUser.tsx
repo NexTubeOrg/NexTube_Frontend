@@ -11,12 +11,16 @@ const UpdateUser = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const initialValues: IUserUpdate = {
+    firstname:'',
+    lastname:'',
     nickname: '',
     description: '',
   };
 
   const requestSchema = yup.object({
-    nickname: yup.string().required('Enter nickname'),
+    firstname:yup.string().required('Enter firstName'),
+    lastname:yup.string(),
+    nickname: yup.string(),
     description: yup.string(),
   });
 
@@ -54,6 +58,60 @@ const UpdateUser = () => {
               Edit Profile
             </h2>
             <form onSubmit={handleSubmit}>
+
+            <div className="mb-4">
+                <label
+                  htmlFor="firstname"
+                  className="mb-2.5 block font-medium text-black dark:text-white"
+                >
+                  FirstName
+                </label>
+                <input
+                  id="firstname"
+                  name="firstname"
+                  value={values.firstname}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Enter your username"
+                  className={classNames(
+                    'w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary',
+                    { 'dark:border-danger dark:text-danger': errors.firstname }
+                  )}
+                />
+                {errors.firstname && (
+                  <div className="mt-2 text-md dark:text-danger">
+                    {errors.firstname}
+                  </div>
+                )}
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="lastname"
+                  className="mb-2.5 block font-medium text-black dark:text-white"
+                >
+                  LastName
+                </label>
+                <input
+                  id="lastname"
+                  name="lastname"
+                  value={values.lastname}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Enter your username"
+                  className={classNames(
+                    'w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary',
+                    { 'dark:border-danger dark:text-danger': errors.lastname }
+                  )}
+                />
+                {errors.lastname && (
+                  <div className="mt-2 text-md dark:text-danger">
+                    {errors.lastname}
+                  </div>
+                )}
+              </div>
+              
+
               <div className="mb-4">
                 <label
                   htmlFor="nickname"

@@ -87,7 +87,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     };
 
     fetchSubscriptions();
-  }, [user]);
+  }, [user,subscriptions]);
   
   
   
