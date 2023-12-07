@@ -17,12 +17,11 @@ const CommentItem = (props: {
 
   return (
     <>
-      <div className="flex items-center gap-5 py-3 px-7.5">
+      <div className="flex text-gray items-center gap-5 py-3 px-7.5">
         <div className="relative self-start">
           <ChannelPhoto
-            photoUrl={props.commentLookup.creator.channelPhoto ?? ''}
+            photoFileId={props.commentLookup.creator.channelPhoto ?? ''}
           />
-          <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-3"></span>
         </div>
 
         <div className="flex flex-1 items-center justify-between">
@@ -30,6 +29,9 @@ const CommentItem = (props: {
             <h5 className="font-medium text-black dark:text-white">
               {props.commentLookup.creator.firstName}{' '}
               {props.commentLookup.creator.lastName}
+              <span className="text-xs text-gray">
+                {` ${dayjs(props.commentLookup.dateCreated).fromNow()}`}
+              </span>
             </h5>
             <div>
               <div className="w-100">
@@ -37,22 +39,18 @@ const CommentItem = (props: {
                   {props.commentLookup.content}
                 </span>
               </div>
-
-              <span className="text-xs">
-                {' '}
-                . {`${dayjs(props.commentLookup.dateCreated).fromNow()}`}
-              </span>
             </div>
             {props.commentLookup.canLoadReplies != false && (
               <div>
-                <CommentRepliesLoader
-                  rootCommentId={props.commentLookup.commentId}
-                  temporaryVideoId={props.temporaryVideoId}
-                ></CommentRepliesLoader>
                 <AddNewCommentReply
                   videoId={props.temporaryVideoId}
                   rootCommentId={props.commentLookup.commentId}
                 ></AddNewCommentReply>
+                <CommentRepliesLoader
+                  totalCommentRepliesCount={props.commentLookup.repliesCount}
+                  rootCommentId={props.commentLookup.commentId}
+                  temporaryVideoId={props.temporaryVideoId}
+                ></CommentRepliesLoader>
               </div>
             )}
           </div>

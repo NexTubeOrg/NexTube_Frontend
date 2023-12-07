@@ -14,12 +14,14 @@ import {
 import CommentsContainer from './CommentsContainer';
 import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
 import { ICommentRepliesList } from '../../../store/reducers/videoComments/types';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const CommentRepliesLoader = (props: {
   temporaryVideoId: number;
   rootCommentId: number;
+  totalCommentRepliesCount: number;
 }) => {
   const [needLoad, setNeedLoad] = useState<number>(0);
   const [canLoad, setCanLoad] = useState<boolean>(true);
@@ -81,14 +83,23 @@ const CommentRepliesLoader = (props: {
         </>
       )}
       <div className="w-30">
-        <SecondaryProcessingButton
+        <button
+          className="text-primary font-bold text-lg"
           onClick={() => {
             setNeedLoad((prevPages) => prevPages + 1);
           }}
-          text="Load replies"
           type="button"
-          isLoading={isLoading}
-        ></SecondaryProcessingButton>
+        >
+          <div className="flex">
+            <div className="w-7">
+              <ChevronDownIcon></ChevronDownIcon>
+            </div>
+            {replies.length == 0 && (
+              <span>{props.totalCommentRepliesCount} replies</span>
+            )}
+            {replies.length > 0 && <span>Load more</span>}
+          </div>
+        </button>
       </div>
     </>
   );

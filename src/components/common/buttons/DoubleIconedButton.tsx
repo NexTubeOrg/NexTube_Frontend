@@ -14,6 +14,8 @@ export const DoubleIconedProcessingButton = (props: {
   typeRight: 'submit' | 'reset' | 'button' | undefined;
   iconLeft: any;
   iconRight: any;
+  iconLeftColor: string;
+  iconRightColor: string;
 }) => {
   return (
     <>
@@ -25,7 +27,9 @@ export const DoubleIconedProcessingButton = (props: {
         {props.isLoadingLeft && <OperationLoader></OperationLoader>}
         {!props.isLoadingLeft && (
           <div className="flex items-center">
-            <div className="h-8 w-8 mr-2">{props.iconLeft}</div>
+            <div className={`h-8 w-8 mr-2 text-${props.iconLeftColor}`}>
+              {props.iconLeft}
+            </div>
             <span className="font-bold">{props.textLeft}</span>
           </div>
         )}
@@ -38,7 +42,9 @@ export const DoubleIconedProcessingButton = (props: {
         {props.isLoadingRight && <OperationLoader></OperationLoader>}
         {!props.isLoadingRight && (
           <div className="flex items-center">
-            <div className="h-8 w-8 mr-2">{props.iconRight}</div>
+            <div className={`h-8 w-8 mr-2 text-${props.iconRightColor}`}>
+              {props.iconRight}
+            </div>
             <span>{props.textRight}</span>
           </div>
         )}
