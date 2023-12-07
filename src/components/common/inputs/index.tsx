@@ -118,8 +118,8 @@ const FieldEditInput = (props: {
         <input
           id={props.propertyName}
           name={props.propertyName}
-          // value={props.value}
-          // onChange={props.handleChange}
+          value={props.value}
+          onChange={props.handleChange}
           type={props.type}
           placeholder={
             props.labelText.charAt(0).toUpperCase() +
@@ -144,7 +144,7 @@ const FieldEditInput = (props: {
 const FieldEditBigInput = (props: {
   propertyName: string;
   value: string;
-  handleChange: ChangeEventHandler<HTMLInputElement>;
+  handleChange: ChangeEventHandler<HTMLTextAreaElement>;
   error: string;
   type: string;
   labelText: string;
@@ -162,8 +162,8 @@ const FieldEditBigInput = (props: {
         <textarea
           id={props.propertyName}
           name={props.propertyName}
-          // value={props.value}
-          // onChange={props.handleChange}
+          value={props.value}
+          onChange={props.handleChange}
           placeholder={
             props.labelText.charAt(0).toUpperCase() +
             props.labelText.slice(1).toLowerCase()
@@ -196,10 +196,103 @@ const RadioGroup = (props: { values: string[] }) => {
   );
 };
 
+const FieldBasicEditInput = (props: {
+  title: string;
+  description: string;
+  placeholder: string;
+  name: string;
+
+  value: string;
+  handleChange: ChangeEventHandler<HTMLInputElement>;
+  error: string;
+  type: string;
+}) => {
+  return (
+    <div className="">
+      <label
+        htmlFor={props.name}
+        className="mb-3 text-2xl block font-medium text-black dark:text-white"
+      >
+        {props.title}
+      </label>
+      <div className="mb-3">
+        <p className="text-gray text-base">{props.description}</p>
+      </div>
+      <div className="relative">
+        <input
+          id={props.name}
+          name={props.name}
+          value={props.value}
+          onChange={props.handleChange}
+          type={props.type}
+          placeholder={props.placeholder}
+          className={classNames(
+            'w-full font-medium text-lg px-6 py-3 rounded-lg border-2 border-stroke bg-transparent outline-none focus:border-primary focus-visible:shadow-none dark:border-secondary dark:focus:bg-secondary dark:focus:text-white dark:text-gray',
+            {
+              'dark:border-danger dark:text-danger dark:focus:text-danger':
+                props.error,
+            },
+          )}
+        />
+        {props.error && (
+          <div className="mt-2 text-md dark:text-danger">{props.error}</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const FieldBasicEditBigInput = (props: {
+  title: string;
+  description: string;
+  placeholder: string;
+  name: string;
+
+  value: string;
+  handleChange: ChangeEventHandler<HTMLTextAreaElement>;
+  error: string;
+}) => {
+  return (
+    <div className="">
+      <label
+        htmlFor={props.name}
+        className="mb-3 text-2xl block font-medium text-black dark:text-white"
+      >
+        {props.title}
+      </label>
+      <div className="mb-3">
+        <p className="text-gray text-base">{props.description}</p>
+      </div>
+      <div className="relative">
+        <textarea
+          id={props.name}
+          name={props.name}
+          value={props.value}
+          onChange={props.handleChange}
+          placeholder={props.placeholder}
+          rows={4}
+          className={classNames(
+            'w-full font-medium text-lg px-6 py-3 rounded-lg border-2 border-stroke bg-transparent outline-none focus:border-primary focus-visible:shadow-none dark:border-secondary dark:focus:bg-secondary dark:focus:text-white dark:text-gray',
+            {
+              'dark:border-danger dark:text-danger dark:focus:text-danger':
+                props.error,
+            },
+          )}
+        />
+        {props.error && (
+          <div className="mt-2 text-md dark:text-danger">{props.error}</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export {
   DefaultInput,
   RegistrationInput,
   FieldEditInput,
   FieldEditBigInput,
   RadioGroup,
+  FieldBasicEditInput,
+  FieldBasicEditBigInput,
 };
