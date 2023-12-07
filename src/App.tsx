@@ -55,7 +55,7 @@ function App() {
           </Route>
           <Route path="profile" element={<Profile />}>
             <Route index element={<ProfileBranding></ProfileBranding>}></Route>
-            {profileRoutes.map(({ path, component: Component }, id) => (
+            {profileRoutes.map(({ path, component: Component, routes }, id) => (
               <Route
                 key={id}
                 path={path}
@@ -64,7 +64,20 @@ function App() {
                     <Component />
                   </Suspense>
                 }
-              />
+              >
+                {routes &&
+                  routes.map(({ path, component: Component }, id) => (
+                    <Route
+                      key={id}
+                      path={path}
+                      element={
+                        <Suspense fallback={<Loader />}>
+                          <Component />
+                        </Suspense>
+                      }
+                    ></Route>
+                  ))}
+              </Route>
             ))}
           </Route>
         </Route>
@@ -95,7 +108,6 @@ function App() {
             />
           ))}
         </Route>
-
       </Routes>
       <ToastContainer />
     </>
