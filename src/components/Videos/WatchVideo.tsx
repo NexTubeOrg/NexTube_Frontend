@@ -19,6 +19,7 @@ import { IAuthUser } from '../../store/reducers/auth/types';
 
 const WatchVideo = () => {
 
+   
   return (
     <>
       <div className="warp">
