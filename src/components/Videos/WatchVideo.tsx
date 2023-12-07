@@ -13,8 +13,12 @@ import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
 import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
 import UpdateUser from '../../pages/UpdateUser/UpdateUser';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { IAuthUser } from '../../store/reducers/auth/types';
 
 const WatchVideo = () => {
+
   return (
     <>
       <div className="warp">
