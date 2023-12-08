@@ -18,6 +18,8 @@ import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
 import { Profile } from './components/Profile/Profile.tsx';
 import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx';
 import Moderator from './pages/Dashboard/Moderator/Moderator.tsx';
+import ReportForm from './components/ReportForm.tsx';
+import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
 
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
@@ -74,6 +76,7 @@ function App() {
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
+          <Route path="recover" element={<RecoverPassword />} />
         </Route>
 
         <Route path={'/video'} element={<DefaultLayout />}>
@@ -81,6 +84,8 @@ function App() {
             <Route path={':id'} element={<VideoWatchPage />} />
           </Route>
           <Route path={'upload'} element={<VideoUploadPage />} />
+
+          <Route path={'report'} element={<ReportForm/>} />
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>

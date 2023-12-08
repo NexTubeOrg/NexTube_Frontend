@@ -2,6 +2,7 @@ import React from 'react';
 import { IUserLookup } from "../../pages/Dashboard/Admin/common/types";
 import http_api from '../../services/http_api';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 interface UserItemProps {
   user: IUserLookup;
@@ -36,14 +37,14 @@ const UserItem: React.FC<UserItemProps> = ({ user }) => {
   };
 
   return (
-    <div className="user-item">
+    <div className="user-item bg-secondary p-5 mt-5 rounded-lg">
        
       <div className="user-details">
-        <p>{`${user.firstName} ${user.lastName}`}</p>
+        <p><Link to={`/channel/${user.userId || 'N/A'}`}>{`${user.firstName} ${user.lastName}`}</Link></p>
         <p>ID: {user.userId || 'N/A'}</p>
         <p>Email: {user.email || 'N/A'}</p>
         <p>Roles: {user.roles?.toString() || 'None'}</p>
-      </div>
+      </div>  
       <div className='user-actions'>
       
         <button type="button"  onClick={handleBanClick} className="action-button cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90">❌ Ban</button>

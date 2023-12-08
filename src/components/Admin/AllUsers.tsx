@@ -37,8 +37,8 @@ const AllUsers: React.FC = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="custom-scrollbar admin-panel" onScroll={handleScroll}>
-      <InfiniteScroll
+    <div className="custom-scrollbar admin-panel " onScroll={handleScroll}>
+      <InfiniteScroll 
         dataLength={users.length}
         next={fetchUsers}
         hasMore={hasMore}
