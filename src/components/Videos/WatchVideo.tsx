@@ -1,4 +1,4 @@
-import { ArrowDownTrayIcon, ShareIcon } from '@heroicons/react/20/solid';
+import { ArrowDownTrayIcon, ShareIcon , FlagIcon } from '@heroicons/react/20/solid';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
 import { Link } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
@@ -67,6 +67,17 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
               ></IconedProcessingButton>
             </div>
 
+            <div className="mr-5">
+              <IconedProcessingButton
+                isLoading={false}
+                onClick={() => {}}
+                text="Report"
+                type="button"
+                icon={<FlagIcon></FlagIcon>}
+                backgroundClassname="secondary"
+              ></IconedProcessingButton>
+            </div>
+
             <div className="">
               <IconedProcessingButton
                 isLoading={false}
@@ -77,6 +88,8 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                 backgroundClassname="secondary"
               ></IconedProcessingButton>
             </div>
+
+            
           </div>
         </div>
 

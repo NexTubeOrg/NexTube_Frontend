@@ -46,8 +46,8 @@ const UserItem: React.FC<UserItemProps> = ({ user }) => {
       </div>
       <div className='user-actions'>
       
-        <button type="button"  onClick={handleBanClick} className="action-button cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90">Ban</button>
-        <button type="button" onClick={handleModClick} className="action-button  cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90">Mod</button>
+        <button type="button"  onClick={handleBanClick} className="action-button cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90">❌ Ban</button>
+        <button type="button" onClick={handleModClick} className="action-button  cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90">🤓 Mod</button>
       
       </div>
       <br/>

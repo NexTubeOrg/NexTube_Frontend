@@ -17,6 +17,7 @@ import routes, { channelRoutes, profileRoutes } from './routes/index.ts';
 import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
 import { Profile } from './components/Profile/Profile.tsx';
 import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx';
+import Moderator from './pages/Dashboard/Moderator/Moderator.tsx';
 
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
@@ -84,6 +85,21 @@ function App() {
 
         <Route path={'/admin'} element={<AdminLayout />}>
           <Route index element={<Admin />} />
+          {routes.map(({ path, component: Component }, id) => (
+            <Route
+              key={id}
+              path={path}
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Component />
+                </Suspense>
+              }
+            />
+          ))}
+        </Route>
+
+        <Route path={'/moderator'} element={<AdminLayout />}>
+          <Route index element={<Moderator />} />
           {routes.map(({ path, component: Component }, id) => (
             <Route
               key={id}

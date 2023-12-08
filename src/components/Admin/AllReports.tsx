@@ -9,12 +9,12 @@ const AllReports: React.FC = () => {
   const [reports, setReports] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(3);
 
   const fetchReports = async () => {
     try {
       const response = await http_api.get(`/api/Admin/GetAllReports?page=${page}&pageSize=${pageSize}`);
-      const newReports = response.data.reports || [];
+      const newReports = response.data|| [];
       setReports((prevReports) => [...prevReports, ...newReports]);
       setPage(page + 1);
       setHasMore(newReports.length > 0);
@@ -37,12 +37,12 @@ const AllReports: React.FC = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="custom-scrollbar admin-panel" onScroll={handleScroll}>
+    <div className="custom-scrollbar moderator-panel" onScroll={handleScroll}>
       <InfiniteScroll
         dataLength={reports.length}
         next={fetchReports}
         hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
+        loader={<h4 className='text-white'>Loading......</h4>}
         scrollableTarget="custom-scrollbar"
       >
         <div className="report-list">
