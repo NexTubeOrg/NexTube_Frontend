@@ -1,17 +1,23 @@
-import { useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import UserSidebar from '../components/Sidebar/UserSidebar';
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigator = useNavigate();
+
+  useEffect(() => {
+    // if (isSignedIn() == false) navigator('/auth/signin');
+  }, []);
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <UserSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {/* <!-- ===== Sidebar End ===== --> */}
 
         {/* <!-- ===== Content Area Start ===== --> */}

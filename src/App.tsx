@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import ECommerce from './pages/Dashboard/ECommerce';
+import Admin from './pages/Dashboard/Admin/Admin.tsx';
 import SignIn from './pages/Authentication/SignInPage/SignInPage.tsx';
 import SignUp from './pages/Authentication/SignUp/SignUpPage.tsx';
 import Loader from './common/Loader';
@@ -17,6 +17,7 @@ import routes, { channelRoutes, profileRoutes } from './routes/index.ts';
 import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
 import { Profile } from './components/Profile/Profile.tsx';
 import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx';
+
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -82,7 +83,7 @@ function App() {
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>
-          <Route index element={<ECommerce />} />
+          <Route index element={<Admin />} />
           {routes.map(({ path, component: Component }, id) => (
             <Route
               key={id}
