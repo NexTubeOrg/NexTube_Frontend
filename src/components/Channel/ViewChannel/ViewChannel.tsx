@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
 import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
@@ -19,14 +19,15 @@ interface IUserInfo
 
 }
   const [userData, setUserData] = useState<IUserInfo>();
-
+const {id}=useParams();
  useEffect(() => {
     fetchData();
  }, []);
 
  const fetchData = async () => {
     try {
-      const response = await http_api.get(`/api/Auth/GetUser?ChannelId=${40}`);
+      console.log("id",id);
+      const response = await http_api.get(`/api/Auth/GetUser?ChannelId=${id}`);
       const data = await response.data
       console.log("User!!!!!!",response.data);
       setUserData(data);

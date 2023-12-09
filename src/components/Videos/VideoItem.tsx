@@ -15,7 +15,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
         </Link>
 
         <div className="flex items-start mt-5">
-          <Link to={'/channel/1'}>
+          <Link to={'/channel/'+props.video.creator?.userId}>
             <div className="w-12 h-12 mr-5">
               <ChannelPhoto photoFileId={props.video.creator?.channelPhoto} />
             </div>

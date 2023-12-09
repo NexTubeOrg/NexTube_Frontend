@@ -50,7 +50,7 @@ const SubscribeButton = (props: {
       type={props.type}
       className={`w-full h-12 cursor-pointer rounded-md border border-${props.backgroundClassname} bg-${!isSubscribed ? props.backgroundClassname : "secondary"} p-2 text-white transition hover:bg-opacity-90`}
     >
-      {!isSubscribed ? "Subscribed" : "UnSubscribed"}
+      {!isSubscribed ? "Subscribe" : "Subscribed"}
     </button>
  );
 };
