@@ -34,7 +34,7 @@ const AllUsers: React.FC = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); 
 
   return (
     <div className="custom-scrollbar admin-panel " onScroll={handleScroll}>

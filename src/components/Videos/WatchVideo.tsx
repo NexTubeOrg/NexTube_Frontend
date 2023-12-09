@@ -1,7 +1,7 @@
 import { ArrowDownTrayIcon, ShareIcon, FlagIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
 import { AddVideoReaction } from '../Reactions/AddVideoReaction';
 import VideoCommentsLoader from '../Comments/CommentsContainer/VideoCommentsLoader';
@@ -10,11 +10,14 @@ import { Player } from 'video-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import ReportForm from '../ReportForm';
+import { handleSuccess } from '../../common/handleError';
+import { APP_CONFIG } from '../../env';
 
 dayjs.extend(relativeTime);
 
 const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   const [showReportForm, setShowReportForm] = useState(false);
+
 
   const handleReportClick = () => {
     setShowReportForm((prevShowReportForm) => !prevShowReportForm);
@@ -23,7 +26,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
-
+ 
   return (
     <>
       <div className="warp m-6">
@@ -61,13 +64,13 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
               </div>
             </div>
           </Link>
-
+                
           <div className="likes flex">
             <AddVideoReaction videoId={props.video?.id ?? -1}></AddVideoReaction>
             <div className="mr-5">
               <IconedProcessingButton
                 isLoading={false}
-                onClick={() => {}}
+                onClick={() => {navigator.clipboard.writeText(window.location.href); handleSuccess("Copied link to clipboard");}}
                 text="Share"
                 type="button"
                 icon={<ShareIcon></ShareIcon>}
@@ -87,14 +90,15 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
             </div>
 
             <div className="">
+              <Link to={APP_CONFIG.API_URL+'video/getVideoUrl?VideoFileId=' + props.video?.videoFile}>
               <IconedProcessingButton
                 isLoading={false}
-                onClick={() => {}}
+                onClick={() => { }}
                 text="Download"
                 type="button"
                 icon={<ArrowDownTrayIcon></ArrowDownTrayIcon>}
                 backgroundClassname="secondary"
-              ></IconedProcessingButton>
+              ></IconedProcessingButton></Link>
             </div>
           </div>
         </div>

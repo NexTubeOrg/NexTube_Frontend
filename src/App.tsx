@@ -85,7 +85,7 @@ function App() {
           </Route>
           <Route path={'upload'} element={<VideoUploadPage />} />
 
-          <Route path={'report'} element={<ReportForm/>} />
+          
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>

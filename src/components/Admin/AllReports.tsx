@@ -1,4 +1,4 @@
-// AllReports.tsx
+
 import React, { useEffect, useState } from 'react';
 import http_api from '../../services/http_api';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -34,7 +34,7 @@ const AllReports: React.FC = () => {
 
   useEffect(() => {
     fetchReports();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); 
 
   const updateReportsAfterAction = (reportId) => {
     setReports((prevReports) => prevReports.filter((report) => report.id !== reportId));

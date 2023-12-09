@@ -4,6 +4,7 @@ import http_api from '../services/http_api';
 import { IconedProcessingButton } from './common/buttons/IconedButton';
 import { IUserLookup, ReportLookup, TypeOfReport } from '../pages/Dashboard/Admin/common/types';
 import { FlagIcon } from '@heroicons/react/20/solid';
+import { handleSuccess } from '../common/handleError';
 
 const ReportForm = (props: { abuser: number |null , videoId:number|null , onSubmitSuccess: () => void } ) => {
   const [reportData, setReportData] = useState({
@@ -16,8 +17,6 @@ const ReportForm = (props: { abuser: number |null , videoId:number|null , onSubm
 
   const handleReportSubmit = async () => {
     try {
-  
-
       const response = await http_api.post('/api/Admin/ReportUser', reportData);
       console.log('Report submitted successfully:', response.data);
     } catch (error) {
@@ -25,12 +24,13 @@ const ReportForm = (props: { abuser: number |null , videoId:number|null , onSubm
     }
 
     props.onSubmitSuccess();
+    handleSuccess("Report was sent");
   };
 
   return (
     <>
       
-      <div className="escription bg-secondary p-5 mt-5 rounded-lg">
+      <div className="bg-secondary p-5  mt-5 rounded-lg">
       
         <form>
           <div className="">
@@ -44,7 +44,7 @@ const ReportForm = (props: { abuser: number |null , videoId:number|null , onSubm
                 placeholder="Enter report details"
                 value={reportData.body}
                 onChange={(e) => setReportData({ ...reportData, body: e.target.value })}
-                className="w-full text-white  rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                className="w-full text-white h-25  rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
               />
             </div>
 
@@ -66,7 +66,7 @@ const ReportForm = (props: { abuser: number |null , videoId:number|null , onSubm
 
             </div>
 
-            <div className="mb-6">
+            <div className="mb-2">
               <IconedProcessingButton
                 isLoading={false}
                 onClick={handleReportSubmit}
