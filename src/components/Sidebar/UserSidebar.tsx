@@ -17,6 +17,7 @@ import {
 import http_api from '../../services/http_api';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
+import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
  
 
 interface UserSidebarProps {
@@ -74,22 +75,22 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   }, [sidebarExpanded]);
 
   const [subscriptions, setSubscriptions] = useState<ISubscriptionData[]>([]);
-  const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
+  const {   user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
-    const fetchSubscriptions = async () => {
-      try {
-        const response = await http_api.get(`/api/Subscription/Subscriptions?SubscribeUserTo=${user?.userId}`);
-        const subscriptionsData: ISubscriptionData[] = response.data.subscriptions;
-        setSubscriptions(subscriptionsData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchSubscriptions();
-  }, [user]);
-  
-  
+     const fetchSubscriptions = async () => {
+       try {
+         const response = await http_api.get(`/api/Subscription/Subscriptions?SubscribeUserTo=${user?.userId}`);
+         const subscriptionsData: ISubscriptionData[] = response.data.subscriptions;
+         setSubscriptions(subscriptionsData);
+       } catch (error) {
+         console.error(error);
+       }
+     };
+ 
+     fetchSubscriptions();
+  }, [user] );
+   
+ 
   
   return (
     <aside

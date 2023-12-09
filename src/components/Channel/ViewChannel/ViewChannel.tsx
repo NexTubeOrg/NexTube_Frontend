@@ -2,8 +2,42 @@ import { Outlet } from 'react-router-dom';
 import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
 import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
+import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription';
+import { useEffect, useState } from 'react';
+import http_api from '../../../services/http_api';
 
 const ViewChannel = () => {
+interface IUserInfo
+{
+  lastName:string,
+  firstName:string,
+  nickname:string,
+  description:string,
+  subsciptions:number,
+  video:number,
+  channelPhotoFileId:string
+
+}
+  const [userData, setUserData] = useState<IUserInfo>();
+
+ useEffect(() => {
+    fetchData();
+ }, []);
+
+ const fetchData = async () => {
+    try {
+      const response = await http_api.get(`/api/Auth/GetUser?ChannelId=${40}`);
+      const data = await response.data
+      console.log("User!!!!!!",response.data);
+      setUserData(data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+ };
+
+ if (!userData) {
+    return <div>Loading...</div>;
+ }
   return (
     <>
       <div className="">
@@ -15,23 +49,23 @@ const ViewChannel = () => {
             <div className="w-36 h-36 dark:bg-primary rounded-full p-3 mr-6">
               <img
                 className=" fill-white rounded-full dark:bg-transparent"
-                src="/human.jpg"
+                src= {"/api/Photo/GetPhotoUrl/"+userData.channelPhotoFileId+"/150"}
                 alt=""
               />
             </div>
             {/* channel info */}
             <div className="text">
               {/* Channel title */}
-              <h1 className="text-white text-3xl mb-2">Alisa Konors</h1>
+              <h1 className="text-white text-3xl mb-2">{userData.lastName} {userData.firstName} </h1>
               {/* Channel info */}
               <h4 className="text-gray text-md  mb-2">
-                <span className="mr-4">@alisa_Konors234e</span>
-                <span className="mr-4">274K subscribers</span>
-                <span className="">187 videos</span>
+                <span className="mr-4">@{userData.nickname}</span>
+                <span className="mr-4">{userData.subsciptions} subscribers</span>
+                <span className="">{userData.video} videos</span>
               </h4>
               {/* Channel description */}
               <h4 className="text-gray text-md  mb-2">
-                Hello! My name is Alice, i love autumn and handmade
+               {userData.description}
               </h4>
               {/* Channel links */}
               <h4 className="text-md  mb-2">
@@ -44,12 +78,15 @@ const ViewChannel = () => {
               </h4>
               {/* Subscribe to channel */}
               <div className="w-35">
-                <PrimaryProcessingButton
-                  isLoading={false}
-                  onClick={() => {}}
-                  text="Subscribed"
-                  type="button"
-                ></PrimaryProcessingButton>
+              <SubscribeButton
+              
+              isLoading={false}
+                onClick={() => {}}
+               text ="Subscribe"
+                type="button"
+                 backgroundClassname="primary"
+                subscribeId={40}
+              ></SubscribeButton>
               </div>
             </div>
           </div>
