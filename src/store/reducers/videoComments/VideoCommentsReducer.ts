@@ -79,6 +79,9 @@ export const VideoCommentsReducer = (state = initState, action: any): any => {
         page: state.page,
       };
     }
+    case VideoCommentsReducerActionTypes.RESET_COMMENTS: {
+      return initState;
+    }
     default:
       return state;
   }
