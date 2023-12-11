@@ -16,7 +16,7 @@ import CommentsContainer from './CommentsContainer';
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const VideoCommentsLoader = (props: { videoId: number }) => {
-  const [needLoad, setNeedLoad] = useState<number>(1);
+  const [needLoad, setNeedLoad] = useState<number>(0);
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -64,7 +64,16 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
     };
 
     loadVideoCommentsAsync();
-  }, [props.videoId, needLoad]);
+  }, [needLoad]);
+
+  useEffect(() => {
+    setNeedLoad((t) => {
+      return 1;
+    });
+    store.dispatch({
+      type: VideoCommentsReducerActionTypes.RESET_COMMENTS,
+    });
+  }, [props.videoId]);
 
   return (
     <>
