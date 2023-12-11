@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import CheckboxOne from '../../../CheckboxOne';
 import { VideoItem } from '../../../Videos/VideoItem';
 import { PrimaryProcessingButton } from '../../../common/buttons/PrimaryProcessingButton';
@@ -48,6 +48,8 @@ const EditVideoItem = () => {
 export const ProfileVideos = () => {
   return (
     <>
+      <Outlet></Outlet>
+
       <table className="text-gray w-full table-auto align-top">
         {/* dont touch below */}
         <tr>
