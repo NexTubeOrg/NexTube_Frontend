@@ -1,13 +1,6 @@
+import { IUser } from "../../../../store/reducers/auth/types";
 
 
-export interface IUserLookup {
-    id: number | null;
-    firstName: string | null;
-    lastName: string | null;
-    email: string | null;
-    channelPhoto: string | null;
-    roles: number | null;
-}
 
 export enum TypeOfReport {
     sexualContent,
@@ -19,8 +12,8 @@ export enum TypeOfReport {
 }
 
 export interface ReportLookup {
-    abuser: IUserLookup | null;
-    creator: IUserLookup | null;
+    abuser: IUser | null;
+    creator: IUser | null;
     body: string | null;
     type: TypeOfReport| null;
     id: number | null;
@@ -29,9 +22,9 @@ export interface ReportLookup {
 }
 
 export interface IGetUserResult {
-    user: IUserLookup;
+    user: IUser;
 }
 
 export interface IGetUserListResult {
-   users: IUserLookup[];
+   users: IUser[];
 }

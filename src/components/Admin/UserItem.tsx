@@ -1,11 +1,12 @@
 import React from 'react';
-import { IUserLookup } from "../../pages/Dashboard/Admin/common/types";
+
 import http_api from '../../services/http_api';
 import './style.css';
 import { Link } from 'react-router-dom';
+import { IUser } from '../../store/reducers/auth/types';
 
 interface UserItemProps {
-  user: IUserLookup;
+  user: IUser;
 }
 
 const UserItem: React.FC<UserItemProps> = ({ user }) => {
