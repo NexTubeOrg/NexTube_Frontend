@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import ECommerce from './pages/Dashboard/ECommerce';
+import Admin from './pages/Dashboard/Admin/Admin.tsx';
 import SignIn from './pages/Authentication/SignInPage/SignInPage.tsx';
 import SignUp from './pages/Authentication/SignUp/SignUpPage.tsx';
 import Loader from './common/Loader';
@@ -17,6 +17,10 @@ import routes, { channelRoutes, profileRoutes } from './routes/index.ts';
 import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
 import { Profile } from './components/Profile/Profile.tsx';
 import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx';
+import Moderator from './pages/Dashboard/Moderator/Moderator.tsx';
+import ReportForm from './components/ReportForm.tsx';
+import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
+
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -85,6 +89,7 @@ function App() {
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
+          <Route path="recover" element={<RecoverPassword />} />
         </Route>
 
         <Route path={'/video'} element={<DefaultLayout />}>
@@ -92,10 +97,27 @@ function App() {
             <Route path={':id'} element={<VideoWatchPage />} />
           </Route>
           <Route path={'upload'} element={<VideoUploadPage />} />
+
+          
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>
-          <Route index element={<ECommerce />} />
+          <Route index element={<Admin />} />
+          {routes.map(({ path, component: Component }, id) => (
+            <Route
+              key={id}
+              path={path}
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Component />
+                </Suspense>
+              }
+            />
+          ))}
+        </Route>
+
+        <Route path={'/moderator'} element={<AdminLayout />}>
+          <Route index element={<Moderator />} />
           {routes.map(({ path, component: Component }, id) => (
             <Route
               key={id}
