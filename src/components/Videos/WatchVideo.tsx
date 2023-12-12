@@ -80,7 +80,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
 
             <div className="mr-5">
               <IconedProcessingButton
-                isLoading={false}
+                isLoading={false}q
                 onClick={handleReportClick}
                 text="Report"
                 type="button"
