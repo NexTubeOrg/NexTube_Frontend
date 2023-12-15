@@ -4,16 +4,77 @@ import { PrimaryProcessingButton } from '../../../../common/buttons/PrimaryProce
 import { FieldEditBigInput, FieldEditInput } from '../../../../common/inputs';
 import { CancelButton } from '../../../../common/buttons/CancelButton';
 import { useNavigate } from 'react-router-dom';
+import { IVideoUploadRequest } from '../../../../../pages/Video/common/types';
+import http_api from '../../../../../services/http_api';
+import { handleError } from '../../../../../common/handleError';
+import { useFormik } from 'formik';
 
 export const AddVideoOverlay = () => {
   const [selected, setSelected] = useState<string>('public');
   const navigator = useNavigate();
+
+    const request: IVideoUploadRequest = {
+        name: '',
+        description: '',
+        previewPhoto: null,
+        video: null,
+        accessModificator: selected,
+    }
+
+    const onFormSubmit = async (values: IVideoUploadRequest) => {
+        try {
+            await http_api.post<IVideoUploadRequest>('/api/video/uploadVideo', values, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            navigator('/');
+
+        } catch (error: any) {
+            handleError(error);
+        }
+    };
+
+    const onPreviewPhotoChangeHandler = (f: File) => {
+        console.log('image input handle change', f);
+        if (f != null) {
+            onPreviewPhotoSaveHandler(f);
+        }
+    };
+
+    const onPreviewPhotoSaveHandler = (file: File) => {
+        console.log('image save handle', file);
+        values.previewPhoto = file;
+        console.log(values);
+    };
+
+    const onVideoChangeHandler = (f: any) => {
+        console.log('video input handle change', f);
+        if (f != null) {
+            onVideoSaveHandler(f.target.files[0]);
+        }
+    }
+
+    const onVideoSaveHandler = (file: File) => {
+        console.log('image save handle', file);
+        values.video = file;
+        console.log(values);
+    };
+
+    const formik = useFormik({
+        initialValues: request,
+        onSubmit: onFormSubmit,
+    });
+
+    const { values, errors, touched, handleSubmit, handleChange } = formik;
+
   return (
     <>
       <div className="fixed left-0 top-0 z-9999">
         <div className="w-screen h-screen bg-absoluteblack bg-opacity-50 flex justify-center">
           <div className="absolute">
-            <div className="bg-secondary relative top-30 left-10 p-6 rounded-md">
+            <form className="bg-secondary relative top-30 left-10 p-6 rounded-md" onSubmit={handleSubmit}>
               <div className="header flex justify-between">
                 <h1 className="text-white text-3xl">Grave book // |</h1>
                 <div className="flex items-center justify-center">
@@ -76,6 +137,7 @@ export const AddVideoOverlay = () => {
                           description="Everyone can watch your video"
                           onChange={() => {
                             setSelected('public');
+                            values.accessModificator = selected;
                           }}
                           isChecked={selected === 'public'}
                           name={'Public'}
@@ -87,6 +149,7 @@ export const AddVideoOverlay = () => {
                           description="Only you can watch the video"
                           onChange={() => {
                             setSelected('private');
+                            values.accessModificator = selected;
                           }}
                           isChecked={selected === 'private'}
                           name={'Private'}
@@ -108,7 +171,7 @@ export const AddVideoOverlay = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
