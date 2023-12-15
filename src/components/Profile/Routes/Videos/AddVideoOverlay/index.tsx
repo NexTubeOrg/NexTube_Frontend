@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { ModalCropper } from '../../../../ModalCropper';
 import { IVideoUploadRequest } from '../../../../../pages/Video/common/types';
 import http_api from '../../../../../services/http_api';
-import { handleError } from '../../../../../common/handleError';
+import { handleError, handleSuccess } from '../../../../../common/handleError';
 import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 export const AddVideoOverlay = () => {
   const [selected, setSelected] = useState<string>('Public');
@@ -25,6 +26,13 @@ export const AddVideoOverlay = () => {
     video: null,
     accessModificator: selected,
   }
+
+  const requestSchema: any = yup.object({
+    name: yup.string().required('Enter name').min(2).max(100),
+    description: yup.string().required('Enter description').min(2).max(1000),
+    previewPhoto: yup.mixed().required('Select preview photo file'),
+    video: yup.mixed().required('Select video file'),
+  });
 
   const handleEscPress = (event: any) => {
     if (event.keyCode === 27) {
@@ -43,7 +51,7 @@ export const AddVideoOverlay = () => {
     try {
       setIsLoading(true);
 
-      await http_api.post<IVideoUploadRequest>('/api/video/uploadVideo', values, {
+      await http_api.post('/api/video/uploadVideo', values, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -52,6 +60,7 @@ export const AddVideoOverlay = () => {
       setIsLoading(false);
       navigator('..');
 
+      handleSuccess("Video uploaded successfully");
     } catch (error: any) {
       handleError(error);
     }
@@ -85,6 +94,7 @@ export const AddVideoOverlay = () => {
 
   const formik = useFormik({
     initialValues: request,
+    validationSchema: requestSchema,
     onSubmit: onFormSubmit,
   });
 
@@ -134,7 +144,7 @@ export const AddVideoOverlay = () => {
                       propertyName="name"
                       value={values.name}
                       handleChange={handleChange}
-                      error=""
+                      error={errors.name ?? ""}
                       type="text"
                       labelText="Enter video title"
                     ></FieldEditInput>
@@ -144,7 +154,7 @@ export const AddVideoOverlay = () => {
                       propertyName="description"
                       value={values.description}
                       handleChange={handleChange}
-                      error=""
+                      error={errors.description ?? ""}
                       type="text"
                       labelText="Tell viewers about your video"
                     ></FieldEditBigInput>
@@ -208,13 +218,16 @@ export const AddVideoOverlay = () => {
                         type="file"
                         className="file:hidden h-10 hover:cursor-pointer text-white font-medium text-lg"
                       />
+                      {errors.video && (
+                        <div className="mt-2 text-md dark:text-danger">{errors.video}</div>
+                      )}
                     </div>
                   </div>
                   <div className="bg-body">
                     <label className="mb-3 block text-black dark:text-white">
                       Select video preview
                     </label>
-                    <ModalCropper onSave={onPreviewPhotoChangeHandler} error=""></ModalCropper>
+                    <ModalCropper onSave={onPreviewPhotoChangeHandler} error={errors.previewPhoto ?? ""}></ModalCropper>
                   </div>
                 </div>
               </div>
