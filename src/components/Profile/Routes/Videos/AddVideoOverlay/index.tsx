@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CheckboxFour from '../../../../CheckboxFour';
 import { PrimaryProcessingButton } from '../../../../common/buttons/PrimaryProcessingButton';
 import { FieldEditBigInput, FieldEditInput } from '../../../../common/inputs';
@@ -10,6 +10,7 @@ export const AddVideoOverlay = () => {
   const [selected, setSelected] = useState<string>('public');
   const navigator = useNavigate();
   const [video, setVideo] = useState<any>();
+  const root = useRef(null);
   const handleEscPress = (event: any) => {
     if (event.keyCode === 27) {
       navigator('..');
@@ -26,8 +27,15 @@ export const AddVideoOverlay = () => {
 
   return (
     <>
-      <div className="overflow-y-auto fixed left-0 top-0 z-9999 bg-opacity-50  bg-absoluteblack">
-        <div className="w-screen h-screen flex justify-center">
+      <div
+        onClick={(event) => {
+          if (event.target === root.current) {
+            navigator('..');
+          }
+        }}
+        className="overflow-y-auto fixed left-0 top-0 z-9999 bg-opacity-50  bg-absoluteblack"
+      >
+        <div ref={root} className="w-screen h-screen flex justify-center">
           <div className="absolute">
             <div className="md:mb-10 overflow-y-auto bg-secondary relative sm:top-0 md:top-10 lg:top-30 lg:left-10 p-6 rounded-md">
               <div className="header flex justify-between">
