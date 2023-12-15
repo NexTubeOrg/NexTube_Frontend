@@ -1,19 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CheckboxFour from '../../../../CheckboxFour';
 import { PrimaryProcessingButton } from '../../../../common/buttons/PrimaryProcessingButton';
 import { FieldEditBigInput, FieldEditInput } from '../../../../common/inputs';
 import { CancelButton } from '../../../../common/buttons/CancelButton';
 import { useNavigate } from 'react-router-dom';
+import { ModalCropper } from '../../../../ModalCropper';
 
 export const AddVideoOverlay = () => {
   const [selected, setSelected] = useState<string>('public');
   const navigator = useNavigate();
+  const [video, setVideo] = useState<any>();
+  const root = useRef(null);
+  const handleEscPress = (event: any) => {
+    if (event.keyCode === 27) {
+      navigator('..');
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscPress);
+    };
+  }, []);
+
   return (
     <>
-      <div className="fixed left-0 top-0 z-9999">
-        <div className="w-screen h-screen bg-absoluteblack bg-opacity-50 flex justify-center">
+      <div
+        onClick={(event) => {
+          if (event.target === root.current) {
+            navigator('..');
+          }
+        }}
+        className="overflow-y-auto fixed left-0 top-0 z-9999 bg-opacity-50  bg-absoluteblack"
+      >
+        <div ref={root} className="w-screen h-screen flex justify-center">
           <div className="absolute">
-            <div className="bg-secondary relative top-30 left-10 p-6 rounded-md">
+            <div className="md:mb-10 overflow-y-auto bg-secondary relative sm:top-0 md:top-10 lg:top-30 lg:left-10 p-6 rounded-md">
               <div className="header flex justify-between">
                 <h1 className="text-white text-3xl">Grave book // |</h1>
                 <div className="flex items-center justify-center">
@@ -38,8 +62,8 @@ export const AddVideoOverlay = () => {
               <div className="mb-3">
                 <h1 className="text-white text-3xl">Details</h1>
               </div>
-              <div className="content flex">
-                <div className="details w-125">
+              <div className="content md:flex">
+                <div className="details md:w-60 lg:w-125">
                   <div className="mb-6">
                     <FieldEditInput
                       propertyName="title"
@@ -96,15 +120,34 @@ export const AddVideoOverlay = () => {
                     </div>
                   </div>
                 </div>
-                <div className="ml-6">
-                  <div className="w-75 h-45 bg-white video-preview">
-                    video preview
+                <div className="ml-6 w-75 overflow-x-hidden">
+                  <div className="w-75 h-45 bg-gray video-preview">
+                    <video controls className="w-75 h-45" src={video}></video>
                   </div>
-                  <div className="bg-body p-3">
-                    <h3 className="text-gray font-medium text-md">filename</h3>
-                    <h2 className="text-white font-medium text-lg">
-                      Grave book
-                    </h2>
+                  <div className="bg-body p-3 mb-3">
+                    <div>
+                      <label className="mb-3 block text-black dark:text-white">
+                        filename
+                      </label>
+                      <input
+                        onChange={(e: any) => {
+                          const selectedFile: any = e?.target?.files[0];
+                          const videoURL = URL.createObjectURL(selectedFile);
+                          setVideo(videoURL);
+                        }}
+                        accept="video/mp4, video/avi, video/webm, video/ogg"
+                        type="file"
+                        className="file:hidden h-10 hover:cursor-pointer text-white font-medium text-lg"
+                      />
+                    </div>
+
+                    <h2 className="">Grave book</h2>
+                  </div>
+                  <div className="bg-body">
+                    <label className="mb-3 block text-black dark:text-white">
+                      Select video preview
+                    </label>
+                    <ModalCropper error=""></ModalCropper>
                   </div>
                 </div>
               </div>
