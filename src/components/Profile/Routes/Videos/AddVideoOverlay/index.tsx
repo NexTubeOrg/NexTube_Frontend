@@ -11,10 +11,21 @@ import { handleError } from '../../../../../common/handleError';
 import { useFormik } from 'formik';
 
 export const AddVideoOverlay = () => {
-  const [selected, setSelected] = useState<string>('public');
-  const navigator = useNavigate();
+  const [selected, setSelected] = useState<string>('Public');
   const [video, setVideo] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const navigator = useNavigate();
   const root = useRef(null);
+
+  const request: IVideoUploadRequest = {
+    name: '',
+    description: '',
+    previewPhoto: null,
+    video: null,
+    accessModificator: selected,
+  }
+
   const handleEscPress = (event: any) => {
     if (event.keyCode === 27) {
       navigator('..');
@@ -23,68 +34,61 @@ export const AddVideoOverlay = () => {
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscPress);
-
     return () => {
       document.removeEventListener('keydown', handleEscPress);
     };
   }, []);
 
+  const onFormSubmit = async (values: IVideoUploadRequest) => {
+    try {
+      setIsLoading(true);
 
-    const request: IVideoUploadRequest = {
-        name: '',
-        description: '',
-        previewPhoto: null,
-        video: null,
-        accessModificator: selected,
+      await http_api.post<IVideoUploadRequest>('/api/video/uploadVideo', values, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      setIsLoading(false);
+      navigator('..');
+
+    } catch (error: any) {
+      handleError(error);
     }
+  };
 
-    const onFormSubmit = async (values: IVideoUploadRequest) => {
-        try {
-            await http_api.post<IVideoUploadRequest>('/api/video/uploadVideo', values, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-
-            navigator('/');
-
-        } catch (error: any) {
-            handleError(error);
-        }
-    };
-
-    const onPreviewPhotoChangeHandler = (f: File) => {
-        console.log('image input handle change', f);
-        if (f != null) {
-            onPreviewPhotoSaveHandler(f);
-        }
-    };
-
-    const onPreviewPhotoSaveHandler = (file: File) => {
-        console.log('image save handle', file);
-        values.previewPhoto = file;
-        console.log(values);
-    };
-
-    const onVideoChangeHandler = (f: any) => {
-        console.log('video input handle change', f);
-        if (f != null) {
-            onVideoSaveHandler(f.target.files[0]);
-        }
+  const onPreviewPhotoChangeHandler = (f: File) => {
+    console.log('image input handle change', f);
+    if (f != null) {
+      onPreviewPhotoSaveHandler(f);
     }
+  };
 
-    const onVideoSaveHandler = (file: File) => {
-        console.log('image save handle', file);
-        values.video = file;
-        console.log(values);
-    };
+  const onPreviewPhotoSaveHandler = (file: File) => {
+    console.log('image save handle', file);
+    values.previewPhoto = file;
+    console.log(values);
+  };
 
-    const formik = useFormik({
-        initialValues: request,
-        onSubmit: onFormSubmit,
-    });
+  const onVideoChangeHandler = (f: any) => {
+    console.log('video input handle change', f);
+    if (f != null) {
+      onVideoSaveHandler(f.target.files[0]);
+    }
+  }
 
-    const { values, errors, touched, handleSubmit, handleChange } = formik;
+  const onVideoSaveHandler = (file: File) => {
+    console.log('image save handle', file);
+    values.video = file;
+    console.log(values);
+  };
+
+  const formik = useFormik({
+    initialValues: request,
+    onSubmit: onFormSubmit,
+  });
+
+  const { values, errors, touched, handleSubmit, handleChange } = formik;
 
   return (
     <>
@@ -100,13 +104,13 @@ export const AddVideoOverlay = () => {
           <div className="absolute">
             <form className="md:mb-10 overflow-y-auto bg-secondary relative sm:top-0 md:top-10 lg:top-30 lg:left-10 p-6 rounded-md" onSubmit={handleSubmit}>
               <div className="header flex justify-between">
-                <h1 className="text-white text-3xl">Grave book // |</h1>
+                <h1 className="text-white text-3xl">{values.name}</h1>
                 <div className="flex items-center justify-center">
                   <div className="w-40 mr-6">
                     <PrimaryProcessingButton
                       text="Save"
-                      isLoading={false}
-                      onClick={() => {}}
+                      isLoading={isLoading}
+                      onClick={handleSubmit}
                       type="submit"
                     ></PrimaryProcessingButton>
                   </div>
@@ -127,9 +131,9 @@ export const AddVideoOverlay = () => {
                 <div className="details md:w-60 lg:w-125">
                   <div className="mb-6">
                     <FieldEditInput
-                      propertyName="title"
-                      value=""
-                      handleChange={() => {}}
+                      propertyName="name"
+                      value={values.name}
+                      handleChange={handleChange}
                       error=""
                       type="text"
                       labelText="Enter video title"
@@ -138,8 +142,8 @@ export const AddVideoOverlay = () => {
                   <div className="mb-6">
                     <FieldEditBigInput
                       propertyName="description"
-                      value=""
-                      handleChange={() => {}}
+                      value={values.description}
+                      handleChange={handleChange}
                       error=""
                       type="text"
                       labelText="Tell viewers about your video"
@@ -149,7 +153,7 @@ export const AddVideoOverlay = () => {
                     <div className="mb-3">
                       <CheckboxFour
                         description="Make your video public or private"
-                        onChange={() => {}}
+                        onChange={() => { }}
                         isChecked={true}
                         name={'Save or publish'}
                         id={'publish'}
@@ -160,10 +164,10 @@ export const AddVideoOverlay = () => {
                         <CheckboxFour
                           description="Everyone can watch your video"
                           onChange={() => {
-                            setSelected('public');
-                            values.accessModificator = selected;
+                            setSelected('Public');
+                            values.accessModificator = "Public";
                           }}
-                          isChecked={selected === 'public'}
+                          isChecked={selected === 'Public'}
                           name={'Public'}
                           id={'public'}
                         ></CheckboxFour>
@@ -172,10 +176,10 @@ export const AddVideoOverlay = () => {
                         <CheckboxFour
                           description="Only you can watch the video"
                           onChange={() => {
-                            setSelected('private');
-                            values.accessModificator = selected;
+                            setSelected('Private');
+                            values.accessModificator = "Private";
                           }}
-                          isChecked={selected === 'private'}
+                          isChecked={selected === 'Private'}
                           name={'Private'}
                           id={'private'}
                         ></CheckboxFour>
@@ -190,27 +194,27 @@ export const AddVideoOverlay = () => {
                   <div className="bg-body p-3 mb-3">
                     <div>
                       <label className="mb-3 block text-black dark:text-white">
-                        filename
+                        video filename
                       </label>
                       <input
                         onChange={(e: any) => {
                           const selectedFile: any = e?.target?.files[0];
                           const videoURL = URL.createObjectURL(selectedFile);
                           setVideo(videoURL);
+                          onVideoChangeHandler(e);
+                          console.log(values.video);
                         }}
                         accept="video/mp4, video/avi, video/webm, video/ogg"
                         type="file"
                         className="file:hidden h-10 hover:cursor-pointer text-white font-medium text-lg"
                       />
                     </div>
-
-                    <h2 className="">Grave book</h2>
                   </div>
                   <div className="bg-body">
                     <label className="mb-3 block text-black dark:text-white">
                       Select video preview
                     </label>
-                    <ModalCropper error=""></ModalCropper>
+                    <ModalCropper onSave={onPreviewPhotoChangeHandler} error=""></ModalCropper>
                   </div>
                 </div>
               </div>

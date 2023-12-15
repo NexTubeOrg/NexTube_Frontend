@@ -92,7 +92,6 @@ export const ModalCropper: React.FC<ICroppedModal> = ({
     await toggleModal();
   };
 
-  console.log(imageUri);
   return (
     <>
       <div className="relative">
