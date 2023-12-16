@@ -1,5 +1,10 @@
-import { ArrowDownTrayIcon, ShareIcon, FlagIcon } from '@heroicons/react/20/solid';
-import React, { useState } from 'react';
+import {
+  ArrowDownTrayIcon,
+  ShareIcon,
+  FlagIcon,
+  ListBulletIcon,
+} from '@heroicons/react/20/solid';
+import React, { useEffect, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
 import { Link, useNavigate } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
@@ -12,12 +17,22 @@ import dayjs from 'dayjs';
 import ReportForm from '../ReportForm';
 import { handleSuccess } from '../../common/handleError';
 import { APP_CONFIG } from '../../env';
+import { useSelector } from 'react-redux';
+import { IAuthUser } from '../../store/reducers/auth/types';
+import { SetVideoPlaylist } from '../Playlists/SetVideoPlaylist';
 
 dayjs.extend(relativeTime);
 
 const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   const [showReportForm, setShowReportForm] = useState(false);
+  const [isAuthUserVideoOwner, setIsAuthUserVideoOwner] = useState(false);
 
+  const { user } = useSelector((state: any) => state.auth as IAuthUser);
+
+  useEffect(() => {
+    // determine that current signed in user is owner of current video
+    setIsAuthUserVideoOwner(user?.userId == props.video?.creator?.userId);
+  }, [user?.userId, props.video]);
 
   const handleReportClick = () => {
     setShowReportForm((prevShowReportForm) => !prevShowReportForm);
@@ -26,7 +41,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
- 
+
   return (
     <>
       <div className="warp m-6">
@@ -34,7 +49,9 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
         <div className="video w-full">
           <Player>
             <source
-              src={'/api/video/getVideoUrl?VideoFileId=' + props.video?.videoFile}
+              src={
+                '/api/video/getVideoUrl?VideoFileId=' + props.video?.videoFile
+              }
             />
           </Player>
         </div>
@@ -46,7 +63,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
 
         {/* actions section */}
         <div className="ml-5 flex justify-between items-center">
-          <Link to={'/channel/1'}>
+          <Link to={`/channel/${props.video?.creator?.userId}`}>
             <div className="flex mt-5 items-center">
               <img
                 className="rounded-full h-16 w-16"
@@ -58,19 +75,31 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
               ></img>
               <div className="ml-5">
                 <h3 className="text-white text-xl">
-                  {props.video?.creator?.firstName} {props.video?.creator?.lastName}
+                  {props.video?.creator?.firstName}{' '}
+                  {props.video?.creator?.lastName}
                 </h3>
                 <h3 className="text-gray text-md">3.23M subscribers</h3>
               </div>
             </div>
           </Link>
-                
+
           <div className="likes flex">
-            <AddVideoReaction videoId={props.video?.id ?? -1}></AddVideoReaction>
+            {user?.userId == props.video?.creator?.userId && (
+              <>
+                <SetVideoPlaylist video={props.video}></SetVideoPlaylist>
+              </>
+            )}
+
+            <AddVideoReaction
+              videoId={props.video?.id ?? -1}
+            ></AddVideoReaction>
             <div className="mr-5">
               <IconedProcessingButton
                 isLoading={false}
-                onClick={() => {navigator.clipboard.writeText(window.location.href); handleSuccess("Copied link to clipboard");}}
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  handleSuccess('Copied link to clipboard');
+                }}
                 text="Share"
                 type="button"
                 icon={<ShareIcon></ShareIcon>}
@@ -80,7 +109,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
 
             <div className="mr-5">
               <IconedProcessingButton
-                isLoading={false}q
+                isLoading={false}
                 onClick={handleReportClick}
                 text="Report"
                 type="button"
@@ -90,15 +119,22 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
             </div>
 
             <div className="">
-              <Link to={APP_CONFIG.API_URL+'video/getVideoUrl?VideoFileId=' + props.video?.videoFile}>
-              <IconedProcessingButton
-                isLoading={false}
-                onClick={() => { }}
-                text="Download"
-                type="button"
-                icon={<ArrowDownTrayIcon></ArrowDownTrayIcon>}
-                backgroundClassname="secondary"
-              ></IconedProcessingButton></Link>
+              <Link
+                to={
+                  APP_CONFIG.API_URL +
+                  'video/getVideoUrl?VideoFileId=' +
+                  props.video?.videoFile
+                }
+              >
+                <IconedProcessingButton
+                  isLoading={false}
+                  onClick={() => {}}
+                  text="Download"
+                  type="button"
+                  icon={<ArrowDownTrayIcon></ArrowDownTrayIcon>}
+                  backgroundClassname="secondary"
+                ></IconedProcessingButton>
+              </Link>
             </div>
           </div>
         </div>
@@ -109,7 +145,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
             <ReportForm
               abuser={props.video?.creator?.userId}
               videoId={props.video?.id}
-               onSubmitSuccess={handleReportFormClose}
+              onSubmitSuccess={handleReportFormClose}
             />
             <button onClick={handleReportFormClose}>Close Report Form</button>
           </div>
@@ -124,7 +160,9 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
         </div>
       </div>
 
-      <VideoCommentsLoader videoId={props.video?.id ?? -1}></VideoCommentsLoader>
+      <VideoCommentsLoader
+        videoId={props.video?.id ?? -1}
+      ></VideoCommentsLoader>
     </>
   );
 };
