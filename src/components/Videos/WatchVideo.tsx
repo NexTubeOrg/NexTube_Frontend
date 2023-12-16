@@ -1,6 +1,6 @@
 import { ArrowDownTrayIcon, ShareIcon } from '@heroicons/react/20/solid';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
 import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
 import { AddVideoReaction } from '../Reactions/AddVideoReaction';
@@ -9,9 +9,11 @@ import { IVideoLookup } from '../../pages/Video/common/types';
 import { Player } from 'video-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+ 
 dayjs.extend(relativeTime);
 
 const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
+  const {id}=useParams();
   return (
     <>
       <div className="warp m-6">
@@ -62,7 +64,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                text ="Subscribe"
                 type="button"
                  backgroundClassname="primary"
-                subscribeId={40}
+                subscribeId={id}
               ></SubscribeButton>
             </div>
 

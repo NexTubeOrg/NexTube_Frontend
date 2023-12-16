@@ -27,7 +27,7 @@ const {id}=useParams();
  const fetchData = async () => {
     try {
       console.log("id",id);
-      const response = await http_api.get(`/api/Auth/GetUser?ChannelId=${id}`);
+      const response = await http_api.get(`/api/User/GetUser?ChannelId=${id}`);
       const data = await response.data
       console.log("User!!!!!!",response.data);
       setUserData(data);
@@ -86,7 +86,7 @@ const {id}=useParams();
                text ="Subscribe"
                 type="button"
                  backgroundClassname="primary"
-                subscribeId={40}
+                subscribeId={id}
               ></SubscribeButton>
               </div>
             </div>

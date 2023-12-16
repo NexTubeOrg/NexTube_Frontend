@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
  
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import http_api from '../../../services/http_api';
+ 
 
 const SubscribeButton = (props: {
  isLoading: boolean;
@@ -10,7 +11,7 @@ const SubscribeButton = (props: {
  text: string;
  backgroundClassname: string;
  type: 'submit' | 'reset' | 'button' | undefined;
- subscribeId: number;
+ subscribeId: string|undefined;
 }) => {
  const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -19,7 +20,7 @@ const SubscribeButton = (props: {
       if (isSubscribed) {
         await http_api.delete(`/api/subscription/unsubscribe?SubscribeTo=${props.subscribeId}`);
       } else {
-        await http_api.post(`/api/Subscription/Subscribe`, { "subscribeTo": props.subscribeId });
+        await http_api.post(`/api/subscription/subscribe`, {"subscribeTo": props.subscribeId});
       }
       setIsSubscribed(!isSubscribed);
     } catch (error) {
@@ -32,6 +33,7 @@ const SubscribeButton = (props: {
     if (isAuth) {
       const fetchIsSubscribed = async () => {
         try {
+          console.log("idSubs",props.subscribeId);
           const response = await http_api.get(`/api/Subscription/isSubscriptions?SubscribeTo=${props.subscribeId}`);
           const isSubscribed = await response.data;
           setIsSubscribed(isSubscribed);

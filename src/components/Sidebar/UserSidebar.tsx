@@ -79,7 +79,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   useEffect(() => {
      const fetchSubscriptions = async () => {
        try {
-         const response = await http_api.get(`/api/Subscription/Subscriptions?SubscribeUserTo=${user?.userId}`);
+         const response = await http_api.get(`/api/Subscription/Subscriptions `);
          const subscriptionsData: ISubscriptionData[] = response.data.subscriptions;
          setSubscriptions(subscriptionsData);
        } catch (error) {
