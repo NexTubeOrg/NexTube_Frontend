@@ -1,36 +1,43 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import CheckboxOne from '../../../CheckboxOne';
-import { VideoItem } from '../../../Videos/VideoItem';
-import { PrimaryProcessingButton } from '../../../common/buttons/PrimaryProcessingButton';
 import { PrimaryButtonLink } from '../../../common/links/PrimaryButtonLink';
+import { IGetVideoListChannelResult, IVideoLookup } from '../../../../pages/Video/common/types';
+import { useEffect, useState } from 'react';
+import http_api from '../../../../services/http_api';
+import { IAuthUser, IUser } from '../../../../store/reducers/auth/types';
+import { useSelector } from 'react-redux';
+import OperationLoader from '../../../../common/OperationLoader';
+import HandleOnVisible from '../../../HandleOnVisible';
+import { store } from '../../../../store';
+import { IProfileVideoList, ProfileVideosReducerActionsType } from '../../../../store/reducers/profileVideos/types';
 
-const EditVideoItem = () => {
+const EditVideoItem = (props: { video: IVideoLookup }) => {
   return (
     <>
       <tr className="border-t-2 border-primary">
         <td className="pb-2 text-left">
           <div className="">
-            <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
+            <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
           </div>
         </td>
         <td className="pb-2 text-left">
           <div className="item flex mt-3">
             <div className="video mr-3">
-              <Link to={'/watch/1'}>
-                <div className="w-40 h-25 bg-white"></div>
+              <Link to={'/video/watch/' + props.video.id}>
+                <img className="w-40 h-25" src={'/api/photo/getPhotoUrl/' + props.video.previewPhotoFile + '/600'}></img>
               </Link>
             </div>
 
             <div className="text">
-              <Link to={'/watch/1'}>
-                <h3 className="text-white text-lg">Video title</h3>
+              <Link to={'/video/watch/' + props.video.id}>
+                <h3 className="text-white text-lg">{props.video.name}</h3>
               </Link>
-              <p className="text-gray">Add description</p>
+              <p className="text-gray">{props.video.description}</p>
             </div>
           </div>
         </td>
         <td className="pb-2 text-left">
-          <span>153K</span>
+          <span>{props.video.views}</span>
         </td>
         <td className="pb-2 text-left">
           <span>2342</span>
@@ -45,7 +52,61 @@ const EditVideoItem = () => {
   );
 };
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const ProfileVideos = () => {
+  const [pageSize] = useState<number>(5);
+  const [canLoad, setCanLoad] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [needLoad, setNeedLoad] = useState<number>(1);
+
+  const { user } = useSelector(
+    (store: any) => store.auth as IAuthUser,
+  );
+
+  const { videos, page } = useSelector(
+    (store: any) => store.profileVideos as IProfileVideoList
+  );
+
+  useEffect(() => {
+
+    const loadVideoAsync = async () => {
+
+      if (needLoad == 0 || !canLoad) {
+        console.log('abort loading');
+        return;
+      }
+
+      store.dispatch({
+        type: ProfileVideosReducerActionsType.NEXT_PROFILE_VIDEO_LIST,
+      });
+
+      await sleep(200);
+
+      setIsLoading(true);
+
+      const result = (
+        await http_api.get<IGetVideoListChannelResult>(`/api/video/getVideoListChannel?ChannelId=${user?.userId}&Page=${page}&PageSize=${pageSize}`)
+      ).data;
+
+
+      if (result.videos.length == 0) {
+        setCanLoad(false);
+      }
+
+      store.dispatch({
+        type: ProfileVideosReducerActionsType.APPEND_PROFILE_VIDEO_LIST,
+        payload: result
+      });
+
+      setIsLoading(() => false);
+    }
+
+    loadVideoAsync();
+    console.log(videos);
+    
+  }, [needLoad]);
+
   return (
     <>
       <Outlet></Outlet>
@@ -74,22 +135,26 @@ export const ProfileVideos = () => {
         </tr>
         <tr>
           <th className="pb-2 text-left">
-            <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
+            <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
           </th>
           <th className="pb-2 text-left">Videos</th>
           <th className="pb-2 text-left">Views</th>
           <th className="pb-2 text-left">Comments</th>
-          <th className="pb-2 text-right">Likes (vs dislikes)</th>
+          <th className="pb-2 text-right">Actions</th>
         </tr>
         {/* render videos here */}
-        <EditVideoItem></EditVideoItem>
-        <EditVideoItem></EditVideoItem>
-        <EditVideoItem></EditVideoItem>
-        <EditVideoItem></EditVideoItem>
-        <EditVideoItem></EditVideoItem>
-        <EditVideoItem></EditVideoItem>
-        <EditVideoItem></EditVideoItem>
-        <EditVideoItem></EditVideoItem>
+        {videos?.length > 0 && videos.map((v) => (
+          <EditVideoItem key={v.id} video={v} />
+        ))}
+        <>
+          {isLoading && <OperationLoader></OperationLoader>}
+
+          <HandleOnVisible
+            onVisible={() => {
+              setNeedLoad((prevPage) => prevPage + 1);
+            }}
+          ></HandleOnVisible>
+        </>
       </table>
     </>
   );
