@@ -9,9 +9,7 @@ import DefaultLayout from './layout/DefaultLayout.tsx';
 import HomePage from './pages/Home/HomePage.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
-import VideoLayout from './layout/VideoLayout.tsx';
 import VideoWatchPage from './pages/Video/VideoWatchPage.tsx';
-import VideoUploadPage from './pages/Video/VideoUploadPage.tsx';
 import { ViewChannel } from './components/Channel/ViewChannel/ViewChannel.tsx';
 import routes, { channelRoutes, profileRoutes } from './routes/index.ts';
 import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
@@ -96,9 +94,6 @@ function App() {
           <Route path={'watch'}>
             <Route path={':id'} element={<VideoWatchPage />} />
           </Route>
-          <Route path={'upload'} element={<VideoUploadPage />} />
-
-          
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>
