@@ -9,6 +9,7 @@ import { ProfileInfo } from '../components/Profile/Routes/Info';
 import { ProfileVideos } from '../components/Profile/Routes/Videos';
 import { AddVideoOverlay } from '../components/Profile/Routes/Videos/AddVideoOverlay';
 import { EditPlaylists } from '../components/Profile/Routes/Playlists/EditPlaylists';
+import { CreatePlaylistOverlay } from '../components/Profile/Routes/Playlists/CreatePlaylistOverlay';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -121,6 +122,13 @@ const profileRoutes = [
     path: 'playlists',
     title: 'Playlists',
     component: EditPlaylists,
+    routes: [
+      {
+        path: 'addPlaylist',
+        title: 'Add playlist',
+        component: CreatePlaylistOverlay,
+      },
+    ],
     index: false,
   },
 ];
