@@ -47,6 +47,9 @@ export const ProfilePlaylistsReducer = (
         page: state.page + 1,
       };
     }
+    case ProfilePlaylistsActionType.RESET_ALL: {
+      return initState;
+    }
     default:
       return state;
   }
