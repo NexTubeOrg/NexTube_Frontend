@@ -11,3 +11,7 @@ export interface IPlaylistLookup {
 export interface IGetUserPlaylistsResult {
   playlists: IPlaylistLookup[];
 }
+
+export interface IGetPlaylistVideos {
+  videos: IVideoLookup[];
+}
