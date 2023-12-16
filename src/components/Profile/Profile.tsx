@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { PrimaryProcessingButton } from '../common/buttons/PrimaryProcessingButton';
 import { Navbar } from '../common/navbars/Navbar';
+import { profileRoutes } from '../../routes';
 
 const Profile = () => {
   return (
@@ -23,14 +24,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="nav mt-6">
-          <Navbar
-            routeLength={3}
-            refs={[
-              { title: 'Branding', url: '', index: true },
-              { title: 'Basic info', url: 'info', index: false },
-              { title: 'Videos', url: 'videos', index: false },
-            ]}
-          ></Navbar>
+          <Navbar routeLength={3} refs={profileRoutes}></Navbar>
         </div>
         <div className="page mt-6">
           <Outlet></Outlet>

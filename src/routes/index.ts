@@ -8,6 +8,7 @@ import { ProfileBranding } from '../components/Profile/Routes/Branding';
 import { ProfileInfo } from '../components/Profile/Routes/Info';
 import { ProfileVideos } from '../components/Profile/Routes/Videos';
 import { AddVideoOverlay } from '../components/Profile/Routes/Videos/AddVideoOverlay';
+import { EditPlaylists } from '../components/Profile/Routes/Playlists/EditPlaylists';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -66,26 +67,31 @@ const channelRoutes = [
     path: 'home',
     title: 'Home',
     component: ChannelHome,
+    index: true,
   },
   {
     path: 'videos',
     title: 'Videos',
     component: ChannelVideos,
+    index: false,
   },
   {
     path: 'live',
     title: 'Live',
     component: ChannelLive,
+    index: false,
   },
   {
     path: 'community',
     title: 'Community',
     component: ChannelCommunity,
+    index: false,
   },
   {
     path: 'playlists',
     title: 'Playlists',
     component: ChannelPlaylist,
+    index: false,
   },
 ];
 
@@ -94,11 +100,13 @@ const profileRoutes = [
     path: '',
     title: 'Branding',
     component: ProfileBranding,
+    index: true,
   },
   {
     path: 'info',
-    title: 'Info',
+    title: 'Basic info',
     component: ProfileInfo,
+    index: false,
   },
   {
     path: 'videos',
@@ -107,6 +115,13 @@ const profileRoutes = [
     routes: [
       { path: 'addVideo', title: 'Add video', component: AddVideoOverlay },
     ],
+    index: false,
+  },
+  {
+    path: 'playlists',
+    title: 'Playlists',
+    component: EditPlaylists,
+    index: false,
   },
 ];
 

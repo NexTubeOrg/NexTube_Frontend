@@ -18,9 +18,9 @@ export const Navbar = (props: {
         <NavLink
           className={classNames('text-gray', {
             'text-white border-b-2 border-primary':
-              r.url == currentRoute || (currentRoute == '' && r.index == true),
+              r.path == currentRoute || (currentRoute == '' && r.index == true),
           })}
-          to={r.url}
+          to={r.path}
         >
           {r.title}
         </NavLink>

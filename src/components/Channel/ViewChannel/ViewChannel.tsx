@@ -1,11 +1,12 @@
-import { Outlet, useNavigate  } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
 import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import { FlagIcon } from '@heroicons/react/20/solid';
-import { useState} from 'react';
+import { useState } from 'react';
 import ReportForm from '../../ReportForm';
+import { channelRoutes } from '../../../routes';
 
 const ViewChannel = () => {
   const parts = location.pathname.split('/');
@@ -19,7 +20,6 @@ const ViewChannel = () => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
-
 
   return (
     <>
@@ -60,59 +60,49 @@ const ViewChannel = () => {
                 </span>
               </h4>
               {/* Subscribe to channel */}
-             <div className='channel-tools'>
-              <div className="w-35 ">
-                <PrimaryProcessingButton
-                  isLoading={false}
-                  onClick={() => {}}
-                  text="Subscribed"
-                  type="button"
-                ></PrimaryProcessingButton>
-                
-              </div>
-              <div className="w-11 h-0 ml-4">
-                
-              <IconedProcessingButton
-                isLoading={false}
-                onClick={handleReportClick}
-                text=""
-                type="button"
-                icon={<FlagIcon height={25} width={25}/>}
-                backgroundClassname="primary"
-              ></IconedProcessingButton>
-             </div>
+              <div className="channel-tools">
+                <div className="w-35 ">
+                  <PrimaryProcessingButton
+                    isLoading={false}
+                    onClick={() => {}}
+                    text="Subscribed"
+                    type="button"
+                  ></PrimaryProcessingButton>
+                </div>
+                <div className="w-11 h-0 ml-4">
+                  <IconedProcessingButton
+                    isLoading={false}
+                    onClick={handleReportClick}
+                    text=""
+                    type="button"
+                    icon={<FlagIcon height={25} width={25} />}
+                    backgroundClassname="primary"
+                  ></IconedProcessingButton>
+                </div>
               </div>
             </div>
           </div>
           {showReportForm && (
-          <div className="report-form-overlay w-150 p-0">
-            <ReportForm
-              abuser={Number(parts[2])}
-              videoId={null}
-               onSubmitSuccess={handleReportFormClose}
-            />
-            <button onClick={handleReportFormClose}>Close Report Form</button>
-          </div>
-        )}
-        {!showReportForm && (
-          <div>
-          <div className="nav mt-6">
-            <Navbar
-              routeLength={4}
-              refs={[
-                { title: 'Home', url: '', index: true },
-                { title: 'Videos', url: 'videos', index: false },
-                { title: 'Live', url: 'live', index: false },
-                { title: 'Community', url: 'community', index: false },
-                { title: 'Playlists', url: 'playlists', index: false },
-              ]}
-            ></Navbar>
-          </div>
-       
-          <div className="page mt-6">
-            <Outlet></Outlet>
-          </div>    
-          </div>)}
+            <div className="report-form-overlay w-150 p-0">
+              <ReportForm
+                abuser={Number(parts[2])}
+                videoId={null}
+                onSubmitSuccess={handleReportFormClose}
+              />
+              <button onClick={handleReportFormClose}>Close Report Form</button>
+            </div>
+          )}
+          {!showReportForm && (
+            <div>
+              <div className="nav mt-6">
+                <Navbar routeLength={4} refs={channelRoutes}></Navbar>
+              </div>
+
+              <div className="page mt-6">
+                <Outlet></Outlet>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
