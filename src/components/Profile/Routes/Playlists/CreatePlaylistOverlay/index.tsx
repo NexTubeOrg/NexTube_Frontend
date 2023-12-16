@@ -9,6 +9,9 @@ import { handleError, handleSuccess } from '../../../../../common/handleError';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { ICreatePlaylistRequest } from './types';
+import { store } from '../../../../../store';
+import { ProfilePlaylistsActionType } from '../../../../../store/reducers/profilePlaylists/types';
+import { IPlaylistLookup } from '../../../../Playlists/types';
 
 export const CreatePlaylistOverlay = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,10 +45,21 @@ export const CreatePlaylistOverlay = () => {
     try {
       setIsLoading(true);
 
-      await http_api.post('/api/Video/Playlist/CreatePlaylist', values, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const result = (
+        await http_api.post<IPlaylistLookup>(
+          '/api/Video/Playlist/CreatePlaylist',
+          values,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        )
+      ).data;
+
+      store.dispatch({
+        type: ProfilePlaylistsActionType.APPEND_TO_LIST_ITEM,
+        payload: result,
       });
 
       setIsLoading(false);

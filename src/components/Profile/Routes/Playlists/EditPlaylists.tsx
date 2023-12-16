@@ -11,6 +11,12 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { IAuthUser, IUser } from '../../../../store/reducers/auth/types';
 import http_api from '../../../../services/http_api';
+import { store } from '../../../../store';
+import {
+  IProfilePlaylistsList,
+  ProfilePlaylistsActionType,
+} from '../../../../store/reducers/profilePlaylists/types';
+import HandleOnVisible from '../../../HandleOnVisible';
 
 const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
   return (
@@ -62,37 +68,52 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
   );
 };
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const EditPlaylists = () => {
-  const [playlists, setPlaylists] = useState<IPlaylistLookup[]>([]);
+  const [pageSize] = useState(4);
+  const [needLoad, setNeedLoad] = useState<number>(1);
+
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
 
-  const [page, setPage] = useState(1);
-  const [pageSize] = useState(40);
-  const [needLoad, setNeedLoad] = useState<number>(1);
+  const { playlists, page } = useSelector(
+    (store: any) => store.profilePlaylists as IProfilePlaylistsList,
+  );
+
+  useEffect(() => {
+    console.log('needLoad');
+
+    if (needLoad == 0) {
+      console.log('abort loading');
+      return;
+    }
+
+    fetchPlaylists();
+  }, [needLoad]);
 
   const fetchPlaylists = async () => {
     try {
+      store.dispatch({
+        type: ProfilePlaylistsActionType.NEXT_PAGE,
+      });
+
+      await sleep(200);
+
       const response = (
         await http_api.get<IGetUserPlaylistsResult>(
           `/api/Video/Playlist/GetUserPlaylists?UserId=${user?.userId}&Page=${page}&PageSize=${pageSize}`,
         )
       ).data;
       const newPlaylists = response.playlists || [];
-      setPlaylists((prev) => {
-        if (newPlaylists.length < 1) return prev;
-        if (prev.find((p) => p.id == newPlaylists[0].id) != null) return prev;
 
-        return [...prev, ...newPlaylists];
+      store.dispatch({
+        type: ProfilePlaylistsActionType.APPEND_TO_LIST_PAGE,
+        payload: newPlaylists,
       });
-      setPage((page) => page + 1);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
   };
-
-  useEffect(() => {
-    fetchPlaylists();
-  }, [needLoad]);
 
   return (
     <>
@@ -130,10 +151,15 @@ export const EditPlaylists = () => {
         <>
           <tbody>
             <>
-              {playlists.map((p, key) => (
+              {playlists?.map((p, key) => (
                 <EditPlaylistsItem key={key} playlist={p}></EditPlaylistsItem>
               ))}
             </>
+            <HandleOnVisible
+              onVisible={() => {
+                setNeedLoad((p) => p + 1);
+              }}
+            ></HandleOnVisible>
           </tbody>
         </>
       </table>
