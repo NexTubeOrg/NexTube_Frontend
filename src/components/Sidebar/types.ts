@@ -1,16 +1,11 @@
  
 
-interface ISubscription {
+export interface ISubscription {
   userId: number;
   firstName: string;
   lastName: string;
-  email: string | null;
-  channelPhoto: string;
-  roles: string[] | null;
+  channelPhotoFileId: string;
 }
 
-interface ISubscriptionData {
-  subscription: ISubscription;
-  dateCreated: string;
-}
+ 
  

@@ -17,7 +17,9 @@ import {
 import http_api from '../../services/http_api';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
-import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
+ import { ISubscription } from './types';
+import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
+import { store } from '../../store';
  
 
 interface UserSidebarProps {
@@ -74,21 +76,26 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     }
   }, [sidebarExpanded]);
 
-  const [subscriptions, setSubscriptions] = useState<ISubscriptionData[]>([]);
-  const {   user } = useSelector((store: any) => store.auth as IAuthUser);
+  const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+  console.log("store",userSubscriptions);
+    const {   user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
-     const fetchSubscriptions = async () => {
-       try {
-         const response = await http_api.get(`/api/Subscription/Subscriptions `);
-         const subscriptionsData: ISubscriptionData[] = response.data.subscriptions;
-         setSubscriptions(subscriptionsData);
-       } catch (error) {
-         console.error(error);
-       }
-     };
- 
-     fetchSubscriptions();
-  }, [user] );
+    const fetchSubscriptions = async () => {
+      try {
+        const response = (await http_api.get(`/api/Subscription/Subscriptions`)).data;
+        const userSubscriptions = response
+        store.dispatch({
+          type:SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST ,
+          payload:userSubscriptions
+        });
+     
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSubscriptions();
+  }, [user, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
    
  
   
@@ -262,14 +269,14 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                      
 
                      <ul>
-                     {subscriptions.map((subscription, index) => (
+                     {userSubscriptions.subscriptions.map((subscription, index) => (
         <li key={index}>
           <SidebarItem
             active={true}
-            url={`/channel/${subscription.subscription.userId}`}
-            title={`${subscription.subscription.firstName} ${subscription.subscription.lastName}`}
+            url={`/channel/${subscription.userId}`}
+            title={`${subscription.firstName} ${subscription.lastName}`}
             icon={ <div className="thumb bg-danger rounded-full w-8 h-8">
-            <img className="h-12 w-12 rounded-full" src={"/api/Photo/GetPhotoUrl/"+subscription.subscription.channelPhoto+"/50"} alt="User" />
+            <img className="h-12 w-12 rounded-full" src={"/api/Photo/GetPhotoUrl/"+subscription.channelPhotoFileId+"/50"} alt="User" />
           </div>}
           />
         </li>

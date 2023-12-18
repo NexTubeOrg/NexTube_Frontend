@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
  
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import http_api from '../../../services/http_api';
- 
+ import { store } from '../../../store';
+import { SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
+
 
 const SubscribeButton = (props: {
  isLoading: boolean;
@@ -14,13 +16,24 @@ const SubscribeButton = (props: {
  subscribeId: string|undefined;
 }) => {
  const [isSubscribed, setIsSubscribed] = useState(false);
-
+ 
  const handleToggleSubscription = async () => {
+ 
     try {
       if (isSubscribed) {
-        await http_api.delete(`/api/subscription/unsubscribe?SubscribeTo=${props.subscribeId}`);
+        const result= await http_api.delete(`/api/subscription/unsubscribe?SubscribeTo=${props.subscribeId}`);
+        console.log("delete",result);
+        store.dispatch({
+          type: SubscriptionReducerActionsType.DELETE_SUBSCRIBER,
+          payload:  result.data
+        });
       } else {
-        await http_api.post(`/api/subscription/subscribe`, {"subscribeTo": props.subscribeId});
+       const result= await http_api.post(`/api/subscription/subscribe`, {"subscribeTo": props.subscribeId});
+       console.log("add",result);
+        store.dispatch({
+          type:SubscriptionReducerActionsType.ADD_SUBSCRIBER ,
+          payload:result.data
+        });
       }
       setIsSubscribed(!isSubscribed);
     } catch (error) {
