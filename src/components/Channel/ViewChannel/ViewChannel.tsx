@@ -1,10 +1,13 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigate , useParams } from 'react-router-dom';
 import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
 import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
 import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription';
 import { useEffect, useState } from 'react';
 import http_api from '../../../services/http_api';
+import { IconedProcessingButton } from '../../common/buttons/IconedButton';
+import ReportForm from '../../ReportForm';
+import { FlagIcon } from '@heroicons/react/20/solid';
 
 const ViewChannel = () => {
 interface IUserInfo
@@ -39,6 +42,22 @@ const {id}=useParams();
  if (!userData) {
     return <div>Loading...</div>;
  }
+
+
+
+  const parts = location.pathname.split('/');
+
+  const [showReportForm, setShowReportForm] = useState(false);
+
+  const handleReportClick = () => {
+    setShowReportForm((prevShowReportForm) => !prevShowReportForm);
+  };
+
+  const handleReportFormClose = () => {
+    setShowReportForm(false);
+  };
+
+
   return (
     <>
       <div className="">
@@ -88,9 +107,42 @@ const {id}=useParams();
                  backgroundClassname="primary"
                 subscribeId={id}
               ></SubscribeButton>
+             <div className='channel-tools'>
+              <div className="w-35 ">
+                <PrimaryProcessingButton
+                  isLoading={false}
+                  onClick={() => {}}
+                  text="Subscribed"
+                  type="button"
+                ></PrimaryProcessingButton>
+                
+              </div>
+              <div className="w-11 h-0 ml-4">
+                
+              <IconedProcessingButton
+                isLoading={false}
+                onClick={handleReportClick}
+                text=""
+                type="button"
+                icon={<FlagIcon height={25} width={25}/>}
+                backgroundClassname="primary"
+              ></IconedProcessingButton>
+             </div>
               </div>
             </div>
           </div>
+          {showReportForm && (
+          <div className="report-form-overlay w-150 p-0">
+            <ReportForm
+              abuser={Number(parts[2])}
+              videoId={null}
+               onSubmitSuccess={handleReportFormClose}
+            />
+            <button onClick={handleReportFormClose}>Close Report Form</button>
+          </div>
+        )}
+        {!showReportForm && (
+          <div>
           <div className="nav mt-6">
             <Navbar
               routeLength={4}
@@ -103,9 +155,11 @@ const {id}=useParams();
               ]}
             ></Navbar>
           </div>
+       
           <div className="page mt-6">
             <Outlet></Outlet>
-          </div>
+          </div>    
+          </div>)}
         </div>
       </div>
     </>

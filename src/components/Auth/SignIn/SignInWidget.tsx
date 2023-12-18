@@ -116,11 +116,20 @@ const SignInWidget = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 text-center text-white">
+                <div className="text-center text-white">
                   <p>
-                    Don’t have any account?{' '}
+                    Don’t have any account?{'  '}
                     <Link to="/auth/signup" className="text-primary">
                       Sign Up
+                    </Link>
+                  </p>
+                </div>
+
+                <div className="mt-6 text-center text-white">
+                  <p>
+                    Forgot yur Password?{'  '}
+                    <Link to="/auth/recover" className="text-primary">
+                      Recover
                     </Link>
                   </p>
                 </div>

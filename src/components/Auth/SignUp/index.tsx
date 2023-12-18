@@ -218,7 +218,7 @@ const AlreadyHaveAccountWidget = () => {
           </div>
           <div className="mt-7">
             <Link
-              to={'/auth/recoverPassword'}
+              to={'/auth/recover'}
               className={`w-full flex items-center justify-center font-bold text-2xl py-5 cursor-pointer rounded-md border border-secondary bg-secondary text-gray transition hover:bg-opacity-90`}
             >
               Forgot password

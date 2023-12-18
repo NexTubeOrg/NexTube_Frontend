@@ -29,7 +29,11 @@ const HandleOnVisible = (props: { onVisible: EventHandler<any> }) => {
     return () => observer.disconnect();
   }, [myElementRef]);
 
-  return <div ref={myElementRef}> </div>;
+  return (
+    <div className="text-transparent" ref={myElementRef}>
+      loader
+    </div>
+  );
 };
 
 export default HandleOnVisible;

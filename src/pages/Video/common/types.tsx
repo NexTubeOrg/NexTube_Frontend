@@ -24,4 +24,5 @@ export interface IVideoUploadRequest {
     description: string;
     previewPhoto: File | null;
     video: File | null;
+    accessModificator: string | null;
 }

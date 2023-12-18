@@ -92,7 +92,6 @@ export const ModalCropper: React.FC<ICroppedModal> = ({
     await toggleModal();
   };
 
-  console.log(imageUri);
   return (
     <>
       <div className="relative">
@@ -119,7 +118,7 @@ export const ModalCropper: React.FC<ICroppedModal> = ({
             />
           </div>
 
-          {error && <div className="invalid-feedback">{error}</div>}
+          {error && <div className="invalid-feedback text-danger">{error}</div>}
         </div>
         <span className="absolute right-4 top-4">{/* insert here svg */}</span>
       </div>

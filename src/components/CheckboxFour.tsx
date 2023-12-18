@@ -1,38 +1,46 @@
-import { useState } from 'react';
+import { ChangeEventHandler, EventHandler, useState } from 'react';
 
-const CheckboxFour = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
+const CheckboxFour = (props: {
+  name: string;
+  id: string;
+  isChecked: boolean;
+  description: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}) => {
   return (
     <div>
       <label
-        htmlFor="checkboxLabelFour"
+        htmlFor={props.id}
         className="flex cursor-pointer select-none items-center"
       >
-        <div className="relative">
+        <div className="relative ">
           <input
+            name={props.name}
             type="checkbox"
-            id="checkboxLabelFour"
+            id={props.id}
             className="sr-only"
-            onChange={() => {
-              setIsChecked(!isChecked);
-            }}
+            onChange={props.onChange}
           />
           <div
-            className={`mr-4 flex h-5 w-5 items-center justify-center rounded-full border ${
-              isChecked && 'border-primary'
+            className={`mr-4 flex h-5 w-5 border-gray items-center justify-center rounded-full  border ${
+              props.isChecked && 'border-white'
             }`}
           >
             <span
-              className={`h-2.5 w-2.5 rounded-full bg-transparent ${
-                isChecked && '!bg-primary'
+              className={`h-3 w-3 rounded-full bg-transparent ${
+                props.isChecked && '!bg-white'
               }`}
             >
               {' '}
             </span>
           </div>
         </div>
-        Checkbox Text
+        <div className="">
+          <h2 className="text-white font-semibold">{props.name}</h2>
+          <h3 className="text-gray text-sm font-semibold">
+            {props.description}
+          </h3>
+        </div>
       </label>
     </div>
   );

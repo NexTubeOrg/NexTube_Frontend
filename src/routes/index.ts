@@ -7,6 +7,7 @@ import { ChannelPlaylist } from '../components/Channel/Routes/Playlist';
 import { ProfileBranding } from '../components/Profile/Routes/Branding';
 import { ProfileInfo } from '../components/Profile/Routes/Info';
 import { ProfileVideos } from '../components/Profile/Routes/Videos';
+import { AddVideoOverlay } from '../components/Profile/Routes/Videos/AddVideoOverlay';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -103,6 +104,9 @@ const profileRoutes = [
     path: 'videos',
     title: 'Videos',
     component: ProfileVideos,
+    routes: [
+      { path: 'addVideo', title: 'Add video', component: AddVideoOverlay },
+    ],
   },
 ];
 
