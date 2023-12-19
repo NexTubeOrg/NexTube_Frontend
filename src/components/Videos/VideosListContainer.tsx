@@ -34,7 +34,6 @@ const VideosListContainer = () => {
       ).data;
 
       setVideos(() => [...videos, ...result.videos]);
-      console.log(videos);
 
       if (result.videos.length == 0) {
         setCanLoad(false);
