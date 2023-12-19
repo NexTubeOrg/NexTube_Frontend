@@ -10,8 +10,25 @@ import OperationLoader from '../../../../common/OperationLoader';
 import HandleOnVisible from '../../../HandleOnVisible';
 import { store } from '../../../../store';
 import { IProfileVideoList, ProfileVideosReducerActionsType } from '../../../../store/reducers/profileVideos/types';
+import { handleError, handleSuccess } from '../../../../common/handleError';
 
 const EditVideoItem = (props: { video: IVideoLookup }) => {
+  
+  const onDelete = async (videoId: number | null) => {
+    try {
+      await http_api.delete(`/api/video/deleteVideo?VideoId=${videoId}`)
+
+      store.dispatch({
+        type: ProfileVideosReducerActionsType.DELETE_VIDEO,
+        payload: videoId,
+      });
+
+      handleSuccess("Video successfully deleted");
+    } catch (error) {
+      handleError(error);
+    }
+  }
+
   return (
     <>
       <tr className="border-t-2 border-primary">
@@ -43,9 +60,11 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
           <span>2342</span>
         </td>
         <td className="pb-2 text-right">
-          <NavLink className="text-primary uppercase font-semibold" to={''}>
+          <NavLink className="text-primary uppercase font-semibold mr-4" to={''}>
             Edit draft
           </NavLink>
+
+          <button className="text-primary uppercase font-semibold" onClick={() => onDelete(props.video.id)}>Delete</button>
         </td>
       </tr>
     </>
@@ -104,7 +123,7 @@ export const ProfileVideos = () => {
 
     loadVideoAsync();
     console.log(videos);
-    
+
   }, [needLoad]);
 
   return (

@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { IProfileVideoList, ProfileVideosReducerActionsType } from "./types";
 
 const initState: IProfileVideoList = {
@@ -24,6 +25,12 @@ export const ProfileVideosReducer = (state = initState, action: any): any => {
             return {
                 videos: [...state.videos, action.payload.video],
                 page: state.page,
+            };
+
+        case ProfileVideosReducerActionsType.DELETE_VIDEO:
+            return {
+                videos: [...state.videos.filter((video) => video.id !== action.payload)],
+                page: state.page,    
             };
 
         case ProfileVideosReducerActionsType.CLEAR_PROFILE_VIDEO_STORE:
