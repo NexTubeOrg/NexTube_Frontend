@@ -20,10 +20,10 @@ export const ProfileVideosReducer = (state = initState, action: any): any => {
                 page: state.page + 1,
             };
 
-        case ProfileVideosReducerActionsType.APPEND_PROFILE_VIDEO:
+        case ProfileVideosReducerActionsType.APPEND_BEGIN_PROFILE_VIDEO:
             return {
                 ...state,
-                videos: [...state.videos, action.payload.video],
+                videos: [action.payload, ...state.videos],
             };
 
         case ProfileVideosReducerActionsType.DELETE_PROFILE_VIDEO:
@@ -33,7 +33,6 @@ export const ProfileVideosReducer = (state = initState, action: any): any => {
             };
 
         case ProfileVideosReducerActionsType.EDIT_PROFILE_VIDEO:
-            console.log(action.payload);
             return {
                 ...state,
                 videos: state.videos.map(v => v.id == action.payload.id ? action.payload : v),
