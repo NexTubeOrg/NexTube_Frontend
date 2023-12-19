@@ -19,7 +19,7 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
       await http_api.delete(`/api/video/deleteVideo?VideoId=${videoId}`)
 
       store.dispatch({
-        type: ProfileVideosReducerActionsType.DELETE_VIDEO,
+        type: ProfileVideosReducerActionsType.DELETE_PROFILE_VIDEO,
         payload: videoId,
       });
 
@@ -60,7 +60,7 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
           <span>2342</span>
         </td>
         <td className="pb-2 text-right">
-          <NavLink className="text-primary uppercase font-semibold mr-4" to={''}>
+          <NavLink className="text-primary uppercase font-semibold mr-4" to={'editVideo/' + props.video.id}>
             Edit draft
           </NavLink>
 
