@@ -1,10 +1,7 @@
-import { useSelector } from 'react-redux';
 import { VideoItem } from './VideoItem';
-import { IGetVideoListResult } from '../../pages/Video/common/types';
+import { IGetVideoListResult, IVideoLookup } from '../../pages/Video/common/types';
 import { useEffect, useState } from 'react';
 import http_api from '../../services/http_api';
-import { store } from '../../store';
-import { IVideoList, VideoReducerActionsType } from '../../store/reducers/videos/types';
 import HandleOnVisible from '../HandleOnVisible';
 import OperationLoader from '../../common/OperationLoader';
 
@@ -12,26 +9,21 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const VideosListContainer = () => {
 
-  const [needLoad, setNeedLoad] = useState<number>(1);
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-
-  const { videos, page, pageSize } = useSelector((state: any) => state.videos as IVideoList);
+  const [isInitLoading, setIsInitLoading] = useState<boolean>(false);
+  const [videos, setVideos] = useState<IVideoLookup[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [pageSize] = useState<number>(6);
 
   useEffect(() => {
 
     const loadVideoAsync = async () => {
 
-      console.log(needLoad);
-      if (needLoad == 0 || !canLoad) {
+      if (page == 0 || !canLoad) {
         console.log('abort loading');
         return;
       }
-
-      store.dispatch({
-        type: VideoReducerActionsType.NEXT_VIDEO_LIST,
-      });
 
       await sleep(200);
 
@@ -41,21 +33,19 @@ const VideosListContainer = () => {
         await http_api.get<IGetVideoListResult>(`/api/video/getVideoList?Page=${page}&PageSize=${pageSize}`)
       ).data;
 
+      setVideos(() => [...videos, ...result.videos]);
+      console.log(videos);
 
       if (result.videos.length == 0) {
         setCanLoad(false);
       }
 
-      store.dispatch({
-        type: VideoReducerActionsType.APPEND_VIDEO_LIST,
-        payload: result
-      });
-
       setIsLoading(() => false);
+      setIsInitLoading(true);
     }
 
     loadVideoAsync();
-  }, [needLoad]);
+  }, [page]);
 
   return (
     <>
@@ -70,11 +60,11 @@ const VideosListContainer = () => {
       <>
         {isLoading && <OperationLoader></OperationLoader>}
 
-        <HandleOnVisible
+        {isInitLoading && <HandleOnVisible
           onVisible={() => {
-            setNeedLoad((prevPages) => prevPages + 1);
+            setPage((prevPages) => prevPages + 1);
           }}
-        ></HandleOnVisible>
+        ></HandleOnVisible>}
       </>
     </>
   );
