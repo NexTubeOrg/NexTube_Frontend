@@ -5,8 +5,7 @@ import { PrimaryProcessingButton } from '../../../../common/buttons/PrimaryProce
 import { FieldEditBigInput, FieldEditInput } from '../../../../common/inputs';
 import { CancelButton } from '../../../../common/buttons/CancelButton';
 import { useNavigate } from 'react-router-dom';
-import { ModalCropper } from '../../../../ModalCropper';
-import { IGetVideoResult, IVideoLookup, IVideoUpdateRequest, IVideoUploadRequest } from '../../../../../pages/Video/common/types';
+import { IGetVideoResult, IVideoLookup, IVideoUpdateRequest } from '../../../../../pages/Video/common/types';
 import http_api from '../../../../../services/http_api';
 import { handleError, handleSuccess } from '../../../../../common/handleError';
 import { useFormik } from 'formik';
@@ -19,7 +18,6 @@ export const EditVideoOverlay = () => {
     const { id } = useParams<string>();
 
     const [selected, setSelected] = useState<string>('Public');
-    const [video, setVideo] = useState<any>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const navigator = useNavigate();
@@ -67,7 +65,7 @@ export const EditVideoOverlay = () => {
         onSubmit: onFormSubmit,
     });
 
-    const { values, errors, touched, handleSubmit, handleChange } = formik;
+    const { values, errors, handleSubmit, handleChange } = formik;
 
     const handleEscPress = (event: any) => {
         if (event.keyCode === 27) {

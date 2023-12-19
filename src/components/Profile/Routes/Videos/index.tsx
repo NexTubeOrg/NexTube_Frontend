@@ -4,7 +4,7 @@ import { PrimaryButtonLink } from '../../../common/links/PrimaryButtonLink';
 import { IGetVideoListChannelResult, IVideoLookup } from '../../../../pages/Video/common/types';
 import { useEffect, useState } from 'react';
 import http_api from '../../../../services/http_api';
-import { IAuthUser, IUser } from '../../../../store/reducers/auth/types';
+import { IAuthUser } from '../../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
 import OperationLoader from '../../../../common/OperationLoader';
 import HandleOnVisible from '../../../HandleOnVisible';
