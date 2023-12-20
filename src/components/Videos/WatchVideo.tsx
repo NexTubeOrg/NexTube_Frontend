@@ -71,7 +71,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
        
       
           <div className="">
-              <SubscribeButton
+          <SubscribeButton
               
               isLoading={false}
                 onClick={() => {}}

@@ -28,7 +28,7 @@ export const SubscriptionReducer = (state = initState, action: any): any => {
                     const subscriptionsList = action.payload.subscriptions as ISubscription[];
                     return {
                         ...state,
-                        subscriptions:subscriptionsList.map((item: any) => item.subscription)  ,
+                        subscriptions:subscriptionsList   ,
                       };
                 }
         default:

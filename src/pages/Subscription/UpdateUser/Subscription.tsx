@@ -28,6 +28,7 @@ const SubscribeButton = (props: {
           payload:  result.data
         });
       } else {
+        console.log("idProps",props.subscribeId);
        const result= await http_api.post(`/api/subscription/subscribe`, {"subscribeTo": props.subscribeId});
        console.log("add",result);
         store.dispatch({

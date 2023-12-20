@@ -77,16 +77,16 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   }, [sidebarExpanded]);
 
   const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
-  console.log("store",userSubscriptions);
+  console.log("store",userSubscriptions.subscriptions.map(c=>c.channelPhotoFileId));
     const {   user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
     const fetchSubscriptions = async () => {
       try {
         const response = (await http_api.get(`/api/Subscription/Subscriptions`)).data;
-        const userSubscriptions = response
+        const  Subscriptions = response
         store.dispatch({
           type:SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST ,
-          payload:userSubscriptions
+          payload:Subscriptions
         });
      
       } catch (error) {
@@ -96,7 +96,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
 
     fetchSubscriptions();
   }, [user, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
-   
+  console.log("store22",userSubscriptions);
  
   
   return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import http_api from '../services/http_api';
 import { IconedProcessingButton } from './common/buttons/IconedButton';
-import { IUserLookup, ReportLookup, TypeOfReport } from '../pages/Dashboard/Admin/common/types';
+import {  ReportLookup, TypeOfReport } from '../pages/Dashboard/Admin/common/types';
 import { FlagIcon } from '@heroicons/react/20/solid';
 import { handleSuccess } from '../common/handleError';
 

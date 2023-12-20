@@ -8,8 +8,6 @@ import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
 import { FlagIcon } from '@heroicons/react/20/solid';
-
-const ViewChannel = () => {
 interface IUserInfo
 {
   lastName:string,
@@ -21,11 +19,24 @@ interface IUserInfo
   channelPhotoFileId:string
 
 }
+const ViewChannel = () => {
+
   const [userData, setUserData] = useState<IUserInfo>();
 const {id}=useParams();
+const parts = location.pathname.split('/');
+
+  const [showReportForm, setShowReportForm] = useState(false);
+
+  const handleReportClick = () => {
+    setShowReportForm((prevShowReportForm) => !prevShowReportForm);
+  };
+
+  const handleReportFormClose = () => {
+    setShowReportForm(false);
+  };
  useEffect(() => {
     fetchData();
- }, []);
+ }, [ setUserData]);
 
  const fetchData = async () => {
     try {
@@ -45,17 +56,7 @@ const {id}=useParams();
 
 
 
-  const parts = location.pathname.split('/');
-
-  const [showReportForm, setShowReportForm] = useState(false);
-
-  const handleReportClick = () => {
-    setShowReportForm((prevShowReportForm) => !prevShowReportForm);
-  };
-
-  const handleReportFormClose = () => {
-    setShowReportForm(false);
-  };
+  
 
 
   return (
@@ -97,7 +98,8 @@ const {id}=useParams();
                 </span>
               </h4>
               {/* Subscribe to channel */}
-              <div className="w-35">
+              <div className='channel-tools'>
+              <div className="w-35 ">
               <SubscribeButton
               
               isLoading={false}
@@ -107,16 +109,8 @@ const {id}=useParams();
                  backgroundClassname="primary"
                 subscribeId={id}
               ></SubscribeButton>
-             <div className='channel-tools'>
-              <div className="w-35 ">
-                <PrimaryProcessingButton
-                  isLoading={false}
-                  onClick={() => {}}
-                  text="Subscribed"
-                  type="button"
-                ></PrimaryProcessingButton>
-                
-              </div>
+      
+             </div>
               <div className="w-11 h-0 ml-4">
                 
               <IconedProcessingButton
@@ -161,7 +155,8 @@ const {id}=useParams();
           </div>    
           </div>)}
         </div>
-      </div>
+      </div> 
+     
     </>
   );
 };
