@@ -1,6 +1,5 @@
 import { Outlet, useNavigate , useParams } from 'react-router-dom';
-import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
-import { Navbar } from '../../common/navbars/Navbar';
+ import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
 import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription';
 import { useEffect, useState } from 'react';
@@ -8,17 +7,7 @@ import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
 import { FlagIcon } from '@heroicons/react/20/solid';
-interface IUserInfo
-{
-  lastName:string,
-  firstName:string,
-  nickname:string,
-  description:string,
-  subsciptions:number,
-  video:number,
-  channelPhotoFileId:string
 
-}
 const ViewChannel = () => {
 
   const [userData, setUserData] = useState<IUserInfo>();
