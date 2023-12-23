@@ -11,9 +11,11 @@ import HandleOnVisible from '../../../HandleOnVisible';
 import { store } from '../../../../store';
 import { IProfileVideoList, ProfileVideosReducerActionsType } from '../../../../store/reducers/profileVideos/types';
 import { handleError, handleSuccess } from '../../../../common/handleError';
+import { DialogConfirm } from '../../../DialogConfirm';
 
 const EditVideoItem = (props: { video: IVideoLookup }) => {
-  
+  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+
   const onDelete = async (videoId: number | null) => {
     try {
       await http_api.delete(`/api/video/deleteVideo?VideoId=${videoId}`)
@@ -64,9 +66,16 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
             Edit draft
           </NavLink>
 
-          <button className="text-primary uppercase font-semibold" onClick={() => onDelete(props.video.id)}>Delete</button>
+          <button className="text-primary uppercase font-semibold" onClick={() => setOpenDialogConfirm(true)}>Delete</button>
         </td>
       </tr>
+
+      <>
+        {openDialogConfirm && (<DialogConfirm
+          handleAgreeClick={async () => onDelete(props.video.id)}
+          handleDisagreeClick={async () => setOpenDialogConfirm(false)} 
+          actionText='Confirm Delete?'/>)}
+      </>
     </>
   );
 };
