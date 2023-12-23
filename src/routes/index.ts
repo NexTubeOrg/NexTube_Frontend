@@ -8,6 +8,7 @@ import { ProfileBranding } from '../components/Profile/Routes/Branding';
 import { ProfileInfo } from '../components/Profile/Routes/Info';
 import { ProfileVideos } from '../components/Profile/Routes/Videos';
 import { AddVideoOverlay } from '../components/Profile/Routes/Videos/AddVideoOverlay';
+import { EditVideoOverlay } from '../components/Profile/Routes/Videos/EditVideoOverlay';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -106,6 +107,7 @@ const profileRoutes = [
     component: ProfileVideos,
     routes: [
       { path: 'addVideo', title: 'Add video', component: AddVideoOverlay },
+      { path: 'editVideo/:id', title: 'Edit video', component: EditVideoOverlay}
     ],
   },
 ];

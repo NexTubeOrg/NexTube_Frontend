@@ -9,6 +9,7 @@ export interface IVideoLookup {
     creator: IUser  | null;
     dateCreated: string  | null;
     views: number | null;
+    accessModificator: string | null;
 }
 
 export interface IGetVideoResult {
@@ -19,10 +20,21 @@ export interface IGetVideoListResult {
     videos: IVideoLookup[];
 }
 
+export interface IGetVideoListChannelResult {
+    videos: IVideoLookup[];
+}
+
 export interface IVideoUploadRequest {
     name: string;
     description: string;
     previewPhoto: File | null;
     video: File | null;
     accessModificator: string | null;
+}
+
+export interface IVideoUpdateRequest {
+    videoId: number;
+    name: string;
+    description: string;
+    accessModificator: string;
 }

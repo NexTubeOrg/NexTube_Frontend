@@ -5,11 +5,13 @@ import { FieldEditBigInput, FieldEditInput } from '../../../../common/inputs';
 import { CancelButton } from '../../../../common/buttons/CancelButton';
 import { useNavigate } from 'react-router-dom';
 import { ModalCropper } from '../../../../ModalCropper';
-import { IVideoUploadRequest } from '../../../../../pages/Video/common/types';
+import { IVideoLookup, IVideoUploadRequest } from '../../../../../pages/Video/common/types';
 import http_api from '../../../../../services/http_api';
 import { handleError, handleSuccess } from '../../../../../common/handleError';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { store } from '../../../../../store';
+import { ProfileVideosReducerActionsType } from '../../../../../store/reducers/profileVideos/types';
 
 export const AddVideoOverlay = () => {
   const [selected, setSelected] = useState<string>('Public');
@@ -51,11 +53,16 @@ export const AddVideoOverlay = () => {
     try {
       setIsLoading(true);
 
-      await http_api.post('/api/video/uploadVideo', values, {
+      var result = (await http_api.post<IVideoLookup>('/api/video/uploadVideo', values, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      });
+      })).data;
+
+      store.dispatch({
+        type: ProfileVideosReducerActionsType.APPEND_BEGIN_PROFILE_VIDEO,
+        payload: result,
+      })
 
       setIsLoading(false);
       navigator('..');
