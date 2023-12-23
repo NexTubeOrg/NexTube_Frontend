@@ -25,7 +25,7 @@ const parts = location.pathname.split('/');
   };
  useEffect(() => {
     fetchData();
- }, [ setUserData]);
+ }, [ setUserData,id]);
 
  const fetchData = async () => {
     try {

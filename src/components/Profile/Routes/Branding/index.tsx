@@ -1,6 +1,51 @@
+import { useEffect, useState } from 'react';
 import { PrimaryProcessingButton } from '../../../common/buttons/PrimaryProcessingButton';
+import { ModalCropper } from '../../../ModalCropper';
+import { useSelector } from 'react-redux';
+import { IAuthUser } from '../../../../store/reducers/auth/types';
+import http_api from '../../../../services/http_api';
 
-export const ProfileBranding = () => {
+export const ProfileBranding = () => { 
+   interface IchannelPhoto{
+    ChannelPhotoFile: File | null;
+}
+  
+  const [userData, setUserData] = useState<IchannelPhoto>({
+    ChannelPhotoFile:null,
+  });
+  const onImageSaveHandler = (file: File) => {
+    console.log('image save handle', file);
+    setUserData((prevData) => ({
+      ...prevData,
+      ChannelPhotoFile: file,
+    }));
+  };
+   
+  const handleUploadButtonClick = async () => {
+    try {
+      console.log("lox");
+     
+  
+        await http_api.put('/api/User/UpdateChannelImage', userData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            // Add other necessary headers (e.g., Authorization) here
+          },
+        });
+  
+        
+       
+    } catch (error) {
+      console.error('Error saving changes:', error);
+      // Handle errors as needed
+    }
+  };
+  
+
+
+
+  
+
   return (
     <>
       <div className="item mb-12">
@@ -8,11 +53,11 @@ export const ProfileBranding = () => {
         <div className="flex">
           <div className="left">
             <div className="w-36 h-36 dark:bg-primary rounded-full mr-6">
-              <img
-                className=" fill-white rounded-full dark:bg-transparent"
-                src="/human.jpg"
-                alt=""
-              />
+            <ModalCropper
+          onSave={onImageSaveHandler}
+          error={''}
+     
+        ></ModalCropper>
             </div>
           </div>
           <div className="right w-80">
@@ -22,11 +67,12 @@ export const ProfileBranding = () => {
             </p>
             <div className="w-35 mt-6">
               <PrimaryProcessingButton
-                onClick={() => {}}
+                onClick={handleUploadButtonClick}
                 isLoading={false}
                 text="Upload"
                 type="button"
               ></PrimaryProcessingButton>
+               
             </div>
           </div>
         </div>

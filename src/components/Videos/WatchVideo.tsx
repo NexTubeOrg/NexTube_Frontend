@@ -21,7 +21,7 @@ dayjs.extend(relativeTime);
 
 const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   const [showReportForm, setShowReportForm] = useState(false);
-  const {id}=useParams();
+ 
 
   const handleReportClick = () => {
     setShowReportForm((prevShowReportForm) => !prevShowReportForm);
@@ -50,7 +50,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
 
         {/* actions section */}
         <div className="ml-5 flex justify-between items-center">
-          <Link to={'/channel/1'}>
+          <Link to={'/channel/'+props.video?.creator?.userId}>
             <div className="flex mt-5 items-center">
               <img
                 className="rounded-full h-16 w-16"
@@ -78,7 +78,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                text ="Subscribe"
                 type="button"
                  backgroundClassname="primary"
-                subscribeId={id}
+                subscribeId={props.video?.creator?.userId.toString()}
               ></SubscribeButton>
             </div>
 

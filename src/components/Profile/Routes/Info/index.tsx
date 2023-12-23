@@ -9,13 +9,14 @@ import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../../../store/reducers/auth/types';
 
 export const ProfileInfo = () => {
-  
+
   const [userData, setUserData] = useState<IUserUpdate>({
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     nickname: '',
     description: '',
   });
+  const fullName=userData.firstName+" "+userData.lastName;
   const { isAuth,user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
      if (isAuth) {
@@ -25,33 +26,27 @@ export const ProfileInfo = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await http_api.get(`/api/User/GetUser?ChannelId=${user?.userId}`);
+      const response = await http_api.get<IUserUpdate>(`/api/User/GetUser?ChannelId=${user?.userId}`);
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
     
     }
   };
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
     const { name, value } = event.target;
    
-    if (name === 'fullName') {
-      const [firstname, ...lastname] = value.split(' ');
-      setUserData((prevData) => ({
-        ...prevData,
-        firstname: firstname || '',
-        lastname: lastname.join(' ') || '',
-        fullName: value,
-      }));
-    } else {
+      // Update the state for other fields
       setUserData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
-    }
+    
   };
- 
-
+  
+  
+  
  
   const handleSubmit = async () => {
     try {console.log("UPDate",userData);
@@ -67,22 +62,38 @@ export const ProfileInfo = () => {
     <>
       <div className="mb-6">
         <FieldBasicEditInput
-          name="fullName"
-          title="Name"
+          name="firstName"
+          title="FirstName"
           description="
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil
             reprehenderit repellendus tempora autem culpa minima illo delectus
             placeat accusamus a at exercitationem sed, rem suscipit id tenetur
             distinctio dolorum harum."
           placeholder="Enter channel name"
-          value={`${userData.firstName} ${userData.lastName}`}
+          value={userData.firstName}
           handleChange={handleInputChange}
           error=""
           type="text"
         />
-        <div className="mb-6">
- 
-</div>
+         
+
+      </div>
+      <div className="mb-6">
+        <FieldBasicEditInput
+          name="lastName"
+          title="LastName"
+          description="
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil
+            reprehenderit repellendus tempora autem culpa minima illo delectus
+            placeat accusamus a at exercitationem sed, rem suscipit id tenetur
+            distinctio dolorum harum."
+          placeholder="Enter channel name"
+          value={userData.lastName}
+          handleChange={handleInputChange}
+          error=""
+          type="text"
+        />
+         
 
       </div>
       <div className="mb-6">
