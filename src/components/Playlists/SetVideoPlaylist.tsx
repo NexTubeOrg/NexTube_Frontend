@@ -9,6 +9,11 @@ import React from 'react';
 import { CancelButton } from '../common/buttons/CancelButton';
 import CheckboxOne from '../CheckboxOne';
 import CheckboxFour from '../CheckboxFour';
+import { DefaultInput, FieldEditInput } from '../common/inputs';
+import { CreatePlaylistOverlay } from '../Profile/Routes/Playlists/CreatePlaylistOverlay';
+import { Outlet } from 'react-router-dom';
+import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessingButton';
+import { PrimaryButtonLink } from '../common/links/PrimaryButtonLink';
 
 const SelectVideoPlaylist = (props: {
   handleDisagreeClick: () => Promise<void> | null;
@@ -44,6 +49,14 @@ const SelectVideoPlaylist = (props: {
                     ></CheckboxFour>
                   </li>
                 ))}
+                <li>
+                  <div className="w-30">
+                    <PrimaryButtonLink
+                      urlTo="/profile/playlists/addPlaylist"
+                      title="Add new playlist"
+                    ></PrimaryButtonLink>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
