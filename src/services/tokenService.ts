@@ -21,6 +21,7 @@ export const storeToken = (token: string) => {
     },
   });
 };
+ 
 export const loadTokenFromStorage = () => {
   console.log('loadTokenFromStorage token');
   const token = getToken() as string;

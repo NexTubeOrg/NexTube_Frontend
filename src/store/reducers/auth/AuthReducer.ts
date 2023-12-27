@@ -7,6 +7,8 @@ const initState: IAuthUser = {
   user: undefined,
 };
 
+
+ 
 export const AuthReducer = (state = initState, action: any): IAuthUser => {
   switch (action.type) {
     case AuthUserActionType.LOGIN_USER: {
@@ -21,6 +23,12 @@ export const AuthReducer = (state = initState, action: any): IAuthUser => {
         isAuth: false,
       };
     }
+ 
   }
+ 
+   
+  
+   
+  
   return state;
 };

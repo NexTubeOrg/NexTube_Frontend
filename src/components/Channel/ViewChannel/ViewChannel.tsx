@@ -1,14 +1,18 @@
-import { Outlet, useNavigate  } from 'react-router-dom';
-import { PrimaryProcessingButton } from '../../common/buttons/PrimaryProcessingButton';
-import { Navbar } from '../../common/navbars/Navbar';
+import { Outlet, useNavigate , useParams } from 'react-router-dom';
+ import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
+import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription';
+import { useEffect, useState } from 'react';
+import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
-import { FlagIcon } from '@heroicons/react/20/solid';
-import { useState} from 'react';
 import ReportForm from '../../ReportForm';
+import { FlagIcon } from '@heroicons/react/20/solid';
 
 const ViewChannel = () => {
-  const parts = location.pathname.split('/');
+
+  const [userData, setUserData] = useState<IUserInfo>();
+const {id}=useParams();
+const parts = location.pathname.split('/');
 
   const [showReportForm, setShowReportForm] = useState(false);
 
@@ -19,6 +23,29 @@ const ViewChannel = () => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
+ useEffect(() => {
+    fetchData();
+ }, [ setUserData,id]);
+
+ const fetchData = async () => {
+    try {
+      console.log("id",id);
+      const response = await http_api.get(`/api/User/GetUser?ChannelId=${id}`);
+      const data = await response.data
+      console.log("User!!!!!!",response.data);
+      setUserData(data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+ };
+
+ if (!userData) {
+    return <div>Loading...</div>;
+ }
+
+
+
+  
 
 
   return (
@@ -32,23 +59,23 @@ const ViewChannel = () => {
             <div className="w-36 h-36 dark:bg-primary rounded-full p-3 mr-6">
               <img
                 className=" fill-white rounded-full dark:bg-transparent"
-                src="/human.jpg"
+                src= {"/api/Photo/GetPhotoUrl/"+userData.channelPhotoFileId+"/150"}
                 alt=""
               />
             </div>
             {/* channel info */}
             <div className="text">
               {/* Channel title */}
-              <h1 className="text-white text-3xl mb-2">Alisa Konors</h1>
+              <h1 className="text-white text-3xl mb-2">{userData.lastName} {userData.firstName} </h1>
               {/* Channel info */}
               <h4 className="text-gray text-md  mb-2">
-                <span className="mr-4">@alisa_Konors234e</span>
-                <span className="mr-4">274K subscribers</span>
-                <span className="">187 videos</span>
+                <span className="mr-4">@{userData.nickname}</span>
+                <span className="mr-4">{userData.subsciptions} subscribers</span>
+                <span className="">{userData.video} videos</span>
               </h4>
               {/* Channel description */}
               <h4 className="text-gray text-md  mb-2">
-                Hello! My name is Alice, i love autumn and handmade
+               {userData.description}
               </h4>
               {/* Channel links */}
               <h4 className="text-md  mb-2">
@@ -60,16 +87,19 @@ const ViewChannel = () => {
                 </span>
               </h4>
               {/* Subscribe to channel */}
-             <div className='channel-tools'>
+              <div className='channel-tools'>
               <div className="w-35 ">
-                <PrimaryProcessingButton
-                  isLoading={false}
-                  onClick={() => {}}
-                  text="Subscribed"
-                  type="button"
-                ></PrimaryProcessingButton>
-                
-              </div>
+              <SubscribeButton
+              
+              isLoading={false}
+                onClick={() => {}}
+               text ="Subscribe"
+                type="button"
+                 backgroundClassname="primary"
+                subscribeId={id}
+              ></SubscribeButton>
+      
+             </div>
               <div className="w-11 h-0 ml-4">
                 
               <IconedProcessingButton
@@ -114,7 +144,8 @@ const ViewChannel = () => {
           </div>    
           </div>)}
         </div>
-      </div>
+      </div> 
+     
     </>
   );
 };

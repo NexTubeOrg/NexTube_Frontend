@@ -7,6 +7,7 @@ const http_api = axios.create({
     'Content-Type': 'application/json',
     Authorization: `${getToken()}`,
   },
+ 
 });
 
 http_api.interceptors.response.use(

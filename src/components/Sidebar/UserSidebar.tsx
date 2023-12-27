@@ -14,7 +14,13 @@ import {
   UserIcon,
   UsersIcon,
 } from '@heroicons/react/20/solid';
-import { PrimaryProcessingButton } from '../common/buttons/PrimaryProcessingButton';
+import http_api from '../../services/http_api';
+import { IAuthUser } from '../../store/reducers/auth/types';
+import { useSelector } from 'react-redux';
+ import { ISubscription } from './types';
+import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
+import { store } from '../../store';
+ 
 
 interface UserSidebarProps {
   sidebarOpen: boolean;
@@ -58,7 +64,9 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   }, []);
+   
 
+ 
   useEffect(() => {
     localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
     if (sidebarExpanded) {
@@ -68,6 +76,29 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     }
   }, [sidebarExpanded]);
 
+  const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+  console.log("store",userSubscriptions.subscriptions.map(c=>c.channelPhotoFileId));
+    const {   user } = useSelector((store: any) => store.auth as IAuthUser);
+  useEffect(() => {
+    const fetchSubscriptions = async () => {
+      try {
+        const response = (await http_api.get(`/api/Subscription/Subscriptions`)).data;
+        const  Subscriptions = response
+        store.dispatch({
+          type:SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST ,
+          payload:Subscriptions
+        });
+     
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSubscriptions();
+  }, [user, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
+  console.log("store22",userSubscriptions);
+ 
+  
   return (
     <aside
       ref={sidebar}
@@ -235,39 +266,22 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <SidebarItem
-                              active={true}
-                              url="/channel/1"
-                              title="Channel name 1"
-                              icon={
-                                <div className="thumb bg-success rounded-full w-8 h-8"></div>
-                              }
-                            ></SidebarItem>
-                          </li>
-                          <li>
-                            <SidebarItem
-                              active={true}
-                              url="/channel/2"
-                              title="Channel name 2"
-                              icon={
-                                <div className="thumb bg-warning rounded-full w-8 h-8"></div>
-                              }
-                            ></SidebarItem>
-                          </li>
-                          <li>
-                            <SidebarItem
-                              active={true}
-                              url="/channel/3"
-                              title="Channel name 3"
-                              icon={
-                                <div className="thumb bg-danger rounded-full w-8 h-8"></div>
-                              }
-                            ></SidebarItem>
-                          </li>
-                        </ul>
-                      </div>
+                     
+
+                     <ul>
+                     {userSubscriptions.subscriptions.map((subscription, index) => (
+        <li key={index}>
+          <SidebarItem
+            active={true}
+            url={`/channel/${subscription.userId}`}
+            title={`${subscription.firstName} ${subscription.lastName}`}
+            icon={ <div className="thumb bg-danger rounded-full w-8 h-8">
+            <img className="h-12 w-12 rounded-full" src={"/api/Photo/GetPhotoUrl/"+subscription.channelPhotoFileId+"/50"} alt="User" />
+          </div>}
+          />
+        </li>
+      ))}
+      </ul> </div>
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
                   );
