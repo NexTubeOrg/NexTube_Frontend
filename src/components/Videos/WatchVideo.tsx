@@ -6,14 +6,17 @@ import {
 } from '@heroicons/react/20/solid';
 import React, { useEffect, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CollapseText } from '../common/CollapseText';
+import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
 import { AddVideoReaction } from '../Reactions/AddVideoReaction';
 import VideoCommentsLoader from '../Comments/CommentsContainer/VideoCommentsLoader';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import { Player } from 'video-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
+
 import ReportForm from '../ReportForm';
 import { handleSuccess } from '../../common/handleError';
 import { APP_CONFIG } from '../../env';
@@ -83,6 +86,17 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
             </div>
           </Link>
 
+          <div className="">
+            <SubscribeButton
+              isLoading={false}
+              onClick={() => {}}
+              text="Subscribe"
+              type="button"
+              backgroundClassname="primary"
+              subscribeId={props.video?.creator?.userId.toString()}
+            ></SubscribeButton>
+          </div>
+
           <div className="likes flex">
             <AddVideoReaction
               videoId={props.video?.id ?? -1}
@@ -136,7 +150,6 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
             </div>
           </div>
         </div>
-
         {/* video info */}
         {showReportForm && (
           <div className="report-form-overlay">

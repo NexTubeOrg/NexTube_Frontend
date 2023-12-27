@@ -14,6 +14,7 @@ export const VideoCommentsReducer = (state = initState, action: any): any => {
   switch (action.type) {
     case VideoCommentsReducerActionTypes.SET_COMMENTS_LIST: {
       const commentList = action.payload as ICommentLookup[];
+      
       return { comments: commentList };
     }
     case VideoCommentsReducerActionTypes.APPEND_COMMENTS_LIST: {

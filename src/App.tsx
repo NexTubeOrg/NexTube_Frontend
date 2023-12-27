@@ -84,7 +84,9 @@ function App() {
             ))}
           </Route>
         </Route>
-        <Route path={'/auth'} element={<DefaultLayout />}>
+  
+      
+         <Route path={'/auth'} element={<DefaultLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
