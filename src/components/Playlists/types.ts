@@ -8,8 +8,13 @@ export interface IPlaylistLookup {
   preview: string | null;
 }
 
+export interface IVideoPlaylistUserStatus {
+  playlist: IPlaylistLookup;
+  isVideoInPlaylist: boolean;
+}
+
 export interface IGetUserPlaylistsResult {
-  playlists: IPlaylistLookup[];
+  playlists: IVideoPlaylistUserStatus[];
 }
 
 export interface IGetPlaylistVideos {

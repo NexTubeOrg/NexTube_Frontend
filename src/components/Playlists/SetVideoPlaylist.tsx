@@ -1,32 +1,80 @@
-import { ListBulletIcon } from '@heroicons/react/20/solid';
 import { handleSuccess } from '../../common/handleError';
-import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { IGetUserPlaylistsResult, IPlaylistLookup } from './types';
+import { IGetUserPlaylistsResult, IVideoPlaylistUserStatus } from './types';
 import http_api from '../../services/http_api';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import { useEffect, useState } from 'react';
+import { IconedProcessingButton } from '../common/buttons/IconedButton';
+import { PlusIcon } from '@heroicons/react/20/solid';
+import React from 'react';
+import { CancelButton } from '../common/buttons/CancelButton';
+import CheckboxOne from '../CheckboxOne';
+import CheckboxFour from '../CheckboxFour';
+
+const SelectVideoPlaylist = (props: {
+  handleDisagreeClick: () => Promise<void> | null;
+  playlists: IVideoPlaylistUserStatus[];
+  handlePlaylistToggle: (playlistId: number) => Promise<void> | null;
+}) => {
+  return (
+    <>
+      <React.Fragment>
+        <div className="fixed inset-0 flex items-center justify-center bg-secondary bg-opacity-75 z-50 rounded-md">
+          <div className=" bg-body p-8 rounded-md text-center">
+            <div className="flex justify-center items-center mb-4">
+              <h2 className="text-2xl text-white">Add video to playlist</h2>
+
+              <CancelButton
+                onClick={() => {
+                  props.handleDisagreeClick();
+                }}
+              ></CancelButton>
+            </div>
+            <div className="flex text-white">
+              <ul>
+                {props.playlists.map((p) => (
+                  <li key={p.playlist.id}>
+                    <CheckboxFour
+                      name={p.playlist.title}
+                      id={p.playlist.id.toString()}
+                      isChecked={p.isVideoInPlaylist}
+                      description=""
+                      onChange={(e) => {
+                        props.handlePlaylistToggle(parseInt(e.target.value));
+                      }}
+                    ></CheckboxFour>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+    </>
+  );
+};
 
 export const SetVideoPlaylist = (props: {
   video: IVideoLookup | undefined;
 }) => {
-  const [playlists, setPlaylists] = useState<IPlaylistLookup[]>([]);
+  const [isShown, setIsShown] = useState<boolean>(false);
+  const [playlists, setPlaylists] = useState<IVideoPlaylistUserStatus[]>([]);
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(40);
-  const [needLoad, setNeedLoad] = useState<number>(1);
-  const [canLoad, setCanLoad] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pageSize] = useState(4000);
 
   const fetchPlaylists = async () => {
     try {
       const response = (
         await http_api.get<IGetUserPlaylistsResult>(
-          `/api/Video/Playlist/GetUserPlaylists?UserId=${props.video?.creator?.userId}&Page=${page}&PageSize=${pageSize}`,
+          `/api/Video/Playlist/GetVideoPlaylistsUserStatus?VideoId=${props.video?.id}&Page=${page}&PageSize=${pageSize}`,
         )
       ).data;
       const newPlaylists = response.playlists || [];
       setPlaylists((prev) => {
         if (newPlaylists.length < 1) return prev;
-        if (prev.find((p) => p.id == newPlaylists[0].id) != null) return prev;
+        if (
+          prev.find((p) => p.playlist.id == newPlaylists[0].playlist.id) != null
+        )
+          return prev;
 
         return [...prev, ...newPlaylists];
       });
@@ -42,7 +90,7 @@ export const SetVideoPlaylist = (props: {
         videoId: props.video?.id,
         playlistId: newVideoPlaylistId,
       });
-      handleSuccess('Video playlist changed successfuly');
+      handleSuccess('Video playlist toggled successfuly');
     } catch (error) {
       console.error('Error set video playlist:', error);
     }
@@ -54,22 +102,37 @@ export const SetVideoPlaylist = (props: {
 
   return (
     <>
-      <div className="playlists">
-        <div className="mr-5">
-          <select
-            onChange={(e) => {
-              console.log(e.target.value);
-              changeVideoPlaylist(parseInt(e.target.value));
+      <IconedProcessingButton
+        isLoading={false}
+        onClick={() => {
+          setIsShown((p) => !p);
+        }}
+        text="Save to playlist"
+        type="button"
+        icon={<PlusIcon></PlusIcon>}
+        backgroundClassname="secondary"
+      ></IconedProcessingButton>
+      {isShown && (
+        <>
+          <SelectVideoPlaylist
+            playlists={playlists}
+            handleDisagreeClick={async () => {
+              setIsShown(false);
             }}
-          >
-            {playlists.map((p) => (
-              <option selected={p.id == props.video?.playlistId} value={p.id}>
-                {p.title}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+            handlePlaylistToggle={async (playlistId: number) => {
+              changeVideoPlaylist(playlistId);
+              setPlaylists((ps) => {
+                return ps.map((p) => {
+                  if (p.playlist.id == playlistId) {
+                    p.isVideoInPlaylist = !p.isVideoInPlaylist;
+                  }
+                  return p;
+                });
+              });
+            }}
+          ></SelectVideoPlaylist>
+        </>
+      )}
     </>
   );
 };

@@ -84,12 +84,6 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
           </Link>
 
           <div className="likes flex">
-            {user?.userId == props.video?.creator?.userId && (
-              <>
-                <SetVideoPlaylist video={props.video}></SetVideoPlaylist>
-              </>
-            )}
-
             <AddVideoReaction
               videoId={props.video?.id ?? -1}
             ></AddVideoReaction>
@@ -118,7 +112,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
               ></IconedProcessingButton>
             </div>
 
-            <div className="">
+            <div className="mr-5">
               <Link
                 to={
                   APP_CONFIG.API_URL +
@@ -135,6 +129,10 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                   backgroundClassname="secondary"
                 ></IconedProcessingButton>
               </Link>
+            </div>
+
+            <div className="">
+              <SetVideoPlaylist video={props.video}></SetVideoPlaylist>
             </div>
           </div>
         </div>
