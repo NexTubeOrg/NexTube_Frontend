@@ -1,3 +1,5 @@
+import { store } from '../..';
+import { ProfileVideosReducerActionsType } from '../profileVideos/types';
 import { IAuthUser, IUser, AuthUserActionType } from './types';
 
 const initState: IAuthUser = {
