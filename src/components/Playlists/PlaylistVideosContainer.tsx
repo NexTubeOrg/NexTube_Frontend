@@ -17,6 +17,7 @@ const PlaylistVideosContainer = () => {
   const { id } = useParams();
 
   const [videos, setVideos] = useState<IVideoLookup[]>([]);
+  const [title, setTitle] = useState<string>('Loading...');
   const [page, setPage] = useState(1);
   const [pageSize] = useState(4);
   const [needLoad, setNeedLoad] = useState<number>(1);
@@ -30,6 +31,7 @@ const PlaylistVideosContainer = () => {
         )
       ).data;
       const newVideos = response.videos || [];
+      setTitle(response.title);
       setVideos((prev) => {
         if (newVideos.length < 1) return prev;
         if (prev.find((p) => p.id == newVideos[0].id) != null) return prev;
@@ -48,6 +50,9 @@ const PlaylistVideosContainer = () => {
 
   return (
     <>
+      <div className="ml-10">
+        <h1 className="text-white text-3xl">{title}</h1>
+      </div>
       <ul className="w-full justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4">
         {videos.map((v) => (
           <li>
