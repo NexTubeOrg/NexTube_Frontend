@@ -9,7 +9,6 @@ import DefaultLayout from './layout/DefaultLayout.tsx';
 import HomePage from './pages/Home/HomePage.tsx';
 import SignOut from './pages/Authentication/SignOut.tsx';
 import { ToastContainer } from 'react-toastify';
-import UpdateUser from './pages/UpdateUser/UpdateUser.tsx';
 import VideoWatchPage from './pages/Video/VideoWatchPage.tsx';
 import { ViewChannel } from './components/Channel/ViewChannel/ViewChannel.tsx';
 import routes, { channelRoutes, profileRoutes } from './routes/index.ts';
@@ -84,9 +83,8 @@ function App() {
             ))}
           </Route>
         </Route>
-        <Route path="update-user" element={<UpdateUser />} />
-       {/* <Route path="subscription" element={<SubscribeButton isLoading={false} onClick={()=>{}} text={''} backgroundClassname={''} type={undefined} subscribeId={0} />} /> */}
-
+  
+      
          <Route path={'/auth'} element={<DefaultLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />

@@ -21,8 +21,7 @@ export const AuthReducer = (state = initState, action: any): IAuthUser => {
         isAuth: false,
       };
     }
-    case AuthUserActionType.UPDATE_USER:
-      return { ...state, ...action.payload };
+ 
   }
  
    

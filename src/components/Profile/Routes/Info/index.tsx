@@ -16,7 +16,7 @@ export const ProfileInfo = () => {
     nickname: '',
     description: '',
   });
-  const fullName=userData.firstName+" "+userData.lastName;
+ 
   const { isAuth,user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
      if (isAuth) {
@@ -36,13 +36,10 @@ export const ProfileInfo = () => {
   
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-   
-      // Update the state for other fields
       setUserData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
-    
   };
   
   
@@ -51,10 +48,10 @@ export const ProfileInfo = () => {
   const handleSubmit = async () => {
     try {console.log("UPDate",userData);
       await http_api.put<ILoginResult>('/api/user/updateuser', userData); 
+      window.location.reload();
       console.log('Changes saved successfully!');
     } catch (error) {
       console.error('Error saving changes:', error);
-      // Обробляйте помилки за необхідності
     }
   };
 
@@ -123,11 +120,15 @@ export const ProfileInfo = () => {
           error=""
         />
       </div>
-      <div className="mb-5">    <button
+      <div className="mb-5">
+            <button
                   type="submit"
                   className="w-50 cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   onClick={handleSubmit}
-                > Save</button>   </div>
+                >
+                   Save
+            </button>
+       </div>
     </>
   );
 };

@@ -29,15 +29,13 @@ export const ProfileBranding = () => {
         await http_api.put('/api/User/UpdateChannelImage', userData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            // Add other necessary headers (e.g., Authorization) here
+         
           },
-        });
-  
-        
+        });   
+           window.location.reload();
        
     } catch (error) {
       console.error('Error saving changes:', error);
-      // Handle errors as needed
     }
   };
   
