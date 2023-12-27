@@ -1,3 +1,9 @@
+import ChannelPlaylists from '../../../Playlists/ChannelPlaylists';
+
 export const ChannelPlaylist = () => {
-  return <>ChannelPlaylist</>;
+  return (
+    <>
+      <ChannelPlaylists></ChannelPlaylists>
+    </>
+  );
 };

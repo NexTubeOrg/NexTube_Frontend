@@ -7,6 +7,7 @@ import { VideoCommentsReducer } from './reducers/videoComments/VideoCommentsRedu
 import { SubscriptionReducer } from './reducers/subscription/SubscriptionReducer';
  
 import { ProfileVideosReducer } from './reducers/profileVideos/ProfileVideosReducer';
+import { ProfilePlaylistsReducer } from './reducers/profilePlaylists/ProfilePlaylistsReducer';
 
 export const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -14,6 +15,7 @@ export const rootReducer = combineReducers({
   videoComments: VideoCommentsReducer,
   subscription:SubscriptionReducer,
   profileVideos: ProfileVideosReducer,
+  profilePlaylists: ProfilePlaylistsReducer,
 });
  
 
