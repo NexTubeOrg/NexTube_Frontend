@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Admin from './pages/Dashboard/Admin/Admin.tsx';
 import SignIn from './pages/Authentication/SignInPage/SignInPage.tsx';
@@ -16,17 +16,50 @@ import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
 import { Profile } from './components/Profile/Profile.tsx';
 import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx';
 import Moderator from './pages/Dashboard/Moderator/Moderator.tsx';
-import ReportForm from './components/ReportForm.tsx';
 import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
 import { SearchResults } from './components/Search/SearchResults.tsx';
 import PlaylistVideosContainer from './components/Playlists/PlaylistVideosContainer.tsx';
+import http_api from './services/http_api.ts';
+import { AxiosError } from 'axios';
+import { handleError } from './common/handleError.ts';
+import { removeToken } from './services/tokenService.ts';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    http_api.interceptors.response.use(
+      (responce) => responce,
+      (error: AxiosError) => {
+        console.log('catched', error);
+        switch (error.response?.status) {
+          case 401: {
+            handleError('Please, sign in to act');
+            console.log(window.location);
+            removeToken();
+            if (window.location.pathname != '/auth/signin')
+              navigate('/auth/signin');
+            break;
+          }
+          case 403: {
+            handleError('Forbidden action');
+            break;
+          }
+          case 422: {
+            console.log('422', error);
+            handleError(error);
+            break;
+          }
+        }
+        if (error.code == 'ERR_NETWORK') {
+          window.location.href = '/auth/signin';
+        }
+        return Promise.reject(error);
+      },
+    );
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
@@ -84,9 +117,8 @@ function App() {
             ))}
           </Route>
         </Route>
-  
-      
-         <Route path={'/auth'} element={<DefaultLayout />}>
+
+        <Route path={'/auth'} element={<DefaultLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
