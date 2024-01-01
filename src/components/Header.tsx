@@ -7,6 +7,7 @@ import DropdownUser from './DropdownUser';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../store/reducers/auth/types';
 import { SearchField } from './Search/SearchField';
+ 
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;

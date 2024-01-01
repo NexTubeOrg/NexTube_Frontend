@@ -1,5 +1,5 @@
 import { ArrowDownTrayIcon, ShareIcon, FlagIcon } from '@heroicons/react/20/solid';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
 import { Link, useParams } from 'react-router-dom';
 import {  useNavigate } from 'react-router-dom';
@@ -16,12 +16,14 @@ import dayjs from 'dayjs';
 import ReportForm from '../ReportForm';
 import { handleSuccess } from '../../common/handleError';
 import { APP_CONFIG } from '../../env';
+import http_api from '../../services/http_api';
+import { SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 
 dayjs.extend(relativeTime);
 
-const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
+const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
   const [showReportForm, setShowReportForm] = useState(false);
- 
+
 
   const handleReportClick = () => {
     setShowReportForm((prevShowReportForm) => !prevShowReportForm);
@@ -30,7 +32,20 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
- 
+  const [userData, setUserData] = useState<IUserInfo>();
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+   
+      const response = await http_api.get(`/api/User/GetUser?ChannelId=${props.video?.creator?.userId}`);
+       setUserData(response.data);
+       
+    };
+    fetchData();
+ }, [ ]);
+
+
   return (
     <>
       <div className="warp m-6">
@@ -64,7 +79,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                 <h3 className="text-white text-xl">
                   {props.video?.creator?.firstName} {props.video?.creator?.lastName}
                 </h3>
-                <h3 className="text-gray text-md">3.23M subscribers</h3>
+                <h3 className="text-gray text-md">{userData?.subsciptions} subscribers</h3>
               </div>
             </div>
           </Link>

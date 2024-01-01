@@ -31,9 +31,7 @@ const parts = location.pathname.split('/');
     try {
       console.log("id",id);
       const response = await http_api.get(`/api/User/GetUser?ChannelId=${id}`);
-      const data = await response.data
-      console.log("User!!!!!!",response.data);
-      setUserData(data);
+      setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
     }

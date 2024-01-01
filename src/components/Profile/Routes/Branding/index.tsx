@@ -4,6 +4,7 @@ import { ModalCropper } from '../../../ModalCropper';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../../../store/reducers/auth/types';
 import http_api from '../../../../services/http_api';
+import { handleError, handleSuccess } from '../../../../common/handleError';
 
 export const ProfileBranding = () => { 
    interface IchannelPhoto{
@@ -23,19 +24,20 @@ export const ProfileBranding = () => {
    
   const handleUploadButtonClick = async () => {
     try {
-      console.log("lox");
-     
-  
         await http_api.put('/api/User/UpdateChannelImage', userData, {
           headers: {
             'Content-Type': 'multipart/form-data',
          
           },
         });   
+        handleSuccess('Update');
+
            window.location.reload();
        
     } catch (error) {
       console.error('Error saving changes:', error);
+      handleError(error);
+
     }
   };
   

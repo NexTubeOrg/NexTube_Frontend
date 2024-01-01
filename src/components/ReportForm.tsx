@@ -52,7 +52,7 @@ const ReportForm = (props: { abuser: number |null , videoId:number|null , onSubm
               <label className="mb-2.5 block text-black dark:text-white">Type</label>
               <select
              value={reportData.type}
-  onChange={(e) => setReportData({ ...reportData, type: Number(e.target.value as TypeOfReport) })}
+  onChange={(e) => setReportData({ ...reportData, type: Number(e.target.value as unknown as TypeOfReport) })}
   className="w-full text-white rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
 >
   {Object.keys(TypeOfReport)

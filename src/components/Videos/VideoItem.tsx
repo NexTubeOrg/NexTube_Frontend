@@ -25,7 +25,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
               <h3 className="text-white text-lg">{props.video.name}</h3>
             </Link>
             <div className="mt-2">
-              <Link to={'/channel/1'}>
+              <Link to={'/channel/'+props.video.creator?.userId}>
                 <h4 className="text-white text-sm">{props.video.creator?.firstName} {props.video.creator?.lastName}</h4>
               </Link>
               <h4 className="text-white text-sm">

@@ -4,16 +4,36 @@ import { useSelector } from 'react-redux';
 import { IAuthUser } from '../store/reducers/auth/types';
 import { Roles } from '../services/tokenService';
 import { ChannelPhoto } from './ChannelPhoto';
+import http_api from '../services/http_api';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
+  const [userData, setUserData] = useState<IUserInfo>();
+  console.log("Data",userData);
+  useEffect(() => {    
+      console.log("tokenInfo",user);
 
+    fetchData();
+
+ }, [ setUserData,isAuth]);
+
+ const fetchData = async () => {
+    try {
+ 
+      const response = await http_api.get(`/api/User/GetUser?ChannelId=${user?.userId}`);
+      setUserData(response.data);
+
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+ };
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
   // close on click outside
   useEffect(() => {
+   
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
       if (
@@ -48,7 +68,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {user?.firstName} {user?.lastName}
+            {userData?.firstName} {userData?.lastName}
           </span>
           <span className="block text-xs">
             {/* exclude display User role */}
@@ -56,7 +76,7 @@ const DropdownUser = () => {
           </span>
         </span>
 
-        <ChannelPhoto photoFileId={user?.channelPhoto ?? ''} />
+        <ChannelPhoto photoFileId={userData?.channelPhotoFileId ?? ''} />
 
         <svg
           className={`hidden fill-current sm:block ${
