@@ -2,25 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../store/reducers/auth/types';
-import { Roles } from '../services/tokenService';
+import { Roles, removeToken } from '../services/tokenService';
 import { ChannelPhoto } from './ChannelPhoto';
 import http_api from '../services/http_api';
+import GoogleAuthWrapper from './Auth/Google/GoogleAuthWrapper';
+import SignOut from '../pages/Authentication/SignOut';
+import SignInWidget from './Auth/SignIn/SignInWidget';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
   const [userData, setUserData] = useState<IUserInfo>();
-  console.log("Data",userData);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   useEffect(() => {    
-      console.log("tokenInfo",user);
-
     fetchData();
-
- }, [ setUserData,isAuth]);
+ }, [ setUserData,user]);
 
  const fetchData = async () => {
     try {
- 
       const response = await http_api.get(`/api/User/GetUser?ChannelId=${user?.userId}`);
       setUserData(response.data);
 
@@ -57,6 +57,7 @@ const DropdownUser = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   }, []);
+ 
 
   return (
     <div className="relative">
@@ -178,6 +179,14 @@ const DropdownUser = () => {
               Account Settings
             </Link>
           </li>
+          <li className="your-class-name" style={{ marginLeft: "-20px" }}>
+          <h1 style={{ textAlign:'center'}}><b>Change account</b></h1>
+               <GoogleAuthWrapper
+                  onLoading={() => {
+                    setIsLoading(() => true);
+                  }}
+                ></GoogleAuthWrapper>
+         </li>
         </ul>
         <Link
           to={'/auth/signout'}
