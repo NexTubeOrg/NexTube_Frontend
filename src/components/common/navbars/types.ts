@@ -1,5 +1,5 @@
 export interface INavbarReference {
   title: string;
-  url: string;
+  path: string;
   index: boolean | undefined;
 }

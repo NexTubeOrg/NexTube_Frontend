@@ -16,6 +16,7 @@ const CheckboxFour = (props: {
         <div className="relative ">
           <input
             name={props.name}
+            value={props.id}
             type="checkbox"
             id={props.id}
             className="sr-only"
