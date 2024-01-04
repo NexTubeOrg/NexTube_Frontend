@@ -7,6 +7,7 @@ import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
 import { FlagIcon } from '@heroicons/react/20/solid';
+import { SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
 
 const ViewChannel = () => {
 
@@ -25,11 +26,11 @@ const parts = location.pathname.split('/');
   };
  useEffect(() => {
     fetchData();
- }, [ setUserData,id]);
+ },  [ userData, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
 
  const fetchData = async () => {
     try {
-      console.log("id",id);
+ 
       const response = await http_api.get(`/api/User/GetUser?ChannelId=${id}`);
       setUserData(response.data);
     } catch (error) {

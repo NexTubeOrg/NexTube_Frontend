@@ -37,15 +37,15 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-   
-      const response = await http_api.get(`/api/User/GetUser?ChannelId=${props.video?.creator?.userId}`);
-       setUserData(response.data);
-       
-    };
+ 
+         const response = await http_api.get(`/api/User/GetUser?ChannelId=${props.video?.creator?.userId}`);
+          setUserData(response.data);
+          
+       };
     fetchData();
- }, [ ]);
-
-
+ }, [ userData, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
+ 
+ 
   return (
     <>
       <div className="warp m-6">
