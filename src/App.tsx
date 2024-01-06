@@ -97,7 +97,9 @@ function App() {
           <Route path={'watch'}>
             <Route path={':id'} element={<VideoWatchPage />} />
           </Route>
-          <Route path={'search'} element={<SearchResults />}></Route>
+          <Route path={'search'}>
+            <Route path={':name'} element={<SearchResults />}/>
+          </Route>
         </Route>
 
         <Route path={'/playlists'} element={<DefaultLayout />}>
