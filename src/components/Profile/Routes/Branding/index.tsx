@@ -95,7 +95,6 @@ export const ProfileBranding = () => {
                 text="Upload"
                 type="button"
               ></PrimaryProcessingButton>
-
             </div>
           </div>
         </div>
@@ -113,6 +112,7 @@ export const ProfileBranding = () => {
               <ModalCropper
                 onSave={onBannerSaveHandler}
                 error={''}
+                aspectRatio={2048 / 1152}
               ></ModalCropper>
             </div>
           </div>
