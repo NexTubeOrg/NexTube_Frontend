@@ -9,7 +9,7 @@ interface IchannelPhoto {
 }
 
 interface IChangeBannerRequest {
-  Banner: File | null;
+  BannerFileId: File | null;
 }
 
 export const ProfileBranding = () => { 
@@ -52,7 +52,7 @@ export const ProfileBranding = () => {
     try {
 
       const changeBannerRequest: IChangeBannerRequest = {
-        Banner: banner
+        BannerFileId: banner
       };
 
       await http_api.put('/api/User/changeBanner', changeBannerRequest, {
