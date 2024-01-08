@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 export const SearchField = () => {
   const [searchVideoName, setSearchVideoName] = useState<string>('');
   const nav = useNavigate();
+
   return (
     <>
-      <form action={"/video/search/" + searchVideoName} method="GET">
+      <form onSubmit={(event) => {nav("/video/search/" + searchVideoName); event.preventDefault()}}>
         <div className="relative w-100 text-white">
           <button
             type="button"

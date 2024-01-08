@@ -5,13 +5,14 @@ import { useEffect, useState } from 'react';
 import http_api from '../../services/http_api';
 import OperationLoader from '../../common/OperationLoader';
 import HandleOnVisible from '../HandleOnVisible';
+import numeral from 'numeral';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const VideoItem = (props: { video: IVideoLookup }) => {
   return (
     <>
-      <div className="item flex mx-2 my-5 text-gray">
+      <div className="item flex mx-11 my-5 text-gray">
         <Link to={'/video/watch/' + props.video.id}>
           <img
             className="w-75 h-45 rounded-md"
@@ -26,7 +27,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
                 {props.video.name?.length! > 15 ? props.video.name?.slice(0, 15) + '...' : props.video.name}
               </h3>
               <h4 className="text-gray mb-2 text-sm">
-                <span className="mr-2">{props.video.views} views</span>{' '}
+                <span className="mr-2">{numeral(props.video.views).format('0a').toUpperCase()} views</span>{' '}
                 <span>{dayjs(props.video.dateCreated).fromNow()}</span>
               </h4>
             </Link>
@@ -43,8 +44,8 @@ const VideoItem = (props: { video: IVideoLookup }) => {
               </div>
               <div className="flex items-center justify-center">
                 <h4 className=" text-sm">
-                  {props.video.creator?.firstName}{' '}
-                  {props.video.creator?.lastName}
+                  {props.video.creator?.firstName.length! > 15 ? props.video.creator?.firstName?.slice(0, 15) + '...' : props.video.creator?.firstName}{' '}
+                  {props.video.creator?.lastName.length! > 15 ? props.video.creator?.lastName?.slice(0, 15) + '...' : props.video.creator?.lastName}
                 </h4>
               </div>
             </div>
@@ -65,6 +66,7 @@ export const SearchResults = () => {
   const [videos, setVideos] = useState<IVideoLookup[]>([]);
   const [page, setPage] = useState<number>(1);
   const [pageSize] = useState<number>(5);
+  const [needReload, setNeedReload] = useState<number>(1);
 
   const params = useParams();
 
@@ -95,17 +97,30 @@ export const SearchResults = () => {
       setIsInitLoading(true);
     }
 
+    console.log(params.name);
     loadVideoAsync();
-  }, [page]);
+  }, [page, needReload]);
+
+  useEffect(() => {
+    setVideos([]);
+    setCanLoad(true);
+    setIsInitLoading(false);
+    setPage(1);
+    setNeedReload(prev => prev + 1);
+  }, [params.name]);
 
   return (
     <>
+      <>
+        {videos.length == 0 && <h1 className='flex items-center justify-center text-gray text-lg'>No result</h1>}
+      </>
+
       <ul>
         {videos.map((video => (
           <li>
             <VideoItem video={video}></VideoItem>
           </li>
-        )))};
+        )))}
       </ul>
 
       <>

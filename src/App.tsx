@@ -97,8 +97,8 @@ function App() {
           <Route path={'watch'}>
             <Route path={':id'} element={<VideoWatchPage />} />
           </Route>
-          <Route path={'search'}>
-            <Route path={':name'} element={<SearchResults />}/>
+          <Route path={'search'} element={<SearchResults />}>
+            <Route index path={':name'} element={<SearchResults />}/>
           </Route>
         </Route>
 
