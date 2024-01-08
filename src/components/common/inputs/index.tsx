@@ -28,11 +28,11 @@ const DefaultInput = (props: {
           {props.icon}
         </div>
         <input
-          id={props.propertyName}
-          name={props.propertyName}
-          value={props.value}
+          id={props.propertyName ?? ''}
+          name={props.propertyName ?? ''}
+          value={props.value ?? ''}
           onChange={props.handleChange}
-          type={props.type}
+          type={props.type ?? ''}
           placeholder={
             props.propertyName.charAt(0).toUpperCase() +
             props.propertyName.slice(1).toLowerCase()

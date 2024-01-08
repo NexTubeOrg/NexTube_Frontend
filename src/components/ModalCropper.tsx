@@ -8,6 +8,7 @@ const defaultThumb = '/imageThumb.svg';
 
 export const ModalCropper: React.FC<ICroppedModal> = ({
   imageUri = defaultThumb,
+  aspectRatio = 1 / 1,
   error = null,
   onSave = null,
 }) => {
@@ -26,7 +27,7 @@ export const ModalCropper: React.FC<ICroppedModal> = ({
         imageCropperEditAreaRef.current as HTMLImageElement,
         {
           viewMode: 1,
-          aspectRatio: 1 / 1,
+          aspectRatio: aspectRatio,
         },
       );
       setCropper(cropperObj);
