@@ -234,7 +234,7 @@ export const AddVideoOverlay = () => {
                     <label className="mb-3 block text-black dark:text-white">
                       Select video preview
                     </label>
-                    <ModalCropper onSave={onPreviewPhotoChangeHandler} error={errors.previewPhoto ?? ""}></ModalCropper>
+                    <ModalCropper onSave={onPreviewPhotoChangeHandler} error={errors.previewPhoto ?? ""} aspectRatio={16 / 9}></ModalCropper>
                   </div>
                 </div>
               </div>

@@ -162,15 +162,6 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
 
               <li>
                 <SidebarItem
-                  active={true}
-                  url="/search"
-                  title="Search"
-                  icon={<MagnifyingGlassIcon></MagnifyingGlassIcon>}
-                ></SidebarItem>
-              </li>
-
-              <li>
-                <SidebarItem
                   active={false}
                   url="/friends"
                   title="Friends"

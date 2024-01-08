@@ -6,6 +6,6 @@ interface IUserInfo
   description:string,
   subsciptions:number,
   video:number,
-  channelPhotoFileId:string
-
+  channelPhotoFileId:string,
+  bannerFileId: string,
 }
