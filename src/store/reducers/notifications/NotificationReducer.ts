@@ -1,9 +1,12 @@
 import { IErrorResult } from './../../../common/common_responces';
 import toast from 'react-hot-toast';
-import { NotificationType } from './types';
+import { IUserNotificationsState, NotificationType } from './types';
 import 'react-toastify/dist/ReactToastify.css';
 
-const initState: any = '';
+const initState: IUserNotificationsState = {
+  notifications: [],
+  page: 1,
+};
 
 const notificationStyles = {
   success: 'bg-success text-white',
@@ -50,6 +53,22 @@ export const NotificationReducer = (state = initState, action: any): any => {
       });
       return state;
     }
+    case NotificationType.APPEND_NOTIFICATIONS: {
+      return {
+        ...state,
+        notifications: [...state.notifications, ...action.payload],
+      };
+    }
+    case NotificationType.NEXT_PAGE_NOTIFICATIONS: {
+      return {
+        ...state,
+        page: state.page + 1,
+      };
+    }
+    case NotificationType.RESET_NOTIFICATIONS: {
+      return initState;
+    }
+
     default:
       return state;
   }
