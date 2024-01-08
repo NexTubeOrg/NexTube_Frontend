@@ -18,6 +18,8 @@ import { handleSuccess } from '../../common/handleError';
 import { APP_CONFIG } from '../../env';
 import http_api from '../../services/http_api';
 import { SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
+import { useSelector } from 'react-redux';
+import { IAuthUser } from '../../store/reducers/auth/types';
 
 dayjs.extend(relativeTime);
 
@@ -34,16 +36,17 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
   };
   const [userData, setUserData] = useState<IUserInfo>();
 
+  const {  isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
 
   useEffect(() => {
-    const fetchData = async () => {
+  if(isAuth){  const fetchData = async () => {
  
          const response = await http_api.get(`/api/User/GetUser?ChannelId=${props.video?.creator?.userId}`);
           setUserData(response.data);
           
        };
-    fetchData();
- }, [ userData, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
+    fetchData();}
+ }, [  userData,  SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
  
  
   return (

@@ -91,7 +91,7 @@ const Header = (props: {
           </ul>
 
           {/* <!-- User Area --> */}
-          {isAuth && <DropdownUser />}
+          {isAuth && <DropdownUser sidebarOpen={props.sidebarOpen} setSidebarOpen={props.setSidebarOpen} />}
           {!isAuth && (
             <>
               <Link

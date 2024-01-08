@@ -1,4 +1,4 @@
-import { Outlet, useNavigate , useParams } from 'react-router-dom';
+import { Outlet , useParams } from 'react-router-dom';
  import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
 import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription';

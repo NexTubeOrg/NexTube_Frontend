@@ -1,23 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { IAuthUser } from '../store/reducers/auth/types';
-import { Roles, removeToken } from '../services/tokenService';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import {  useSelector } from 'react-redux';
+import { IAuthUser, IUser } from '../store/reducers/auth/types';
+import { Roles,  decodeToken,   getTokenByKey,  getTokensFromLocalStorage,  storeToken } from '../services/tokenService';
 import { ChannelPhoto } from './ChannelPhoto';
 import http_api from '../services/http_api';
-import GoogleAuthWrapper from './Auth/Google/GoogleAuthWrapper';
-import SignOut from '../pages/Authentication/SignOut';
-import SignInWidget from './Auth/SignIn/SignInWidget';
+import SidebarLinkGroup from './SidebarLinkGroup';
+import React from 'react';
+import { store } from '../store';
+import { AcountSwitchActionType } from '../store/reducers/acountSwitch/types';
+ 
 
-const DropdownUser = () => {
+interface UserSidebarProps {
+  sidebarOpen: string | boolean | undefined;
+  setSidebarOpen: (arg: boolean) => void;
+}
+const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
+  const {isAuth,   user } = useSelector((store: any) => store.auth as IAuthUser);
   const [userData, setUserData] = useState<IUserInfo>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+ 
   useEffect(() => {    
-    fetchData();
- }, [ setUserData,user]);
+  if(isAuth){  fetchData();
+ }}, [ setUserData,user]);
 
  const fetchData = async () => {
     try {
@@ -59,7 +64,85 @@ const DropdownUser = () => {
   }, []);
  
 
-  return (
+
+  const location = useLocation();
+  const { pathname } = location;
+
+ 
+  const sidebar = useRef<any>(null);
+
+  const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
+  const [sidebarExpanded, setSidebarExpanded] = useState(
+    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
+  );
+
+  // close on click outside
+  useEffect(() => {
+    const clickHandler = ({ target }: MouseEvent) => {
+      if (!sidebar.current || !trigger.current) return;
+      if (
+        !sidebarOpen ||
+        sidebar.current.contains(target) ||
+        trigger.current.contains(target)
+      )
+        return;
+      setSidebarOpen(false);
+    };
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
+  }, []);
+
+  // close if the esc key is pressed
+  useEffect(() => {
+    const keyHandler = ({ keyCode }: KeyboardEvent) => {
+      if (!sidebarOpen || keyCode !== 27) return;
+      setSidebarOpen(false);
+    };
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
+  }, []);
+   
+
+ 
+  useEffect(() => {
+    localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
+    if (sidebarExpanded) {
+      document.querySelector('body')?.classList.add('sidebar-expanded');
+    } else {
+      document.querySelector('body')?.classList.remove('sidebar-expanded');
+    }
+  }, [sidebarExpanded]);
+
+const users = useSelector((store:any)=>store.acountSwitch.user  ); 
+useEffect(() => {
+  const updateTokens = () => {
+    const tokens = getTokensFromLocalStorage();  
+    
+    tokens.forEach(async (token) => {
+      try {
+        const users = decodeToken(token.value)as IUser  ;
+        const response = (await http_api.get(`/api/User/GetUser?ChannelId=${users.userId}`)).data;
+         store.dispatch({
+          type: AcountSwitchActionType.LOGIN_USER_ADD,
+          payload: {
+            email: users.email,
+            firstName: response.firstName,
+            lastName: response.lastName,
+            channelPhoto: response.channelPhotoFileId,
+            roles: users.roles,
+            userId: users.userId,
+          },});
+      } catch (error) {
+        console.error('Помилка розшифрування токена:', error);
+      }
+    });
+  };
+  updateTokens();
+}, [user]);
+
+
+
+ return (
     <div className="relative">
       <Link
         ref={trigger}
@@ -180,12 +263,85 @@ const DropdownUser = () => {
             </Link>
           </li>
           <li className="your-class-name" style={{ marginLeft: "-20px" }}>
-          <h1 style={{ textAlign:'center'}}><b>Change account</b></h1>
-               <GoogleAuthWrapper
-                  onLoading={() => {
-                    setIsLoading(() => true);
-                  }}
-                ></GoogleAuthWrapper>
+ 
+        
+      <div className="sub">
+            <ul className="mb-6 flex flex-col gap-1.5">
+              {/* <!-- Menu Item Auth Pages --> */}
+              <SidebarLinkGroup activeCondition={true}>
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <NavLink
+                        to="#"
+                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          (pathname === '/auth' || pathname.includes('auth')) &&
+                          'bg-graydark dark:bg-meta-4'
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded
+                            ? handleClick()
+                            : setSidebarExpanded(true);
+                        }}
+                      >
+                        Change account
+                        <svg
+                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
+                            open && 'rotate-180'
+                          }`}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M4.41107 6.9107C4.73651 6.58527 5.26414 6.58527 5.58958 6.9107L10.0003 11.3214L14.4111 6.91071C14.7365 6.58527 15.2641 6.58527 15.5896 6.91071C15.915 7.23614 15.915 7.76378 15.5896 8.08922L10.5896 13.0892C10.2641 13.4147 9.73651 13.4147 9.41107 13.0892L4.41107 8.08922C4.08563 7.76378 4.08563 7.23614 4.41107 6.9107Z"
+                            fill=""
+                          />
+                        </svg>
+                      </NavLink>
+                      {/* <!-- Dropdown Menu Start --> */}
+                      <div
+                        className={`translate transform overflow-hidden ${
+                          !open && 'hidden'
+                        }`}
+                      >
+                     
+
+                     <ul>
+         {users.map((user:IUser, index:any) => (
+        <li key={index}>
+          <SidebarItem
+            active={true}
+            url={user.userId}
+            title={`${user.firstName} ${user.lastName}`}
+            icon={ <div className="thumb bg-danger rounded-full w-8 h-8">
+            <img className="h-12 w-12 rounded-full" src={"/api/Photo/GetPhotoUrl/"+user.channelPhoto+"/50"} alt="User" />
+          </div>}
+          />
+        </li>
+      ))}
+      <li>
+      <Link
+                to="/auth/signin"
+                className="flex text-gray items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              >
+                Sign In
+              </Link>
+      </li>
+      </ul> </div>
+                      {/* <!-- Dropdown Menu End --> */}
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
+              {/* <!-- Menu Item Auth Pages --> */}
+            </ul>
+          </div>
          </li>
         </ul>
         <Link
@@ -216,5 +372,36 @@ const DropdownUser = () => {
     </div>
   );
 };
+const SidebarItem = (props: {
+  url: number;
+  title: string;
+  icon: any;
+  active: boolean;
+}) => {
+ 
+  
+  
 
+  const handleClick = () => {
+  const url = props.url?.toString();
+  const token = getTokenByKey(url) as string ;
+  console.log("url",url);
+  storeToken(token);
+  window.location.reload();
+
+  };
+
+  return (
+    <>
+      <div
+        onClick={handleClick}
+        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
+      
+      >
+        <div className="icon w-8 relative dark:text-white">{props.icon}</div>
+        {props.title}
+      </div>
+    </>
+  );
+};
 export default DropdownUser;

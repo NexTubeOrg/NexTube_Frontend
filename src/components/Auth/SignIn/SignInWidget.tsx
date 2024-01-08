@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
-import { storeToken } from '../../../services/tokenService';
-import GoogleAuth from '../Google/GoogleAuth';
+import {  storeToken, storeTokenAcount } from '../../../services/tokenService';
+ 
 import { handleError, handleSuccess } from '../../../common/handleError';
 import { useState } from 'react';
 import { PrimaryProcessingButton } from '../../../components/common/buttons/PrimaryProcessingButton';
@@ -13,6 +13,10 @@ import { DefaultInput } from '../../common/inputs';
 import CheckboxOne from '../../CheckboxOne';
 import { LockClosedIcon, UserIcon } from '@heroicons/react/20/solid';
 import GoogleAuthWrapper from '../Google/GoogleAuthWrapper';
+import { IAuthUser } from '../../../store/reducers/auth/types';
+ 
+import { useSelector } from 'react-redux';
+ 
 
 const SignInWidget = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,9 +31,13 @@ const SignInWidget = () => {
     email: yup.string().required('Enter email').email('Enter valid email'),
     password: yup.string().required('Enter password').min(8),
   });
-
+ 
+  const {   isAuth } = useSelector((store: any) => store.auth as IAuthUser);
   const onFormSubmit = async (values: ILoginRequest) => {
     try {
+ 
+
+
       console.log(errors);
       console.log(values);
       setIsLoading(() => true);
@@ -39,15 +47,22 @@ const SignInWidget = () => {
       if (result.result.succeeded != true) throw result.result;
 
       const { token } = result;
-      storeToken(token);
-      handleSuccess('Sign in successfully');
-      navigator('/');
+      if(isAuth){
+      storeTokenAcount(token);}
+      else {
+        storeToken(token);
+      }
+        handleSuccess('Sign in successfully');
+        navigator('/');
+
+      
     } catch (error) {
       console.log('signinerror', error);
       handleError(error);
     } finally {
       setIsLoading(() => false);
     }
+  
   };
 
   const formik = useFormik({
@@ -56,7 +71,7 @@ const SignInWidget = () => {
     onSubmit: onFormSubmit,
   });
 
-  const { values, errors, touched, handleSubmit, handleChange } = formik;
+  const { values, errors, handleSubmit, handleChange } = formik;
 
   return (
     <>

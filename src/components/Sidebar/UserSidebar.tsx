@@ -17,7 +17,7 @@ import {
 import http_api from '../../services/http_api';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
- import { ISubscription } from './types';
+ 
 import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 import { store } from '../../store';
  
@@ -89,6 +89,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
         });
      
       } catch (error) { 
+        console.log("us",user);
         console.error(error);
       }
     };
