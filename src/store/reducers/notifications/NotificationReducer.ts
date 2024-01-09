@@ -2,10 +2,12 @@ import { IErrorResult } from './../../../common/common_responces';
 import toast from 'react-hot-toast';
 import { IUserNotificationsState, NotificationType } from './types';
 import 'react-toastify/dist/ReactToastify.css';
+import { INotificationLookup } from '../../../components/Notifications/types';
 
 const initState: IUserNotificationsState = {
   notifications: [],
   page: 1,
+  pending: false,
 };
 
 const notificationStyles = {
@@ -56,7 +58,15 @@ export const NotificationReducer = (state = initState, action: any): any => {
     case NotificationType.APPEND_NOTIFICATIONS: {
       return {
         ...state,
-        notifications: [...state.notifications, ...action.payload],
+        notifications: [
+          ...state.notifications,
+          ...action.payload.filter(
+            (newItem: INotificationLookup) =>
+              state.notifications.find(
+                (c) => c.notificationData.id == newItem.notificationData.id,
+              ) == null,
+          ),
+        ],
       };
     }
     case NotificationType.NEXT_PAGE_NOTIFICATIONS: {
@@ -67,6 +77,20 @@ export const NotificationReducer = (state = initState, action: any): any => {
     }
     case NotificationType.RESET_NOTIFICATIONS: {
       return initState;
+    }
+    case NotificationType.PUSH_NOTIFICATION_TO_FRONT: {
+      const pending_notification = action.payload as INotificationLookup;
+      pending_notification.pending = true;
+      return {
+        ...state,
+        notifications: [pending_notification, ...state.notifications],
+      };
+    }
+    case NotificationType.SET_PENDING_NOTIFICATIONS_INDICATOR: {
+      return {
+        ...state,
+        pending: action.payload as boolean,
+      };
     }
 
     default:

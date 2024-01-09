@@ -18,6 +18,7 @@ import OperationLoader from '../../common/OperationLoader';
 dayjs.extend(relativeTime);
 import * as SignalR from '@microsoft/signalr';
 import { getToken } from '../../services/tokenService';
+import classNames from 'classnames';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -31,7 +32,7 @@ const DropdownNotification = () => {
   const dropdown = useRef<any>(null);
 
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
-  const { notifications, page } = useSelector(
+  const { notifications, page, pending } = useSelector(
     (store: any) => store.notify as IUserNotificationsState,
   );
 
@@ -43,13 +44,21 @@ const DropdownNotification = () => {
           return getToken() ?? '';
         },
       })
-      .configureLogging(SignalR.LogLevel.Trace)
+      .configureLogging(SignalR.LogLevel.Warning)
       .build();
 
     signalr_notifications.on(
       'OnNotificationReceived',
       (notification: INotificationLookup) => {
+        store.dispatch({
+          type: NotificationType.SET_PENDING_NOTIFICATIONS_INDICATOR,
+          payload: true,
+        });
         console.log('received notification:', notification);
+        store.dispatch({
+          type: NotificationType.PUSH_NOTIFICATION_TO_FRONT,
+          payload: notification,
+        });
       },
     );
 
@@ -61,9 +70,11 @@ const DropdownNotification = () => {
   }, [user]);
 
   useEffect(() => {
-    if (dropdownOpen == true) return;
+    if (dropdownOpen == false) return;
+
     store.dispatch({
-      type: NotificationType.RESET_NOTIFICATIONS,
+      type: NotificationType.SET_PENDING_NOTIFICATIONS_INDICATOR,
+      payload: false,
     });
   }, [dropdownOpen]);
 
@@ -112,9 +123,11 @@ const DropdownNotification = () => {
         to="#"
         className="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white"
       >
-        <span className="absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1">
-          <span className="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
-        </span>
+        {pending && (
+          <span className="absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1">
+            <span className="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
+          </span>
+        )}
 
         <svg
           className="fill-current duration-300 ease-in-out"
@@ -142,28 +155,13 @@ const DropdownNotification = () => {
         </div>
 
         <ul className="flex h-auto flex-col overflow-y-auto">
-          <li>
-            <button
-              onClick={() => {
-                if (hub!.state === SignalR.HubConnectionState.Connected) {
-                  hub!.invoke('Test', 'hello from React ^_^').catch((e) => {
-                    console.log('send error', e, hub);
-                  });
-                } else {
-                  console.log(
-                    'Cannot send since state is not connected :(',
-                    hub,
-                  );
-                }
-              }}
-            >
-              Send
-            </button>
-          </li>
           {notifications.map((n, index) => (
             <li key={index}>
               <Link
-                className="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
+                className={classNames(
+                  'flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4',
+                  { ' bg-secondary': n.pending },
+                )}
                 to={`/video/watch/${n.notificationData?.id}`}
               >
                 <div className="flex">

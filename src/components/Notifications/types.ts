@@ -10,4 +10,5 @@ export interface INotificationLookup {
   notificationIssuer: IUserLookup;
   notificationData: IVideoLookup;
   dateCreated: string;
+  pending: boolean;
 }
