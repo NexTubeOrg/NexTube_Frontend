@@ -14,12 +14,16 @@ import dayjs from 'dayjs';
 import { ChannelPhoto } from '../ChannelPhoto';
 import HandleOnVisible from '../HandleOnVisible';
 import OperationLoader from '../../common/OperationLoader';
+// import { SignalR, signalr_notifications } from '../../services/signalr';
 dayjs.extend(relativeTime);
+import * as SignalR from '@microsoft/signalr';
+import { getToken } from '../../services/tokenService';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const DropdownNotification = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [hub, setHub] = useState<SignalR.HubConnection>();
   const [needLoad, setNeedLoad] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -30,6 +34,31 @@ const DropdownNotification = () => {
   const { notifications, page } = useSelector(
     (store: any) => store.notify as IUserNotificationsState,
   );
+
+  useEffect(() => {
+    const signalr_notifications = new SignalR.HubConnectionBuilder()
+      .withUrl('/signalr/notifications', {
+        transport: SignalR.HttpTransportType.WebSockets,
+        accessTokenFactory: () => {
+          return getToken() ?? '';
+        },
+      })
+      .configureLogging(SignalR.LogLevel.Trace)
+      .build();
+
+    signalr_notifications.on(
+      'OnNotificationReceived',
+      (notification: INotificationLookup) => {
+        console.log('received notification:', notification);
+      },
+    );
+
+    signalr_notifications.start().catch((e: any) => {
+      console.error('signalr error', e);
+    });
+
+    setHub(signalr_notifications);
+  }, [user]);
 
   useEffect(() => {
     if (dropdownOpen == true) return;
@@ -44,6 +73,10 @@ const DropdownNotification = () => {
 
     fetchPlaylists();
   }, [dropdownOpen, needLoad]);
+
+  useEffect(() => {
+    console.log('user was changed');
+  }, [user]);
 
   const fetchPlaylists = async () => {
     try {
@@ -70,10 +103,6 @@ const DropdownNotification = () => {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    console.log('user was changed');
-  }, [user]);
 
   return (
     <li className="relative">
@@ -113,6 +142,24 @@ const DropdownNotification = () => {
         </div>
 
         <ul className="flex h-auto flex-col overflow-y-auto">
+          <li>
+            <button
+              onClick={() => {
+                if (hub!.state === SignalR.HubConnectionState.Connected) {
+                  hub!.invoke('Test', 'hello from React ^_^').catch((e) => {
+                    console.log('send error', e, hub);
+                  });
+                } else {
+                  console.log(
+                    'Cannot send since state is not connected :(',
+                    hub,
+                  );
+                }
+              }}
+            >
+              Send
+            </button>
+          </li>
           {notifications.map((n, index) => (
             <li key={index}>
               <Link
