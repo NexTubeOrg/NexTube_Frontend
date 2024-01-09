@@ -14,7 +14,6 @@ import dayjs from 'dayjs';
 import { ChannelPhoto } from '../ChannelPhoto';
 import HandleOnVisible from '../HandleOnVisible';
 import OperationLoader from '../../common/OperationLoader';
-// import { SignalR, signalr_notifications } from '../../services/signalr';
 dayjs.extend(relativeTime);
 import * as SignalR from '@microsoft/signalr';
 import { getToken } from '../../services/tokenService';
@@ -54,7 +53,6 @@ const DropdownNotification = () => {
           type: NotificationType.SET_PENDING_NOTIFICATIONS_INDICATOR,
           payload: true,
         });
-        console.log('received notification:', notification);
         store.dispatch({
           type: NotificationType.PUSH_NOTIFICATION_TO_FRONT,
           payload: notification,
@@ -84,10 +82,6 @@ const DropdownNotification = () => {
 
     fetchPlaylists();
   }, [dropdownOpen, needLoad]);
-
-  useEffect(() => {
-    console.log('user was changed');
-  }, [user]);
 
   const fetchPlaylists = async () => {
     try {

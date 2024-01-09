@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { ProfileVideosReducerActionsType } from '../../store/reducers/profileVideos/types';
 import { store } from '../../store';
 import { ProfilePlaylistsActionType } from '../../store/reducers/profilePlaylists/types';
+import { NotificationType } from '../../store/reducers/notifications/types';
 
 const SignOut = () => {
   const navigator = useNavigate();
@@ -17,6 +18,10 @@ const SignOut = () => {
 
     store.dispatch({
       type: ProfilePlaylistsActionType.RESET_ALL,
+    });
+
+    store.dispatch({
+      type: NotificationType.RESET_NOTIFICATIONS,
     });
     console.log('signed out');
   }, []);
