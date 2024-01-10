@@ -9,6 +9,8 @@ import { ProfileInfo } from '../components/Profile/Routes/Info';
 import { ProfileVideos } from '../components/Profile/Routes/Videos';
 import { AddVideoOverlay } from '../components/Profile/Routes/Videos/AddVideoOverlay';
 import { EditVideoOverlay } from '../components/Profile/Routes/Videos/EditVideoOverlay';
+import { EditPlaylists } from '../components/Profile/Routes/Playlists/EditPlaylists';
+import { CreatePlaylistOverlay } from '../components/Profile/Routes/Playlists/CreatePlaylistOverlay';
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -67,26 +69,31 @@ const channelRoutes = [
     path: 'home',
     title: 'Home',
     component: ChannelHome,
+    index: true,
   },
   {
     path: 'videos',
     title: 'Videos',
     component: ChannelVideos,
+    index: false,
   },
   {
     path: 'live',
     title: 'Live',
     component: ChannelLive,
+    index: false,
   },
   {
     path: 'community',
     title: 'Community',
     component: ChannelCommunity,
+    index: false,
   },
   {
     path: 'playlists',
     title: 'Playlists',
     component: ChannelPlaylist,
+    index: false,
   },
 ];
 
@@ -95,11 +102,13 @@ const profileRoutes = [
     path: '',
     title: 'Branding',
     component: ProfileBranding,
+    index: true,
   },
   {
     path: 'info',
-    title: 'Info',
+    title: 'Basic info',
     component: ProfileInfo,
+    index: false,
   },
   {
     path: 'videos',
@@ -107,8 +116,26 @@ const profileRoutes = [
     component: ProfileVideos,
     routes: [
       { path: 'addVideo', title: 'Add video', component: AddVideoOverlay },
-      { path: 'editVideo/:id', title: 'Edit video', component: EditVideoOverlay}
+      {
+        path: 'editVideo/:id',
+        title: 'Edit video',
+        component: EditVideoOverlay,
+      },
     ],
+    index: false,
+  },
+  {
+    path: 'playlists',
+    title: 'Playlists',
+    component: EditPlaylists,
+    routes: [
+      {
+        path: 'addPlaylist',
+        title: 'Add playlist',
+        component: CreatePlaylistOverlay,
+      },
+    ],
+    index: false,
   },
 ];
 

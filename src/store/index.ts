@@ -7,6 +7,7 @@ import { VideoCommentsReducer } from './reducers/videoComments/VideoCommentsRedu
 import { SubscriptionReducer } from './reducers/subscription/SubscriptionReducer';
 import { AcountSwitch } from './reducers/acountSwitch/AcountSwitch';
 import { ProfileVideosReducer } from './reducers/profileVideos/ProfileVideosReducer';
+import { ProfilePlaylistsReducer } from './reducers/profilePlaylists/ProfilePlaylistsReducer';
 
 export const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   subscription:SubscriptionReducer,
   profileVideos: ProfileVideosReducer,
   acountSwitch:AcountSwitch,
+  profilePlaylists: ProfilePlaylistsReducer,
 });
  
 

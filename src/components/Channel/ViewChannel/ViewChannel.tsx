@@ -8,12 +8,12 @@ import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
 import { FlagIcon } from '@heroicons/react/20/solid';
 import { SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
+import { channelRoutes } from '../../../routes';
 
 const ViewChannel = () => {
-
   const [userData, setUserData] = useState<IUserInfo>();
-const {id}=useParams();
-const parts = location.pathname.split('/');
+  const { id } = useParams();
+  const parts = location.pathname.split('/');
 
   const [showReportForm, setShowReportForm] = useState(false);
 
@@ -24,28 +24,25 @@ const parts = location.pathname.split('/');
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
- useEffect(() => {
+  useEffect(() => {
     fetchData();
  },  [ userData, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
 
- const fetchData = async () => {
+  const fetchData = async () => {
     try {
  
       const response = await http_api.get(`/api/User/GetUser?ChannelId=${id}`);
+
       setUserData(response.data);
+
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
- };
+  };
 
- if (!userData) {
+  if (!userData) {
     return <div>Loading...</div>;
- }
-
-
-
-  
-
+  }
 
   return (
     <>
@@ -58,23 +55,31 @@ const parts = location.pathname.split('/');
             <div className="w-36 h-36 dark:bg-primary rounded-full p-3 mr-6">
               <img
                 className=" fill-white rounded-full dark:bg-transparent"
-                src= {"/api/Photo/GetPhotoUrl/"+userData.channelPhotoFileId+"/150"}
+                src={
+                  '/api/Photo/GetPhotoUrl/' +
+                  userData.channelPhotoFileId +
+                  '/150'
+                }
                 alt=""
               />
             </div>
             {/* channel info */}
             <div className="text">
               {/* Channel title */}
-              <h1 className="text-white text-3xl mb-2">{userData.lastName} {userData.firstName} </h1>
+              <h1 className="text-white text-3xl mb-2">
+                {userData.lastName} {userData.firstName}{' '}
+              </h1>
               {/* Channel info */}
               <h4 className="text-gray text-md  mb-2">
                 <span className="mr-4">@{userData.nickname}</span>
-                <span className="mr-4">{userData.subsciptions} subscribers</span>
+                <span className="mr-4">
+                  {userData.subsciptions} subscribers
+                </span>
                 <span className="">{userData.video} videos</span>
               </h4>
               {/* Channel description */}
               <h4 className="text-gray text-md  mb-2">
-               {userData.description}
+                {userData.description}
               </h4>
               {/* Channel links */}
               <h4 className="text-md  mb-2">
@@ -86,65 +91,53 @@ const parts = location.pathname.split('/');
                 </span>
               </h4>
               {/* Subscribe to channel */}
-              <div className='channel-tools'>
-              <div className="w-35 ">
-              <SubscribeButton
-              
-              isLoading={false}
-                onClick={() => {}}
-               text ="Subscribe"
-                type="button"
-                 backgroundClassname="primary"
-                subscribeId={id}
-              ></SubscribeButton>
-      
-             </div>
-              <div className="w-11 h-0 ml-4">
-                
-              <IconedProcessingButton
-                isLoading={false}
-                onClick={handleReportClick}
-                text=""
-                type="button"
-                icon={<FlagIcon height={25} width={25}/>}
-                backgroundClassname="primary"
-              ></IconedProcessingButton>
-             </div>
+              <div className="channel-tools">
+                <div className="w-35 ">
+                  <SubscribeButton
+                    isLoading={false}
+                    onClick={() => {}}
+                    text="Subscribe"
+                    type="button"
+                    backgroundClassname="primary"
+                    subscribeId={id}
+                  ></SubscribeButton>
+                </div>
+                <div className="w-11 h-0 ml-4">
+                  <IconedProcessingButton
+                    isLoading={false}
+                    onClick={handleReportClick}
+                    text=""
+                    type="button"
+                    icon={<FlagIcon height={25} width={25} />}
+                    backgroundClassname="primary"
+                  ></IconedProcessingButton>
+                </div>
               </div>
             </div>
           </div>
           {showReportForm && (
-          <div className="report-form-overlay w-150 p-0">
-            <ReportForm
-              abuser={Number(parts[2])}
-              videoId={null}
-               onSubmitSuccess={handleReportFormClose}
-            />
-            <button onClick={handleReportFormClose}>Close Report Form</button>
-          </div>
-        )}
-        {!showReportForm && (
-          <div>
-          <div className="nav mt-6">
-            <Navbar
-              routeLength={4}
-              refs={[
-                { title: 'Home', url: '', index: true },
-                { title: 'Videos', url: 'videos', index: false },
-                { title: 'Live', url: 'live', index: false },
-                { title: 'Community', url: 'community', index: false },
-                { title: 'Playlists', url: 'playlists', index: false },
-              ]}
-            ></Navbar>
-          </div>
-       
-          <div className="page mt-6">
-            <Outlet></Outlet>
-          </div>    
-          </div>)}
+            <div className="report-form-overlay w-150 p-0">
+              <ReportForm
+                abuser={Number(parts[2])}
+                videoId={null}
+                onSubmitSuccess={handleReportFormClose}
+              />
+              <button onClick={handleReportFormClose}>Close Report Form</button>
+            </div>
+          )}
+          {!showReportForm && (
+            <div>
+              <div className="nav mt-6">
+                <Navbar routeLength={4} refs={channelRoutes}></Navbar>
+              </div>
+
+              <div className="page mt-6">
+                <Outlet></Outlet>
+              </div>
+            </div>
+          )}
         </div>
-      </div> 
-     
+      </div>
     </>
   );
 };

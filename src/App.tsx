@@ -18,6 +18,7 @@ import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx'
 import Moderator from './pages/Dashboard/Moderator/Moderator.tsx';
  import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
 import { SearchResults } from './components/Search/SearchResults.tsx';
+import PlaylistVideosContainer from './components/Playlists/PlaylistVideosContainer.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -96,6 +97,10 @@ function App() {
             <Route path={':id'} element={<VideoWatchPage />} />
           </Route>
           <Route path={'search'} element={<SearchResults />}></Route>
+        </Route>
+
+        <Route path={'/playlists'} element={<DefaultLayout />}>
+          <Route index path={':id'} element={<PlaylistVideosContainer />} />
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>
