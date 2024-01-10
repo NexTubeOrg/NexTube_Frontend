@@ -6,7 +6,7 @@ import OperationLoader from '../../common/OperationLoader';
 import HandleOnVisible from '../HandleOnVisible';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import classNames from 'classnames';
-
+import './../../styles/custom-scrollbar.css';
 const PlaylistVideoItem = (props: {
   video: IVideoLookup;
   playlistId: string;
@@ -141,7 +141,7 @@ const PlaylistVideosContainer = () => {
           </div>
         </div>
         <div>
-          <ul className="w-full h-100 overflow-y-scroll custom-scrollbar">
+          <ul className="w-full h-100 overflow-y-scroll default-custom-scrollbar">
             {videos.map((v) => (
               <li key={v.id}>
                 <PlaylistVideoItem
