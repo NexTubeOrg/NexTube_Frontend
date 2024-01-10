@@ -5,7 +5,7 @@ export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
   return (
     <>
       <div className="bg-black mb-3">
-        <Link to={'/playlists/' + props.playlist.id}>
+        <Link to={`/video/watch/playlist/${props.playlist.id}`}>
           <div className="relative w-75 h-45 overflow-hidden min-w-75 min-h-45">
             {props.playlist.preview && (
               <div className="wrapper w-75 h-45 bg-gray flex justify-center items-center">

@@ -84,9 +84,8 @@ function App() {
             ))}
           </Route>
         </Route>
-  
-      
-         <Route path={'/auth'} element={<DefaultLayout />}>
+
+        <Route path={'/auth'} element={<DefaultLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
@@ -95,10 +94,23 @@ function App() {
 
         <Route path={'/video'} element={<DefaultLayout />}>
           <Route path={'watch'}>
-            <Route path={':id'} element={<VideoWatchPage />} />
+            <Route path={':videoId'} element={<VideoWatchPage />}>
+              <Route path="playlist">
+                <Route
+                  path={':playlistId'}
+                  element={<PlaylistVideosContainer />}
+                ></Route>
+              </Route>
+            </Route>
+            <Route path="playlist">
+              <Route
+                path={':playlistId'}
+                element={<PlaylistVideosContainer />}
+              ></Route>
+            </Route>
           </Route>
           <Route path={'search'} element={<SearchResults />}>
-            <Route index path={':name'} element={<SearchResults />}/>
+            <Route index path={':name'} element={<SearchResults />} />
           </Route>
         </Route>
 
