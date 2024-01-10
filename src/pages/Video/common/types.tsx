@@ -11,6 +11,7 @@ export interface IVideoLookup {
   views: number | null;
   accessModificator: string | null;
   playlistId: number | null | undefined;
+  commentsCount: number | null;
 }
 
 export interface IGetVideoResult {
