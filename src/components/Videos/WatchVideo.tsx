@@ -22,9 +22,6 @@ import http_api from '../../services/http_api';
 import { SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../store/reducers/auth/types';
-
-import { useSelector } from 'react-redux';
-import { IAuthUser } from '../../store/reducers/auth/types';
 import { SetVideoPlaylist } from '../Playlists/SetVideoPlaylist';
 
 
@@ -53,7 +50,7 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
 
   const [userData, setUserData] = useState<IUserInfo>();
 
-  const {  isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
+  const {  isAuth } = useSelector((store: any) => store.auth as IAuthUser);
 
   useEffect(() => {
   if(isAuth){  const fetchData = async () => {

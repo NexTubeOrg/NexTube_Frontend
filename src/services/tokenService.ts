@@ -78,8 +78,7 @@ export enum Roles {
   User = 'User',
 }
 
-// Функція для зберігання масиву токенів користувача у локальному сховищі
-export const saveTokensToLocalStorage = (tokens: { key: string, value: string }[]) => {
+ export const saveTokensToLocalStorage = (tokens: { key: string, value: string }[]) => {
   localStorage.setItem('tokens', JSON.stringify(tokens));
 };
 
@@ -110,7 +109,15 @@ export const addToken = (key: string, newToken: string) => {
 
  
  
+export const removeallTokens=()=>{
+  const tokensString = localStorage.getItem('tokens')as string;
+ var tokensArray = JSON.parse(tokensString);
 
+ tokensArray = [];
+
+ localStorage.setItem('tokens', JSON.stringify(tokensArray));
+
+};
  
 
 

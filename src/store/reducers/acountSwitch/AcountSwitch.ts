@@ -1,3 +1,4 @@
+import { CancelButton } from './../../../components/common/buttons/CancelButton';
  
  import { AcountSwitchActionType, IAcountSwitch } from "./types";
 
@@ -24,7 +25,8 @@ const initState: IAcountSwitch = {
             return state;  
         }
       }
-     
+      case  AcountSwitchActionType.CLEAR_TOKENS:
+      return { ...state, user: [] };
      
    
     }

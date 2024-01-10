@@ -47,11 +47,10 @@ const SignInWidget = () => {
       if (result.result.succeeded != true) throw result.result;
 
       const { token } = result;
-      if(isAuth){
-      storeTokenAcount(token);}
-      else {
-        storeToken(token);
-      }
+     
+      storeTokenAcount(token); 
+      storeToken(token);
+ 
         handleSuccess('Sign in successfully');
         navigator('/');
 
