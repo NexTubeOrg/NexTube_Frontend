@@ -13,19 +13,17 @@ export const Navbar = (props: {
   console.log(location.pathname.split('/'));
 
   const references = props.refs.map((r, id) => (
-    <>
-      <li key={id} className="mr-6">
-        <NavLink
-          className={classNames('text-gray', {
-            'text-white border-b-2 border-primary':
-              r.path == currentRoute || (currentRoute == '' && r.index == true),
-          })}
-          to={r.path}
-        >
-          {r.title}
-        </NavLink>
-      </li>
-    </>
+    <li key={id} className="mr-6">
+      <NavLink
+        className={classNames('text-gray', {
+          'text-white border-b-2 border-primary':
+            r.path == currentRoute || (currentRoute == '' && r.index == true),
+        })}
+        to={r.path}
+      >
+        {r.title}
+      </NavLink>
+    </li>
   ));
   return (
     <>

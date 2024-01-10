@@ -3,8 +3,8 @@ import { removeToken, removeallTokens } from '../../services/tokenService';
 import { useEffect } from 'react';
 import { ProfileVideosReducerActionsType } from '../../store/reducers/profileVideos/types';
 import { store } from '../../store';
-import { ProfilePlaylistsActionType } from '../../store/reducers/profilePlaylists/types';
 import { AcountSwitchActionType } from '../../store/reducers/acountSwitch/types';
+import { ProfilePlaylistsActionType } from '../../store/reducers/profilePlaylists/types';
 
 const SignOut = () => {
   const navigator = useNavigate();
