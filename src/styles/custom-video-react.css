@@ -240,7 +240,7 @@
   box-sizing: inherit;
 }
 .video-react ul {
-  font-family: inherit;
+  font-family: Satoshi, sans-serif;
   font-size: inherit;
   line-height: inherit;
   list-style-position: outside;
@@ -289,13 +289,10 @@ body.video-react-full-window {
   overflow-y: auto;
 }
 body.video-react-full-window .video-react-fullscreen {
-  position: fixed;
+  position: relative;
   overflow: hidden;
   z-index: 1000;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
+  right: 1em;
 }
 
 .video-react .video-react-button {
@@ -425,9 +422,9 @@ body.video-react-full-window .video-react-fullscreen {
   padding: 0;
   cursor: pointer;
   opacity: 1;
-  border: 0.06666em solid #fff;
-  background-color: #2b333f;
-  background-color: rgba(43, 51, 63, 0.7);
+  border: 0.06666em solid #7e2335;
+  background-color: #7e2335;
+  background-color: #1e1e205e;
   -webkit-border-radius: 0.3em;
   -moz-border-radius: 0.3em;
   border-radius: 0.3em;
@@ -435,6 +432,7 @@ body.video-react-full-window .video-react-fullscreen {
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
   transition: all 0.4s;
+  color: #f5f5f5;
 }
 .video-react .video-react-big-play-button.video-react-big-play-button-center {
   top: 50%;
@@ -448,9 +446,9 @@ body.video-react-full-window .video-react-fullscreen {
 .video-react:hover .video-react-big-play-button,
 .video-react .video-react-big-play-button:focus {
   outline: 0;
-  border-color: #fff;
-  background-color: #73859f;
-  background-color: rgba(115, 133, 159, 0.5);
+  border-color: #7e2335;
+  background-color: #7e2335;
+  background-color: 7e2335;
   -webkit-transition: all 0s;
   -moz-transition: all 0s;
   -o-transition: all 0s;
@@ -469,7 +467,7 @@ body.video-react-full-window .video-react-fullscreen {
   padding: 0;
   margin: 0;
   overflow: auto;
-  font-family: serif, Times, 'Times New Roman';
+  font-family: Satoshi, sans-serif;
 }
 .video-react-menu li {
   list-style: none;
@@ -681,7 +679,7 @@ body.video-react-full-window .video-react-fullscreen {
   display: none;
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: 0em;
   left: 0;
   right: 0;
   height: 3.5em;
@@ -749,6 +747,8 @@ body.video-react-full-window .video-react-fullscreen {
   -webkit-flex: auto;
   -ms-flex: auto;
   flex: auto;
+  justify-content: center;
+  align-items: center;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -758,6 +758,10 @@ body.video-react-full-window .video-react-fullscreen {
   -ms-flex-align: center;
   align-items: center;
   min-width: 4em;
+  width: 100%;
+  position: relative;
+  padding: 0 1em;
+  top: -6.5em;
 }
 
 .video-react-live .video-react-progress-control {
@@ -774,11 +778,11 @@ body.video-react-full-window .video-react-fullscreen {
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
-  height: 0.6em;
+  /* height: 0.6em; */
 }
 
 .video-react .video-react-progress-control:hover .video-react-progress-holder {
-  font-size: 1.6666666667em;
+  /* font-size: 1.2em; */
 }
 
 /* If we let the font size grow as much as everything else, the current time tooltip ends up
@@ -791,6 +795,7 @@ body.video-react-full-window .video-react-fullscreen {
 .video-react
   .video-react-progress-control:hover
   .video-react-play-progress:after {
+  font-family: Satoshi, sans-serif;
   visibility: visible;
   font-size: 0.6em;
 }
@@ -899,7 +904,7 @@ body.video-react-full-window .video-react-fullscreen {
 .video-react.video-react-user-inactive
   .video-react-progress-control
   .video-react-mouse-display:after {
-  visibility: hidden;
+  /* visibility: hidden;
   opacity: 0;
   -webkit-transition:
     visibility 1s,
@@ -912,7 +917,7 @@ body.video-react-full-window .video-react-fullscreen {
     opacity 1s;
   transition:
     visibility 1s,
-    opacity 1s;
+    opacity 1s; */
 }
 
 .video-react.video-react-user-inactive.video-react-no-flex
@@ -946,6 +951,9 @@ body.video-react-full-window .video-react-fullscreen {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
+  position: relative;
+  left: 95%;
+  top: -7em;
 }
 
 .video-react.video-react-fullscreen {

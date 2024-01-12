@@ -24,7 +24,8 @@ import {
 } from 'video-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
-import './../../styles/custom-video-react.css';
+// import './../../styles/custom-video-react.css';
+import './video-react.css';
 
 import ReportForm from '../ReportForm';
 import { handleSuccess } from '../../common/handleError';
@@ -92,22 +93,10 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                 />
                 <BigPlayButton className="" position="center"></BigPlayButton>
                 <ControlBar
-                  disableDefaultControls={true}
+                  disableDefaultControls={false}
                   autoHide={false}
                   autoHideTime={10}
-                >
-                  <div className="w-full">
-                    <div className="w-full h-10 bg-white">
-                      <h1>Test1</h1>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <div className="w-full h-10 bg-white">
-                      {/* <PlayToggle /> */}
-                      <h1>Test2</h1>
-                    </div>
-                  </div>
-                </ControlBar>
+                ></ControlBar>
                 <div className="test">
                   <h1>hello world!</h1>
                 </div>
