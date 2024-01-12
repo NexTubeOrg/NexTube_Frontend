@@ -167,50 +167,63 @@ export const ProfileVideos = () => {
       <Outlet></Outlet>
 
       <table className="text-gray w-full table-auto align-top">
-        {/* dont touch below */}
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <div className="relative">
-              <div className="absolute right-0 bottom-2">
-                <div className="flex items-end w-full justify-end">
-                  <div className="w-30">
-                    <PrimaryButtonLink
-                      urlTo="addVideo"
-                      title="Add"
-                    ></PrimaryButtonLink>
+        <tbody>
+          {/* dont touch below */}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <div className="relative">
+                <div className="absolute right-0 bottom-2">
+                  <div className="flex items-end w-full justify-end">
+                    <div className="w-30">
+                      <PrimaryButtonLink
+                        urlTo="addVideo"
+                        title="Add"
+                      ></PrimaryButtonLink>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th className="pb-2 text-left">
-            <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
-          </th>
-          <th className="pb-2 text-left">Videos</th>
-          <th className="pb-2 text-left">Views</th>
-          <th className="pb-2 text-left">Comments</th>
-          <th className="pb-2 text-right">Actions</th>
-        </tr>
-        {/* render videos here */}
-        {videos?.length > 0 &&
-          videos.map((v) => <EditVideoItem key={v.id} video={v} />)}
-        <>
-          {isLoading && <OperationLoader></OperationLoader>}
+            </td>
+          </tr>
+          <tr>
+            <th className="pb-2 text-left">
+              <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
+            </th>
+            <th className="pb-2 text-left">Videos</th>
+            <th className="pb-2 text-left">Views</th>
+            <th className="pb-2 text-left">Comments</th>
+            <th className="pb-2 text-right">Actions</th>
+          </tr>
+          {/* render videos here */}
+          {videos?.length > 0 &&
+            videos.map((v) => <EditVideoItem key={v.id} video={v} />)}
+          {/* <tr>
+            <td>
+              {isLoading && <OperationLoader></OperationLoader>}
 
-          {isInitLoading &&
-            <HandleOnVisible
-              onVisible={() => {
-                setNeedLoad((prevPage) => prevPage + 1);
-              }}
-            ></HandleOnVisible>}
-        </>
-      </table>
+              {isInitLoading &&
+                <HandleOnVisible
+                  onVisible={() => {
+                    setNeedLoad((prevPage) => prevPage + 1);
+                  }}
+                ></HandleOnVisible>}
+            </td>
+          </tr> */}
+        </tbody>
+      </table >
+      
+      {isLoading && <OperationLoader></OperationLoader>}
+
+      {isInitLoading &&
+        <HandleOnVisible
+          onVisible={() => {
+            setNeedLoad((prevPage) => prevPage + 1);
+          }}
+        ></HandleOnVisible>}
     </>
   );
 };
