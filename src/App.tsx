@@ -20,15 +20,21 @@ import ReportForm from './components/ReportForm.tsx';
 import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
 import { SearchResults } from './components/Search/SearchResults.tsx';
 import PlaylistVideosContainer from './components/Playlists/PlaylistVideosContainer.tsx';
+import useColorMode from './hooks/useColorMode.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
+  // const [colorMode, setColorMode] = useColorMode();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+
+  // useEffect(() => {
+  // setColorMode("dark");
+  // }, [colorMode]);
 
   return loading ? (
     <Loader />

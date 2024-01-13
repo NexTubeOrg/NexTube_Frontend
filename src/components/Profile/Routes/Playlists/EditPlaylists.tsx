@@ -30,7 +30,7 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
         <td className="pb-2 text-left">
           <div className="item flex mt-3">
             <div className="playlist mr-3">
-              <Link to={`/playlists/${props.playlist.id}`}>
+              <Link to={`/video/watch/playlist/${props.playlist.id}`}>
                 <div className="w-40 h-25 bg-gray">
                   {props.playlist.preview && (
                     <>

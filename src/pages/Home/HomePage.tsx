@@ -17,12 +17,12 @@ const HomePage = () => {
                 <div className="mr-4">
                   <ChannelPhoto photoFileId={user?.channelPhoto}></ChannelPhoto>
                 </div>
-                <div className="text-gray flex items-center">
+                <div className="text-gray flex items-center dark:hover:text-primary duration-300 ease-in-out">
                   <Link
                     to={`/profile/videos/addVideo`}
-                    className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                    className="flex items-center gap-3.5 text-sm font-medium lg:text-base"
                   >
-                    <div className="icon w-8 relative dark:text-gray">
+                    <div className="icon w-8 relative">
                       <VideoCameraIcon></VideoCameraIcon>
                     </div>
                     <span className="font-bold">Create a video</span>
