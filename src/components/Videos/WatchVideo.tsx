@@ -82,6 +82,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                 fluid={false}
                 aspectRatio="16:9"
                 height={600}
+                poster={`/api/photo/getPhotoUrl/${props.video.previewPhotoFile}/1024`}
                 autoPlay={false} // change by desire
               >
                 <source

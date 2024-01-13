@@ -66,29 +66,31 @@ const Header = (props: {
           </Link>
         </div>
 
-        <div className="hidden sm:block">
-          <SearchField></SearchField>
+        <div className="flex">
+          <div className="hidden sm:block">
+            <SearchField></SearchField>
+          </div>
+          <div className="ml-6">
+            <ul className="flex items-center gap-2 2xsm:gap-4">
+              {isAuth && (
+                <>
+                  {/* <!-- Notification Menu Area --> */}
+                  <DropdownNotification />
+                  {/* <!-- Notification Menu Area --> */}
+
+                  {/* <!-- Chat Notification Area --> */}
+                  <DropdownMessage />
+                  {/* <!-- Chat Notification Area --> */}
+                </>
+              )}
+              {/* <!-- Dark Mode Toggler --> */}
+              <DarkModeSwitcher />
+              {/* <!-- Dark Mode Toggler --> */}
+            </ul>
+          </div>
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
-          <ul className="flex items-center gap-2 2xsm:gap-4">
-            {/* <!-- Dark Mode Toggler --> */}
-            <DarkModeSwitcher />
-            {/* <!-- Dark Mode Toggler --> */}
-
-            {isAuth && (
-              <>
-                {/* <!-- Notification Menu Area --> */}
-                <DropdownNotification />
-                {/* <!-- Notification Menu Area --> */}
-
-                {/* <!-- Chat Notification Area --> */}
-                <DropdownMessage />
-                {/* <!-- Chat Notification Area --> */}
-              </>
-            )}
-          </ul>
-
           {/* <!-- User Area --> */}
           {isAuth && <DropdownUser />}
           {!isAuth && (

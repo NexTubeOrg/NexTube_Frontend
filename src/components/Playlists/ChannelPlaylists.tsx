@@ -43,24 +43,33 @@ const ChannelPlaylists = () => {
 
   return (
     <>
-      <ul className="w-full justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4">
-        {playlists.map((p) => (
-          <li key={p.id}>
-            <PlaylistItem playlist={p}></PlaylistItem>
-          </li>
-        ))}
-        ;
-      </ul>
+      <div className="flex justify-center items-center">
+        <div className="">
+          <div className="mb-8">
+            <h1 className="text-white text-3xl">
+              <span className="border-b-[3px] pb-1.5 border-primary">
+                Created playlists
+              </span>
+            </h1>
+          </div>
+          <ul className="w-full gap-4 justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4 mt-8.5">
+            {playlists.map((p) => (
+              <li className=" w-fit" key={p.id}>
+                <PlaylistItem playlist={p}></PlaylistItem>
+              </li>
+            ))}
+            <li>
+              {isLoading && <OperationLoader></OperationLoader>}
 
-      <>
-        {isLoading && <OperationLoader></OperationLoader>}
-
-        <HandleOnVisible
-          onVisible={() => {
-            setNeedLoad((prevPages) => prevPages + 1);
-          }}
-        ></HandleOnVisible>
-      </>
+              <HandleOnVisible
+                onVisible={() => {
+                  setNeedLoad((prevPages) => prevPages + 1);
+                }}
+              ></HandleOnVisible>
+            </li>
+          </ul>
+        </div>
+      </div>
     </>
   );
 };

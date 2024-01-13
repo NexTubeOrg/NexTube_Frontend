@@ -23,7 +23,6 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
-
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 

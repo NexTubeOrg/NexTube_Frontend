@@ -32,7 +32,7 @@ const VideoWatchPage = () => {
           {video && <WatchVideo video={video} />}
         </div>
         {playlistId && (
-          <div className="w-1/4 mt-6 mr-6">
+          <div className="w-1/4 mt-6 mr-6 ml-6">
             <div className="w-full">
               <Outlet></Outlet>
             </div>
