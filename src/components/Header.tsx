@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import Logo from '../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
 import DropdownMessage from './DropdownMessage';
-import DropdownNotification from './DropdownNotification';
-import DropdownUser from './DropdownUser';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../store/reducers/auth/types';
 import { SearchField } from './Search/SearchField';
+import DropdownNotification from './Notifications/DropdownNotification';
+import DropdownUser from './DropdownUser';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;

@@ -42,7 +42,7 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
       <tr className="border-t-2 border-primary">
         <td className="pb-2 text-left">
           <div className="">
-            <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
+            <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
           </div>
         </td>
         <td className="pb-2 text-left">
@@ -62,10 +62,13 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
 
             <div className="text">
               <Link to={'/video/watch/' + props.video.id}>
-                <h3 className="text-white text-lg">{props.video.name}</h3>
+                <h3 className="text-white text-lg">{props.video.name?.length! > 15 ? props.video.name?.slice(0, 15) + '...' : props.video.name}</h3>
               </Link>
               <p className="text-gray">
                 {props.video.description?.slice(0, 20)}...
+              </p>
+              <p className="text-primary mt-2.5">
+                {props.video.accessModificator}
               </p>
             </div>
           </div>
@@ -74,7 +77,7 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
           <span>{props.video.views}</span>
         </td>
         <td className="pb-2 text-left">
-          <span>2342</span>
+          <span>{props.video.commentsCount}</span>
         </td>
         <td className="pb-2 text-right">
           <NavLink
@@ -113,6 +116,7 @@ export const ProfileVideos = () => {
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [needLoad, setNeedLoad] = useState<number>(1);
+  const [isInitLoading, setIsInitLoading] = useState<boolean>(false)
 
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
 
@@ -150,6 +154,7 @@ export const ProfileVideos = () => {
         payload: result,
       });
 
+      setIsInitLoading(true);
       setIsLoading(() => false);
     };
 
@@ -162,49 +167,63 @@ export const ProfileVideos = () => {
       <Outlet></Outlet>
 
       <table className="text-gray w-full table-auto align-top">
-        {/* dont touch below */}
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <div className="relative">
-              <div className="absolute right-0 bottom-2">
-                <div className="flex items-end w-full justify-end">
-                  <div className="w-30">
-                    <PrimaryButtonLink
-                      urlTo="addVideo"
-                      title="Add"
-                    ></PrimaryButtonLink>
+        <tbody>
+          {/* dont touch below */}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <div className="relative">
+                <div className="absolute right-0 bottom-2">
+                  <div className="flex items-end w-full justify-end">
+                    <div className="w-30">
+                      <PrimaryButtonLink
+                        urlTo="addVideo"
+                        title="Add"
+                      ></PrimaryButtonLink>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th className="pb-2 text-left">
-            <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
-          </th>
-          <th className="pb-2 text-left">Videos</th>
-          <th className="pb-2 text-left">Views</th>
-          <th className="pb-2 text-left">Comments</th>
-          <th className="pb-2 text-right">Actions</th>
-        </tr>
-        {/* render videos here */}
-        {videos?.length > 0 &&
-          videos.map((v) => <EditVideoItem key={v.id} video={v} />)}
-        <>
-          {isLoading && <OperationLoader></OperationLoader>}
+            </td>
+          </tr>
+          <tr>
+            <th className="pb-2 text-left">
+              <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
+            </th>
+            <th className="pb-2 text-left">Videos</th>
+            <th className="pb-2 text-left">Views</th>
+            <th className="pb-2 text-left">Comments</th>
+            <th className="pb-2 text-right">Actions</th>
+          </tr>
+          {/* render videos here */}
+          {videos?.length > 0 &&
+            videos.map((v) => <EditVideoItem key={v.id} video={v} />)}
+          {/* <tr>
+            <td>
+              {isLoading && <OperationLoader></OperationLoader>}
 
-          <HandleOnVisible
-            onVisible={() => {
-              setNeedLoad((prevPage) => prevPage + 1);
-            }}
-          ></HandleOnVisible>
-        </>
-      </table>
+              {isInitLoading &&
+                <HandleOnVisible
+                  onVisible={() => {
+                    setNeedLoad((prevPage) => prevPage + 1);
+                  }}
+                ></HandleOnVisible>}
+            </td>
+          </tr> */}
+        </tbody>
+      </table >
+      
+      {isLoading && <OperationLoader></OperationLoader>}
+
+      {isInitLoading &&
+        <HandleOnVisible
+          onVisible={() => {
+            setNeedLoad((prevPage) => prevPage + 1);
+          }}
+        ></HandleOnVisible>}
     </>
   );
 };
