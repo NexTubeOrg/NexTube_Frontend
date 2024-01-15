@@ -29,6 +29,8 @@ export const ProfileBranding = () => {
 
   const handleUploadButtonClick = async () => {
     try {
+    
+
         await http_api.put('/api/User/UpdateChannelImage', userData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -41,9 +43,8 @@ export const ProfileBranding = () => {
        
     } catch (error) {
       console.error('Error saving changes:', error);
-      handleError(error);
-
-    }
+      handleError("Channel image upload failed.");
+     }
   };
 
   const onBannerSaveHandler = (file: File) => {
@@ -77,7 +78,7 @@ export const ProfileBranding = () => {
         <h3 className="text-white text-xl mb-2 font-bold">Picture</h3>
         <div className="flex">
           <div className="left">
-            <div className="w-36 h-36 dark:bg-primary rounded-full mr-6">
+            <div className="w-36 h-36   rounded-full mr-6">
               <ModalCropper
                 onSave={onImageSaveHandler}
                 error={''}
