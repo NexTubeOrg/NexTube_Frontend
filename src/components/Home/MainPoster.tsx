@@ -5,7 +5,7 @@ export const MainPoster = () => {
     <>
       <div className="h-[50vh]">
         <div className="h-full flex items-center justify-between">
-          <div className="flex z-99999 flex-col w-[64em]">
+          <div className="flex z-99999 flex-col min-[1000px]:w-[32em] min-[1364px]:w-[64em]">
             <div className="mb-2">
               <h1 className="text-white text-6xl font-semibold">Watch now</h1>
             </div>

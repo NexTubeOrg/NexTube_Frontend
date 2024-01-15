@@ -17,7 +17,7 @@ const HomePage = () => {
           {isAuth && (
             <>
               <MainPoster></MainPoster>
-              <div className="flex">
+              <div className="flex relative z-[999]">
                 <div className="mr-4">
                   <ChannelPhoto photoFileId={user?.channelPhoto}></ChannelPhoto>
                 </div>
