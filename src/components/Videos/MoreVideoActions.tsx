@@ -4,7 +4,7 @@ import {
   EllipsisVerticalIcon,
   ExclamationTriangleIcon,
   FlagIcon,
-} from '@heroicons/react/20/solid';
+} from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { handleSuccess } from '../../common/handleError';
 import http_api from '../../services/http_api';
@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import { APP_CONFIG } from '../../env';
 import { SetVideoPlaylist } from '../Playlists/SetVideoPlaylist';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 
 const MoreVideoActions = (props: {
   video: IVideoLookup | undefined;

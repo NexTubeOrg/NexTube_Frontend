@@ -14,7 +14,7 @@ import {
   QuestionMarkCircleIcon,
   UserIcon,
   UsersIcon,
-} from '@heroicons/react/20/solid';
+} from '@heroicons/react/24/outline';
 import http_api from '../../services/http_api';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';

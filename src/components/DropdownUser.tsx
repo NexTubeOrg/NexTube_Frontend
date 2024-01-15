@@ -17,8 +17,8 @@ import {
   UserCircleIcon,
   UserGroupIcon,
   UserIcon,
-} from '@heroicons/react/20/solid';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+} from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

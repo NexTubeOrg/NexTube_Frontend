@@ -4,8 +4,8 @@ import http_api from '../../../services/http_api';
 import { DangerProcessingButton } from '../../common/buttons/DangerProcessingButton';
 import { store } from '../../../store';
 import { VideoCommentsReducerActionTypes } from '../../../store/reducers/videoComments/types';
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 
 const DeleteComment = (props: { commentId: number }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

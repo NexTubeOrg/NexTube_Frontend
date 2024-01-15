@@ -3,7 +3,7 @@ import {
   ShareIcon,
   FlagIcon,
   ListBulletIcon,
-} from '@heroicons/react/20/solid';
+} from '@heroicons/react/24/outline';
 import React, { useEffect, useRef, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
 import { Link, useParams } from 'react-router-dom';

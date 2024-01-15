@@ -16,7 +16,7 @@ export const MainPoster = () => {
             </div>
             <div className="mb-2">
               <p className="font-semibold text-white text-3xl">
-                is an English idiot, pointer and engraver
+                is an English clown, pointer and engraver
               </p>
             </div>
           </div>

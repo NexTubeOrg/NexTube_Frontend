@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
-import { FlagIcon } from '@heroicons/react/20/solid';
+import { FlagIcon } from '@heroicons/react/24/outline';
 import { channelRoutes } from '../../../routes';
 
 const ViewChannel = () => {
