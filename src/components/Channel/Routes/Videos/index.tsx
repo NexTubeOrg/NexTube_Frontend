@@ -1,5 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
-import { IGetVideoListChannelResult, IVideoLookup } from '../../../../pages/Video/common/types';
+import {
+  IGetVideoListChannelResult,
+  IVideoLookup,
+} from '../../../../pages/Video/common/types';
 import numeral from 'numeral';
 import dayjs from 'dayjs';
 import OperationLoader from '../../../../common/OperationLoader';
@@ -9,13 +12,13 @@ import http_api from '../../../../services/http_api';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const ChannelVideoItem = (props: {video: IVideoLookup}) => {
+const ChannelVideoItem = (props: { video: IVideoLookup }) => {
   return (
     <>
       <div className="item mx-2 my-5">
         <Link to={'/video/watch/' + props.video.id}>
           <img
-            className="w-75 h-45"
+            className="w-75 h-45 rounded-lg"
             src={
               '/api/photo/getPhotoUrl/' + props.video.previewPhotoFile + '/600'
             }
@@ -24,13 +27,22 @@ const ChannelVideoItem = (props: {video: IVideoLookup}) => {
 
         <div className="flex items-start mt-5">
           <div className="text">
-            <Link to={'/video/watch/' + props.video.id} title={props.video.name ?? ''}>
-              <h3 className="text-white text-lg">{props.video.name?.length! > 15 ? props.video.name?.slice(0, 15) + '...' : props.video.name}</h3>
+            <Link
+              to={'/video/watch/' + props.video.id}
+              title={props.video.name ?? ''}
+            >
+              <h3 className="text-white text-lg">
+                {props.video.name?.length! > 15
+                  ? props.video.name?.slice(0, 15) + '...'
+                  : props.video.name}
+              </h3>
             </Link>
 
             <div className="mt-2">
               <h4 className="text-white text-sm">
-                <span className="mr-2">{numeral(props.video.views).format('0a').toUpperCase()} views</span>{' '}
+                <span className="mr-2">
+                  {numeral(props.video.views).format('0a').toUpperCase()} views
+                </span>{' '}
                 <span>{dayjs(props.video.dateCreated).fromNow()}</span>
               </h4>
             </div>
@@ -52,10 +64,9 @@ export const ChannelVideos = () => {
   const params = useParams();
 
   useEffect(() => {
-
     const loadVideoAsync = async () => {
       console.log(params);
-      
+
       if (page == 0 || !canLoad) {
         console.log('abort loading');
         return;
@@ -66,7 +77,9 @@ export const ChannelVideos = () => {
       setIsLoading(true);
 
       const result = (
-        await http_api.get<IGetVideoListChannelResult>(`/api/video/getVideoListChannel?ChannelId=${params.id}&Page=${page}&PageSize=${pageSize}`)
+        await http_api.get<IGetVideoListChannelResult>(
+          `/api/video/getVideoListChannel?ChannelId=${params.id}&Page=${page}&PageSize=${pageSize}`,
+        )
       ).data;
 
       setVideos(() => [...videos, ...result.videos]);
@@ -77,7 +90,7 @@ export const ChannelVideos = () => {
 
       setIsLoading(() => false);
       setIsInitLoading(true);
-    }
+    };
 
     loadVideoAsync();
   }, [page, needReload]);
@@ -87,28 +100,34 @@ export const ChannelVideos = () => {
     setCanLoad(true);
     setIsInitLoading(false);
     setPage(1);
-    setNeedReload(prev => prev + 1);
+    setNeedReload((prev) => prev + 1);
   }, [params.id]);
 
   return (
     <>
-      <ul className="w-full justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4 mt-8.5">
-        {videos.map((video => (
-          <li>
-            <ChannelVideoItem video={video}></ChannelVideoItem>
-          </li>
-        )))};
-      </ul>
+      <div className="flex justify-center items-center">
+        <div className="">
+          <ul className="w-full justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4 mt-8.5">
+            {videos.map((video) => (
+              <li>
+                <ChannelVideoItem video={video}></ChannelVideoItem>
+              </li>
+            ))}
+            ;
+          </ul>
+          <>
+            {isLoading && <OperationLoader></OperationLoader>}
 
-      <>
-        {isLoading && <OperationLoader></OperationLoader>}
-
-        {isInitLoading && <HandleOnVisible
-          onVisible={() => {
-            setPage((prevPages) => prevPages + 1);
-          }}
-        ></HandleOnVisible>}
-      </>
+            {isInitLoading && (
+              <HandleOnVisible
+                onVisible={() => {
+                  setPage((prevPages) => prevPages + 1);
+                }}
+              ></HandleOnVisible>
+            )}
+          </>
+        </div>
+      </div>
     </>
   );
 };

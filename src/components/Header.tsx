@@ -15,7 +15,7 @@ const Header = (props: {
   const { isAuth } = useSelector((store: any) => store.auth as IAuthUser);
 
   return (
-    <header className="text-gray h-24 sticky top-0 z-999 flex w-full bg-white dark:bg-body dark:drop-shadow-none">
+    <header className="text-gray h-24 sticky top-0 z-[9998]  flex w-full  dark:bg-[#1e1e20fc] dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between py-4 px-4 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           {/* <!-- Hamburger Toggle BTN --> */}
@@ -60,35 +60,33 @@ const Header = (props: {
             </span>
           </button>
           {/* <!-- Hamburger Toggle BTN --> */}
-
-          <Link className="block flex-shrink-0 lg:hidden" to="/">
-            <img src={Logo} alt="Logo" />
-          </Link>
         </div>
 
-        <div className="hidden sm:block">
-          <SearchField></SearchField>
+        <div className="flex">
+          <div className="hidden sm:block">
+            <SearchField></SearchField>
+          </div>
+          <div className="ml-6">
+            <ul className="flex items-center gap-2 2xsm:gap-4">
+              {isAuth && (
+                <>
+                  {/* <!-- Notification Menu Area --> */}
+                  <DropdownNotification />
+                  {/* <!-- Notification Menu Area --> */}
+
+                  {/* <!-- Chat Notification Area --> */}
+                  <DropdownMessage />
+                  {/* <!-- Chat Notification Area --> */}
+                </>
+              )}
+              {/* <!-- Dark Mode Toggler --> */}
+              <DarkModeSwitcher />
+              {/* <!-- Dark Mode Toggler --> */}
+            </ul>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
-          <ul className="flex items-center gap-2 2xsm:gap-4">
-            {/* <!-- Dark Mode Toggler --> */}
-            <DarkModeSwitcher />
-            {/* <!-- Dark Mode Toggler --> */}
-
-            {isAuth && (
-              <>
-                {/* <!-- Notification Menu Area --> */}
-                <DropdownNotification />
-                {/* <!-- Notification Menu Area --> */}
-
-                {/* <!-- Chat Notification Area --> */}
-                <DropdownMessage />
-                {/* <!-- Chat Notification Area --> */}
-              </>
-            )}
-          </ul>
-
+        <div className="flex z-9999 items-center gap-3 2xsm:gap-7">
           {/* <!-- User Area --> */}
           {isAuth && <DropdownUser />}
           {!isAuth && (

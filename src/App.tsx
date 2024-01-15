@@ -20,15 +20,21 @@ import ReportForm from './components/ReportForm.tsx';
 import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
 import { SearchResults } from './components/Search/SearchResults.tsx';
 import PlaylistVideosContainer from './components/Playlists/PlaylistVideosContainer.tsx';
+import useColorMode from './hooks/useColorMode.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
+  // const [colorMode, setColorMode] = useColorMode();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+
+  // useEffect(() => {
+  // setColorMode("dark");
+  // }, [colorMode]);
 
   return loading ? (
     <Loader />
@@ -84,9 +90,8 @@ function App() {
             ))}
           </Route>
         </Route>
-  
-      
-         <Route path={'/auth'} element={<DefaultLayout />}>
+
+        <Route path={'/auth'} element={<DefaultLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
@@ -95,10 +100,23 @@ function App() {
 
         <Route path={'/video'} element={<DefaultLayout />}>
           <Route path={'watch'}>
-            <Route path={':id'} element={<VideoWatchPage />} />
+            <Route path={':videoId'} element={<VideoWatchPage />}>
+              <Route path="playlist">
+                <Route
+                  path={':playlistId'}
+                  element={<PlaylistVideosContainer />}
+                ></Route>
+              </Route>
+            </Route>
+            <Route path="playlist">
+              <Route
+                path={':playlistId'}
+                element={<PlaylistVideosContainer />}
+              ></Route>
+            </Route>
           </Route>
           <Route path={'search'} element={<SearchResults />}>
-            <Route index path={':name'} element={<SearchResults />}/>
+            <Route index path={':name'} element={<SearchResults />} />
           </Route>
         </Route>
 
