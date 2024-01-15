@@ -139,6 +139,39 @@ const profileRoutes = [
   },
 ];
 
+const recommendationVideosRoutes = [
+  {
+    path: '',
+    title: 'All',
+    component: null,
+    index: true,
+  },
+  {
+    path: 'gaming',
+    title: 'Gaming',
+    component: null,
+    index: false,
+  },
+  {
+    path: 'music',
+    title: 'Music',
+    component: null,
+    index: false,
+  },
+  {
+    path: 'history',
+    title: 'History',
+    component: null,
+    index: false,
+  },
+  {
+    path: 'news',
+    title: 'News',
+    component: null,
+    index: false,
+  },
+];
+
 const routes = [...coreRoutes];
 export default routes;
-export { channelRoutes, profileRoutes };
+export { channelRoutes, profileRoutes, recommendationVideosRoutes };

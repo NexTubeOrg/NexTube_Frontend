@@ -422,8 +422,8 @@ body.video-react-full-window .video-react-fullscreen {
   padding: 0;
   cursor: pointer;
   opacity: 1;
-  border: 0.06666em solid #7e2335;
-  background-color: #7e2335;
+  border: 0.06666em solid #731023;
+  background-color: #731023;
   background-color: #1e1e205e;
   -webkit-border-radius: 0.3em;
   -moz-border-radius: 0.3em;
@@ -446,9 +446,8 @@ body.video-react-full-window .video-react-fullscreen {
 .video-react:hover .video-react-big-play-button,
 .video-react .video-react-big-play-button:focus {
   outline: 0;
-  border-color: #7e2335;
-  background-color: #7e2335;
-  background-color: 7e2335;
+  border-color: #731023;
+  background-color: #731023;
   -webkit-transition: all 0s;
   -moz-transition: all 0s;
   -o-transition: all 0s;
@@ -815,7 +814,7 @@ body.video-react-full-window .video-react-fullscreen {
 }
 
 .video-react .video-react-play-progress {
-  background-color: #7e2335;
+  background-color: #731023;
 }
 .video-react .video-react-play-progress:before {
   position: absolute;

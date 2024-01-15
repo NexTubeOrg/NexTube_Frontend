@@ -40,12 +40,7 @@ const MoreVideoActions = (props: {
         </div>
       </button>
       {isOpen && (
-        <div
-          className="relative"
-          onBlur={() => {
-            setIsOpen((o) => false);
-          }}
-        >
+        <div className="relative" onBlur={() => {}}>
           <div className="absolute right-0 top-3 bg-black py-3 rounded-lg w-48">
             <div className="">
               <IconedProcessingButton

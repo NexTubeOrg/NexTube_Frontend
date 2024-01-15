@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { IGetVideoResult, IVideoLookup } from './common/types';
 import { WatchVideo } from '../../components/Videos/WatchVideo';
 import classNames from 'classnames';
+import { VideoRecommendationsContainer } from '../../components/Videos/VideoRecommendationsContainer';
 
 const VideoWatchPage = () => {
   const { videoId, playlistId } = useParams();
@@ -26,18 +27,22 @@ const VideoWatchPage = () => {
         <div
           className={classNames('', {
             'w-full': playlistId === undefined,
-            ' w-3/4': playlistId,
+            ' w-2/3': playlistId,
           })}
         >
           {video && <WatchVideo video={video} />}
         </div>
-        {playlistId && (
-          <div className="w-1/4 mt-6 mr-6 ml-6">
-            <div className="w-full">
-              <Outlet></Outlet>
-            </div>
+        <div className="w-1/3 mt-6 mr-6 ml-6">
+          <div className="w-full">
+            {playlistId && (
+              <div className="mb-6">
+                <Outlet></Outlet>
+              </div>
+            )}
+
+            <VideoRecommendationsContainer></VideoRecommendationsContainer>
           </div>
-        )}
+        </div>
       </div>
     </>
   );
