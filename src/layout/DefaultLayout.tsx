@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar';
 import UserSidebar from '../components/Sidebar/UserSidebar';
 import { useEffect, useState } from 'react';
 import { isSignedIn } from '../services/tokenService';
-
+import './../styles/custom-scrollbar.css';
 const DefaultLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const navigator = useNavigate();
@@ -14,7 +14,7 @@ const DefaultLayout = () => {
   }, []);
 
   return (
-    <div className="dark:bg-body dark:text-bodydark">
+    <div className="dark:bg-body dark:text-bodydark ">
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         <UserSidebar
@@ -22,7 +22,7 @@ const DefaultLayout = () => {
           setSidebarOpen={setSidebarOpen}
         />
         {/* <!-- ===== Content Area Start ===== --> */}
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden default-custom-scrollbar">
           {/* <!-- ===== Header Start ===== --> */}
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}

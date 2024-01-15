@@ -1,4 +1,7 @@
-import { HandThumbUpIcon, HandThumbDownIcon } from '@heroicons/react/20/solid';
+import {
+  HandThumbUpIcon,
+  HandThumbDownIcon,
+} from '@heroicons/react/24/outline';
 import { DoubleIconedProcessingButton } from '../common/buttons/DoubleIconedButton';
 import { useEffect, useState } from 'react';
 import http_api from '../../services/http_api';

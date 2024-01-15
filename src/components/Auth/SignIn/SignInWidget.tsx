@@ -11,7 +11,7 @@ import { ILoginRequest, ILoginResult } from './types';
 import { SignInTitle } from './SignInTitle';
 import { DefaultInput } from '../../common/inputs';
 import CheckboxOne from '../../CheckboxOne';
-import { LockClosedIcon, UserIcon } from '@heroicons/react/20/solid';
+import { LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
 import GoogleAuthWrapper from '../Google/GoogleAuthWrapper';
 import { IAuthUser } from '../../../store/reducers/auth/types';
  

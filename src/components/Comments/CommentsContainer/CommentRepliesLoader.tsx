@@ -14,7 +14,7 @@ import {
 import CommentsContainer from './CommentsContainer';
 import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
 import { ICommentRepliesList } from '../../../store/reducers/videoComments/types';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

@@ -4,17 +4,31 @@ import { IPlaylistLookup } from './types';
 export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
   return (
     <>
-      <div className="bg-black mb-3">
-        <Link to={'/playlists/' + props.playlist.id}>
-          <div className="relative w-75 h-45 overflow-hidden min-w-75 min-h-45">
+      <div className="mb-6 w-75">
+        <Link to={`/video/watch/playlist/${props.playlist.id}`}>
+          <div className="relative  h-45 min-w-75 min-h-45 ">
             {props.playlist.preview && (
-              <div className="wrapper w-75 h-45 bg-gray flex justify-center items-center">
-                <img
-                  className="bg-cover"
-                  src={
-                    '/api/photo/getPhotoUrl/' + props.playlist.preview + '/600'
-                  }
-                />
+              <div className="relative z-9">
+                <div className="absolute wrapper w-75 h-45 z-1  flex justify-center items-center">
+                  <img
+                    className="w-75 h-45 rounded-md"
+                    src={
+                      '/api/photo/getPhotoUrl/' +
+                      props.playlist.preview +
+                      '/600'
+                    }
+                  />
+                </div>
+                <div className="absolute -top-2 left-2.5 -z-1 wrapper w-70 h-40 flex justify-center items-center">
+                  <img
+                    className="w-70 h-40 rounded-md brightness-50"
+                    src={
+                      '/api/photo/getPhotoUrl/' +
+                      props.playlist.preview +
+                      '/600'
+                    }
+                  />
+                </div>
               </div>
             )}
             {props.playlist.preview == null && (
@@ -22,9 +36,9 @@ export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
                 <span className="text-white">No preview</span>
               </div>
             )}
-            <div className="absolute right-0 bottom-0">
-              <div className="bg-gray">
-                <span className="text-white">
+            <div className="absolute right-2 bottom-2 z-20">
+              <div className="bg-secondary opacity-80 px-2 rounded-md">
+                <span className="text-white text-sm">
                   {props.playlist.totalCountVideos} video
                   {props.playlist.totalCountVideos == 1 ? '' : 's'}
                 </span>
@@ -33,9 +47,14 @@ export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
           </div>
         </Link>
 
-        <div className="flex items-start mt-5">
+        <div className="flex items-start mt-2">
           <div className="text">
             <h3 className="text-white text-lg">{props.playlist.title}</h3>
+            <Link to={`/video/watch/playlist/${props.playlist.id}`}>
+              <div className="mt-1">
+                <p className="text-gray">View full playlist</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

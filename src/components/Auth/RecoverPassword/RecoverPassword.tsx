@@ -8,7 +8,7 @@ import { PrimaryProcessingButton } from '../../../components/common/buttons/Prim
 import { IRecoverRequest } from './types';
 import { RecoverPasswordTittle } from './RecoverPasswordTitle';
 import { DefaultInput } from '../../common/inputs';
-import { UserIcon } from '@heroicons/react/20/solid';
+import { UserIcon } from '@heroicons/react/24/outline';
 
 const RecoverPassword = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -21,7 +21,7 @@ const RecoverPassword = () => {
   const onFormSubmit = async (values: IRecoverRequest) => {
     try {
       setIsLoading(true);
-     
+
       await http_api.post('/api/Auth/Recover', values);
       handleSuccess('Password recovery initiated successfully');
       navigator('/auth/signin');
