@@ -18,19 +18,21 @@ export const ProfileBranding = () => {
     ChannelPhotoFile: null,
   });
   const [banner, setBanner] = useState<File | null>(null);
-
+ 
   const onImageSaveHandler = (file: File) => {
-    console.log('image save handle', file);
+    
+       console.log('image save handle', file);
     setUserData((prevData) => ({
       ...prevData,
       ChannelPhotoFile: file,
+      
     }));
   };
 
   const handleUploadButtonClick = async () => {
     try {
+      
     
-
         await http_api.put('/api/User/UpdateChannelImage', userData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -38,9 +40,9 @@ export const ProfileBranding = () => {
           },
         });   
         handleSuccess('Update');
-
+ 
            window.location.reload();
-       
+          
     } catch (error) {
       console.error('Error saving changes:', error);
       handleError("Channel image upload failed.");
@@ -92,13 +94,16 @@ export const ProfileBranding = () => {
               pixels and 4 MB or less. Use any known file type.
             </p>
             <div className="w-35 mt-6">
-              <PrimaryProcessingButton
-                onClick={handleUploadButtonClick}
-                isLoading={false}
-                text="Upload"
-                type="button"
-              ></PrimaryProcessingButton>
-            </div>
+  {userData && userData.ChannelPhotoFile ? (
+    <PrimaryProcessingButton
+      onClick={handleUploadButtonClick}
+      isLoading={false}
+      text="Upload"
+      type="button"
+    />
+  ) : null}
+</div>
+
           </div>
         </div>
       </div>

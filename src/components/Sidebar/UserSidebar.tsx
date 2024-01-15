@@ -9,16 +9,14 @@ import {
   Cog6ToothIcon,
   FaceSmileIcon,
   HandThumbUpIcon,
-  MagnifyingGlassIcon,
-  QuestionMarkCircleIcon,
+   QuestionMarkCircleIcon,
   UserIcon,
   UsersIcon,
 } from '@heroicons/react/20/solid';
 import http_api from '../../services/http_api';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
- import { ISubscription } from './types';
-import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
+ import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 import { store } from '../../store';
 
 interface UserSidebarProps {
@@ -92,7 +90,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
       }
     };
 
-    fetchSubscriptions();
+    fetchSubscriptions();}
   }, [user, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
   console.log("store22",userSubscriptions);
  
