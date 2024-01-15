@@ -1,0 +1,9 @@
+.fade-gradient {
+  /* background: radial-gradient(
+    circle at 50% 50%,
+    #1e1e20ff 30%,
+    rgba(145, 51, 145, 0) 70%
+  ); */
+  background: rgb(2, 0, 36);
+  background: radial-gradient(circle, rgba(0, 212, 255, 0) -50%, #1e1e20 80%);
+}

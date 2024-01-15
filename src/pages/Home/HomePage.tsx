@@ -4,6 +4,9 @@ import { VideosListContainer } from '../../components/Videos/VideosListContainer
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { Link } from 'react-router-dom';
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
+import { Navbar } from '../../components/common/navbars/Navbar';
+import { recommendationVideosRoutes } from '../../routes';
+import { MainPoster } from '../../components/Home/MainPoster';
 
 const HomePage = () => {
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
@@ -13,6 +16,7 @@ const HomePage = () => {
         <div className="">
           {isAuth && (
             <>
+              <MainPoster></MainPoster>
               <div className="flex">
                 <div className="mr-4">
                   <ChannelPhoto photoFileId={user?.channelPhoto}></ChannelPhoto>
@@ -28,6 +32,12 @@ const HomePage = () => {
                     <span className="font-bold">Create a video</span>
                   </Link>
                 </div>
+              </div>
+              <div className="nav mt-6 w-full">
+                <Navbar
+                  routeLength={1}
+                  refs={recommendationVideosRoutes}
+                ></Navbar>
               </div>
             </>
           )}

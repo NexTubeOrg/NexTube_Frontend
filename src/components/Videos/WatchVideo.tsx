@@ -99,7 +99,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
           </div>
         </div>
 
-        <div className="mx-6">
+        <div className="ml-6">
           {/* video title */}
           <div className="mt-5 ml-5">
             <h3 className="text-white text-3xl">{props.video?.name}</h3>

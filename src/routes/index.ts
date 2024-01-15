@@ -145,30 +145,35 @@ const recommendationVideosRoutes = [
     title: 'All',
     component: null,
     index: true,
+    enabled: true,
   },
   {
     path: 'gaming',
     title: 'Gaming',
     component: null,
     index: false,
+    enabled: false,
   },
   {
     path: 'music',
     title: 'Music',
     component: null,
     index: false,
+    enabled: false,
   },
   {
     path: 'history',
     title: 'History',
     component: null,
     index: false,
+    enabled: false,
   },
   {
     path: 'news',
     title: 'News',
     component: null,
     index: false,
+    enabled: false,
   },
 ];
 

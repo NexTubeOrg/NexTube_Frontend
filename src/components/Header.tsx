@@ -15,7 +15,7 @@ const Header = (props: {
   const { isAuth } = useSelector((store: any) => store.auth as IAuthUser);
 
   return (
-    <header className="text-gray h-24 sticky top-0 z-999 flex w-full bg-white dark:bg-body dark:drop-shadow-none">
+    <header className="text-gray h-24 sticky top-0 z-[999999]  flex w-full  dark:bg-[#1e1e20fc] dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between py-4 px-4 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           {/* <!-- Hamburger Toggle BTN --> */}
@@ -86,7 +86,7 @@ const Header = (props: {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 2xsm:gap-7">
+        <div className="flex z-9999 items-center gap-3 2xsm:gap-7">
           {/* <!-- User Area --> */}
           {isAuth && <DropdownUser />}
           {!isAuth && (
