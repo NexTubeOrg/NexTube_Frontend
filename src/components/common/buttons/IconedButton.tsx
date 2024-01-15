@@ -14,7 +14,7 @@ export const IconedProcessingButton = (props: {
       <button
         onClick={props.onClick}
         type={props.type}
-        className={`w-full h-12 cursor-pointer rounded-md border border-${props.backgroundClassname} bg-${props.backgroundClassname} p-2 text-white transition hover:bg-opacity-90`}
+        className={`w-full h-12 cursor-pointer rounded-md border-${props.backgroundClassname} bg-${props.backgroundClassname} p-2 text-white transition hover:bg-opacity-90`}
       >
         {props.isLoading && <OperationLoader></OperationLoader>}
         {!props.isLoading && (

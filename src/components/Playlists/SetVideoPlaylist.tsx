@@ -123,7 +123,7 @@ export const SetVideoPlaylist = (props: {
         text="Save to playlist"
         type="button"
         icon={<PlusIcon></PlusIcon>}
-        backgroundClassname="secondary"
+        backgroundClassname="black  dark:hover:bg-secondary"
       ></IconedProcessingButton>
       {isShown && (
         <>

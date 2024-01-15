@@ -32,6 +32,7 @@ import { APP_CONFIG } from '../../env';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { SetVideoPlaylist } from '../Playlists/SetVideoPlaylist';
+import MoreVideoActions from './MoreVideoActions';
 
 dayjs.extend(relativeTime);
 
@@ -106,38 +107,44 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
 
           {/* actions section */}
           <div className="ml-5 flex justify-between items-center">
-            <Link to={`/channel/${props.video?.creator?.userId}`}>
-              <div className="flex mt-5 items-center">
-                <img
-                  className="rounded-full h-16 w-16"
-                  src={
-                    '/api/photo/getPhotoUrl/' +
-                    props.video?.creator?.channelPhoto +
-                    '/600'
-                  }
-                ></img>
-                <div className="ml-5">
-                  <h3 className="text-white text-xl">
-                    {props.video?.creator?.firstName}{' '}
-                    {props.video?.creator?.lastName}
-                  </h3>
-                  <h3 className="text-gray text-md">3.23M subscribers</h3>
+            <div className="flex items-center">
+              <Link to={`/channel/${props.video?.creator?.userId}`}>
+                <div className="flex mt-5 items-center">
+                  <img
+                    className="rounded-full h-16 w-16"
+                    src={
+                      '/api/photo/getPhotoUrl/' +
+                      props.video?.creator?.channelPhoto +
+                      '/600'
+                    }
+                  ></img>
+                  <div className="ml-5 min-w-50">
+                    <h3 className="text-white text-xl">
+                      {props.video!.creator?.firstName.length! > 15
+                        ? props.video!.creator?.firstName?.slice(0, 15) + '...'
+                        : props.video!.creator?.firstName}{' '}
+                      {props.video!.creator?.lastName.length! > 15
+                        ? props.video!.creator?.lastName?.slice(0, 15) + '...'
+                        : props.video!.creator?.lastName}
+                    </h3>
+                    <h3 className="text-gray text-md">3.23M subscribers</h3>
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
 
-            {!isAuthUserVideoOwner && (
-              <div className="">
-                <SubscribeButton
-                  isLoading={false}
-                  onClick={() => {}}
-                  text="Subscribe"
-                  type="button"
-                  backgroundClassname="primary"
-                  subscribeId={props.video?.creator?.userId.toString()}
-                ></SubscribeButton>
-              </div>
-            )}
+              {!isAuthUserVideoOwner && (
+                <div className="w-30 ml-5">
+                  <SubscribeButton
+                    isLoading={false}
+                    onClick={() => {}}
+                    text="Subscribe"
+                    type="button"
+                    backgroundClassname="primary"
+                    subscribeId={props.video?.creator?.userId.toString()}
+                  ></SubscribeButton>
+                </div>
+              )}
+            </div>
 
             <div className="likes flex">
               <AddVideoReaction
@@ -156,39 +163,11 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                   backgroundClassname="secondary"
                 ></IconedProcessingButton>
               </div>
-
-              <div className="mr-5">
-                <IconedProcessingButton
-                  isLoading={false}
-                  onClick={handleReportClick}
-                  text="Report"
-                  type="button"
-                  icon={<FlagIcon></FlagIcon>}
-                  backgroundClassname="secondary"
-                ></IconedProcessingButton>
-              </div>
-
-              <div className="mr-5">
-                <Link
-                  to={
-                    APP_CONFIG.API_URL +
-                    'video/getVideoUrl?VideoFileId=' +
-                    props.video?.videoFile
-                  }
-                >
-                  <IconedProcessingButton
-                    isLoading={false}
-                    onClick={() => {}}
-                    text="Download"
-                    type="button"
-                    icon={<ArrowDownTrayIcon></ArrowDownTrayIcon>}
-                    backgroundClassname="secondary"
-                  ></IconedProcessingButton>
-                </Link>
-              </div>
-
               <div className="">
-                <SetVideoPlaylist video={props.video}></SetVideoPlaylist>
+                <MoreVideoActions
+                  handleReportClick={handleReportClick}
+                  video={props.video}
+                ></MoreVideoActions>
               </div>
             </div>
           </div>
