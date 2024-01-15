@@ -17,10 +17,9 @@ import {
 import http_api from '../../services/http_api';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
- 
+ import { ISubscription } from './types';
 import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 import { store } from '../../store';
- 
 
 interface UserSidebarProps {
   sidebarOpen: boolean;
@@ -64,9 +63,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   }, []);
-   
 
- 
   useEffect(() => {
     localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
     if (sidebarExpanded) {
@@ -77,25 +74,27 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   }, [sidebarExpanded]);
 
   const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+  console.log("store",userSubscriptions.subscriptions.map(c=>c.channelPhotoFileId));
     const {   user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
     if (user) { const fetchSubscriptions = async () => {
       try {
-        const response = (await http_api.get(`/api/Subscription/Subscriptions`)).data;
-        const  Subscriptions = response
+        const response = (await http_api.get(`/api/Subscription/Subscriptions`))
+          .data;
+        const Subscriptions = response;
         store.dispatch({
-          type:SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST ,
-          payload:Subscriptions
+          type: SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST,
+          payload: Subscriptions,
         });
      
-      } catch (error) { 
-        console.log("us",user);
+      } catch (error) {
         console.error(error);
       }
     };
-  
-    fetchSubscriptions();}
+
+    fetchSubscriptions();
   }, [user, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
+  console.log("store22",userSubscriptions);
  
   
   return (
@@ -256,22 +255,33 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
-                     
-
-                     <ul>
-                     {userSubscriptions.subscriptions.map((subscription, index) => (
-        <li key={index}>
-          <SidebarItem
-            active={true}
-            url={`/channel/${subscription.userId}`}
-            title={`${subscription.firstName} ${subscription.lastName}`}
-            icon={ <div className="thumb bg-danger rounded-full w-8 h-8">
-            <img className="h-12 w-12 rounded-full" src={"/api/Photo/GetPhotoUrl/"+subscription.channelPhotoFileId+"/50"} alt="User" />
-          </div>}
-          />
-        </li>
-      ))}
-      </ul> </div>
+                        <ul>
+                          {userSubscriptions.subscriptions.map(
+                            (subscription, index) => (
+                              <li key={index}>
+                                <SidebarItem
+                                  active={true}
+                                  url={`/channel/${subscription.userId}`}
+                                  title={`${subscription.firstName} ${subscription.lastName}`}
+                                  icon={
+                                    <div className="thumb bg-danger rounded-full w-8 h-8">
+                                      <img
+                                        className="h-12 w-12 rounded-full"
+                                        src={
+                                          '/api/Photo/GetPhotoUrl/' +
+                                          subscription.channelPhotoFileId +
+                                          '/50'
+                                        }
+                                        alt="User"
+                                      />
+                                    </div>
+                                  }
+                                />
+                              </li>
+                            ),
+                          )}
+                        </ul>{' '}
+                      </div>
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
                   );

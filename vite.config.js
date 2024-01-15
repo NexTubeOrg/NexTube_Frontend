@@ -12,6 +12,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/signalr': {
+        target: 'https://localhost:7192',
+        changeOrigin: true,
+        secure: false,
+        ws: true, // it`s important to use SignalR with Websockets as transport
+      },
     },
   },
 });
