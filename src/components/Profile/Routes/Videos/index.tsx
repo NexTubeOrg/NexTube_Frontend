@@ -18,6 +18,10 @@ import {
 } from '../../../../store/reducers/profileVideos/types';
 import { handleError, handleSuccess } from '../../../../common/handleError';
 import { DialogConfirm } from '../../../DialogConfirm';
+import {
+  SetVideoPlaylist,
+  SetVideoPlaylistShort,
+} from '../../../Playlists/SetVideoPlaylist';
 
 const EditVideoItem = (props: { video: IVideoLookup }) => {
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
@@ -42,7 +46,7 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
       <tr className="border-t-2 border-primary">
         <td className="pb-2 text-left">
           <div className="">
-            <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
+            <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
           </div>
         </td>
         <td className="pb-2 text-left">
@@ -50,7 +54,7 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
             <div className="video mr-3">
               <Link to={'/video/watch/' + props.video.id}>
                 <img
-                  className="w-40 h-25"
+                  className="w-40 h-25 bg-gray rounded-lg"
                   src={
                     '/api/photo/getPhotoUrl/' +
                     props.video.previewPhotoFile +
@@ -62,7 +66,11 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
 
             <div className="text">
               <Link to={'/video/watch/' + props.video.id}>
-                <h3 className="text-white text-lg">{props.video.name?.length! > 15 ? props.video.name?.slice(0, 15) + '...' : props.video.name}</h3>
+                <h3 className="text-white text-lg">
+                  {props.video.name?.length! > 15
+                    ? props.video.name?.slice(0, 15) + '...'
+                    : props.video.name}
+                </h3>
               </Link>
               <p className="text-gray">
                 {props.video.description?.slice(0, 20)}...
@@ -80,6 +88,9 @@ const EditVideoItem = (props: { video: IVideoLookup }) => {
           <span>{props.video.commentsCount}</span>
         </td>
         <td className="pb-2 text-right">
+          <span className="text-primary uppercase font-semibold mr-4">
+            <SetVideoPlaylistShort video={props.video}></SetVideoPlaylistShort>
+          </span>
           <NavLink
             className="text-primary uppercase font-semibold mr-4"
             to={'editVideo/' + props.video.id}
@@ -116,7 +127,7 @@ export const ProfileVideos = () => {
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [needLoad, setNeedLoad] = useState<number>(1);
-  const [isInitLoading, setIsInitLoading] = useState<boolean>(false)
+  const [isInitLoading, setIsInitLoading] = useState<boolean>(false);
 
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
 
@@ -191,7 +202,7 @@ export const ProfileVideos = () => {
           </tr>
           <tr>
             <th className="pb-2 text-left">
-              <CheckboxOne text="" onChange={() => { }}></CheckboxOne>
+              <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
             </th>
             <th className="pb-2 text-left">Videos</th>
             <th className="pb-2 text-left">Views</th>
@@ -214,16 +225,17 @@ export const ProfileVideos = () => {
             </td>
           </tr> */}
         </tbody>
-      </table >
-      
+      </table>
+
       {isLoading && <OperationLoader></OperationLoader>}
 
-      {isInitLoading &&
+      {isInitLoading && (
         <HandleOnVisible
           onVisible={() => {
             setNeedLoad((prevPage) => prevPage + 1);
           }}
-        ></HandleOnVisible>}
+        ></HandleOnVisible>
+      )}
     </>
   );
 };

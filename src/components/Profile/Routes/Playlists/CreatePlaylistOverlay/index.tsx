@@ -144,6 +144,7 @@ export const CreatePlaylistOverlay = () => {
                       Select playlist preview
                     </label>
                     <ModalCropper
+                      aspectRatio={16.0 / 9.0}
                       onSave={onPreviewPhotoChangeHandler}
                       error={errors.previewImage ?? ''}
                     ></ModalCropper>
