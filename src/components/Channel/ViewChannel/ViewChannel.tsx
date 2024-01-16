@@ -47,7 +47,12 @@ const ViewChannel = () => {
   return (
     <>
       <div className="">
-        <div className={`absolute banner h-150 w-full bg-cover`} style={{backgroundImage: `url('/api/photo/getPhotoUrl/${userData.bannerFileId}/600')`}}></div>
+        <div
+          className={`absolute banner h-150 w-full bg-cover`}
+          style={{
+            backgroundImage: `url('/api/photo/getPhotoUrl/${userData.bannerFileId}/1920')`,
+          }}
+        ></div>
         <div className="absolute fade h-150 w-full radial-gradient"></div>
         <div className="absolute top-100 content font-bold p-8 w-full">
           <div className="flex">

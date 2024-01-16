@@ -4,7 +4,7 @@ import http_api from '../../services/http_api';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import { useEffect, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { PlusIcon } from '@heroicons/react/20/solid';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { CancelButton } from '../common/buttons/CancelButton';
 import CheckboxOne from '../CheckboxOne';
@@ -123,7 +123,7 @@ export const SetVideoPlaylist = (props: {
         text="Save to playlist"
         type="button"
         icon={<PlusIcon></PlusIcon>}
-        backgroundClassname="secondary"
+        backgroundClassname="black  dark:hover:bg-secondary"
       ></IconedProcessingButton>
       {isShown && (
         <>

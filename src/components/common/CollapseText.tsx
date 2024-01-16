@@ -1,8 +1,8 @@
-import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { useState } from 'react';
 
-export const CollapseText = (props: { text: string | undefined | null}) => {
+export const CollapseText = (props: { text: string | undefined | null }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div

@@ -5,7 +5,7 @@ import {
   ReportLookup,
   TypeOfReport,
 } from '../pages/Dashboard/Admin/common/types';
-import { FlagIcon } from '@heroicons/react/20/solid';
+import { FlagIcon } from '@heroicons/react/24/outline';
 import { handleSuccess } from '../common/handleError';
 
 const ReportForm = (props: {

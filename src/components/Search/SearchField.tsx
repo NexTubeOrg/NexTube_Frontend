@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,12 +8,17 @@ export const SearchField = () => {
 
   return (
     <>
-      <form onSubmit={(event) => {nav("/video/search/" + searchVideoName); event.preventDefault()}}>
+      <form
+        onSubmit={(event) => {
+          nav('/video/search/' + searchVideoName);
+          event.preventDefault();
+        }}
+      >
         <div className="relative w-100 text-white">
           <button
             type="button"
             onClick={() => {
-              nav("/video/search/" + searchVideoName);
+              nav('/video/search/' + searchVideoName);
             }}
             className="absolute top-1/2 left-0 -translate-y-1/2 text-white"
           >

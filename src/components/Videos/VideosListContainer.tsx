@@ -50,9 +50,9 @@ const VideosListContainer = () => {
 
   return (
     <>
-      <ul className="w-full justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4">
+      <ul className="w-full z-[9997] relative justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4">
         {videos.map((video) => (
-          <li key={video.id}>
+          <li>
             <VideoItem video={video}></VideoItem>
           </li>
         ))}
