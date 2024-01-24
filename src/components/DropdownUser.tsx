@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../store/reducers/auth/types';
-import { Roles, isAdmin } from '../services/tokenService';
+import { Roles, isAdmin,isUnverified } from '../services/tokenService';
 import { ChannelPhoto } from './ChannelPhoto';
 import {
   ArrowRightOnRectangleIcon,
@@ -17,6 +17,7 @@ import {
   UserCircleIcon,
   UserGroupIcon,
   UserIcon,
+  EnvelopeIcon,
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
@@ -110,12 +111,28 @@ const DropdownUser = () => {
             </div>
           </li>
 
-          {/* admin */}
+ {/* unverified */}
+ {isUnverified(user) && (
+            <li>
+              <Link
+                to={`/auth/verifymail`}
+                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              >
+                <div className="icon w-8 relative dark:text-white">
+                <EnvelopeIcon></EnvelopeIcon>
+                </div>
+                ❗Verify Mail
+              </Link>
+            </li>
+          )}
+
+          {/* unverified  */}
           {isAdmin(user) && (
             <li>
               <Link
-                to={`/admin`}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                onClick={() => window.location.href="/admin"}
+                 to={`/admin`}
               >
                 <div className="icon w-8 relative dark:text-white">
                   <CommandLineIcon></CommandLineIcon>
