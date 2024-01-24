@@ -4,14 +4,14 @@ import http_api from '../../services/http_api';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import { useEffect, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { PlusIcon } from '@heroicons/react/24/outline';
+import { GlobeAltIcon, PlusIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { CancelButton } from '../common/buttons/CancelButton';
 import CheckboxOne from '../CheckboxOne';
 import CheckboxFour from '../CheckboxFour';
 import { DefaultInput, FieldEditInput } from '../common/inputs';
 import { CreatePlaylistOverlay } from '../Profile/Routes/Playlists/CreatePlaylistOverlay';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessingButton';
 import { PrimaryButtonLink } from '../common/links/PrimaryButtonLink';
 
@@ -24,9 +24,9 @@ const SelectVideoPlaylist = (props: {
     <>
       <React.Fragment>
         <div className="fixed inset-0 flex items-center justify-center bg-secondary bg-opacity-75 z-50 rounded-md">
-          <div className=" bg-body p-8 rounded-md text-center">
-            <div className="flex justify-center items-center mb-4">
-              <h2 className="text-2xl text-white">Add video to playlist</h2>
+          <div className=" bg-body py-4 px-8 rounded-md text-center w-[24rem]">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl text-white">Save video</h2>
 
               <CancelButton
                 onClick={() => {
@@ -34,30 +34,44 @@ const SelectVideoPlaylist = (props: {
                 }}
               ></CancelButton>
             </div>
-            <div className="flex text-white">
-              <ul>
-                {props.playlists.map((p) => (
-                  <li key={p.playlist.id}>
-                    <CheckboxFour
-                      name={p.playlist.title}
-                      id={p.playlist.id.toString()}
-                      isChecked={p.isVideoInPlaylist}
-                      description=""
-                      onChange={(e) => {
-                        props.handlePlaylistToggle(parseInt(e.target.value));
-                      }}
-                    ></CheckboxFour>
-                  </li>
-                ))}
-                <li>
-                  <div className="w-30">
-                    <PrimaryButtonLink
-                      urlTo="/profile/playlists/addPlaylist"
-                      title="Add new playlist"
-                    ></PrimaryButtonLink>
-                  </div>
-                </li>
-              </ul>
+            <div className="flex text-white ">
+              <div className="">
+                <ul className="w-full h-100 overflow-y-scroll default-custom-scrollbar">
+                  {props.playlists.map((p) => (
+                    <li key={p.playlist.id}>
+                      <div className="mb-3 flex justify-between items-center">
+                        <CheckboxFour
+                          name={p.playlist.title}
+                          id={p.playlist.id.toString()}
+                          isChecked={p.isVideoInPlaylist}
+                          description=""
+                          onChange={(e) => {
+                            props.handlePlaylistToggle(
+                              parseInt(e.target.value),
+                            );
+                          }}
+                        ></CheckboxFour>
+                        <div className="w-5 h-5 mr-5">
+                          <GlobeAltIcon></GlobeAltIcon>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-2">
+                  <Link
+                    to={'/profile/playlists/addPlaylist'}
+                    className={`w-full cursor-pointer rounded-md  text-white transition hover:bg-opacity-90`}
+                  >
+                    <div className="flex items-center">
+                      <div className="h-8 w-8 mr-2">
+                        <PlusIcon></PlusIcon>
+                      </div>
+                      <span className="font-bold">Create new playlist</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -69,7 +83,7 @@ const SelectVideoPlaylist = (props: {
 export const SetVideoPlaylist = (props: {
   video: IVideoLookup | undefined;
 }) => {
-  const [isShown, setIsShown] = useState<boolean>(false);
+  const [isShown, setIsShown] = useState<boolean>(true);
   const [playlists, setPlaylists] = useState<IVideoPlaylistUserStatus[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(4000);
