@@ -268,7 +268,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 <li>
                   <SidebarItem
                     active={true}
-                    url="/settings"
+                    url="/profile/info"
                     title="Settings"
                     icon={<Cog6ToothIcon></Cog6ToothIcon>}
                   ></SidebarItem>

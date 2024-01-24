@@ -35,12 +35,12 @@ const SelectVideoPlaylist = (props: {
                 }}
               ></CancelButton>
             </div>
-            <div className="flex text-white ">
+            <div className="text-white ">
               <div className="">
                 <ul className="w-full h-100 overflow-y-scroll default-custom-scrollbar">
                   {props.playlists.map((p) => (
                     <li key={p.playlist.id}>
-                      <div className="mb-3 flex justify-between items-center">
+                      <div className="mb-3 w-full flex justify-between items-center">
                         <CheckboxFour
                           name={p.playlist.title}
                           id={p.playlist.id.toString()}
