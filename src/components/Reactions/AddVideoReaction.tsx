@@ -2,6 +2,12 @@ import {
   HandThumbUpIcon,
   HandThumbDownIcon,
 } from '@heroicons/react/24/outline';
+
+import {
+  HandThumbUpIcon as SolidHandThumbUpIcon,
+  HandThumbDownIcon as SolidHandThumbDownIcon,
+} from '@heroicons/react/20/solid';
+
 import { DoubleIconedProcessingButton } from '../common/buttons/DoubleIconedButton';
 import { useEffect, useState } from 'react';
 import http_api from '../../services/http_api';
@@ -104,6 +110,8 @@ export const AddVideoReaction = (props: { videoId: number }) => {
           iconRight={<HandThumbDownIcon></HandThumbDownIcon>}
           iconLeftColor={reactions.wasLikedByRequester ? 'success' : 'white'}
           iconRightColor={reactions.wasDislikedByRequester ? 'danger' : 'white'}
+          iconLeftPress={<SolidHandThumbUpIcon></SolidHandThumbUpIcon>}
+          iconRightPress={<SolidHandThumbDownIcon></SolidHandThumbDownIcon>}
           backgroundClassnameRight="secondary"
         ></DoubleIconedProcessingButton>
       </div>

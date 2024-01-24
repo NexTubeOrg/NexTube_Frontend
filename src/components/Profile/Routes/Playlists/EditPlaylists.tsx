@@ -31,11 +31,11 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
           <div className="item flex mt-3">
             <div className="playlist mr-3">
               <Link to={`/video/watch/playlist/${props.playlist.id}`}>
-                <div className="w-40 h-25 bg-gray">
+                <div className="w-40 h-25 bg-gray rounded-lg">
                   {props.playlist.preview && (
                     <>
                       <img
-                        className="w-40 h-25 bg-cover"
+                        className="w-40 h-25 bg-cover rounded-lg"
                         src={
                           '/api/photo/getPhotoUrl/' +
                           props.playlist.preview +
@@ -59,7 +59,10 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
           <span>{props.playlist.totalCountVideos}</span>
         </td>
         <td className="pb-2 text-right">
-          <NavLink className="text-primary uppercase font-semibold" to={''}>
+          <NavLink
+            className="text-primary disabled disabled:text-gray disabled:cursor-default uppercase font-semibold"
+            to={''}
+          >
             Edit draft
           </NavLink>
         </td>
