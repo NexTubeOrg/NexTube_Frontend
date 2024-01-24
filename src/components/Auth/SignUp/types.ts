@@ -13,4 +13,5 @@ export interface IRegistrationResult {
   result: ICommonResult;
   token: string;
   userId: number;
+  verificationToken: string;
 }

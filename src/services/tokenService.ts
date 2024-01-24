@@ -65,6 +65,14 @@ export const isAdmin = (user: IUser | undefined): boolean => {
   );
 };
 
+export const isUnverified = (user: IUser | undefined): boolean => {
+  return (
+    user != null &&
+    user.roles != null &&
+    (user?.roles as string[]).find((r) => r == 'Unverified') != null
+  );
+};
+
 export const isSignedIn = (): boolean => {
   let t = getToken();
   // todo add overdue check
@@ -74,4 +82,5 @@ export const isSignedIn = (): boolean => {
 export enum Roles {
   Administrator = 'Administrator',
   User = 'User',
+  Unverified = 'Unverified',
 }
