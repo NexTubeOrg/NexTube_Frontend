@@ -26,6 +26,10 @@ export interface IGetVideoListChannelResult {
   videos: IVideoLookup[];
 }
 
+export interface IGetVideoListHistoryResult {
+  videos: IVideoLookup[];
+}
+
 export interface IVideoUploadRequest {
   name: string;
   description: string;

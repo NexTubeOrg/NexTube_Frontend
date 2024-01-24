@@ -21,6 +21,8 @@ import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.t
 import { SearchResults } from './components/Search/SearchResults.tsx';
 import PlaylistVideosContainer from './components/Playlists/PlaylistVideosContainer.tsx';
 import useColorMode from './hooks/useColorMode.tsx';
+import VerifyMailPage from './pages/Authentication/VerifyMail/VerifyMail.tsx';
+import { HistoryVideoContainer } from './components/History/index.tsx';
 
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
 
@@ -95,6 +97,7 @@ function App() {
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signout" element={<SignOut />} />
+          <Route path="verifymail" element={<VerifyMailPage />} />
           <Route path="recover" element={<RecoverPassword />} />
         </Route>
 
@@ -118,10 +121,15 @@ function App() {
           <Route path={'search'} element={<SearchResults />}>
             <Route index path={':name'} element={<SearchResults />} />
           </Route>
+          
         </Route>
 
         <Route path={'/playlists'} element={<DefaultLayout />}>
           <Route index path={':id'} element={<PlaylistVideosContainer />} />
+        </Route>
+
+        <Route path={'/history'} element={<DefaultLayout/>}>
+          <Route index element={<HistoryVideoContainer/>}/>
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>
