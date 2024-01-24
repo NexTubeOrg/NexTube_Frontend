@@ -157,19 +157,6 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 <li>
                   <SidebarItem
                     active={false}
-                    url="/friends"
-                    title="Friends"
-                    icon={<UsersIcon></UsersIcon>}
-                  ></SidebarItem>
-                </li>
-
-                <li>
-                  <div className="h-8"></div>
-                </li>
-
-                <li>
-                  <SidebarItem
-                    active={false}
                     url="/library"
                     title="Library"
                     icon={
@@ -287,23 +274,23 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   ></SidebarItem>
                 </li>
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={true}
                     url="/reports"
                     title="Report history"
                     icon={<FaceSmileIcon></FaceSmileIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/help"
                     title="Help"
                     icon={<QuestionMarkCircleIcon></QuestionMarkCircleIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
               </ul>
             </div>
           </nav>

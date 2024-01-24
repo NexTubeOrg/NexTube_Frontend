@@ -59,7 +59,10 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
           <span>{props.playlist.totalCountVideos}</span>
         </td>
         <td className="pb-2 text-right">
-          <NavLink className="text-primary uppercase font-semibold" to={''}>
+          <NavLink
+            className="text-primary disabled disabled:text-gray disabled:cursor-default uppercase font-semibold"
+            to={''}
+          >
             Edit draft
           </NavLink>
         </td>

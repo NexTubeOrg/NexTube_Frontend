@@ -73,14 +73,10 @@ const Header = (props: {
                   {/* <!-- Notification Menu Area --> */}
                   <DropdownNotification />
                   {/* <!-- Notification Menu Area --> */}
-
-                  {/* <!-- Chat Notification Area --> */}
-                  <DropdownMessage />
-                  {/* <!-- Chat Notification Area --> */}
                 </>
               )}
               {/* <!-- Dark Mode Toggler --> */}
-              <DarkModeSwitcher />
+              {/* <DarkModeSwitcher /> */}
               {/* <!-- Dark Mode Toggler --> */}
             </ul>
           </div>
