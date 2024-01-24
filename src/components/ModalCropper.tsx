@@ -4,6 +4,8 @@ import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
 import classNames from 'classnames';
 import './../common/CropperDialog/style.css';
+import { ProcessingButton } from './common/buttons/ProcessingButton';
+import { PrimaryProcessingButton } from './common/buttons/PrimaryProcessingButton';
 const defaultThumb = '/imageThumb.svg';
 
 export const ModalCropper: React.FC<ICroppedModal> = ({
@@ -136,54 +138,54 @@ export const ModalCropper: React.FC<ICroppedModal> = ({
             { hidden: !shown },
           )}
         >
-          <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
-            <div className="w-full flex justify-end">
-              <strong
-                className="text-xl align-center cursor-pointer "
-                onClick={() => toggleModal()}
-              >
-                &times;
-              </strong>
-              <div>
-                {/* modal body */}
-                <div tabIndex={-1}>
-                  <div className="modal-dialog fix-max-width">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">
-                          Edit image
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                          onClick={toggleModal}
-                        ></button>
-                      </div>
-                      <div className="modal-body">
-                        <img
-                          ref={
-                            imageCropperEditAreaRef as LegacyRef<HTMLImageElement>
-                          }
-                        />
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                          onClick={toggleModal}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={onSaveCroppedHandler}
-                          type="button"
-                          className="btn btn-primary"
-                        >
-                          Save changes
-                        </button>
+          <div className="fixed inset-0 flex items-center justify-center bg-secondary bg-opacity-75 z-50 rounded-md">
+            <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
+              <div className="w-full flex justify-end bg-body rounded-xl">
+                <div>
+                  {/* modal body */}
+                  <div tabIndex={-1}>
+                    <div className="w-[50vw] z-999999">
+                      <div className="modal-content">
+                        <div className="modal-header border-secondary border-0 border-b-[1px] mb-6">
+                          <div className="p-3">
+                            <h5 className="text-white">Edit image</h5>
+                          </div>
+                        </div>
+                        <div className="modal-body flex justify-center">
+                          <div className="w-2/3  h-100">
+                            <img
+                              className="bg-cover w-2/3 h-100"
+                              ref={
+                                imageCropperEditAreaRef as LegacyRef<HTMLImageElement>
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div className="border-secondary border-0 border-t-[1px] mt-6 p-3">
+                          <div className="flex w-full justify-end items-end">
+                            <div className="w-30">
+                              <ProcessingButton
+                                isLoading={false}
+                                onClick={() => {
+                                  toggleModal();
+                                }}
+                                text="Cancel"
+                                backgroundClassname="transparent"
+                                type="button"
+                              ></ProcessingButton>
+                            </div>
+                            <div className="w-30">
+                              <PrimaryProcessingButton
+                                isLoading={false}
+                                onClick={() => {
+                                  onSaveCroppedHandler(null);
+                                }}
+                                text="Save changes"
+                                type="button"
+                              ></PrimaryProcessingButton>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
