@@ -18,7 +18,7 @@ import './../../styles/custom-video-react.css';
 import ReportForm from '../ReportForm';
 import { handleSuccess } from '../../common/handleError';
 import http_api from '../../services/http_api';
-import { SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
+import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import MoreVideoActions from './MoreVideoActions';
@@ -53,6 +53,7 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
   const [userData, setUserData] = useState<IUserInfo>();
 
   const {  isAuth } = useSelector((store: any) => store.auth as IAuthUser);
+const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
 
   useEffect(() => {
   if(isAuth){  const fetchData = async () => {
@@ -62,7 +63,7 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
           
        };
     fetchData();}
- }, [  userData,  SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
+ }, [  userSubscriptions]);
  
  
   useEffect(() => {
@@ -135,7 +136,7 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
                         ? props.video!.creator?.lastName?.slice(0, 15) + '...'
                         : props.video!.creator?.lastName}
                     </h3>
-                    <h3 className="text-gray text-md">3.23M subscribers</h3>
+                    <h3 className="text-gray text-md"> {userData?.subsciptions} subscribers</h3>
                   </div>
                 </div>
               </Link>

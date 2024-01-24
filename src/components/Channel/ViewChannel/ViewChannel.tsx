@@ -7,7 +7,7 @@ import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
 import { FlagIcon } from '@heroicons/react/20/solid';
-import { SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
+import { IUsersubscription, SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
 import { channelRoutes } from '../../../routes';
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
@@ -27,9 +27,11 @@ const ViewChannel = () => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
+  const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+
   useEffect(() => {
     fetchData();
- },  [ userData, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
+ },  [userSubscriptions ]);
 
   const fetchData = async () => {
     try {
