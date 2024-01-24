@@ -157,7 +157,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 <li>
                   <SidebarItem
                     active={false}
-                    url="/library"
+                    url={`/channel/${user?.userId}}/playlists`}
                     title="Library"
                     icon={
                       <ClipboardDocumentListIcon></ClipboardDocumentListIcon>
@@ -174,23 +174,23 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   ></SidebarItem>
                 </li>
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/liked"
                     title="Liked videos"
                     icon={<HandThumbUpIcon></HandThumbUpIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/later"
                     title="Watch later"
                     icon={<ClockIcon></ClockIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
                 <li>
                   <div className="h-8"></div>
