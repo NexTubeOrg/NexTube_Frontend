@@ -83,7 +83,7 @@ const SelectVideoPlaylist = (props: {
 export const SetVideoPlaylist = (props: {
   video: IVideoLookup | undefined;
 }) => {
-  const [isShown, setIsShown] = useState<boolean>(true);
+  const [isShown, setIsShown] = useState<boolean>(false);
   const [playlists, setPlaylists] = useState<IVideoPlaylistUserStatus[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(4000);
