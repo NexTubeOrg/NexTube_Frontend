@@ -9,12 +9,15 @@ import ReportForm from '../../ReportForm';
 import { FlagIcon } from '@heroicons/react/20/solid';
 import { SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
 import { channelRoutes } from '../../../routes';
+import { IAuthUser } from '../../../store/reducers/auth/types';
+import { useSelector } from 'react-redux';
 
 const ViewChannel = () => {
   const [userData, setUserData] = useState<IUserInfo>();
   const { id } = useParams();
   const parts = location.pathname.split('/');
-
+  const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
+ 
   const [showReportForm, setShowReportForm] = useState(false);
 
   const handleReportClick = () => {
@@ -39,7 +42,8 @@ const ViewChannel = () => {
       console.error('Error fetching user data:', error);
     }
   };
-
+   
+ 
   if (!userData) {
     return <div>Loading...</div>;
   }
@@ -96,9 +100,9 @@ const ViewChannel = () => {
                 </span>
               </h4>
               {/* Subscribe to channel */}
-              <div className="channel-tools">
+              {id !== user?.userId && (  <div className="channel-tools">
                 <div className="w-35 ">
-                  <SubscribeButton
+                <SubscribeButton
                     isLoading={false}
                     onClick={() => {}}
                     text="Subscribe"
@@ -117,7 +121,7 @@ const ViewChannel = () => {
                     backgroundClassname="primary"
                   ></IconedProcessingButton>
                 </div>
-              </div>
+              </div>)}
             </div>
           </div>
           {showReportForm && (

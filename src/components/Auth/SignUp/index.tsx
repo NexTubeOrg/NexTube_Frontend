@@ -3,7 +3,6 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
 import { storeToken } from '../../../services/tokenService';
-import classNames from 'classnames';
 import { handleError, handleSuccess } from '../../../common/handleError';
 import { ModalCropper } from '../../../components/ModalCropper';
 import { useState } from 'react';
@@ -11,12 +10,14 @@ import { PrimaryProcessingButton } from '../../../components/common/buttons/Prim
 import GoogleAuthWrapper from '../../../components/Auth/Google/GoogleAuthWrapper';
 import { IRegistrationRequest, IRegistrationResult } from './types';
 import { SignUpTitle, SubTitle } from './SignUpTitle';
-import { DefaultInput, RegistrationInput } from '../../common/inputs';
+import { RegistrationInput } from '../../common/inputs';
 
 const SignUpWidget = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigator = useNavigate();
 
+
+  
   const request: IRegistrationRequest = {
     email: '',
     password: '',
@@ -42,8 +43,6 @@ const SignUpWidget = () => {
 
   const onFormSubmit = async (values: IRegistrationRequest) => {
     try {
-      console.log(errors);
-      console.log(values);
       setIsLoading(() => true);
       const result = (
         await http_api.post<IRegistrationResult>('/api/auth/signup', values, {
@@ -53,10 +52,16 @@ const SignUpWidget = () => {
         })
       ).data;
 
-      const { token } = result;
+      const { token, verificationToken } = result;
       storeToken(token);
+
+   
+      localStorage.setItem('verificationToken', verificationToken);
+
       handleSuccess('User created successfully');
-      navigator('/');
+      
+      
+      navigator('/auth/verifymail');  
     } catch (error: any) {
       handleError(error);
     } finally {
@@ -84,6 +89,7 @@ const SignUpWidget = () => {
   });
 
   const { values, errors, touched, handleSubmit, handleChange } = formik;
+    
   return (
     <>
       <div className="bg-white shadow-default dark:bg-body">
