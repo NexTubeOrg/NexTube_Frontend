@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { IPlaylistLookup } from './types';
-
+import { useTranslation } from 'react-i18next'; // Import the hook
 export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
+  const { t } = useTranslation(); 
   return (
     <>
       <div className="mb-6 w-75">
@@ -33,7 +34,7 @@ export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
             )}
             {props.playlist.preview == null && (
               <div className="w-75 h-45 bg-gray">
-                <span className="text-white">No preview</span>
+                <span className="text-white">{t('playlistItem.noPreview')}</span>
               </div>
             )}
             <div className="absolute right-2 bottom-2 z-20">
@@ -52,7 +53,7 @@ export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
             <h3 className="text-white text-lg">{props.playlist.title}</h3>
             <Link to={`/video/watch/playlist/${props.playlist.id}`}>
               <div className="mt-1">
-                <p className="text-gray">View full playlist</p>
+                <p className="text-gray">{t('playlistItem.viewFullPlaylist')}</p>
               </div>
             </Link>
           </div>

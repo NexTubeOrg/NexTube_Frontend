@@ -1,22 +1,29 @@
+// src/components/Home/MainPoster.tsx
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './style.css';
 
 export const MainPoster = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="h-[50vh]">
         <div className="h-full flex items-center justify-between">
           <div className="flex z-[9997] flex-col min-[1000px]:w-[32em] min-[1364px]:w-[64em]">
             <div className="mb-2">
-              <h1 className="text-white text-6xl font-semibold">Watch now</h1>
+              <h1 className="text-white text-6xl font-semibold">
+                {t('mainPoster.watchNow')}
+              </h1>
             </div>
             <div className="mb-2">
               <h2 className=" font-semibold text-primary  text-5xl">
-                William Blacke
+                {t('mainPoster.title')}
               </h2>
             </div>
             <div className="mb-2">
               <p className="font-semibold text-white text-3xl">
-                is an English clown, pointer and nigger
+                {t('mainPoster.description')}
               </p>
             </div>
           </div>
@@ -31,18 +38,6 @@ export const MainPoster = () => {
                 ></div>
 
                 <div className="fade-gradient w-full h-[130%] absolute"></div>
-
-                {/* top right
-                <div className="test rounded-full  w-[80rem] h-[80rem] absolute fade-gradient -top-[40rem] -right-[45rem]"></div>
-
-                bottom right
-                <div className="test rounded-full  w-[64rem] h-[64rem] absolute fade-gradient -bottom-[37.5rem] -right-[35rem]"></div>
-
-                top left
-                <div className="test rounded-full  w-[64rem] h-[64rem] absolute fade-gradient -top-[35rem] -left-[35rem]"></div>
-
-                bottom left
-                <div className="test rounded-full  w-[64rem] h-[64rem] absolute fade-gradient -bottom-[37.5rem] -left-[35rem]"></div> */}
               </div>
             </div>
           </div>

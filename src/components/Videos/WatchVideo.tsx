@@ -33,6 +33,7 @@ import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { SetVideoPlaylist } from '../Playlists/SetVideoPlaylist';
 import MoreVideoActions from './MoreVideoActions';
+import { useTranslation } from 'react-i18next'; // Import the hook
 
 dayjs.extend(relativeTime);
 
@@ -60,17 +61,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   useEffect(() => {
     player.current.load();
   }, [props.video]);
-
-  // const getVideoChildren = (originalChildren: []) => {
-  //   return [
-  //     <PosterImage key="poster-image" poster='' />,
-  //     <LoadingSpinner key="loading-spinner" order={2.0} />,
-  //     <BigPlayButton key="big-play-button" order={4.0} />,
-  //     <ControlBar key="control-bar" order={5.0} />,
-  //     <Shortcut key="shortcut" order={99.0} />,
-  //   ];
-  // };
-
+  const { t } = useTranslation(); // Initialize the hook
   return (
     <>
       <div className="warp my-6">
@@ -127,7 +118,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                         ? props.video!.creator?.lastName?.slice(0, 15) + '...'
                         : props.video!.creator?.lastName}
                     </h3>
-                    <h3 className="text-gray text-md">3.23M subscribers</h3>
+                    <h3 className="text-gray text-md">3.23M {t("watchVideo.subscribers")}</h3>
                   </div>
                 </div>
               </Link>
@@ -137,7 +128,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                   <SubscribeButton
                     isLoading={false}
                     onClick={() => {}}
-                    text="Subscribe"
+                    text={t("watchVideo.subscribe")}
                     type="button"
                     backgroundClassname="primary"
                     subscribeId={props.video?.creator?.userId.toString()}
@@ -157,7 +148,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                     navigator.clipboard.writeText(window.location.href);
                     handleSuccess('Copied link to clipboard');
                   }}
-                  text="Share"
+                  text={t("watchVideo.share")}
                   type="button"
                   icon={<ShareIcon></ShareIcon>}
                   backgroundClassname="secondary"
@@ -179,13 +170,13 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                 videoId={props.video?.id}
                 onSubmitSuccess={handleReportFormClose}
               />
-              <button onClick={handleReportFormClose}>Close Report Form</button>
+              <button onClick={handleReportFormClose}>{t("watchVideo.closeReportForm")}</button>
             </div>
           )}
 
           <div className="description bg-secondary p-5 mt-5 rounded-lg">
             <h3 className="text-white text-2xl">
-              <span className="mr-3">{props.video?.views} views</span>
+              <span className="mr-3">{props.video?.views} {t("watchVideo.views")}</span>
               <span>{dayjs(props.video?.dateCreated).fromNow()}</span>
             </h3>
             <CollapseText text={props.video?.description}></CollapseText>

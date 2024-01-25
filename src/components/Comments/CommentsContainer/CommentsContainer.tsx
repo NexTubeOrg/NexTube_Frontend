@@ -1,10 +1,14 @@
+// src/components/Comments/CommentsContainer/CommentsContainer.tsx
+import React from 'react';
 import CommentItem from '../CommentItem/CommentItem';
 import { ICommentLookup } from '../Common/types';
+import { useTranslation } from 'react-i18next';
 
 const CommentsContainer = (props: {
   comments: ICommentLookup[];
   temporaryVideoId: number;
 }) => {
+  const { t } = useTranslation();
   const comments = props.comments;
 
   const renderedComments = comments.map((c) => (
@@ -20,7 +24,7 @@ const CommentsContainer = (props: {
     <>
       {comments.length > 0 && (
         <>
-          <p>{comments.length} comments</p>
+          <p>{comments.length} {t('commentsContainer.comments')}</p>
           {renderedComments}
         </>
       )}

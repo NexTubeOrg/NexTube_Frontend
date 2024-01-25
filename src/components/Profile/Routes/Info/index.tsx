@@ -1,3 +1,4 @@
+// src/components/Profile/Routes/Info/index.tsx
 import React, { useEffect, useState } from 'react';
 import {
   FieldBasicEditBigInput,
@@ -7,8 +8,10 @@ import { ILoginResult, IUserUpdate } from '../../../../pages/UpdateUser/types';
 import http_api from '../../../../services/http_api';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../../../store/reducers/auth/types';
+import { useTranslation } from 'react-i18next'; // Import the hook
 
 export const ProfileInfo = () => {
+  const { t } = useTranslation(); // Initialize the hook
 
   const [userData, setUserData] = useState<IUserUpdate>({
     firstName: '',
@@ -16,10 +19,10 @@ export const ProfileInfo = () => {
     nickname: '',
     description: '',
   });
- 
-  const { isAuth,user } = useSelector((store: any) => store.auth as IAuthUser);
+
+  const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
-     if (isAuth) {
+    if (isAuth) {
       fetchUserData();
     }
   }, []);
@@ -30,24 +33,21 @@ export const ProfileInfo = () => {
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
-    
     }
   };
-  
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-      setUserData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  
-  
-  
- 
+
   const handleSubmit = async () => {
-    try {console.log("UPDate",userData);
-      await http_api.put<ILoginResult>('/api/user/updateuser', userData); 
+    try {
+      console.log("Update", userData);
+      await http_api.put<ILoginResult>('/api/user/updateuser', userData);
       window.location.reload();
       console.log('Changes saved successfully!');
     } catch (error) {
@@ -60,49 +60,33 @@ export const ProfileInfo = () => {
       <div className="mb-6">
         <FieldBasicEditInput
           name="firstName"
-          title="FirstName"
-          description="
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil
-            reprehenderit repellendus tempora autem culpa minima illo delectus
-            placeat accusamus a at exercitationem sed, rem suscipit id tenetur
-            distinctio dolorum harum."
-          placeholder="Enter channel name"
+          title={t('profileInfo.firstName')}
+          description={t('profileInfo.channelNamePlaceholder')}
+          placeholder={t('profileInfo.channelNamePlaceholder')}
           value={userData.firstName}
           handleChange={handleInputChange}
           error=""
           type="text"
         />
-         
-
       </div>
       <div className="mb-6">
         <FieldBasicEditInput
           name="lastName"
-          title="LastName"
-          description="
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil
-            reprehenderit repellendus tempora autem culpa minima illo delectus
-            placeat accusamus a at exercitationem sed, rem suscipit id tenetur
-            distinctio dolorum harum."
-          placeholder="Enter channel name"
+          title={t('profileInfo.lastName')}
+          description={t('profileInfo.channelNamePlaceholder')}
+          placeholder={t('profileInfo.channelNamePlaceholder')}
           value={userData.lastName}
           handleChange={handleInputChange}
           error=""
           type="text"
         />
-         
-
       </div>
       <div className="mb-6">
         <FieldBasicEditInput
           name="nickname"
-          title="Handle"
-          description="
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil
-            reprehenderit repellendus tempora autem culpa minima illo delectus
-            placeat accusamus a at exercitationem sed, rem suscipit id tenetur
-            distinctio dolorum harum."
-          placeholder="Set your handle"
+          title={t('profileInfo.handle')}
+          description={t('profileInfo.channelNamePlaceholder')}
+          placeholder={t('profileInfo.handlePlaceholder')}
           value={userData.nickname}
           handleChange={handleInputChange}
           error=""
@@ -112,26 +96,23 @@ export const ProfileInfo = () => {
       <div className="mb-6">
         <FieldBasicEditBigInput
           name="description"
-          title="Description"
+          title={t('profileInfo.description')}
           description=""
-          placeholder="Tell viewers about the channel"
+          placeholder={t('profileInfo.tellViewersPlaceholder')}
           value={userData.description}
           handleChange={handleInputChange}
           error=""
         />
       </div>
       <div className="mb-5">
-            <button
-                  type="submit"
-                  className="w-50 cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  onClick={handleSubmit}
-                >
-                   Save
-            </button>
-       </div>
+        <button
+          type="submit"
+          className="w-50 cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+          onClick={handleSubmit}
+        >
+          {t('profileInfo.saveButton')}
+        </button>
+      </div>
     </>
   );
 };
-
- 
-

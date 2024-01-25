@@ -11,6 +11,7 @@ import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../common/navbars/Navbar';
 import { profileRoutes, recommendationVideosRoutes } from '../../routes';
+import { t } from 'i18next';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -50,7 +51,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
             </Link>
             <h4 className="text-gray mb-2 text-sm">
               <span className="mr-2">
-                {numeral(props.video.views).format('0a').toUpperCase()} views
+                {numeral(props.video.views).format('0a').toUpperCase()} {t("videoItem.views")}
               </span>{' '}
               <span>{dayjs(props.video.dateCreated).fromNow()}</span>
             </h4>

@@ -14,19 +14,21 @@ import { CreatePlaylistOverlay } from '../Profile/Routes/Playlists/CreatePlaylis
 import { Link, Outlet } from 'react-router-dom';
 import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessingButton';
 import { PrimaryButtonLink } from '../common/links/PrimaryButtonLink';
-
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 const SelectVideoPlaylist = (props: {
   handleDisagreeClick: () => Promise<void> | null;
   playlists: IVideoPlaylistUserStatus[];
   handlePlaylistToggle: (playlistId: number) => Promise<void> | null;
 }) => {
+  const { t } = useTranslation(); 
   return (
     <>
       <React.Fragment>
         <div className="fixed inset-0 flex items-center justify-center bg-secondary bg-opacity-75 z-50 rounded-md">
           <div className=" bg-body py-4 px-8 rounded-md text-center w-[24rem]">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl text-white">Save video</h2>
+              <h2 className="text-2xl text-white">{t("setVideoPlaylist.saveVideo")}</h2>
 
               <CancelButton
                 onClick={() => {
@@ -67,7 +69,7 @@ const SelectVideoPlaylist = (props: {
                       <div className="h-8 w-8 mr-2">
                         <PlusIcon></PlusIcon>
                       </div>
-                      <span className="font-bold">Create new playlist</span>
+                      <span className="font-bold">{t('setVideoPlaylist.createNewPlaylist')}</span>
                     </div>
                   </Link>
                 </div>
@@ -134,7 +136,7 @@ export const SetVideoPlaylist = (props: {
         onClick={() => {
           setIsShown((p) => !p);
         }}
-        text="Save to playlist"
+        text={t("watchVideo.saveToPlaylist")}
         type="button"
         icon={<PlusIcon></PlusIcon>}
         backgroundClassname="black  dark:hover:bg-secondary"

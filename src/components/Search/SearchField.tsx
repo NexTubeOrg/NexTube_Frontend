@@ -1,11 +1,12 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import the hook
 
 export const SearchField = () => {
   const [searchVideoName, setSearchVideoName] = useState<string>('');
   const nav = useNavigate();
-
+  const { t } = useTranslation(); // Initialize the hook
   return (
     <>
       <form
@@ -29,7 +30,7 @@ export const SearchField = () => {
 
           <input
             type="text"
-            placeholder="Search"
+            placeholder={t("search")}
             className="w-full p-1 bg-secondary pr-4 pl-9 focus:outline-none"
             onChange={(input) => setSearchVideoName(input.target.value)}
           />

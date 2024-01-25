@@ -10,6 +10,7 @@ import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcess
 import { store } from '../../../store';
 import { VideoCommentsReducerActionTypes } from '../../../store/reducers/videoComments/types';
 import { ProcessingButton } from '../../common/buttons/ProcessingButton';
+import { t } from 'i18next';
 
 const AddNewCommentField = (props: {
   videoId: number;
@@ -112,7 +113,7 @@ const AddNewCommentField = (props: {
                 value={values.content}
                 onChange={handleChange}
                 type="text"
-                placeholder="Add a comment..."
+                placeholder={t("comments.addComment")}
                 className={classNames(
                   'w-full border-b-2 dark:border-gray dark:focus:border-white bg-transparent py-1 pr-10 outline-none  focus-visible:shadow-none dark:focus:text-white dark:text-gray dark:bg-body',
                   {
@@ -133,7 +134,7 @@ const AddNewCommentField = (props: {
                 <div className="mr-2 w-30">
                   <ProcessingButton
                     isLoading={false}
-                    text="Cancel"
+                    text={t("comments.cancel")}
                     onClick={() => {
                       resetForm();
                       props.onCancel(null);
@@ -145,7 +146,7 @@ const AddNewCommentField = (props: {
                 <div className="w-30">
                   <PrimaryProcessingButton
                     isLoading={isLoading}
-                    text="Add comment"
+                    text={t("comments.addComment1")}
                     onClick={() => {}}
                     type="submit"
                   ></PrimaryProcessingButton>

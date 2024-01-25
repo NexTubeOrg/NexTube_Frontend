@@ -6,6 +6,7 @@ import http_api from '../../services/http_api';
 import OperationLoader from '../../common/OperationLoader';
 import HandleOnVisible from '../HandleOnVisible';
 import numeral from 'numeral';
+import { t } from 'i18next';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -27,7 +28,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
                 {props.video.name?.length! > 15 ? props.video.name?.slice(0, 15) + '...' : props.video.name}
               </h3>
               <h4 className="text-gray mb-2 text-sm">
-                <span className="mr-2">{numeral(props.video.views).format('0a').toUpperCase()} views</span>{' '}
+                <span className="mr-2">{numeral(props.video.views).format('0a').toUpperCase()} {t("videoItem.views")}</span>{' '}
                 <span>{dayjs(props.video.dateCreated).fromNow()}</span>
               </h4>
             </Link>
@@ -117,7 +118,7 @@ export const SearchResults = () => {
 
       <ul>
         {videos.map((video => (
-          <li>
+          <li key={video.id}>
             <VideoItem video={video}></VideoItem>
           </li>
         )))}

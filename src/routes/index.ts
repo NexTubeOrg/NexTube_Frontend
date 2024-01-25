@@ -11,6 +11,8 @@ import { AddVideoOverlay } from '../components/Profile/Routes/Videos/AddVideoOve
 import { EditVideoOverlay } from '../components/Profile/Routes/Videos/EditVideoOverlay';
 import { EditPlaylists } from '../components/Profile/Routes/Playlists/EditPlaylists';
 import { CreatePlaylistOverlay } from '../components/Profile/Routes/Playlists/CreatePlaylistOverlay';
+import { t } from "i18next";
+
 
 const Calendar = lazy(() => import('../pages/Calendar'));
 const Chart = lazy(() => import('../pages/Chart'));
@@ -24,42 +26,42 @@ const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 const coreRoutes = [
   {
     path: 'calendar',
-    title: 'Calender',
+    title: ()=>{return t("routes.calendar")},
     component: Calendar,
   },
   {
     path: 'forms/form-elements',
-    title: 'Forms Elements',
+    title: ()=>{return t("routes.formElements")},
     component: FormElements,
   },
   {
     path: 'forms/form-layout',
-    title: 'Form Layouts',
+    title: ()=>{return t("routes.formLayouts")},
     component: FormLayout,
   },
   {
     path: 'tables',
-    title: 'Tables',
+    title: ()=>{return t("routes.tables")},
     component: Tables,
   },
   {
     path: 'settings',
-    title: 'Settings',
+    title: ()=>{return t("routes.settings")},
     component: Settings,
   },
   {
     path: 'chart',
-    title: 'Chart',
+    title: ()=>{return t("routes.chart")},
     component: Chart,
   },
   {
     path: 'ui/alerts',
-    title: 'Alerts',
+    title: ()=>{return t("routes.alerts")},
     component: Alerts,
   },
   {
     path: 'ui/buttons',
-    title: 'Buttons',
+    title: ()=>{return t("routes.buttons")},
     component: Buttons,
   },
 ];
@@ -67,31 +69,31 @@ const coreRoutes = [
 const channelRoutes = [
   {
     path: 'home',
-    title: 'Home',
+    title: ()=>{return t("routes.home")},
     component: ChannelHome,
     index: true,
   },
   {
     path: 'videos',
-    title: 'Videos',
+    title: ()=>{return t("routes.videos")},
     component: ChannelVideos,
     index: false,
   },
   {
     path: 'live',
-    title: 'Live',
+    title: ()=>{return t("routes.live")},
     component: ChannelLive,
     index: false,
   },
   {
     path: 'community',
-    title: 'Community',
+    title: ()=>{return t("routes.community")},
     component: ChannelCommunity,
     index: false,
   },
   {
     path: 'playlists',
-    title: 'Playlists',
+    title: ()=>{return t("routes.playlists")},
     component: ChannelPlaylist,
     index: false,
   },
@@ -100,25 +102,25 @@ const channelRoutes = [
 const profileRoutes = [
   {
     path: '',
-    title: 'Branding',
+    title: ()=>{return t("routes.branding")},
     component: ProfileBranding,
     index: true,
   },
   {
     path: 'info',
-    title: 'Basic info',
+    title: ()=>{return t("routes.basicInfo")},
     component: ProfileInfo,
     index: false,
   },
   {
     path: 'videos',
-    title: 'Videos',
+    title: ()=>{return t("routes.videos")},
     component: ProfileVideos,
     routes: [
-      { path: 'addVideo', title: 'Add video', component: AddVideoOverlay },
+      { path: 'addVideo', title: ()=>{return t("routes.addVideo")}, component: AddVideoOverlay },
       {
         path: 'editVideo/:id',
-        title: 'Edit video',
+        title: ()=>{return t("routes.editVideo")},
         component: EditVideoOverlay,
       },
     ],
@@ -126,12 +128,12 @@ const profileRoutes = [
   },
   {
     path: 'playlists',
-    title: 'Playlists',
+    title: ()=>{return t("routes.editPlaylist")},
     component: EditPlaylists,
     routes: [
       {
         path: 'addPlaylist',
-        title: 'Add playlist',
+        title: ()=>{return t("routes.addPlaylist")},
         component: CreatePlaylistOverlay,
       },
     ],
@@ -142,35 +144,35 @@ const profileRoutes = [
 const recommendationVideosRoutes = [
   {
     path: '',
-    title: 'All',
+    title: ()=>{return t("routes.all")},
     component: null,
     index: true,
     enabled: true,
   },
   {
     path: 'gaming',
-    title: 'Gaming',
+    title: ()=>{return t("routes.gaming")},
     component: null,
     index: false,
     enabled: false,
   },
   {
     path: 'music',
-    title: 'Music',
+    title: ()=>{return t("routes.music")},
     component: null,
     index: false,
     enabled: false,
   },
   {
     path: 'history',
-    title: 'History',
+    title: ()=>{return t("routes.history")},
     component: null,
     index: false,
     enabled: false,
   },
   {
     path: 'news',
-    title: 'News',
+    title: ()=>{return t("routes.news")},
     component: null,
     index: false,
     enabled: false,
