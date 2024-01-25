@@ -21,7 +21,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
       <div className="item flex my-5 text-gray">
         <Link to={'/video/watch/' + props.video.id}>
           <img
-            className="w-40 h-24 rounded-md"
+            className="w-40 h-24 rounded-md bg-gray"
             src={`/api/photo/getPhotoUrl/${props.video.previewPhotoFile}/600`}
           />
         </Link>

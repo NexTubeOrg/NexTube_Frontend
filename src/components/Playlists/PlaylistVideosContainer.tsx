@@ -11,7 +11,14 @@ const PlaylistVideoItem = (props: {
   video: IVideoLookup;
   playlistId: string;
   currentVideoId: string;
+  setCurrentVideoNumber: any;
+  position: number;
 }) => {
+  useEffect(() => {
+    if (props.currentVideoId === props.video.id?.toString()) {
+      props.setCurrentVideoNumber(props.position);
+    }
+  }, [props.currentVideoId]);
   return (
     <>
       <Link
@@ -66,6 +73,8 @@ const PlaylistVideosContainer = () => {
 
   const [videos, setVideos] = useState<IVideoLookup[]>([]);
   const [title, setTitle] = useState<string>('Loading...');
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [currentVideoNumber, setCurrentVideoNumber] = useState<number>(0);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(6);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -81,6 +90,7 @@ const PlaylistVideosContainer = () => {
       ).data;
       const newVideos = response.videos || [];
       setTitle(response.title);
+      setTotalCount(response.totalCount);
       setVideos((prev) => {
         if (newVideos.length < 1) return prev;
         if (prev.find((p) => p.id == newVideos[0].id) != null) return prev;
@@ -91,6 +101,8 @@ const PlaylistVideosContainer = () => {
       console.error('Error fetching playlist videos:', error);
     }
   };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     fetchVideos();
@@ -137,14 +149,23 @@ const PlaylistVideosContainer = () => {
               </span>
             </div>
 
-            <span className="text-gray">1/19</span>
+            <span className="text-gray">
+              {currentVideoNumber + 1}/{totalCount}
+            </span>
           </div>
         </div>
         <div>
-          <ul className="w-full h-100 overflow-y-scroll default-custom-scrollbar">
-            {videos.map((v) => (
-              <li key={v.id}>
+          <ul className="w-full h-100 overflow-y-scroll default-custom-scrollbar overscroll-contain">
+            {videos.map((v, position) => (
+              <li
+                onClick={() => {
+                  setCurrentVideoNumber(position);
+                }}
+                key={position}
+              >
                 <PlaylistVideoItem
+                  setCurrentVideoNumber={setCurrentVideoNumber}
+                  position={position}
                   currentVideoId={videoId ?? ''}
                   playlistId={playlistId ?? ''}
                   video={v}

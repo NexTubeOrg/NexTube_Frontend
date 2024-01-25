@@ -31,7 +31,7 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log('useEffect');
+    console.log('loadVideoCommentsAsync', needLoad);
     const loadVideoCommentsAsync = async () => {
       try {
         if (needLoad === 0 || !canLoad) {
@@ -72,10 +72,19 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
   }, [needLoad]);
 
   useEffect(() => {
-    setNeedLoad((t) => 1);
+    setNeedLoad((t) => {
+      console.log('new needload comments', t + 1);
+      return t + 1;
+    });
+    setTotalCount(0);
+    setIsLoading(false);
+    setCanLoad(true);
+
     store.dispatch({
       type: VideoCommentsReducerActionTypes.RESET_COMMENTS,
     });
+
+    console.log('reset comments');
   }, [props.videoId]);
 
   return (
@@ -85,7 +94,9 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
         focus={false}
         rootCommentId={undefined}
         onCancel={() => {}}
-        onSubmit={() => {}}
+        onSubmit={() => {
+          setTotalCount((p) => p + 1);
+        }}
         videoId={props.videoId}
       ></AddNewCommentField>
       {comments.length > 0 && (

@@ -31,7 +31,7 @@ export const MainPoster = () => {
             <div className="absolute z-[99] -top-[4em] -left-[20em] h-full w-[64em]">
               <div className="h-full w-full flex justify-end">
                 <div
-                  className={`banner h-[130%] w-full bg-cover`}
+                  className={`banner h-[130%] w-full bg-cover bg-gray`}
                   style={{
                     backgroundImage: `url('/banner.jpg')`,
                   }}

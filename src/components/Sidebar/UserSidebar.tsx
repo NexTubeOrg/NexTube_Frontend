@@ -158,21 +158,8 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 <li>
                   <SidebarItem
                     active={false}
-                    url="/friends"
-                    title={t("userSidebar.friends")}
-                    icon={<UsersIcon></UsersIcon>}
-                  ></SidebarItem>
-                </li>
-
-                <li>
-                  <div className="h-8"></div>
-                </li>
-
-                <li>
-                  <SidebarItem
-                    active={false}
-                    url="/library"
-                    title={t("userSidebar.library")}
+                    url={`/channel/${user?.userId}}/playlists`}
+                    title="Library"
                     icon={
                       <ClipboardDocumentListIcon></ClipboardDocumentListIcon>
                     }
@@ -188,23 +175,23 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   ></SidebarItem>
                 </li>
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/liked"
                     title={t("userSidebar.likedVideos")}
                     icon={<HandThumbUpIcon></HandThumbUpIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/later"
                     title={t("userSidebar.watchLater")}
                     icon={<ClockIcon></ClockIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
                 <li>
                   <div className="h-8"></div>
@@ -284,29 +271,29 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 <li>
                   <SidebarItem
                     active={true}
-                    url="/settings"
+                    url="/profile/info"
                     title={t("userSidebar.settings")}
                     icon={<Cog6ToothIcon></Cog6ToothIcon>}
                   ></SidebarItem>
                 </li>
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={true}
                     url="/reports"
                     title={t("userSidebar.reportHistory")}
                     icon={<FaceSmileIcon></FaceSmileIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/help"
                     title={t("userSidebar.help")}
                     icon={<QuestionMarkCircleIcon></QuestionMarkCircleIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
               </ul>
             </div>
           </nav>

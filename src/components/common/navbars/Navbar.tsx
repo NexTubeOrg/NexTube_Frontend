@@ -10,7 +10,6 @@ export const Navbar = (props: {
   const parts = location.pathname.split('/');
   const currentRoute =
     parts.length == props.routeLength ? parts.findLast(() => true) : '';
-  console.log(location.pathname.split('/'));
 
   const references = props.refs.map((r, id) => (
     <li key={id} className="mr-6">

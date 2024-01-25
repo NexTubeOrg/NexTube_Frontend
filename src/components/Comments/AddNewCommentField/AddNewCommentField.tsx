@@ -94,8 +94,23 @@ const AddNewCommentField = (props: {
     onSubmit: onFormSubmit,
   });
 
-  const { values, errors, touched, handleSubmit, handleChange, resetForm } =
-    formik;
+  useEffect(() => {
+    setFieldValue('videoId', props.videoId);
+  }, [props.videoId]);
+
+  useEffect(() => {
+    setFieldValue('rootCommentId', props.rootCommentId);
+  }, [props.rootCommentId]);
+
+  const {
+    values,
+    errors,
+    touched,
+    handleSubmit,
+    handleChange,
+    resetForm,
+    setFieldValue,
+  } = formik;
 
   return (
     <>
@@ -103,6 +118,22 @@ const AddNewCommentField = (props: {
         <div className="flex flex-col p-6.5">
           <div className="mb-2">
             <div className="relative">
+              <input
+                type="hidden"
+                name="videoId"
+                onChange={handleChange}
+                value={values.videoId}
+                id="videoId"
+              />
+
+              <input
+                type="hidden"
+                name="rootCommentId"
+                onChange={handleChange}
+                value={values.rootCommentId}
+                id="rootCommentId"
+              />
+
               <input
                 ref={inputRef}
                 autoComplete="off"

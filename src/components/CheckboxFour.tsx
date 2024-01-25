@@ -23,12 +23,12 @@ const CheckboxFour = (props: {
             onChange={props.onChange}
           />
           <div
-            className={`mr-4 flex h-5 w-5 border-gray items-center justify-center rounded-full  border ${
+            className={`mr-4 flex h-5 w-5 border-gray items-center justify-center rounded-md  border ${
               props.isChecked && 'border-white'
             }`}
           >
             <span
-              className={`h-3 w-3 rounded-full bg-transparent ${
+              className={`h-3 w-3 rounded-md bg-transparent ${
                 props.isChecked && '!bg-white'
               }`}
             >

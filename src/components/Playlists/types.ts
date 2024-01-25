@@ -19,5 +19,6 @@ export interface IGetUserPlaylistsResult {
 
 export interface IGetPlaylistVideos {
   title: string;
+  totalCount: number;
   videos: IVideoLookup[];
 }

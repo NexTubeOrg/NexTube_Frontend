@@ -12,7 +12,7 @@ export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
               <div className="relative z-9">
                 <div className="absolute wrapper w-75 h-45 z-1  flex justify-center items-center">
                   <img
-                    className="w-75 h-45 rounded-md"
+                    className="w-75 h-45 rounded-md bg-gray"
                     src={
                       '/api/photo/getPhotoUrl/' +
                       props.playlist.preview +
@@ -22,7 +22,7 @@ export const PlaylistItem = (props: { playlist: IPlaylistLookup }) => {
                 </div>
                 <div className="absolute -top-2 left-2.5 -z-1 wrapper w-70 h-40 flex justify-center items-center">
                   <img
-                    className="w-70 h-40 rounded-md brightness-50"
+                    className="w-70 h-40 rounded-md brightness-50 bg-gray"
                     src={
                       '/api/photo/getPhotoUrl/' +
                       props.playlist.preview +

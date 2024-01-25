@@ -30,7 +30,7 @@ export const ProfilePlaylistsReducer = (
       const currentList = state.playlists;
       return {
         ...state,
-        playlists: [...currentList, newItem],
+        playlists: [newItem, ...currentList],
       };
     }
     case ProfilePlaylistsActionType.REMOVE_FROM_LIST: {
