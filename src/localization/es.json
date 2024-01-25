@@ -137,7 +137,7 @@
     "editPlaylists": {
         "createPlaylist": "Crear lista de reproducción",
         "playlists": "Listas de reproducción",
-        "coundVideos": "Contar videos"
+        "countVideos": "Contar videos"
     },
     "addVideoOverlay": {
         "saveButton": "Guardar",

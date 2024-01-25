@@ -177,10 +177,10 @@ const DropdownUser = () => {
                   <LanguageIcon></LanguageIcon>
                 </div>
                 <span>{t('dropdownUser.language')}</span>
-                <div className="icon w-8 relative dark:text-white">
+               
+              </div>  <div className="icon w-8 relative dark:text-white" >
                   {languageDropdownOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-                </div>
-              </div> </div>
+                </div></div>
                </li>      
               {languageDropdownOpen && (
                 <div className="flex items-center gap-3">
@@ -230,22 +230,7 @@ const DropdownUser = () => {
             </Link>
           </li>
 
-          <li>
-            <Link to={'#'} className="">
-              <div className="flex justify-between">
-                <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-                  <div className="icon w-8 relative dark:text-white">
-                    <LanguageIcon></LanguageIcon>
-                  </div>
-                  <span>{t('dropdownUser.language')}</span>
-                </div>
-
-                <div className="icon w-8 relative dark:text-white">
-                  <ChevronRightIcon></ChevronRightIcon>
-                </div>
-              </div>
-            </Link>
-          </li>
+       
 
           <li>
             <Link to={'#'} className="">

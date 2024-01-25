@@ -53,7 +53,22 @@ const ChannelPlaylists = () => {
               </span>
             </h1>
           </div>
-          {/* ... existing code */}
+          <ul className="w-full gap-4 justify-items-center grid min-[700px]:grid-cols-2 min-[1300px]:grid-cols-3 min-[1650px]:grid-cols-4 mt-8.5">
+            {playlists.map((p) => (
+              <li className=" w-fit" key={p.id}>
+                <PlaylistItem playlist={p}></PlaylistItem>
+              </li>
+            ))}
+            <li>
+              {isLoading && <OperationLoader></OperationLoader>}
+
+              <HandleOnVisible
+                onVisible={() => {
+                  setNeedLoad((prevPages) => prevPages + 1);
+                }}
+              ></HandleOnVisible>
+            </li>
+          </ul>
         </div>
       </div>
     </>

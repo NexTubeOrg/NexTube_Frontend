@@ -142,8 +142,7 @@
       "editPlaylists": {
         "createPlaylist": "Create playlist",
         "playlists":"Playlists",
-        "coundVideos": "Count videos"
-        
+        "countVideos": "Count videos"
       },
       "addVideoOverlay": {
         "saveButton": "Save",
