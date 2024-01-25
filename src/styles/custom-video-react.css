@@ -626,11 +626,6 @@ body.video-react-full-window .video-react-fullscreen {
   background-color: #73859f;
   background-color: rgba(115, 133, 159, 0.5);
 }
-.video-react .video-react-slider:focus {
-  -webkit-box-shadow: 0 0 1em #fff;
-  -moz-box-shadow: 0 0 1em #fff;
-  box-shadow: 0 0 1em #fff;
-}
 
 .video-react .video-react-control {
   outline: none;
@@ -773,11 +768,13 @@ body.video-react-full-window .video-react-fullscreen {
   -webkit-flex: auto;
   -ms-flex: auto;
   flex: auto;
+  width: 100%;
+  /* background: #000; */
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
-  /* height: 0.6em; */
+  height: 0.6em;
 }
 
 .video-react .video-react-progress-control:hover .video-react-progress-holder {
@@ -1012,8 +1009,8 @@ body.video-react-full-window .video-react-fullscreen {
   margin: 1.35em 0.45em;
 }
 .video-react .video-react-volume-bar.video-react-slider-horizontal {
-  width: 5em;
   height: 0.3em;
+  width: 100%;
 }
 .video-react
   .video-react-volume-bar.video-react-slider-horizontal
