@@ -15,6 +15,7 @@ import {
   MagnifyingGlassIcon,
   QuestionMarkCircleIcon,
   UserIcon,
+  UserPlusIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
 import http_api from '../../services/http_api';
@@ -31,7 +32,6 @@ interface UserSidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
 }
-
 
 const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   const location = useLocation();
@@ -86,7 +86,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
     const fetchSubscriptions = async () => {
-      if(window.localStorage.token != undefined){
+      if (window.localStorage.token != undefined) {
         const response = (await http_api.get(`/api/Subscription/Subscriptions`))
           .data;
         const Subscriptions = response;
@@ -138,7 +138,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
             className={`w-5/6 relative flex items-center justify-center font-bold text-2xl py-3 cursor-pointer rounded-md border border-transparent bg-primary  text-white transition hover:bg-opacity-90`}
           >
             <div className="rounded-md gradient absolute inset-0"></div>
-            {t("userSidebar.home")}
+            {t('userSidebar.home')}
           </NavLink>
         </div>
 
@@ -146,34 +146,51 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
             <div>
               <ul className="mb-6 flex flex-col gap-1.5">
-                <li>
-                  <SidebarItem
-                    active={true}
-                    url="/profile"
-                    title={t("userSidebar.profile")}
-                    icon={<UserIcon></UserIcon>}
-                  ></SidebarItem>
-                </li>
+                {user && (
+                  <>
+                    <li>
+                      <SidebarItem
+                        active={true}
+                        url="/profile"
+                        title={t('userSidebar.profile')}
+                        icon={<UserIcon></UserIcon>}
+                      ></SidebarItem>
+                    </li>
 
-                <li>
-                  <SidebarItem
-                    active={false}
-                    url={`/channel/${user?.userId}}/playlists`}
-                    title={t("userSidebar.library")}
-                    icon={
-                      <ClipboardDocumentListIcon></ClipboardDocumentListIcon>
-                    }
-                  ></SidebarItem>
-                </li>
+                    <li>
+                      <SidebarItem
+                        active={false}
+                        url={`/channel/${user.userId}/playlists`}
+                        title={t('userSidebar.library')}
+                        icon={
+                          <ClipboardDocumentListIcon></ClipboardDocumentListIcon>
+                        }
+                      ></SidebarItem>
+                    </li>
 
-                <li>
-                  <SidebarItem
-                    active={false}
-                    url="/history"
-                    title={t("userSidebar.history")}
-                    icon={<ClockIcon></ClockIcon>}
-                  ></SidebarItem>
-                </li>
+                    <li>
+                      <SidebarItem
+                        active={false}
+                        url="/history"
+                        title={t('userSidebar.history')}
+                        icon={<ClockIcon></ClockIcon>}
+                      ></SidebarItem>
+                    </li>
+                  </>
+                )}
+
+                {user == null && (
+                  <>
+                    <li>
+                      <SidebarItem
+                        active={true}
+                        url="/auth/signin"
+                        title={t('userSidebar.signIn')}
+                        icon={<UserPlusIcon></UserPlusIcon>}
+                      ></SidebarItem>
+                    </li>
+                  </>
+                )}
 
                 {/* <li>
                   <SidebarItem
@@ -220,7 +237,10 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                               : setSidebarExpanded(true);
                           }}
                         >
-                          {() => {if(window.localStorage.token != undefined) return t("userSidebar.subscriptions")}}
+                          {() => {
+                            if (window.localStorage.token != undefined)
+                              return t('userSidebar.subscriptions');
+                          }}
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
@@ -228,8 +248,6 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                             !open && 'hidden'
                           }`}
                         >
-
-                        
                           <ul>
                             {userSubscriptions.subscriptions.map(
                               (subscription, index) => (
@@ -272,7 +290,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={true}
                     url="/profile/info"
-                    title={t("userSidebar.settings")}
+                    title={t('userSidebar.settings')}
                     icon={<Cog6ToothIcon></Cog6ToothIcon>}
                   ></SidebarItem>
                 </li>
