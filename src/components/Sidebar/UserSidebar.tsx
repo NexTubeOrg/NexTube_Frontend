@@ -86,7 +86,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
     const fetchSubscriptions = async () => {
-      try {
+      if(window.localStorage.token != undefined){
         const response = (await http_api.get(`/api/Subscription/Subscriptions`))
           .data;
         const Subscriptions = response;
@@ -94,8 +94,6 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           type: SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST,
           payload: Subscriptions,
         });
-      } catch (error) {
-        console.error(error);
       }
     };
 
@@ -235,7 +233,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                               : setSidebarExpanded(true);
                           }}
                         >
-                          {t("userSidebar.subscriptions")}
+                          {() => {if(window.localStorage.token != undefined) return t("userSidebar.subscriptions")}}
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
@@ -243,6 +241,8 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                             !open && 'hidden'
                           }`}
                         >
+
+                        
                           <ul>
                             {userSubscriptions.subscriptions.map(
                               (subscription, index) => (

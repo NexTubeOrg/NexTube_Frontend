@@ -7,6 +7,7 @@ import { IAuthUser } from '../store/reducers/auth/types';
 import { SearchField } from './Search/SearchField';
 import DropdownNotification from './Notifications/DropdownNotification';
 import DropdownUser from './DropdownUser';
+import { t } from 'i18next';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -95,13 +96,13 @@ const Header = (props: {
                 to="/auth/signup"
                 className="flex text-gray items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
-                Sign Up
+                {t("auth.signUp.signUpButton")}
               </Link>
               <Link
                 to="/auth/signin"
                 className="flex text-gray items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
-                Sign In
+                {t("auth.signUp.signInButton")}
               </Link>
             </>
           )}
