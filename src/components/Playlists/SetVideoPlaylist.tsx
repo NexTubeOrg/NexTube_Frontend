@@ -15,7 +15,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessingButton';
 import { PrimaryButtonLink } from '../common/links/PrimaryButtonLink';
 import { useTranslation } from 'react-i18next';
-import { t } from 'i18next';import Tooltip from '@mui/material/Tooltip';
+import { t } from 'i18next';
 
 const SelectVideoPlaylist = (props: {
   handleDisagreeClick: () => Promise<void> | null;

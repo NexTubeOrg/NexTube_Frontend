@@ -159,7 +159,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={false}
                     url={`/channel/${user?.userId}}/playlists`}
-                    title="Library"
+                    title={t("userSidebar.library")}
                     icon={
                       <ClipboardDocumentListIcon></ClipboardDocumentListIcon>
                     }
