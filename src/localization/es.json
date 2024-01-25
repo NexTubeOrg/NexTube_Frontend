@@ -1,0 +1,277 @@
+{
+    "auth": {
+        "recover": {
+            "title": "Recuperación de contraseña",
+            "emailInputLabel": "Ingrese su correo electrónico",
+            "resetButton": "Restablecer",
+            "successMessage": "Inicio de la recuperación de contraseña exitoso",
+            "alreadyRecoveredMessage": "¿Ya recuperado? ",
+            "signInLinkText": "Iniciar sesión"
+        },
+        "recoverTitle": {
+            "line1": "¿Olvidaste",
+            "line2": "tu",
+            "line3": "contraseña?"
+        },
+        "signIn": {
+            "googleAuthLoading": "Iniciando sesión con Google...",
+            "title": {
+                "line1": "Autorización",
+                "line2": "de tu ",
+                "line3": "cuenta"
+            },
+            "emailLabel": "Ingrese su correo electrónico",
+            "passwordLabel": "Ingrese su contraseña",
+            "loginButton": "Iniciar sesión",
+            "rememberMe": "Recuérdame",
+            "noAccountText": "¿No tienes una cuenta? ",
+            "signupLink": "Registrarse",
+            "forgotPasswordText": "¿Olvidaste tu contraseña? ",
+            "recoverLink": "Recuperar"
+        },
+        "signUp": {
+            "title": "Registrarse",
+            "yourFirstName": "Tu nombre",
+            "yourLastName": "Tu apellido",
+            "yourEmail": "Tu correo electrónico",
+            "yourPassword": "Tu contraseña",
+            "repeatPassword": "Repetir contraseña",
+            "imageError": "Se requiere una imagen",
+            "signUpButton": "Registrarse",
+            "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+            "loginEasily": "Puedes iniciar sesión fácilmente",
+            "signInButton": "Iniciar sesión",
+            "forgotPasswordButton": "Olvidaste la contraseña"
+        },
+        "verifyMail": {
+            "checkEmail": "Revisa tu correo electrónico 📧",
+            "verificationCode": "código de verificación",
+            "verifyButton": "Verificar",
+            "alreadyHaveAccount": {
+                "title": "¿Ya tienes",
+                "account": "una cuenta?",
+                "loginEasily": "Puedes iniciar sesión fácilmente",
+                "signInButton": "Iniciar sesión",
+                "forgotPasswordButton": "Olvidaste la contraseña"
+            }
+        }
+    },
+    "channel": {
+        "loading": "Cargando...",
+        "subscribeButton": "Suscribirse",
+        "videos": "videos",
+        "subscribers": "suscriptores",
+        "channelLinks": "Enlaces del canal",
+        "reportForm": {
+            "closeButton": "Cerrar formulario de informe"
+        }
+    },
+    "commentRepliesLoader": {
+        "loadMore": "Cargar más",
+        "replies": "respuestas"
+    },
+    "commentsContainer": {
+        "comments": "comentarios"
+    },
+    "videoCommentsLoader": {
+        "comments": "Comentarios"
+    },
+    "deleteComment": {
+        "remove": "Eliminar"
+    },
+    "addNewCommentReply": {
+        "reply": "Responder"
+    },
+    "mainPoster": {
+        "watchNow": "Ver ahora",
+        "title": "William Blacke",
+        "description": "es un payaso inglés, apuntador y hombre negro"
+    },
+    "dropdownNotification": {
+        "notification": "Notificación",
+        "newVideoInChannel": "Nuevo video en el canal",
+        "watchVideo": "Ver video"
+    },
+    "channelPlaylists": {
+        "createdPlaylists": "Listas de reproducción creadas"
+    },
+    "playlistItem": {
+        "noPreview": "Sin vista previa",
+        "viewFullPlaylist": "Ver lista de reproducción completa"
+    },
+    "setVideoPlaylist": {
+        "saveVideo": "Guardar video",
+        "createNewPlaylist": "Crear nueva lista de reproducción"
+    },
+    "profile": {
+        "loading": "Cargando...",
+        "yourChannel": "Tu canal",
+        "channelTitle": "Título del canal"
+    },
+    "profileBranding": {
+        "picture": "Imagen",
+        "bannerImage": "Imagen de banner",
+        "videoWatermark": "Marca de agua en el video",
+        "recommendedDimensions": "Se recomienda que utilices una imagen de al menos 98 x 98 píxeles y 4 MB o menos. Utiliza cualquier tipo de archivo conocido.",
+        "bestResultsBanner": "Para obtener los mejores resultados en todos los dispositivos, utiliza una imagen de al menos 2048 x 1152 píxeles y 6 MB o menos.",
+        "videoWatermarkDescription": "Una imagen con una relación de aspecto de 1:1 (cuadrada). Utiliza cualquier formato de archivo conocido que sea de 1 MB o menos.",
+        "upload": "Subir"
+    },
+    "profileInfo": {
+        "firstName": "Nombre",
+        "lastName": "Apellido",
+        "handle": "Identificador",
+        "description": "Descripción",
+        "channelNamePlaceholder": "Ingresa el nombre del canal",
+        "handlePlaceholder": "Establece tu identificador",
+        "tellViewersPlaceholder": "Cuenta a los espectadores sobre el canal",
+        "saveButton": "Guardar"
+    },
+    "createPlaylistOverlay": {
+        "title": "Título",
+        "createButton": "Crear",
+        "details": "Detalles",
+        "enterTitle": "Ingresa el título de la lista de reproducción",
+        "selectPreview": "Selecciona la vista previa de la lista de reproducción"
+    },
+    "editPlaylists": {
+        "createPlaylist": "Crear lista de reproducción",
+        "playlists": "Listas de reproducción",
+        "coundVideos": "Contar videos"
+    },
+    "addVideoOverlay": {
+        "saveButton": "Guardar",
+        "cancelButton": "Cancelar",
+        "detailsHeading": "Detalles",
+        "videoTitleLabel": "Ingresa el título del video",
+        "videoDescriptionLabel": "Cuenta a los espectadores sobre tu video",
+        "saveOrPublishLabel": "Guardar o publicar",
+        "publicLabel": "Público",
+        "privateLabel": "Privado",
+        "makeVideoPublicOrPrivateDescription": "Haz tu video público o privado",
+        "everyoneCanWatchDescription": "Todos pueden ver tu video",
+        "onlyYouCanWatchDescription": "Solo tú puedes ver el video",
+        "videoFilenameLabel": "Nombre del video",
+        "selectVideoPreviewLabel": "Selecciona la vista previa del video"
+    },
+    "editVideoOverlay": {
+        "enterName": "Ingresa el nombre",
+        "enterDescription": "Ingresa la descripción",
+        "videoUpdatedSuccessfully": "Video actualizado exitosamente",
+        "saveButton": "Guardar",
+        "detailsHeading": "Detalles",
+        "videoTitleLabel": "Ingresa el título del video",
+        "videoDescriptionLabel": "Cuenta a los espectadores sobre tu video",
+        "makeVideoPublicOrPrivateDescription": "Haz tu video público o privado",
+        "saveOrPublishLabel": "Guardar o publicar",
+        "everyoneCanWatchDescription": "Todos pueden ver tu video",
+        "publicLabel": "Público",
+        "onlyYouCanWatchDescription": "Solo tú puedes ver el video",
+        "privateLabel": "Privado"
+    },
+    "profileVideos": {
+        "confirmDelete": "Confirmar eliminación",
+        "videoDeletedSuccessfully": "Video eliminado exitosamente",
+        "enterName": "Ingresa el nombre",
+        "enterDescription": "Ingresa la descripción",
+        "videoUpdatedSuccessfully": "Video actualizado exitosamente",
+        "saveButton": "Guardar",
+        "detailsHeading": "Detalles",
+        "videoTitleLabel": "Ingresa el título del video",
+        "videoDescriptionLabel": "Cuenta a los espectadores sobre tu video",
+        "makeVideoPublicOrPrivateDescription": "Haz tu video público o privado",
+        "saveOrPublishLabel": "Guardar o publicar",
+        "everyoneCanWatchDescription": "Todos pueden ver tu video",
+        "publicLabel": "Público",
+        "onlyYouCanWatchDescription": "Solo tú puedes ver el video",
+        "privateLabel": "Privado",
+        "videoDraftEditLabel": "Editar borrador",
+        "videoDraftDeleteLabel": "Eliminar",
+        "videoAddedSuccessfully": "Video agregado exitosamente",
+        "addButtonTitle": "Agregar"
+    },
+    "searchResults": {
+        "noResult": "Sin resultados"
+    },
+    "userSidebar": {
+        "home": "Inicio",
+        "profile": "Perfil",
+        "friends": "Amigos",
+        "library": "Biblioteca",
+        "history": "Historial",
+        "likedVideos": "Videos favoritos",
+        "watchLater": "Ver después",
+        "subscriptions": "Suscripciones",
+        "settings": "Configuración",
+        "reportHistory": "Historial de informes",
+        "help": "Ayuda"
+    },
+    "videoItem": {
+        "views": "vistas",
+        "timeAgo": "hace"
+    },
+    "watchVideo": {
+        "views": "vistas",
+        "timeAgo": "hace",
+        "subscribers": "suscriptores",
+        "copiedLink": "Enlace copiado al portapapeles",
+        "subscribe": "Suscribirse",
+        "share": "Compartir",
+        "report": "Informar",
+        "download": "Descargar",
+        "saveToPlaylist": "Guardar en lista de reproducción",
+        "subscribed": "Suscrito"
+    },
+    "dropdownUser": {
+        "verifyMail": "❗Verificar correo",
+        "adminPanel": "Panel de administración",
+        "yourChannel": "Tu canal",
+        "switchAccount": "Cambiar cuenta",
+        "language": "Idioma",
+        "location": "Ubicación",
+        "signOut": "Cerrar sesión",
+        "settings": "Configuración"
+    },
+    "search": "Buscar",
+    "homePage": {
+        "signInToAct": "Inicia sesión para actuar",
+        "createVideo": "Crear un video"
+    },
+    "routes": {
+        "calendar": "Calendario",
+        "formsElements": "Elementos de formulario",
+        "formLayouts": "Diseños de formulario",
+        "tables": "Tablas",
+        "settings": "Configuraciones",
+        "chart": "Gráfico",
+        "alerts": "Alertas",
+        "buttons": "Botones",
+        "home": "Inicio",
+        "videos": "Videos",
+        "live": "En vivo",
+        "community": "Comunidad",
+        "playlists": "Listas de reproducción",
+        "branding": "Branding",
+        "basicInfo": "Información básica",
+        "addVideo": "Agregar video",
+        "editVideo": "Editar video",
+        "addPlaylist": "Agregar lista de reproducción",
+        "editPlaylist": "Listas de reproducción",
+        "all": "Todo",
+        "gaming": "Juegos",
+        "music": "Música",
+        "history": "Historial",
+        "news": "Noticias"
+    },
+    "comments": {
+        "addComment": "Agregar comentario...",
+        "addComment1": "Agregar comentario",
+        "cancel": "Cancelar"
+    },
+    "videos": {
+        "videos": "Videos",
+        "views": "Vistas",
+        "comments": "Comentarios",
+        "actions": "Acciones"
+    }
+}

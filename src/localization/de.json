@@ -1,0 +1,277 @@
+{
+    "auth": {
+        "recover": {
+            "title": "Passwort-Wiederherstellung",
+            "emailInputLabel": "Geben Sie Ihre E-Mail-Adresse ein",
+            "resetButton": "Zurücksetzen",
+            "successMessage": "Passwortwiederherstellung erfolgreich initiiert",
+            "alreadyRecoveredMessage": "Bereits wiederhergestellt? ",
+            "signInLinkText": "Anmelden"
+        },
+        "recoverTitle": {
+            "line1": "Passwort",
+            "line2": "vergessen?",
+            "line3": "Passwort?"
+        },
+        "signIn": {
+            "googleAuthLoading": "Mit Google anmelden...",
+            "title": {
+                "line1": "Autorisierung",
+                "line2": "Ihres ",
+                "line3": "Kontos"
+            },
+            "emailLabel": "Geben Sie Ihre E-Mail-Adresse ein",
+            "passwordLabel": "Geben Sie Ihr Passwort ein",
+            "loginButton": "Anmelden",
+            "rememberMe": "Erinnere mich",
+            "noAccountText": "Sie haben noch kein Konto? ",
+            "signupLink": "Registrieren",
+            "forgotPasswordText": "Passwort vergessen? ",
+            "recoverLink": "Wiederherstellen"
+        },
+        "signUp": {
+            "title": "Registrieren",
+            "yourFirstName": "Ihr Vorname",
+            "yourLastName": "Ihr Nachname",
+            "yourEmail": "Ihre E-Mail",
+            "yourPassword": "Ihr Passwort",
+            "repeatPassword": "Passwort wiederholen",
+            "imageError": "Bild ist erforderlich",
+            "signUpButton": "Registrieren",
+            "alreadyHaveAccount": "Sie haben bereits ein Konto?",
+            "loginEasily": "Sie können sich leicht anmelden",
+            "signInButton": "Anmelden",
+            "forgotPasswordButton": "Passwort vergessen"
+        },
+        "verifyMail": {
+            "checkEmail": "Überprüfen Sie Ihre E-Mail 📧",
+            "verificationCode": "Bestätigungscode",
+            "verifyButton": "Überprüfen",
+            "alreadyHaveAccount": {
+                "title": "Sie haben bereits ein",
+                "account": "Konto?",
+                "loginEasily": "Sie können sich leicht anmelden",
+                "signInButton": "Anmelden",
+                "forgotPasswordButton": "Passwort vergessen"
+            }
+        }
+    },
+    "channel": {
+        "loading": "Laden...",
+        "subscribeButton": "Abonnieren",
+        "videos": "Videos",
+        "subscribers": "Abonnenten",
+        "channelLinks": "Kanallinks",
+        "reportForm": {
+            "closeButton": "Schließen Sie das Meldeformular"
+        }
+    },
+    "commentRepliesLoader": {
+        "loadMore": "Mehr laden",
+        "replies": "Antworten"
+    },
+    "commentsContainer": {
+        "comments": "Kommentare"
+    },
+    "videoCommentsLoader": {
+        "comments": "Kommentare"
+    },
+    "deleteComment": {
+        "remove": "Entfernen"
+    },
+    "addNewCommentReply": {
+        "reply": "Antworten"
+    },
+    "mainPoster": {
+        "watchNow": "Jetzt ansehen",
+        "title": "William Blacke",
+        "description": "ist ein englischer Clown, Zeiger und Schwarzer Mann"
+    },
+    "dropdownNotification": {
+        "notification": "Benachrichtigung",
+        "newVideoInChannel": "Neues Video im Kanal",
+        "watchVideo": "Video ansehen"
+    },
+    "channelPlaylists": {
+        "createdPlaylists": "Erstellte Wiedergabelisten"
+    },
+    "playlistItem": {
+        "noPreview": "Keine Vorschau",
+        "viewFullPlaylist": "Vollständige Wiedergabeliste anzeigen"
+    },
+    "setVideoPlaylist": {
+        "saveVideo": "Video speichern",
+        "createNewPlaylist": "Neue Wiedergabeliste erstellen"
+    },
+    "profile": {
+        "loading": "Laden...",
+        "yourChannel": "Ihr Kanal",
+        "channelTitle": "Kanal-Titel"
+    },
+    "profileBranding": {
+        "picture": "Bild",
+        "bannerImage": "Bannerbild",
+        "videoWatermark": "Video-Wasserzeichen",
+        "recommendedDimensions": "Es wird empfohlen, ein Bild mit mindestens 98 x 98 Pixeln und maximal 4 MB zu verwenden. Verwenden Sie ein beliebiges bekanntes Dateiformat.",
+        "bestResultsBanner": "Für die besten Ergebnisse auf allen Geräten verwenden Sie ein Bild mit mindestens 2048 x 1152 Pixeln und maximal 6 MB.",
+        "videoWatermarkDescription": "Ein Bild mit einem Seitenverhältnis von 1:1 (quadratisch). Verwenden Sie ein beliebiges bekanntes Dateiformat mit maximal 1 MB.",
+        "upload": "Hochladen"
+    },
+    "profileInfo": {
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "handle": "Griff",
+        "description": "Beschreibung",
+        "channelNamePlaceholder": "Kanalnamen eingeben",
+        "handlePlaceholder": "Legen Sie Ihren Griff fest",
+        "tellViewersPlaceholder": "Sagen Sie den Zuschauern etwas über den Kanal",
+        "saveButton": "Speichern"
+    },
+    "createPlaylistOverlay": {
+        "title": "Titel",
+        "createButton": "Erstellen",
+        "details": "Details",
+        "enterTitle": "Playlist-Titel eingeben",
+        "selectPreview": "Vorschau auswählen"
+    },
+    "editPlaylists": {
+        "createPlaylist": "Wiedergabeliste erstellen",
+        "playlists": "Wiedergabelisten",
+        "countVideos": "Anzahl der Videos"
+    },
+    "addVideoOverlay": {
+        "saveButton": "Speichern",
+        "cancelButton": "Abbrechen",
+        "detailsHeading": "Details",
+        "videoTitleLabel": "Videotitel eingeben",
+        "videoDescriptionLabel": "Erzählen Sie den Zuschauern von Ihrem Video",
+        "saveOrPublishLabel": "Speichern oder veröffentlichen",
+        "publicLabel": "Öffentlich",
+        "privateLabel": "Privat",
+        "makeVideoPublicOrPrivateDescription": "Machen Sie Ihr Video öffentlich oder privat",
+        "everyoneCanWatchDescription": "Jeder kann Ihr Video ansehen",
+        "onlyYouCanWatchDescription": "Nur Sie können das Video ansehen",
+        "videoFilenameLabel": "Videodateiname",
+        "selectVideoPreviewLabel": "Videovorschau auswählen"
+    },
+    "editVideoOverlay": {
+        "enterName": "Namen eingeben",
+        "enterDescription": "Beschreibung eingeben",
+        "videoUpdatedSuccessfully": "Video erfolgreich aktualisiert",
+        "saveButton": "Speichern",
+        "detailsHeading": "Details",
+        "videoTitleLabel": "Videotitel eingeben",
+        "videoDescriptionLabel": "Erzählen Sie den Zuschauern von Ihrem Video",
+        "makeVideoPublicOrPrivateDescription": "Machen Sie Ihr Video öffentlich oder privat",
+        "saveOrPublishLabel": "Speichern oder veröffentlichen",
+        "everyoneCanWatchDescription": "Jeder kann Ihr Video ansehen",
+        "publicLabel": "Öffentlich",
+        "onlyYouCanWatchDescription": "Nur Sie können das Video ansehen",
+        "privateLabel": "Privat"
+    },
+    "profileVideos": {
+        "confirmDelete": "Löschen bestätigen?",
+        "videoDeletedSuccessfully": "Video erfolgreich gelöscht",
+        "enterName": "Namen eingeben",
+        "enterDescription": "Beschreibung eingeben",
+        "videoUpdatedSuccessfully": "Video erfolgreich aktualisiert",
+        "saveButton": "Speichern",
+        "detailsHeading": "Details",
+        "videoTitleLabel": "Videotitel eingeben",
+        "videoDescriptionLabel": "Erzählen Sie den Zuschauern von Ihrem Video",
+        "makeVideoPublicOrPrivateDescription": "Machen Sie Ihr Video öffentlich oder privat",
+        "saveOrPublishLabel": "Speichern oder veröffentlichen",
+        "everyoneCanWatchDescription": "Jeder kann Ihr Video ansehen",
+        "publicLabel": "Öffentlich",
+        "onlyYouCanWatchDescription": "Nur Sie können das Video ansehen",
+        "privateLabel": "Privat",
+        "videoDraftEditLabel": "Entwurf bearbeiten",
+        "videoDraftDeleteLabel": "Löschen",
+        "videoAddedSuccessfully": "Video erfolgreich hinzugefügt",
+        "addButtonTitle": "Hinzufügen"
+    },
+    "searchResults": {
+        "noResult": "Kein Ergebnis"
+    },
+    "userSidebar": {
+        "home": "Startseite",
+        "profile": "Profil",
+        "friends": "Freunde",
+        "library": "Bibliothek",
+        "history": "Verlauf",
+        "likedVideos": "Gefällt mir Videos",
+        "watchLater": "Später ansehen",
+        "subscriptions": "Abonnements",
+        "settings": "Einstellungen",
+        "reportHistory": "Berichtsverlauf",
+        "help": "Hilfe"
+    },
+    "videoItem": {
+        "views": "Aufrufe",
+        "timeAgo": "vor"
+    },
+    "watchVideo": {
+        "views": "Aufrufe",
+        "timeAgo": "vor",
+        "subscribers": "Abonnenten",
+        "copiedLink": "Link in die Zwischenablage kopiert",
+        "subscribe": "Abonnieren",
+        "share": "Teilen",
+        "report": "Melden",
+        "download": "Herunterladen",
+        "saveToPlaylist": "In Wiedergabeliste speichern",
+        "subscribed": "Abonniert"
+    },
+    "dropdownUser": {
+        "verifyMail": "❗ E-Mail überprüfen",
+        "adminPanel": "Admin-Panel",
+        "yourChannel": "Ihr Kanal",
+        "switchAccount": "Konto wechseln",
+        "language": "Sprache",
+        "location": "Ort",
+        "signOut": "Abmelden",
+        "settings": "Einstellungen"
+    },
+    "search": "Suche",
+    "homePage": {
+        "signInToAct": "Anmelden, um zu handeln",
+        "createVideo": "Video erstellen"
+    },
+    "routes": {
+        "calendar": "Kalender",
+        "formsElements": "Formularelemente",
+        "formLayouts": "Formularlayouts",
+        "tables": "Tabellen",
+        "settings": "Einstellungen",
+        "chart": "Diagramm",
+        "alerts": "Warnungen",
+        "buttons": "Schaltflächen",
+        "home": "Startseite",
+        "videos": "Videos",
+        "live": "Live",
+        "community": "Gemeinschaft",
+        "playlists": "Wiedergabelisten",
+        "branding": "Branding",
+        "basicInfo": "Grundlegende Informationen",
+        "addVideo": "Video hinzufügen",
+        "editVideo": "Video bearbeiten",
+        "addPlaylist": "Wiedergabeliste hinzufügen",
+        "editPlaylist": "Wiedergabelisten bearbeiten",
+        "all": "Alle",
+        "gaming": "Gaming",
+        "music": "Musik",
+        "history": "Verlauf",
+        "news": "Nachrichten"
+    },
+    "comments": {
+        "addComment": "Kommentar hinzufügen...",
+        "addComment1": "Kommentar hinzufügen",
+        "cancel": "Abbrechen"
+    },
+    "videos": {
+        "videos": "Videos",
+        "views": "Aufrufe",
+        "comments": "Kommentare",
+        "actions": "Aktionen"
+    }
+}
