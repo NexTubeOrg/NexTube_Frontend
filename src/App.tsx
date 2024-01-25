@@ -23,8 +23,9 @@ import PlaylistVideosContainer from './components/Playlists/PlaylistVideosContai
 import useColorMode from './hooks/useColorMode.tsx';
 import VerifyMailPage from './pages/Authentication/VerifyMail/VerifyMail.tsx';
 import { HistoryVideoContainer } from './components/History/index.tsx';
-
+import './i18n';
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
+
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);

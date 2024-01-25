@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+// src/components/Comments/CommentsContainer/CommentRepliesLoader.tsx
+import React, { useEffect, useState } from 'react';
 import http_api from '../../../services/http_api';
 import { ICommentLookup, IGetVideoCommentListResult } from '../Common/types';
 import { handleError } from '../../../common/handleError';
@@ -15,6 +16,7 @@ import CommentsContainer from './CommentsContainer';
 import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
 import { ICommentRepliesList } from '../../../store/reducers/videoComments/types';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -23,6 +25,7 @@ const CommentRepliesLoader = (props: {
   rootCommentId: number;
   totalCommentRepliesCount: number;
 }) => {
+  const { t } = useTranslation();
   const [needLoad, setNeedLoad] = useState<number>(0);
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,7 +40,7 @@ const CommentRepliesLoader = (props: {
   useEffect(() => {
     const loadCommentRepliesAsync = async () => {
       try {
-        if (needLoad == 0) {
+        if (needLoad === 0) {
           console.log('abort loading', needLoad, canLoad);
           return;
         }
@@ -50,7 +53,7 @@ const CommentRepliesLoader = (props: {
           )
         ).data;
 
-        if (result.comments.length == 0) setCanLoad(false);
+        if (result.comments.length === 0) setCanLoad(false);
         else setRepliesPage((prev) => prev + 1);
 
         store.dispatch({
@@ -94,10 +97,10 @@ const CommentRepliesLoader = (props: {
             <div className="w-7">
               <ChevronDownIcon></ChevronDownIcon>
             </div>
-            {replies.length == 0 && (
-              <span>{props.totalCommentRepliesCount} replies</span>
+            {replies.length === 0 && (
+              <span>{props.totalCommentRepliesCount} {t('commentRepliesLoader.replies')}</span>
             )}
-            {replies.length > 0 && <span>Load more</span>}
+            {replies.length > 0 && <span>{t('commentRepliesLoader.loadMore')}</span>}
           </div>
         </button>
       </div>

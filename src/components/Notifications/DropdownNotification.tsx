@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+// src/components/Notifications/DropdownNotification.tsx
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { INotificationLookup } from './types';
 import { useSelector } from 'react-redux';
@@ -14,15 +15,18 @@ import dayjs from 'dayjs';
 import { ChannelPhoto } from '../ChannelPhoto';
 import HandleOnVisible from '../HandleOnVisible';
 import OperationLoader from '../../common/OperationLoader';
-dayjs.extend(relativeTime);
 import * as SignalR from '@microsoft/signalr';
 import { getToken } from '../../services/tokenService';
 import classNames from 'classnames';
 import { BellIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
+
+dayjs.extend(relativeTime);
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const DropdownNotification = () => {
+  const { t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [hub, setHub] = useState<SignalR.HubConnection>();
   const [needLoad, setNeedLoad] = useState<number>(1);
@@ -135,7 +139,7 @@ const DropdownNotification = () => {
         }`}
       >
         <div className="px-4.5 py-3">
-          <h5 className="text-sm font-medium text-bodydark2">Notification</h5>
+          <h5 className="text-sm font-medium text-bodydark2">{t('dropdownNotification.notification')}</h5>
         </div>
 
         <ul className="flex h-auto flex-col overflow-y-auto custom-scrollbar overscroll-contain">
@@ -159,7 +163,7 @@ const DropdownNotification = () => {
                   <div className="middle w-70">
                     <span className="text-sm">
                       <span className="text-black dark:text-gray">
-                        New video in channel{' '}
+                        {t('dropdownNotification.newVideoInChannel')}{' '}
                         <span className=" text-white">
                           {n.notificationIssuer?.firstName ?? ''}{' '}
                           {n.notificationIssuer?.lastName ?? ''}

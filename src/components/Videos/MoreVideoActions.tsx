@@ -18,6 +18,7 @@ import { APP_CONFIG } from '../../env';
 import { SetVideoPlaylist } from '../Playlists/SetVideoPlaylist';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { t } from 'i18next';
 
 const MoreVideoActions = (props: {
   video: IVideoLookup | undefined;
@@ -46,7 +47,7 @@ const MoreVideoActions = (props: {
               <IconedProcessingButton
                 isLoading={false}
                 onClick={props.handleReportClick}
-                text="Report"
+                text={t("watchVideo.report")}
                 type="button"
                 icon={<ExclamationTriangleIcon></ExclamationTriangleIcon>}
                 backgroundClassname="black dark:hover:bg-secondary"
@@ -65,7 +66,7 @@ const MoreVideoActions = (props: {
                 <IconedProcessingButton
                   isLoading={false}
                   onClick={() => {}}
-                  text="Download"
+                  text={t("watchVideo.download")}
                   type="button"
                   icon={<ArrowDownTrayIcon></ArrowDownTrayIcon>}
                   backgroundClassname="black dark:hover:bg-secondary"

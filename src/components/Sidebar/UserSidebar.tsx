@@ -3,6 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../../images/logo/logo.svg';
 import SidebarLinkGroup from '../SidebarLinkGroup';
 import './style.css';
+import { useTranslation } from 'react-i18next'; // Import the hook
+
 import {
   ArrowLeftIcon,
   ClipboardDocumentListIcon,
@@ -29,6 +31,7 @@ interface UserSidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
 }
+
 
 const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   const location = useLocation();
@@ -83,7 +86,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   const { user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
     const fetchSubscriptions = async () => {
-      try {
+      if(window.localStorage.token != undefined){
         const response = (await http_api.get(`/api/Subscription/Subscriptions`))
           .data;
         const Subscriptions = response;
@@ -91,8 +94,6 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           type: SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST,
           payload: Subscriptions,
         });
-      } catch (error) {
-        console.error(error);
       }
     };
 
@@ -102,7 +103,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     SubscriptionReducerActionsType.ADD_SUBSCRIBER,
     SubscriptionReducerActionsType.DELETE_SUBSCRIBER,
   ]);
-
+  const { t } = useTranslation(); // Initialize the hook
   return (
     <>
       <aside
@@ -137,7 +138,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
             className={`w-5/6 relative flex items-center justify-center font-bold text-2xl py-3 cursor-pointer rounded-md border border-transparent bg-primary  text-white transition hover:bg-opacity-90`}
           >
             <div className="rounded-md gradient absolute inset-0"></div>
-            Home
+            {t("userSidebar.home")}
           </NavLink>
         </div>
 
@@ -149,7 +150,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={true}
                     url="/profile"
-                    title="Profile"
+                    title={t("userSidebar.profile")}
                     icon={<UserIcon></UserIcon>}
                   ></SidebarItem>
                 </li>
@@ -169,7 +170,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={false}
                     url="/history"
-                    title="History"
+                    title={t("userSidebar.history")}
                     icon={<ClockIcon></ClockIcon>}
                   ></SidebarItem>
                 </li>
@@ -178,7 +179,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={false}
                     url="/liked"
-                    title="Liked videos"
+                    title={t("userSidebar.likedVideos")}
                     icon={<HandThumbUpIcon></HandThumbUpIcon>}
                   ></SidebarItem>
                 </li> */}
@@ -187,7 +188,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={false}
                     url="/later"
-                    title="Watch later"
+                    title={t("userSidebar.watchLater")}
                     icon={<ClockIcon></ClockIcon>}
                   ></SidebarItem>
                 </li> */}
@@ -219,7 +220,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                               : setSidebarExpanded(true);
                           }}
                         >
-                          Subscriptions
+                          {() => {if(window.localStorage.token != undefined) return t("userSidebar.subscriptions")}}
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
@@ -227,6 +228,8 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                             !open && 'hidden'
                           }`}
                         >
+
+                        
                           <ul>
                             {userSubscriptions.subscriptions.map(
                               (subscription, index) => (
@@ -269,7 +272,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={true}
                     url="/profile/info"
-                    title="Settings"
+                    title={t("userSidebar.settings")}
                     icon={<Cog6ToothIcon></Cog6ToothIcon>}
                   ></SidebarItem>
                 </li>
@@ -278,7 +281,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={true}
                     url="/reports"
-                    title="Report history"
+                    title={t("userSidebar.reportHistory")}
                     icon={<FaceSmileIcon></FaceSmileIcon>}
                   ></SidebarItem>
                 </li> */}
@@ -287,7 +290,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <SidebarItem
                     active={false}
                     url="/help"
-                    title="Help"
+                    title={t("userSidebar.help")}
                     icon={<QuestionMarkCircleIcon></QuestionMarkCircleIcon>}
                   ></SidebarItem>
                 </li> */}

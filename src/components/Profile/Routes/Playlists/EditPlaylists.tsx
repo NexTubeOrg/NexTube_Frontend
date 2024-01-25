@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import CheckboxOne from '../../../CheckboxOne';
 import { VideoItem } from '../../../Videos/VideoItem';
@@ -19,6 +20,7 @@ import {
 import HandleOnVisible from '../../../HandleOnVisible';
 
 const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
+ 
   return (
     <>
       <tr className="border-t-2 border-primary">
@@ -117,7 +119,7 @@ export const EditPlaylists = () => {
       console.error('Error fetching users:', error);
     }
   };
-
+  const { t } = useTranslation(); 
   return (
     <>
       <Outlet></Outlet>
@@ -135,7 +137,7 @@ export const EditPlaylists = () => {
                   <div className="w-30">
                     <PrimaryButtonLink
                       urlTo="addPlaylist"
-                      title="Create playlist"
+                      title={t("setVideoPlaylist.createNewPlaylist")}
                     ></PrimaryButtonLink>
                   </div>
                 </div>
@@ -147,8 +149,8 @@ export const EditPlaylists = () => {
           <th className="pb-2 text-left">
             <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
           </th>
-          <th className="pb-2 text-left">Playlists</th>
-          <th className="pb-2 text-left">Count videos</th>
+          <th className="pb-2 text-left">{t("editPlaylists.playlists")}</th>
+          <th className="pb-2 text-left">{t("editPlaylists.countVideos")}</th>
           <th className="pb-2 text-right"></th>
         </tr>
         <>
@@ -166,6 +168,6 @@ export const EditPlaylists = () => {
           </tbody>
         </>
       </table>
-    </>
+    </> 
   );
 };

@@ -1,3 +1,4 @@
+// src/components/Profile/Routes/Videos/AddVideoOverlay
 import { useEffect, useRef, useState } from 'react';
 import CheckboxFour from '../../../../CheckboxFour';
 import { PrimaryProcessingButton } from '../../../../common/buttons/PrimaryProcessingButton';
@@ -15,8 +16,11 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { store } from '../../../../../store';
 import { ProfileVideosReducerActionsType } from '../../../../../store/reducers/profileVideos/types';
+import { useTranslation } from 'react-i18next';
 
 export const AddVideoOverlay = () => {
+  const { t } = useTranslation();
+
   const [selected, setSelected] = useState<string>('Public');
   const [video, setVideo] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,10 +37,10 @@ export const AddVideoOverlay = () => {
   };
 
   const requestSchema: any = yup.object({
-    name: yup.string().required('Enter name').min(2).max(100),
-    description: yup.string().required('Enter description').min(2).max(1000),
-    previewPhoto: yup.mixed().required('Select preview photo file'),
-    video: yup.mixed().required('Select video file'),
+    name: yup.string().required(t('addVideoOverlay.videoTitleLabel')).min(2).max(100),
+    description: yup.string().required(t('addVideoOverlay.videoDescriptionLabel')).min(2).max(1000),
+    previewPhoto: yup.mixed().required(t('addVideoOverlay.selectVideoPreviewLabel')),
+    video: yup.mixed().required(t('addVideoOverlay.videoFilenameLabel')),
   });
 
   const handleEscPress = (event: any) => {
@@ -72,36 +76,30 @@ export const AddVideoOverlay = () => {
       setIsLoading(false);
       navigator('..');
 
-      handleSuccess('Video uploaded successfully');
+      handleSuccess(t('addVideoOverlay.videoUploadSuccess'));
     } catch (error: any) {
       handleError(error);
     }
   };
 
   const onPreviewPhotoChangeHandler = (f: File) => {
-    console.log('image input handle change', f);
     if (f != null) {
       onPreviewPhotoSaveHandler(f);
     }
   };
 
   const onPreviewPhotoSaveHandler = (file: File) => {
-    console.log('image save handle', file);
     values.previewPhoto = file;
-    console.log(values);
   };
 
   const onVideoChangeHandler = (f: any) => {
-    console.log('video input handle change', f);
     if (f != null) {
       onVideoSaveHandler(f.target.files[0]);
     }
   };
 
   const onVideoSaveHandler = (file: File) => {
-    console.log('image save handle', file);
     values.video = file;
-    console.log(values);
   };
 
   const formik = useFormik({
@@ -126,7 +124,7 @@ export const AddVideoOverlay = () => {
                 <div className="flex items-center justify-center">
                   <div className="w-40 mr-6">
                     <PrimaryProcessingButton
-                      text="Save"
+                      text={t('addVideoOverlay.saveButton')}
                       isLoading={isLoading}
                       onClick={handleSubmit}
                       type="submit"
@@ -143,7 +141,7 @@ export const AddVideoOverlay = () => {
               </div>
               <hr className="mx-6 h-0.5 my-8 border-0 dark:bg-primary"></hr>
               <div className="mb-3">
-                <h1 className="text-white text-3xl">Details</h1>
+                <h1 className="text-white text-3xl">{t('addVideoOverlay.detailsHeading')}</h1>
               </div>
               <div className="content md:flex">
                 <div className="details md:w-60 lg:w-125">
@@ -154,7 +152,7 @@ export const AddVideoOverlay = () => {
                       handleChange={handleChange}
                       error={errors.name ?? ''}
                       type="text"
-                      labelText="Enter video title"
+                      labelText={t('addVideoOverlay.videoTitleLabel')}
                     ></FieldEditInput>
                   </div>
                   <div className="mb-6">
@@ -164,41 +162,41 @@ export const AddVideoOverlay = () => {
                       handleChange={handleChange}
                       error={errors.description ?? ''}
                       type="text"
-                      labelText="Tell viewers about your video"
+                      labelText={t('addVideoOverlay.videoDescriptionLabel')}
                     ></FieldEditBigInput>
                   </div>
                   <div className="border-2 rounded-md border-gray p-2">
                     <div className="mb-3">
                       <CheckboxFour
-                        description="Make your video public or private"
+                        description={t('addVideoOverlay.makeVideoPublicOrPrivateDescription')}
                         onChange={() => {}}
                         isChecked={true}
-                        name={'Save or publish'}
+                        name={t('addVideoOverlay.saveOrPublishLabel')}
                         id={'publish'}
                       ></CheckboxFour>
                     </div>
                     <div className="ml-6">
                       <div className="mb-3">
                         <CheckboxFour
-                          description="Everyone can watch your video"
+                          description={t('addVideoOverlay.everyoneCanWatchDescription')}
                           onChange={() => {
                             setSelected('Public');
                             values.accessModificator = 'Public';
                           }}
                           isChecked={selected === 'Public'}
-                          name={'Public'}
+                          name={t('addVideoOverlay.publicLabel')}
                           id={'public'}
                         ></CheckboxFour>
                       </div>
                       <div className="">
                         <CheckboxFour
-                          description="Only you can watch the video"
+                          description={t('addVideoOverlay.onlyYouCanWatchDescription')}
                           onChange={() => {
                             setSelected('Private');
                             values.accessModificator = 'Private';
                           }}
                           isChecked={selected === 'Private'}
-                          name={'Private'}
+                          name={t('addVideoOverlay.privateLabel')}
                           id={'private'}
                         ></CheckboxFour>
                       </div>
@@ -212,7 +210,7 @@ export const AddVideoOverlay = () => {
                   <div className="bg-body p-3 mb-3">
                     <div>
                       <label className="mb-3 block text-black dark:text-white">
-                        video filename
+                        {t('addVideoOverlay.videoFilenameLabel')}
                       </label>
                       <input
                         onChange={(e: any) => {
@@ -220,7 +218,6 @@ export const AddVideoOverlay = () => {
                           const videoURL = URL.createObjectURL(selectedFile);
                           setVideo(videoURL);
                           onVideoChangeHandler(e);
-                          console.log(values.video);
                         }}
                         accept="video/mp4, video/avi, video/webm, video/ogg"
                         type="file"
@@ -235,7 +232,7 @@ export const AddVideoOverlay = () => {
                   </div>
                   <div className="bg-body">
                     <label className="mb-3 block text-black dark:text-white">
-                      Select video preview
+                      {t('addVideoOverlay.selectVideoPreviewLabel')}
                     </label>
                     <ModalCropper
                       onSave={onPreviewPhotoChangeHandler}

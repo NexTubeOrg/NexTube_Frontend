@@ -5,6 +5,7 @@ import { IAuthUser } from '../../../store/reducers/auth/types';
 import http_api from '../../../services/http_api';
  import { store } from '../../../store';
 import { SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
+import { t } from 'i18next';
 
 
 const SubscribeButton = (props: {
@@ -66,7 +67,7 @@ const SubscribeButton = (props: {
       type={props.type}
       className={`w-full h-12 cursor-pointer rounded-md border border-${props.backgroundClassname} bg-${!isSubscribed ? props.backgroundClassname : "secondary"} p-2 text-white transition hover:bg-opacity-90`}
     >
-      {!isSubscribed ? "Subscribe" : "Subscribed"}
+      {!isSubscribed ? t("watchVideo.subscribe") : t("watchVideo.subscribed")}
     </button>
  );
 };

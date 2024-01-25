@@ -4,6 +4,7 @@ import { ChannelPhoto } from '../ChannelPhoto';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
+import { t } from 'i18next';
 dayjs.extend(relativeTime);
 
 const VideoItem = (props: { video: IVideoLookup }) => {
@@ -56,7 +57,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
               </Link>
               <h4 className="text-white text-sm">
                 <span className="mr-2">
-                  {numeral(props.video.views).format('0a').toUpperCase()} views
+                  {numeral(props.video.views).format('0a').toUpperCase()} {t("videoItem.views")}
                 </span>{' '}
                 <span>{dayjs(props.video.dateCreated).fromNow()}</span>
               </h4>
