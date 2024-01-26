@@ -23,7 +23,7 @@ const AddNewCommentField = (props: {
   const [actionsVisible, setActionsVisible] = useState<boolean>(false);
   const requestSchema = yup.object({
     videoId: yup.number().required('Enter video id'),
-    content: yup.string().required('Enter comment'),
+    content: yup.string().required(''),
   });
 
   const inputRef = useRef<HTMLInputElement | null>(null);

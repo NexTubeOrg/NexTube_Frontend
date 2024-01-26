@@ -45,7 +45,7 @@
     },
     "verifyMail": {
       "checkEmail": "Перевірте свій email 📧",
-      "verificationCode": "код верифікації",
+      "verificationCode": "Код верифікації",
       "verifyButton": "Підтвердити",
       "alreadyHaveAccount": {
         "title": "Вже є",
