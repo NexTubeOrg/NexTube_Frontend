@@ -134,7 +134,7 @@ const ViewChannel = () => {
           {showReportForm && (
             <div className="report-form-overlay w-150 p-0">
               <ReportForm
-                abuser={Number(parts[2])
+                abuser={Number(parts[2])}
                 videoId={null}
                 onSubmitSuccess={handleReportFormClose}
               />
