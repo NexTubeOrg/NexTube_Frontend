@@ -6,7 +6,8 @@
         "resetButton": "Reset",
         "successMessage": "Password recovery initiated successfully",
         "alreadyRecoveredMessage": "Already recovered? ",
-        "signInLinkText":"Sign in"
+        "signInLinkText":"Sign in",
+        "emailError":"Wrong email"
       },
       "recoverTitle": {
         "line1": "Forgot",
@@ -27,7 +28,9 @@
         "noAccountText": "Don’t have any account? ",
         "signupLink": "Sign Up",
         "forgotPasswordText": "Forgot your Password? ",
-        "recoverLink": "Recover"
+        "recoverLink": "Recover",
+        "emailValidation":"Wrong email",
+        "passwordMinLength":"Too short password"
       },
       "signUp": {
         "title": "Sign up",
@@ -41,7 +44,14 @@
         "alreadyHaveAccount": "Already have account?",
         "loginEasily": "You can login easily",
         "signInButton": "Sign in",
-        "forgotPasswordButton": "Forgot password"
+        "forgotPasswordButton": "Forgot password",
+
+
+        "emailValidation":"Wrong email",
+        "passwordMinLength":"Too short password",
+        "passwordMismatch":"Password mismatch",
+        "successMessage":"Registered succesfully",
+        "emailVerifiedSuccessfully":"Verified succesfully"
       },
       "verifyMail": {
         "checkEmail": "Check your email 📧",
@@ -157,7 +167,9 @@
         "everyoneCanWatchDescription": "Everyone can watch your video",
         "onlyYouCanWatchDescription": "Only you can watch the video",
         "videoFilenameLabel": "Video Filename",
-        "selectVideoPreviewLabel": "Select video preview"
+        "selectVideoPreviewLabel": "Select video preview",
+        
+        "videoUploadSuccess":"Succesfully uploaded"
       },
       "editVideoOverlay": {
         "enterName": "Enter name",

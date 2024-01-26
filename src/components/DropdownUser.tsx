@@ -168,10 +168,10 @@ const DropdownUser = () => {
           </li>
 
           <li>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center" onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}>
               <div
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base cursor-pointer"
-                onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+                
               >
                 <div className="icon w-8 relative dark:text-white" >
                   <LanguageIcon></LanguageIcon>

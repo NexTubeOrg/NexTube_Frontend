@@ -198,7 +198,8 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 </li>
               </ul>
             </div>
-
+            
+            {window.localStorage.token != undefined?(
             <div className="sub">
               <ul className="mb-6 flex flex-col gap-1.5">
                 {/* <!-- Menu Item Auth Pages --> */}
@@ -264,7 +265,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 </SidebarLinkGroup>
                 {/* <!-- Menu Item Auth Pages --> */}
               </ul>
-            </div>
+            </div>):<></>}
 
             <div>
               <ul className="mb-6 flex flex-col gap-1.5">
