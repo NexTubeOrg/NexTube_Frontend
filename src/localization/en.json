@@ -106,7 +106,9 @@
   },
   "playlistItem": {
     "noPreview": "No preview",
-    "viewFullPlaylist": "View full playlist"
+    "viewFullPlaylist": "View full playlist",
+    "firstPlaylist": "Create your first playlist",
+    "noPlaylists": "No created playlists"
   },
   "setVideoPlaylist": {
     "saveVideo": "Save video",

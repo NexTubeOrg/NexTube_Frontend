@@ -102,7 +102,9 @@
   },
   "playlistItem": {
     "noPreview": "Немає попереднього перегляду",
-    "viewFullPlaylist": "Переглянути повний плейлист"
+    "viewFullPlaylist": "Переглянути повний плейлист",
+    "firstPlaylist": "Створіть ваш перший плейлист",
+    "noPlaylists": "Жодних створенних плейлистів"
   },
   "setVideoPlaylist": {
     "saveVideo": "Зберегти відео",
