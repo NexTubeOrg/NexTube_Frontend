@@ -41,7 +41,14 @@
         "alreadyHaveAccount": "Already have account?",
         "loginEasily": "You can login easily",
         "signInButton": "Sign in",
-        "forgotPasswordButton": "Forgot password"
+        "forgotPasswordButton": "Forgot password",
+
+
+        "emailValidation":"Wrong email",
+        "passwordMinLength":"Too short password",
+        "passwordMismatch":"Password mismatch",
+        "successMessage":"Registered succesfully",
+        "emailVerifiedSuccessfully":"Verified succesfully"
       },
       "verifyMail": {
         "checkEmail": "Check your email 📧",
@@ -157,7 +164,9 @@
         "everyoneCanWatchDescription": "Everyone can watch your video",
         "onlyYouCanWatchDescription": "Only you can watch the video",
         "videoFilenameLabel": "Video Filename",
-        "selectVideoPreviewLabel": "Select video preview"
+        "selectVideoPreviewLabel": "Select video preview",
+        
+        "videoUploadSuccess":"Succesfully uploaded"
       },
       "editVideoOverlay": {
         "enterName": "Enter name",
