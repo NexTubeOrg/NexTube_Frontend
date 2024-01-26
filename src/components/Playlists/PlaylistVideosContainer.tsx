@@ -83,6 +83,7 @@ const PlaylistVideosContainer = () => {
 
   const fetchVideos = async () => {
     try {
+      console.log('fetch');
       const response = (
         await http_api.get<IGetPlaylistVideos>(
           `/api/Video/Playlist/GetPlaylistVideos?PlaylistId=${playlistId}&Page=${page}&PageSize=${pageSize}`,
@@ -91,11 +92,13 @@ const PlaylistVideosContainer = () => {
       const newVideos = response.videos || [];
       setTitle(response.title);
       setTotalCount(response.totalCount);
+      if (response.totalCount == 0) navigate('/');
       setVideos((prev) => {
         if (newVideos.length < 1) return prev;
         if (prev.find((p) => p.id == newVideos[0].id) != null) return prev;
+        const res = [...prev, ...newVideos];
 
-        return [...prev, ...newVideos];
+        return res;
       });
     } catch (error) {
       console.error('Error fetching playlist videos:', error);
@@ -127,8 +130,9 @@ const PlaylistVideosContainer = () => {
       (typeof videoId !== 'undefined' && videoId !== 'undefined') ||
       videos == null ||
       videos.length == 0
-    )
+    ) {
       return;
+    }
     console.log('playlists ok');
     const firstVideoId = videos.find(() => true)?.id;
     navigate(`/video/watch/${firstVideoId}/playlist/${playlistId}`);

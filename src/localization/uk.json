@@ -27,7 +27,8 @@
       "noAccountText": "Немає аккаунту? ",
       "signupLink": "Зареєструватися",
       "forgotPasswordText": "Забули свій пароль? ",
-      "recoverLink": "Відновити"
+      "recoverLink": "Відновити",
+      "loginSuccess": "Операція успішна"
     },
     "signUp": {
       "title": "Зареєструватися",

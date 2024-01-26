@@ -14,6 +14,7 @@ import {
   HandThumbUpIcon,
   MagnifyingGlassIcon,
   QuestionMarkCircleIcon,
+  UserGroupIcon,
   UserIcon,
   UserPlusIcon,
   UsersIcon,
@@ -154,6 +155,15 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                         url="/profile"
                         title={t('userSidebar.profile')}
                         icon={<UserIcon></UserIcon>}
+                      ></SidebarItem>
+                    </li>
+
+                    <li>
+                      <SidebarItem
+                        url={`/channel/${user?.userId}`}
+                        icon={<UserGroupIcon></UserGroupIcon>}
+                        title={t('dropdownUser.yourChannel')}
+                        active={true}
                       ></SidebarItem>
                     </li>
 

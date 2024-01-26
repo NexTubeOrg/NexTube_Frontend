@@ -30,7 +30,8 @@
       "forgotPasswordText": "Forgot your Password? ",
       "recoverLink": "Recover",
       "emailValidation": "Wrong email",
-      "passwordMinLength": "Too short password"
+      "passwordMinLength": "Too short password",
+      "loginSuccess": "Logged in successfully"
     },
     "signUp": {
       "title": "Sign up",
