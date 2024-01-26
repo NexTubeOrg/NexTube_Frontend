@@ -8,15 +8,21 @@ import { SubscriptionReducer } from './reducers/subscription/SubscriptionReducer
 import { AcountSwitch } from './reducers/acountSwitch/AcountSwitch';
 import { ProfileVideosReducer } from './reducers/profileVideos/ProfileVideosReducer';
 
+ import { ProfilePlaylistsReducer } from './reducers/profilePlaylists/ProfilePlaylistsReducer';
+import { ScrollingReducer } from './reducers/scrolling/ScrollingReducer';
+
 export const rootReducer = combineReducers({
   auth: AuthReducer,
   notify: NotificationReducer,
   videoComments: VideoCommentsReducer,
-  subscription:SubscriptionReducer,
+  subscription: SubscriptionReducer,
   profileVideos: ProfileVideosReducer,
   acountSwitch:AcountSwitch,
- });
  
+ 
+  profilePlaylists: ProfilePlaylistsReducer,
+  scroll: ScrollingReducer,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 export const store = configureStore({

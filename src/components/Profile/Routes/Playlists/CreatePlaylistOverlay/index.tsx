@@ -1,3 +1,4 @@
+// src/components/Profile/Routes/Playlists/CreatePlaylistOverlay/index.tsx
 import { useEffect, useState } from 'react';
 import { PrimaryProcessingButton } from '../../../../common/buttons/PrimaryProcessingButton';
 import { FieldEditInput } from '../../../../common/inputs';
@@ -12,10 +13,11 @@ import { ICreatePlaylistRequest } from './types';
 import { store } from '../../../../../store';
 import { ProfilePlaylistsActionType } from '../../../../../store/reducers/profilePlaylists/types';
 import { IPlaylistLookup } from '../../../../Playlists/types';
+import { useTranslation } from 'react-i18next'; // Import the hook
 
 export const CreatePlaylistOverlay = () => {
+  const { t } = useTranslation(); // Initialize the hook
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const navigator = useNavigate();
 
   const request: ICreatePlaylistRequest = {
@@ -24,8 +26,8 @@ export const CreatePlaylistOverlay = () => {
   };
 
   const requestSchema: any = yup.object({
-    title: yup.string().required('Enter title').min(2).max(100),
-    previewImage: yup.mixed().required('Select preview image file'),
+    title: yup.string().required(t('createPlaylistOverlay.enterTitle')).min(2).max(100),
+    previewImage: yup.mixed().required(t('createPlaylistOverlay.selectPreview'))
   });
 
   const handleEscPress = (event: any) => {
@@ -65,7 +67,7 @@ export const CreatePlaylistOverlay = () => {
       setIsLoading(false);
       navigator('..');
 
-      handleSuccess('Playlist created successfully');
+      handleSuccess(t('createPlaylistOverlay.createSuccess'));
     } catch (error: any) {
       handleError(error);
     }
@@ -106,7 +108,7 @@ export const CreatePlaylistOverlay = () => {
                 <div className="flex items-center justify-center">
                   <div className="w-40 mr-6">
                     <PrimaryProcessingButton
-                      text="Create"
+                      text={t('createPlaylistOverlay.createButton')}
                       isLoading={isLoading}
                       onClick={handleSubmit}
                       type="submit"
@@ -123,7 +125,7 @@ export const CreatePlaylistOverlay = () => {
               </div>
               <hr className="mx-6 h-0.5 my-8 border-0 dark:bg-primary"></hr>
               <div className="mb-3">
-                <h1 className="text-white text-3xl">Details</h1>
+                <h1 className="text-white text-3xl">{t('createPlaylistOverlay.details')}</h1>
               </div>
               <div className="content md:flex">
                 <div className="details md:w-60 lg:w-125">
@@ -134,14 +136,14 @@ export const CreatePlaylistOverlay = () => {
                       handleChange={handleChange}
                       error={errors.title ?? ''}
                       type="text"
-                      labelText="Enter playlist title"
+                      labelText={t('createPlaylistOverlay.enterTitle')}
                     ></FieldEditInput>
                   </div>
                 </div>
                 <div className="ml-6 w-75 overflow-x-hidden">
                   <div className="bg-body p-3">
                     <label className="mb-3 block text-black dark:text-white">
-                      Select playlist preview
+                      {t('createPlaylistOverlay.selectPreview')}
                     </label>
                     <ModalCropper
                       aspectRatio={1920 / 1080}

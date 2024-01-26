@@ -1,3 +1,5 @@
+// src/components/Auth/SignUp/index.tsx
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -5,19 +7,18 @@ import http_api from '../../../services/http_api';
 import { storeToken } from '../../../services/tokenService';
 import { handleError, handleSuccess } from '../../../common/handleError';
 import { ModalCropper } from '../../../components/ModalCropper';
-import { useState } from 'react';
 import { PrimaryProcessingButton } from '../../../components/common/buttons/PrimaryProcessingButton';
 import GoogleAuthWrapper from '../../../components/Auth/Google/GoogleAuthWrapper';
 import { IRegistrationRequest, IRegistrationResult } from './types';
 import { SignUpTitle, SubTitle } from './SignUpTitle';
 import { RegistrationInput } from '../../common/inputs';
+import { useTranslation } from 'react-i18next';
 
 const SignUpWidget = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigator = useNavigate();
 
-
-  
   const request: IRegistrationRequest = {
     email: '',
     password: '',
@@ -27,42 +28,37 @@ const SignUpWidget = () => {
     channelPhoto: null,
   };
 
-  const requestSchema: any = yup.object({
-    email: yup.string().required('Enter email').email('Enter valid email'),
-    password: yup.string().required('Enter password').min(8),
+  const requestSchema = yup.object({
+    email: yup.string().required(t('auth.signUp.yourEmail')).email(t('auth.signUp.emailValidation')),
+    password: yup.string().required(t('auth.signUp.yourPassword')).min(8, t('auth.signUp.passwordMinLength')),
     passwordConfirm: yup
       .string()
-      .required('Repeat password')
-      .test('equal', 'Passwords does not match', (v) => {
+      .required(t('auth.signUp.repeatPassword'))
+      .test('equal', t('auth.signUp.passwordMismatch'), (v) => {
         return v === values.password;
       }),
-    firstName: yup.string().required('Enter first name').min(2),
-    lastName: yup.string().required('Enter last name').min(2),
-    channelPhoto: yup.mixed().required('Image is required'),
+    firstName: yup.string().required(t('auth.signUp.yourFirstName')).min(2),
+    lastName: yup.string().required(t('auth.signUp.yourLastName')).min(2),
+    channelPhoto: yup.mixed().required(t('auth.signUp.imageError')),
   });
 
   const onFormSubmit = async (values: IRegistrationRequest) => {
     try {
       setIsLoading(() => true);
-      const result = (
-        await http_api.post<IRegistrationResult>('/api/auth/signup', values, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-      ).data;
+      const result = await http_api.post<IRegistrationResult>('/api/auth/signup', values, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-      const { token, verificationToken } = result;
+      const { token, verificationToken } = result.data;
       storeToken(token);
 
-   
       localStorage.setItem('verificationToken', verificationToken);
 
-      handleSuccess('User created successfully');
-      
-      
-      navigator('/auth/verifymail');  
-    } catch (error: any) {
+      handleSuccess(t('auth.signUp.successMessage'));
+      navigator('/auth/verifymail');
+    } catch (error) {
       handleError(error);
     } finally {
       setIsLoading(() => false);
@@ -70,16 +66,13 @@ const SignUpWidget = () => {
   };
 
   const onImageChangeHandler = (f: File) => {
-    console.log('image input handle change', f);
     if (f != null) {
       onImageSaveHandler(f);
     }
   };
+
   const onImageSaveHandler = (file: File) => {
-    console.log('image save handle', file);
     values.channelPhoto = file;
-    console.log(values);
-    // setDto({ ...dto, image: file });
   };
 
   const formik = useFormik({
@@ -88,8 +81,8 @@ const SignUpWidget = () => {
     onSubmit: onFormSubmit,
   });
 
-  const { values, errors, touched, handleSubmit, handleChange } = formik;
-    
+  const { values, errors, handleSubmit, handleChange } = formik;
+
   return (
     <>
       <div className="bg-white shadow-default dark:bg-body">
@@ -97,21 +90,13 @@ const SignUpWidget = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2">
             <div className="w-full pb-7">
               <div>
-                <SignUpTitle text="Sign up"></SignUpTitle>
+                <SignUpTitle text={t('auth.signUp.title')}></SignUpTitle>
               </div>
 
               <form onSubmit={handleSubmit}>
                 <div className="flex w-full mb-7 mt-7">
                   <div className="relative">
-                    <ModalCropper
-                      onSave={onImageChangeHandler}
-                      error={''}
-                    ></ModalCropper>
-                    {errors.channelPhoto && (
-                      <div className="mt-2 text-md dark:text-danger">
-                        {errors.channelPhoto}
-                      </div>
-                    )}
+                    <ModalCropper onSave={onImageChangeHandler} error={errors.channelPhoto}></ModalCropper>
                   </div>
                 </div>
 
@@ -123,7 +108,7 @@ const SignUpWidget = () => {
                       handleChange={handleChange}
                       error={errors.firstName ?? ''}
                       type="text"
-                      labelText="your first name"
+                      labelText={t('auth.signUp.yourFirstName')}
                     ></RegistrationInput>
                   </div>
                   <div className="w-full">
@@ -133,7 +118,7 @@ const SignUpWidget = () => {
                       handleChange={handleChange}
                       error={errors.lastName ?? ''}
                       type="text"
-                      labelText="your last name"
+                      labelText={t('auth.signUp.yourLastName')}
                     ></RegistrationInput>
                   </div>
                 </div>
@@ -146,7 +131,7 @@ const SignUpWidget = () => {
                       handleChange={handleChange}
                       error={errors.email ?? ''}
                       type="text"
-                      labelText="your e-mail"
+                      labelText={t('auth.signUp.yourEmail')}
                     ></RegistrationInput>
                   </div>
                 </div>
@@ -159,7 +144,7 @@ const SignUpWidget = () => {
                       handleChange={handleChange}
                       error={errors.password ?? ''}
                       type="password"
-                      labelText="your password"
+                      labelText={t('auth.signUp.yourPassword')}
                     ></RegistrationInput>
                   </div>
                   <div className="w-full">
@@ -169,7 +154,7 @@ const SignUpWidget = () => {
                       handleChange={handleChange}
                       error={errors.passwordConfirm ?? ''}
                       type="password"
-                      labelText="repeat password"
+                      labelText={t('auth.signUp.repeatPassword')}
                     ></RegistrationInput>
                   </div>
                 </div>
@@ -178,7 +163,7 @@ const SignUpWidget = () => {
                   <div className="w-30">
                     <PrimaryProcessingButton
                       onClick={() => {}}
-                      text="Sign up"
+                      text={t('auth.signUp.signUpButton')}
                       type="submit"
                       isLoading={isLoading}
                     ></PrimaryProcessingButton>
@@ -205,21 +190,22 @@ const SignUpWidget = () => {
 };
 
 const AlreadyHaveAccountWidget = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="dark:bg-boxdark w-100">
         <div className="p-7 pb-52">
-          <SignUpTitle text="Already have"></SignUpTitle>
-          <SignUpTitle text="account?"></SignUpTitle>
+          <SignUpTitle text={t('auth.signUp.alreadyHaveAccount')}></SignUpTitle>
           <div className="mt-7">
-            <SubTitle text="You can login easily"></SubTitle>
+            <SubTitle text={t('auth.signUp.loginEasily')}></SubTitle>
           </div>
           <div className="mt-7">
             <Link
               to={'/auth/signin'}
               className={`w-full flex items-center justify-center font-bold text-2xl py-5 cursor-pointer rounded-md border border-primary bg-primary text-white transition hover:bg-opacity-90`}
             >
-              Sign in
+              {t('auth.signUp.signInButton')}
             </Link>
           </div>
           <div className="mt-7">
@@ -227,7 +213,7 @@ const AlreadyHaveAccountWidget = () => {
               to={'/auth/recover'}
               className={`w-full flex items-center justify-center font-bold text-2xl py-5 cursor-pointer rounded-md border border-secondary bg-secondary text-gray transition hover:bg-opacity-90`}
             >
-              Forgot password
+              {t('auth.signUp.forgotPasswordButton')}
             </Link>
           </div>
         </div>

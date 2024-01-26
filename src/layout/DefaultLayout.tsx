@@ -2,15 +2,21 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import UserSidebar from '../components/Sidebar/UserSidebar';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { isSignedIn } from '../services/tokenService';
 import './../styles/custom-scrollbar.css';
+import { store } from '../store';
+import { ScrollingReducerActionTypes } from '../store/reducers/scrolling/ScrollingReducer';
 const DefaultLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const navigator = useNavigate();
+  const scrollable = useRef<any>();
 
   useEffect(() => {
-    // if (isSignedIn() == false) navigator('/auth/signin');
+    store.dispatch({
+      type: ScrollingReducerActionTypes.SET_SCROLLABLE_COMPONENT,
+      payload: scrollable,
+    });
   }, []);
 
   return (
@@ -22,7 +28,10 @@ const DefaultLayout = () => {
           setSidebarOpen={setSidebarOpen}
         />
         {/* <!-- ===== Content Area Start ===== --> */}
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden default-custom-scrollbar">
+        <div
+          ref={scrollable}
+          className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden default-custom-scrollbar"
+        >
           {/* <!-- ===== Header Start ===== --> */}
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}

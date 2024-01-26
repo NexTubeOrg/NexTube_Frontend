@@ -3,6 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../../images/logo/logo.svg';
 import SidebarLinkGroup from '../SidebarLinkGroup';
 import './style.css';
+import { useTranslation } from 'react-i18next'; // Import the hook
+
 import {
   ArrowLeftIcon,
   ClipboardDocumentListIcon,
@@ -10,8 +12,11 @@ import {
   Cog6ToothIcon,
   FaceSmileIcon,
   HandThumbUpIcon,
-   QuestionMarkCircleIcon,
+  MagnifyingGlassIcon,
+  QuestionMarkCircleIcon,
+  UserGroupIcon,
   UserIcon,
+  UserPlusIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
 import http_api from '../../services/http_api';
@@ -53,6 +58,14 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     return () => document.removeEventListener('click', clickHandler);
   }, []);
 
+  useEffect(() => {
+    console.log('Current win w', window.screen.width);
+    if (window.screen.width < 1024) {
+      setSidebarOpen(false);
+      setSidebarExpanded(false);
+    }
+  }, [window.screen.width]);
+
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
@@ -76,8 +89,8 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   console.log("store",userSubscriptions.subscriptions.map(c=>c.channelPhotoFileId));
     const {   user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
-    if (user) { const fetchSubscriptions = async () => {
-      try {
+    const fetchSubscriptions = async () => {
+      if (window.localStorage.token != undefined) {
         const response = (await http_api.get(`/api/Subscription/Subscriptions`))
           .data;
         const Subscriptions = response;
@@ -85,17 +98,16 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           type: SubscriptionReducerActionsType.SET_SUBSCRIPTION_LIST,
           payload: Subscriptions,
         });
-     
-      } catch (error) {
-        console.error(error);
       }
     };
 
-    fetchSubscriptions();}
-  }, [user, SubscriptionReducerActionsType.ADD_SUBSCRIBER,SubscriptionReducerActionsType.DELETE_SUBSCRIBER]);
-  console.log("store22",userSubscriptions);
- 
-  
+    fetchSubscriptions();
+  }, [
+    user,
+    SubscriptionReducerActionsType.ADD_SUBSCRIBER,
+    SubscriptionReducerActionsType.DELETE_SUBSCRIBER,
+  ]);
+  const { t } = useTranslation(); // Initialize the hook
   return (
     <>
       <aside
@@ -130,7 +142,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
             className={`w-5/6 relative flex items-center justify-center font-bold text-2xl py-3 cursor-pointer rounded-md border border-transparent bg-primary  text-white transition hover:bg-opacity-90`}
           >
             <div className="rounded-md gradient absolute inset-0"></div>
-            Home
+            {t('userSidebar.home')}
           </NavLink>
         </div>
 
@@ -138,65 +150,78 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
             <div>
               <ul className="mb-6 flex flex-col gap-1.5">
-                <li>
-                  <SidebarItem
-                    active={true}
-                    url="/profile"
-                    title="Profile"
-                    icon={<UserIcon></UserIcon>}
-                  ></SidebarItem>
-                </li>
+                {user && (
+                  <>
+                    <li>
+                      <SidebarItem
+                        active={true}
+                        url="/profile"
+                        title={t('userSidebar.profile')}
+                        icon={<UserIcon></UserIcon>}
+                      ></SidebarItem>
+                    </li>
 
-                <li>
-                  <SidebarItem
-                    active={false}
-                    url="/friends"
-                    title="Friends"
-                    icon={<UsersIcon></UsersIcon>}
-                  ></SidebarItem>
-                </li>
+                    <li>
+                      <SidebarItem
+                        url={`/channel/${user?.userId}`}
+                        icon={<UserGroupIcon></UserGroupIcon>}
+                        title={t('dropdownUser.yourChannel')}
+                        active={true}
+                      ></SidebarItem>
+                    </li>
 
-                <li>
-                  <div className="h-8"></div>
-                </li>
+                    <li>
+                      <SidebarItem
+                        active={false}
+                        url={`/channel/${user.userId}/playlists`}
+                        title={t('userSidebar.library')}
+                        icon={
+                          <ClipboardDocumentListIcon></ClipboardDocumentListIcon>
+                        }
+                      ></SidebarItem>
+                    </li>
 
-                <li>
-                  <SidebarItem
-                    active={false}
-                    url="/library"
-                    title="Library"
-                    icon={
-                      <ClipboardDocumentListIcon></ClipboardDocumentListIcon>
-                    }
-                  ></SidebarItem>
-                </li>
+                    <li>
+                      <SidebarItem
+                        active={false}
+                        url="/history"
+                        title={t('userSidebar.history')}
+                        icon={<ClockIcon></ClockIcon>}
+                      ></SidebarItem>
+                    </li>
+                  </>
+                )}
 
-                <li>
-                  <SidebarItem
-                    active={false}
-                    url="/history"
-                    title="History"
-                    icon={<ClockIcon></ClockIcon>}
-                  ></SidebarItem>
-                </li>
+                {user == null && (
+                  <>
+                    <li>
+                      <SidebarItem
+                        active={true}
+                        url="/auth/signin"
+                        title={t('userSidebar.signIn')}
+                        icon={<UserPlusIcon></UserPlusIcon>}
+                      ></SidebarItem>
+                    </li>
+                  </>
+                )}
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/liked"
-                    title="Liked videos"
+                    title={t("userSidebar.likedVideos")}
                     icon={<HandThumbUpIcon></HandThumbUpIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/later"
-                    title="Watch later"
+                    title={t("userSidebar.watchLater")}
                     icon={<ClockIcon></ClockIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
                 <li>
                   <div className="h-8"></div>
@@ -225,7 +250,10 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                               : setSidebarExpanded(true);
                           }}
                         >
-                          Subscriptions
+                          {() => {
+                            if (window.localStorage.token != undefined)
+                              return t('userSidebar.subscriptions');
+                          }}
                         </NavLink>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
@@ -274,29 +302,29 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 <li>
                   <SidebarItem
                     active={true}
-                    url="/settings"
-                    title="Settings"
+                    url="/profile/info"
+                    title={t('userSidebar.settings')}
                     icon={<Cog6ToothIcon></Cog6ToothIcon>}
                   ></SidebarItem>
                 </li>
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={true}
                     url="/reports"
-                    title="Report history"
+                    title={t("userSidebar.reportHistory")}
                     icon={<FaceSmileIcon></FaceSmileIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
 
-                <li>
+                {/* <li>
                   <SidebarItem
                     active={false}
                     url="/help"
-                    title="Help"
+                    title={t("userSidebar.help")}
                     icon={<QuestionMarkCircleIcon></QuestionMarkCircleIcon>}
                   ></SidebarItem>
-                </li>
+                </li> */}
               </ul>
             </div>
           </nav>

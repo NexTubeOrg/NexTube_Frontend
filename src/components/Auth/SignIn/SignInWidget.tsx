@@ -1,11 +1,12 @@
+// src/components/Auth/SignIn/SignInWidget.tsx
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
 import {  storeToken, storeTokenAcount } from '../../../services/tokenService';
  
-import { handleError, handleSuccess } from '../../../common/handleError';
-import { useState } from 'react';
+ import { handleError, handleSuccess } from '../../../common/handleError';
 import { PrimaryProcessingButton } from '../../../components/common/buttons/PrimaryProcessingButton';
 import { ILoginRequest, ILoginResult } from './types';
 import { SignInTitle } from './SignInTitle';
@@ -17,8 +18,10 @@ import { IAuthUser } from '../../../store/reducers/auth/types';
  
 import { useSelector } from 'react-redux';
  
+import { useTranslation } from 'react-i18next';
 
 const SignInWidget = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigator = useNavigate();
 
@@ -28,36 +31,33 @@ const SignInWidget = () => {
   };
 
   const requestSchema = yup.object({
-    email: yup.string().required('Enter email').email('Enter valid email'),
-    password: yup.string().required('Enter password').min(8),
+    email: yup
+      .string()
+      .required(t('auth.signIn.emailLabel'))
+      .email(t('auth.signIn.emailValidation')),
+    password: yup
+      .string()
+      .required(t('auth.signIn.passwordLabel'))
+      .min(8, t('auth.signIn.passwordMinLength')),
   });
  
   const {   isAuth } = useSelector((store: any) => store.auth as IAuthUser);
   const onFormSubmit = async (values: ILoginRequest) => {
     try {
- 
-
-
-      console.log(errors);
-      console.log(values);
       setIsLoading(() => true);
       const result = (
         await http_api.post<ILoginResult>('/api/auth/signin', values)
       ).data;
-      if (result.result.succeeded != true) throw result.result;
+      if (result.result.succeeded !== true) throw result.result;
 
       const { token } = result;
      
       storeTokenAcount(token); 
       storeToken(token);
- 
-        handleSuccess('Sign in successfully');
-        navigator('/');
-
-      
+      handleSuccess(t('auth.signIn.loginSuccess'));
+      navigator('/');
     } catch (error) {
-      console.log('signinerror', error);
-      handleError(error);
+      // handleError(error);
     } finally {
       setIsLoading(() => false);
     }
@@ -98,6 +98,7 @@ const SignInWidget = () => {
                     error={errors.email ?? ''}
                     type="text"
                     icon={<UserIcon></UserIcon>}
+                    placeholder={t('auth.signIn.emailLabel')}
                   ></DefaultInput>
                 </div>
 
@@ -110,6 +111,7 @@ const SignInWidget = () => {
                     handleChange={handleChange}
                     error={errors.password ?? ''}
                     type="password"
+                    placeholder={t('auth.signIn.passwordLabel')}
                   ></DefaultInput>
                 </div>
 
@@ -117,14 +119,14 @@ const SignInWidget = () => {
                   <div className="w-40">
                     <PrimaryProcessingButton
                       onClick={() => {}}
-                      text="Login"
+                      text={t('auth.signIn.loginButton')}
                       type="submit"
                       isLoading={isLoading}
                     ></PrimaryProcessingButton>
                   </div>
                   <div className="ml-7 dark:hover:text-white dark:text-form-strokedark">
                     <CheckboxOne
-                      text="Remember me"
+                      text={t('auth.signIn.rememberMe')}
                       onChange={() => {}}
                     ></CheckboxOne>
                   </div>
@@ -132,18 +134,18 @@ const SignInWidget = () => {
 
                 <div className="text-center text-white">
                   <p>
-                    Don’t have any account?{'  '}
+                    {t('auth.signIn.noAccountText')}
                     <Link to="/auth/signup" className="text-primary">
-                      Sign Up
+                      {t('auth.signIn.signupLink')}
                     </Link>
                   </p>
                 </div>
 
                 <div className="mt-6 text-center text-white">
                   <p>
-                    Forgot yur Password?{'  '}
+                    {t('auth.signIn.forgotPasswordText')}
                     <Link to="/auth/recover" className="text-primary">
-                      Recover
+                      {t('auth.signIn.recoverLink')}
                     </Link>
                   </p>
                 </div>

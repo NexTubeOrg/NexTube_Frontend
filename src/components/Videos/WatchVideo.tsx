@@ -24,6 +24,7 @@ import { IAuthUser } from '../../store/reducers/auth/types';
 import MoreVideoActions from './MoreVideoActions';
 import { ShareIcon } from '@heroicons/react/24/outline';
 
+import { useTranslation } from 'react-i18next'; // Import the hook
 
 dayjs.extend(relativeTime);
 
@@ -69,17 +70,7 @@ const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersu
   useEffect(() => {
     player.current.load();
   }, [props.video]);
-
-  // const getVideoChildren = (originalChildren: []) => {
-  //   return [
-  //     <PosterImage key="poster-image" poster='' />,
-  //     <LoadingSpinner key="loading-spinner" order={2.0} />,
-  //     <BigPlayButton key="big-play-button" order={4.0} />,
-  //     <ControlBar key="control-bar" order={5.0} />,
-  //     <Shortcut key="shortcut" order={99.0} />,
-  //   ];
-  // };
-
+  const { t } = useTranslation(); // Initialize the hook
   return (
     <>
       <div className="warp my-6">
@@ -115,10 +106,10 @@ const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersu
           </div>
 
           {/* actions section */}
-          <div className="ml-5 flex justify-between items-center">
+          <div className="ml-5 mt-2.5 flex justify-between items-center">
             <div className="flex items-center">
               <Link to={`/channel/${props.video?.creator?.userId}`}>
-                <div className="flex mt-5 items-center">
+                <div className="flex items-center">
                   <img
                     className="rounded-full h-16 w-16"
                     src={
@@ -136,17 +127,16 @@ const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersu
                         ? props.video!.creator?.lastName?.slice(0, 15) + '...'
                         : props.video!.creator?.lastName}
                     </h3>
-                    <h3 className="text-gray text-md"> {userData?.subsciptions} subscribers</h3>
+                    <h3 className="text-gray text-md"> {userData?.subsciptions} {t('watchVideo.subscribers')}</h3>
                   </div>
                 </div>
               </Link>
-
               {!isAuthUserVideoOwner && (
                 <div className="w-30 ml-5">
                   <SubscribeButton
                     isLoading={false}
                     onClick={() => {}}
-                    text="Subscribe"
+                    text={t('watchVideo.subscribe')}
                     type="button"
                     backgroundClassname="primary"
                     subscribeId={props.video?.creator?.userId.toString()}
@@ -166,7 +156,7 @@ const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersu
                     navigator.clipboard.writeText(window.location.href);
                     handleSuccess('Copied link to clipboard');
                   }}
-                  text="Share"
+                  text={t('watchVideo.share')}
                   type="button"
                   icon={<ShareIcon></ShareIcon>}
                   backgroundClassname="secondary"
@@ -188,13 +178,17 @@ const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersu
                 videoId={props.video?.id}
                 onSubmitSuccess={handleReportFormClose}
               />
-              <button onClick={handleReportFormClose}>Close Report Form</button>
+              <button onClick={handleReportFormClose}>
+                {t('watchVideo.closeReportForm')}
+              </button>
             </div>
           )}
 
           <div className="description bg-secondary p-5 mt-5 rounded-lg">
             <h3 className="text-white text-2xl">
-              <span className="mr-3">{props.video?.views} views</span>
+              <span className="mr-3">
+                {props.video?.views} {t('watchVideo.views')}
+              </span>
               <span>{dayjs(props.video?.dateCreated).fromNow()}</span>
             </h3>
             <CollapseText text={props.video?.description}></CollapseText>

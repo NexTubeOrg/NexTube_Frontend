@@ -1,3 +1,5 @@
+// src/components/Comments/CommentsContainer/VideoCommentsLoader.tsx
+import React from 'react';
 import { useEffect, useState } from 'react';
 import http_api from '../../../services/http_api';
 import { IGetVideoCommentListResult } from '../Common/types';
@@ -12,6 +14,7 @@ import {
   VideoCommentsReducerActionTypes,
 } from '../../../store/reducers/videoComments/types';
 import CommentsContainer from './CommentsContainer';
+import { useTranslation } from 'react-i18next';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -25,11 +28,13 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
     (store: any) => store.videoComments as ICommentsList,
   );
 
+  const { t } = useTranslation();
+
   useEffect(() => {
-    console.log('useEffect');
+    console.log('loadVideoCommentsAsync', needLoad);
     const loadVideoCommentsAsync = async () => {
       try {
-        if (needLoad == 0 || !canLoad) {
+        if (needLoad === 0 || !canLoad) {
           console.log('abort loading', needLoad, canLoad);
           return;
         }
@@ -47,7 +52,7 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
           )
         ).data;
 
-        if (result.comments.length == 0) setCanLoad(false);
+        if (result.comments.length === 0) setCanLoad(false);
 
         store.dispatch({
           type: VideoCommentsReducerActionTypes.APPEND_COMMENTS_LIST,
@@ -68,21 +73,30 @@ const VideoCommentsLoader = (props: { videoId: number }) => {
 
   useEffect(() => {
     setNeedLoad((t) => {
-      return 1;
+      console.log('new needload comments', t + 1);
+      return t + 1;
     });
+    setTotalCount(0);
+    setIsLoading(false);
+    setCanLoad(true);
+
     store.dispatch({
       type: VideoCommentsReducerActionTypes.RESET_COMMENTS,
     });
+
+    console.log('reset comments');
   }, [props.videoId]);
 
   return (
     <>
-      <p className="text-white ml-6">{totalCount} Comments</p>
+      <p className="text-white ml-6">{totalCount} {t('videoCommentsLoader.comments')}</p>
       <AddNewCommentField
         focus={false}
         rootCommentId={undefined}
         onCancel={() => {}}
-        onSubmit={() => {}}
+        onSubmit={() => {
+          setTotalCount((p) => p + 1);
+        }}
         videoId={props.videoId}
       ></AddNewCommentField>
       {comments.length > 0 && (

@@ -1,3 +1,4 @@
+// src/components/Profile/Profile.tsx
 import { Outlet } from 'react-router-dom';
 import { Navbar } from '../common/navbars/Navbar';
 import { useEffect, useState } from 'react';
@@ -5,10 +6,13 @@ import http_api from '../../services/http_api';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { profileRoutes } from '../../routes';
+import { useTranslation } from 'react-i18next'; // Import the hook
 
 const Profile = () => {
   const [userData, setUserData] = useState<IUserInfo>();
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
+  const { t } = useTranslation(); // Initialize the hook
+
   useEffect(() => {
     fetchData();
   }, [setUserData]);
@@ -27,7 +31,7 @@ const Profile = () => {
   };
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <div>{t('profile.loading')}</div>;
   }
   return (
     <>
@@ -46,9 +50,9 @@ const Profile = () => {
           {/* channel info */}
           <div className="text">
             {/* Channel title */}
-            <h1 className="text-white text-3xl mb-2">Your channel</h1>
+            <h1 className="text-white text-3xl mb-2">{t('profile.yourChannel')}</h1>
             <h3 className="text-white text-xl mb-2">
-              {userData.firstName + ' ' + userData.lastName}
+              {t('profile.channelTitle')}: {userData.firstName + ' ' + userData.lastName}
             </h3>
           </div>
         </div>
@@ -62,4 +66,5 @@ const Profile = () => {
     </>
   );
 };
+
 export { Profile };

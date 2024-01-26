@@ -10,6 +10,7 @@ import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcess
 import { store } from '../../../store';
 import { VideoCommentsReducerActionTypes } from '../../../store/reducers/videoComments/types';
 import { ProcessingButton } from '../../common/buttons/ProcessingButton';
+import { t } from 'i18next';
 
 const AddNewCommentField = (props: {
   videoId: number;
@@ -22,7 +23,7 @@ const AddNewCommentField = (props: {
   const [actionsVisible, setActionsVisible] = useState<boolean>(false);
   const requestSchema = yup.object({
     videoId: yup.number().required('Enter video id'),
-    content: yup.string().required('Enter comment'),
+    content: yup.string().required(''),
   });
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -93,15 +94,52 @@ const AddNewCommentField = (props: {
     onSubmit: onFormSubmit,
   });
 
-  const { values, errors, touched, handleSubmit, handleChange, resetForm } =
-    formik;
+  useEffect(() => {
+    setFieldValue('videoId', props.videoId);
+  }, [props.videoId]);
+
+  useEffect(() => {
+    setFieldValue('rootCommentId', props.rootCommentId);
+  }, [props.rootCommentId]);
+
+  const {
+    values,
+    errors,
+    touched,
+    handleSubmit,
+    handleChange,
+    resetForm,
+    setFieldValue,
+  } = formik;
 
   return (
     <>
-      <form onSubmit={handleSubmit} onReset={() => props.onCancel(null)}>
+      <form
+        onSubmit={(e) => {
+          console.log('addnewcommsub');
+          handleSubmit(e);
+        }}
+        onReset={() => props.onCancel(null)}
+      >
         <div className="flex flex-col p-6.5">
           <div className="mb-2">
             <div className="relative">
+              <input
+                type="hidden"
+                name="videoId"
+                onChange={handleChange}
+                value={values.videoId}
+                id="videoId"
+              />
+
+              <input
+                type="hidden"
+                name="rootCommentId"
+                onChange={handleChange}
+                value={values.rootCommentId}
+                id="rootCommentId"
+              />
+
               <input
                 ref={inputRef}
                 autoComplete="off"
@@ -112,7 +150,7 @@ const AddNewCommentField = (props: {
                 value={values.content}
                 onChange={handleChange}
                 type="text"
-                placeholder="Add a comment..."
+                placeholder={t('comments.addComment')}
                 className={classNames(
                   'w-full border-b-2 dark:border-gray dark:focus:border-white bg-transparent py-1 pr-10 outline-none  focus-visible:shadow-none dark:focus:text-white dark:text-gray dark:bg-body',
                   {
@@ -120,11 +158,6 @@ const AddNewCommentField = (props: {
                   },
                 )}
               />
-              {errors.content && (
-                <div className="mt-2 text-md dark:text-danger">
-                  {errors.content}
-                </div>
-              )}
             </div>
           </div>
           {(actionsVisible || values.content.length > 0) && (
@@ -133,7 +166,7 @@ const AddNewCommentField = (props: {
                 <div className="mr-2 w-30">
                   <ProcessingButton
                     isLoading={false}
-                    text="Cancel"
+                    text={t('comments.cancel')}
                     onClick={() => {
                       resetForm();
                       props.onCancel(null);
@@ -145,7 +178,7 @@ const AddNewCommentField = (props: {
                 <div className="w-30">
                   <PrimaryProcessingButton
                     isLoading={isLoading}
-                    text="Add comment"
+                    text={t('comments.addComment1')}
                     onClick={() => {}}
                     type="submit"
                   ></PrimaryProcessingButton>

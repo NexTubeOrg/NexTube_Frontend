@@ -11,23 +11,37 @@ import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../common/navbars/Navbar';
 import { profileRoutes, recommendationVideosRoutes } from '../../routes';
+import { t } from 'i18next';
+import { useSelector } from 'react-redux';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const VideoItem = (props: { video: IVideoLookup }) => {
+  const { scrollableBody } = useSelector((store: any) => store.scroll as any);
+
   return (
     <>
       <div className="item flex my-5 text-gray">
-        <Link to={'/video/watch/' + props.video.id}>
+        <Link
+          to={'/video/watch/' + props.video.id}
+          onClick={() => {
+            scrollableBody.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
           <img
-            className="w-40 h-24 rounded-md"
+            className="w-40 h-24 rounded-md bg-gray"
             src={`/api/photo/getPhotoUrl/${props.video.previewPhotoFile}/600`}
           />
         </Link>
 
         <div className="items-start ml-6">
           <div className="text">
-            <Link to={'/video/watch/' + props.video.id}>
+            <Link
+              to={'/video/watch/' + props.video.id}
+              onClick={() => {
+                scrollableBody.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <h3 className="text-white font-semibold text-lg">
                 {props.video.name?.length! > 15
                   ? props.video.name?.slice(0, 15) + '...'
@@ -50,7 +64,8 @@ const VideoItem = (props: { video: IVideoLookup }) => {
             </Link>
             <h4 className="text-gray mb-2 text-sm">
               <span className="mr-2">
-                {numeral(props.video.views).format('0a').toUpperCase()} views
+                {numeral(props.video.views).format('0a').toUpperCase()}{' '}
+                {t('videoItem.views')}
               </span>{' '}
               <span>{dayjs(props.video.dateCreated).fromNow()}</span>
             </h4>

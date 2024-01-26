@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react';
 import http_api from '../../services/http_api';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { IGetUserPlaylistsResult, IPlaylistLookup } from './types';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import OperationLoader from '../../common/OperationLoader';
 import { PlaylistItem } from './PlaylistItem';
 import HandleOnVisible from '../HandleOnVisible';
-
+import { useTranslation } from 'react-i18next';
+import { FaceFrownIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { IAuthUser } from '../../store/reducers/auth/types';
+import { useSelector } from 'react-redux';
 const ChannelPlaylists = () => {
   const { id } = useParams();
+  const { t } = useTranslation(); // Initialize the hook
 
   const [playlists, setPlaylists] = useState<IPlaylistLookup[]>([]);
   const [page, setPage] = useState(1);
@@ -16,6 +20,8 @@ const ChannelPlaylists = () => {
   const [needLoad, setNeedLoad] = useState<number>(1);
   const [canLoad, setCanLoad] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { user } = useSelector((store: any) => store.auth as IAuthUser);
 
   const fetchPlaylists = async () => {
     try {
@@ -48,7 +54,7 @@ const ChannelPlaylists = () => {
           <div className="mb-8">
             <h1 className="text-white text-3xl">
               <span className="border-b-[3px] pb-1.5 border-primary">
-                Created playlists
+                {t('channelPlaylists.createdPlaylists')}
               </span>
             </h1>
           </div>
@@ -58,6 +64,64 @@ const ChannelPlaylists = () => {
                 <PlaylistItem playlist={p}></PlaylistItem>
               </li>
             ))}
+
+            {playlists.length == 0 && user?.userId == id && (
+              <>
+                <div className="mb-6 w-75">
+                  <Link to={'/profile/playlists/addPlaylist'}>
+                    <div className="relative  h-45 min-w-75 min-h-45 ">
+                      <div className="w-75 h-45 bg-gray rounded-lg">
+                        <div className="text-white h-full flex justify-center items-center">
+                          <div className="w-32">
+                            <PlusIcon></PlusIcon>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+
+                  <div className="flex items-start mt-2">
+                    <div className="text">
+                      <Link to={'/profile/playlists/addPlaylist'}>
+                        <h3 className="text-white text-lg">
+                          {t('playlistItem.firstPlaylist')}
+                        </h3>
+                        <div className="mt-1">
+                          <p className="text-gray">
+                            {t('playlistItem.viewFullPlaylist')}
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {playlists.length == 0 && user?.userId != id && (
+              <>
+                <div className="mb-6 w-75">
+                  <div className="relative  h-45 min-w-75 min-h-45 ">
+                    <div className="w-75 h-45 bg-gray rounded-lg">
+                      <div className="text-white h-full flex justify-center items-center">
+                        <div className="w-32">
+                          <FaceFrownIcon></FaceFrownIcon>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start mt-2">
+                    <div className="text">
+                      <h3 className="text-white text-lg">
+                        {t('playlistItem.noPlaylists')}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
             <li>
               {isLoading && <OperationLoader></OperationLoader>}
 

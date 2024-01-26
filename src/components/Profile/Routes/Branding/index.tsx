@@ -1,8 +1,10 @@
+// src/components/Profile/Routes/Branding/index.tsx
 import { useState } from 'react';
 import { PrimaryProcessingButton } from '../../../common/buttons/PrimaryProcessingButton';
 import { ModalCropper } from '../../../ModalCropper';
 import http_api from '../../../../services/http_api';
 import { handleError, handleSuccess } from '../../../../common/handleError';
+import { useTranslation } from 'react-i18next'; // Import the hook
 
 interface IchannelPhoto {
   ChannelPhotoFile: File | null;
@@ -12,7 +14,8 @@ interface IChangeBannerRequest {
   BannerFileId: File | null;
 }
 
-export const ProfileBranding = () => { 
+export const ProfileBranding = () => {
+  const { t } = useTranslation(); // Initialize the hook
 
   const [userData, setUserData] = useState<IchannelPhoto>({
     ChannelPhotoFile: null,
@@ -77,28 +80,24 @@ export const ProfileBranding = () => {
   return (
     <>
       <div className="item mb-12">
-        <h3 className="text-white text-xl mb-2 font-bold">Picture</h3>
+        <h3 className="text-white text-xl mb-2 font-bold">{t('profileBranding.picture')}</h3>
         <div className="flex">
           <div className="left">
             <div className="w-36 h-36   rounded-full mr-6">
               <ModalCropper
                 onSave={onImageSaveHandler}
                 error={''}
-
               ></ModalCropper>
             </div>
           </div>
           <div className="right w-80">
-            <p className="text-gray text-lg">
-              It`s recommended that you use a picture that`s at least 98 x 98
-              pixels and 4 MB or less. Use any known file type.
-            </p>
+            <p className="text-gray text-lg">{t('profileBranding.recommendedDimensions')}</p>
             <div className="w-35 mt-6">
   {userData && userData.ChannelPhotoFile ? (
     <PrimaryProcessingButton
       onClick={handleUploadButtonClick}
       isLoading={false}
-      text="Upload"
+      text={t('profileBranding.upload')}
       type="button"
     />
   ) : null}
@@ -108,15 +107,10 @@ export const ProfileBranding = () => {
         </div>
       </div>
       <div className="item mb-12">
-        <h3 className="text-white text-xl mb-2 font-bold">Banner image</h3>
+        <h3 className="text-white text-xl mb-2 font-bold">{t('profileBranding.bannerImage')}</h3>
         <div className="flex">
           <div className="left">
             <div className="mr-6 w-36 fill-white dark:bg-transparent">
-              {/* <img
-                className="w-36 fill-white dark:bg-transparent"
-                src="/public/thumb_banner.png"
-                alt=""
-              /> */}
               <ModalCropper
                 onSave={onBannerSaveHandler}
                 error={''}
@@ -125,15 +119,12 @@ export const ProfileBranding = () => {
             </div>
           </div>
           <div className="right w-80">
-            <p className="text-gray text-lg">
-              For the best results on all devices, use an image that`s at least
-              2048 x 1152 pixels and 6 MB or less.
-            </p>
+            <p className="text-gray text-lg">{t('profileBranding.bestResultsBanner')}</p>
             <div className="w-35 mt-6">
               <PrimaryProcessingButton
                 onClick={handleUploadBannerClick}
                 isLoading={false}
-                text="Upload"
+                text={t('profileBranding.upload')}
                 type="button"
               ></PrimaryProcessingButton>
             </div>
@@ -141,7 +132,7 @@ export const ProfileBranding = () => {
         </div>
       </div>
       <div className="item mb-12">
-        <h3 className="text-white text-xl mb-2 font-bold">Video watermark</h3>
+        <h3 className="text-white text-xl mb-2 font-bold">{t('profileBranding.videoWatermark')}</h3>
         <div className="flex">
           <div className="left">
             <div className="mr-6">
@@ -153,15 +144,12 @@ export const ProfileBranding = () => {
             </div>
           </div>
           <div className="right w-80">
-            <p className="text-gray text-lg">
-              An image that has 1:1 aspect ratio (square). Use any known format
-              file that`s 1 MB or less.
-            </p>
+            <p className="text-gray text-lg">{t('profileBranding.videoWatermarkDescription')}</p>
             <div className="w-35 mt-6">
               <PrimaryProcessingButton
                 onClick={() => { }}
                 isLoading={false}
-                text="Upload"
+                text={t('profileBranding.upload')}
                 type="button"
               ></PrimaryProcessingButton>
             </div>

@@ -12,8 +12,12 @@ import { Navbar } from '../../components/common/navbars/Navbar';
 import { recommendationVideosRoutes } from '../../routes';
 import { MainPoster } from '../../components/Home/MainPoster';
 
+import { useTranslation } from 'react-i18next';
+
 const HomePage = () => {
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -35,7 +39,7 @@ const HomePage = () => {
                     <div className="icon w-8 relative">
                       <VideoCameraIcon></VideoCameraIcon>
                     </div>
-                    <span className="font-bold">Sign in to act</span>
+                    <span className="font-bold">{t('homePage.signInToAct')}</span>
                   </Link>
                 </div>
               </div>
@@ -53,7 +57,7 @@ const HomePage = () => {
                     <div className="icon w-8 relative">
                       <VideoCameraIcon></VideoCameraIcon>
                     </div>
-                    <span className="font-bold">Create a video</span>
+                    <span className="font-bold">{t('homePage.createVideo')}</span>
                   </Link>
                 </div>
               </div>
@@ -75,4 +79,5 @@ const HomePage = () => {
     </>
   );
 };
+
 export default HomePage;

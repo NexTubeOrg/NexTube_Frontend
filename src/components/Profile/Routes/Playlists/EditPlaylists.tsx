@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import CheckboxOne from '../../../CheckboxOne';
 import { VideoItem } from '../../../Videos/VideoItem';
@@ -31,11 +32,11 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
           <div className="item flex mt-3">
             <div className="playlist mr-3">
               <Link to={`/video/watch/playlist/${props.playlist.id}`}>
-                <div className="w-40 h-25 bg-gray">
+                <div className="w-40 h-25 bg-gray rounded-lg">
                   {props.playlist.preview && (
                     <>
                       <img
-                        className="w-40 h-25 bg-cover"
+                        className="w-40 h-25 bg-cover rounded-lg"
                         src={
                           '/api/photo/getPhotoUrl/' +
                           props.playlist.preview +
@@ -49,7 +50,7 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
             </div>
 
             <div className="text">
-              <Link to={`/playlists/${props.playlist.id}`}>
+              <Link to={`/video/watch/playlist/${props.playlist.id}`}>
                 <h3 className="text-white text-lg">{props.playlist.title}</h3>
               </Link>
             </div>
@@ -59,7 +60,10 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
           <span>{props.playlist.totalCountVideos}</span>
         </td>
         <td className="pb-2 text-right">
-          <NavLink className="text-primary uppercase font-semibold" to={''}>
+          <NavLink
+            className="text-primary disabled disabled:text-gray disabled:cursor-default uppercase font-semibold"
+            to={''}
+          >
             Edit draft
           </NavLink>
         </td>
@@ -114,7 +118,7 @@ export const EditPlaylists = () => {
       console.error('Error fetching users:', error);
     }
   };
-
+  const { t } = useTranslation();
   return (
     <>
       <Outlet></Outlet>
@@ -132,7 +136,7 @@ export const EditPlaylists = () => {
                   <div className="w-30">
                     <PrimaryButtonLink
                       urlTo="addPlaylist"
-                      title="Create playlist"
+                      title={t('setVideoPlaylist.createNewPlaylist')}
                     ></PrimaryButtonLink>
                   </div>
                 </div>
@@ -144,8 +148,8 @@ export const EditPlaylists = () => {
           <th className="pb-2 text-left">
             <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
           </th>
-          <th className="pb-2 text-left">Playlists</th>
-          <th className="pb-2 text-left">Count videos</th>
+          <th className="pb-2 text-left">{t('editPlaylists.playlists')}</th>
+          <th className="pb-2 text-left">{t('editPlaylists.countVideos')}</th>
           <th className="pb-2 text-right"></th>
         </tr>
         <>

@@ -67,7 +67,7 @@ const RegistrationInput = (props: {
         htmlFor={props.propertyName}
         className="mb-2.5 block font-medium text-black dark:text-white"
       >
-        Enter {props.labelText}
+         {props.labelText}
       </label>
 
       <div className="relative">

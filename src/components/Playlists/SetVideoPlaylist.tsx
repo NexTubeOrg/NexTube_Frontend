@@ -14,19 +14,22 @@ import { CreatePlaylistOverlay } from '../Profile/Routes/Playlists/CreatePlaylis
 import { Link, Outlet } from 'react-router-dom';
 import { SecondaryProcessingButton } from '../common/buttons/SecondaryProcessingButton';
 import { PrimaryButtonLink } from '../common/links/PrimaryButtonLink';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const SelectVideoPlaylist = (props: {
   handleDisagreeClick: () => Promise<void> | null;
   playlists: IVideoPlaylistUserStatus[];
   handlePlaylistToggle: (playlistId: number) => Promise<void> | null;
 }) => {
+  const { t } = useTranslation(); 
   return (
     <>
       <React.Fragment>
         <div className="fixed inset-0 flex items-center justify-center bg-secondary bg-opacity-75 z-50 rounded-md">
           <div className=" bg-body py-4 px-8 rounded-md text-center w-[24rem]">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl text-white">Save video</h2>
+              <h2 className="text-2xl text-white">{t("setVideoPlaylist.saveVideo")}</h2>
 
               <CancelButton
                 onClick={() => {
@@ -34,12 +37,12 @@ const SelectVideoPlaylist = (props: {
                 }}
               ></CancelButton>
             </div>
-            <div className="flex text-white ">
+            <div className="text-white ">
               <div className="">
                 <ul className="w-full h-100 overflow-y-scroll default-custom-scrollbar">
                   {props.playlists.map((p) => (
                     <li key={p.playlist.id}>
-                      <div className="mb-3 flex justify-between items-center">
+                      <div className="mb-3 w-full flex justify-between items-center">
                         <CheckboxFour
                           name={p.playlist.title}
                           id={p.playlist.id.toString()}
@@ -67,7 +70,7 @@ const SelectVideoPlaylist = (props: {
                       <div className="h-8 w-8 mr-2">
                         <PlusIcon></PlusIcon>
                       </div>
-                      <span className="font-bold">Create new playlist</span>
+                      <span className="font-bold">{t('setVideoPlaylist.createNewPlaylist')}</span>
                     </div>
                   </Link>
                 </div>
@@ -134,11 +137,94 @@ export const SetVideoPlaylist = (props: {
         onClick={() => {
           setIsShown((p) => !p);
         }}
-        text="Save to playlist"
+        text={t("watchVideo.saveToPlaylist")}
         type="button"
         icon={<PlusIcon></PlusIcon>}
         backgroundClassname="black  dark:hover:bg-secondary"
       ></IconedProcessingButton>
+      {isShown && (
+        <>
+          <SelectVideoPlaylist
+            playlists={playlists}
+            handleDisagreeClick={async () => {
+              setIsShown(false);
+            }}
+            handlePlaylistToggle={async (playlistId: number) => {
+              changeVideoPlaylist(playlistId);
+              setPlaylists((ps) => {
+                return ps.map((p) => {
+                  if (p.playlist.id == playlistId) {
+                    p.isVideoInPlaylist = !p.isVideoInPlaylist;
+                  }
+                  return p;
+                });
+              });
+            }}
+          ></SelectVideoPlaylist>
+        </>
+      )}
+    </>
+  );
+};
+
+export const SetVideoPlaylistShort = (props: {
+  video: IVideoLookup | undefined;
+}) => {
+  const [isShown, setIsShown] = useState<boolean>(false);
+  const [playlists, setPlaylists] = useState<IVideoPlaylistUserStatus[]>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize] = useState(4000);
+
+  const fetchPlaylists = async () => {
+    try {
+      const response = (
+        await http_api.get<IGetUserPlaylistsResult>(
+          `/api/Video/Playlist/GetVideoPlaylistsUserStatus?VideoId=${props.video?.id}&Page=${page}&PageSize=${pageSize}`,
+        )
+      ).data;
+      const newPlaylists = response.playlists || [];
+      setPlaylists((prev) => {
+        if (newPlaylists.length < 1) return prev;
+        if (
+          prev.find((p) => p.playlist.id == newPlaylists[0].playlist.id) != null
+        )
+          return prev;
+
+        return [...prev, ...newPlaylists];
+      });
+      setPage((page) => page + 1);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  const changeVideoPlaylist = async (newVideoPlaylistId: number) => {
+    try {
+      await http_api.post(`/api/Video/Playlist/ChangeVideoPlaylist`, {
+        videoId: props.video?.id,
+        playlistId: newVideoPlaylistId,
+      });
+      handleSuccess('Video playlist toggled successfuly');
+    } catch (error) {
+      console.error('Error set video playlist:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlaylists();
+  }, [props.video]);
+
+  return (
+    <>
+      <Link
+        to={'#'}
+        onClick={() => {
+          setIsShown((p) => !p);
+        }}
+      >
+        Set playlist
+      </Link>
+
       {isShown && (
         <>
           <SelectVideoPlaylist

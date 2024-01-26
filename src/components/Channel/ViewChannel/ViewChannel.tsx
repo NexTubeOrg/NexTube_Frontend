@@ -1,8 +1,9 @@
-import { Outlet , useParams } from 'react-router-dom';
- import { Navbar } from '../../common/navbars/Navbar';
+// src/components/Channel/ViewChannel/ViewChannel.tsx
+import React, { useEffect, useState } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
+import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
 import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription';
-import { useEffect, useState } from 'react';
 import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
@@ -11,8 +12,10 @@ import { IUsersubscription, SubscriptionReducerActionsType } from '../../../stor
 import { channelRoutes } from '../../../routes';
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const ViewChannel = () => {
+  const { t } = useTranslation();
   const [userData, setUserData] = useState<IUserInfo>();
   const { id } = useParams();
   const parts = location.pathname.split('/');
@@ -47,7 +50,7 @@ const ViewChannel = () => {
    
  
   if (!userData) {
-    return <div>Loading...</div>;
+    return <div>{t('channel.loading')}</div>;
   }
 
   return (
@@ -84,9 +87,9 @@ const ViewChannel = () => {
               <h4 className="text-gray text-md  mb-2">
                 <span className="mr-4">@{userData.nickname}</span>
                 <span className="mr-4">
-                  {userData.subsciptions} subscribers
+                  {userData.subsciptions} {t('channel.subscribers')}
                 </span>
-                <span className="">{userData.video} videos</span>
+                <span className="">{userData.video} {t('channel.videos')}</span>
               </h4>
               {/* Channel description */}
               <h4 className="text-gray text-md  mb-2">
@@ -98,42 +101,44 @@ const ViewChannel = () => {
                   <a className="mr-1 text-primary" href="#">
                     (5) I spent a day with *EMOs* - NexTube
                   </a>
-                  <span className="text-white">and 2 more links</span>
+                  <span className="text-white">{t('channel.channelLinks')}</span>
                 </span>
               </h4>
               {/* Subscribe to channel */}
-              {id !== user?.userId && (  <div className="channel-tools">
-                <div className="w-35 ">
-                <SubscribeButton
-                    isLoading={false}
-                    onClick={() => {}}
-                    text="Subscribe"
-                    type="button"
-                    backgroundClassname="primary"
-                    subscribeId={id}
-                  ></SubscribeButton>
+              {id !== user?.userId && (
+                <div className="channel-tools">
+                  <div className="w-35 ">
+                    <SubscribeButton
+                      isLoading={false}
+                      onClick={() => {}}
+                      text={t('watchVideo.subscribe')}
+                      type="button"
+                      backgroundClassname="primary"
+                      subscribeId={id}
+                    ></SubscribeButton>
+                  </div>
+                  <div className="w-11 h-0 ml-4">
+                    <IconedProcessingButton
+                      isLoading={false}
+                      onClick={handleReportClick}
+                      text=""
+                      type="button"
+                      icon={<FlagIcon height={25} width={25} />}
+                      backgroundClassname="primary"
+                    ></IconedProcessingButton>
+                  </div>
                 </div>
-                <div className="w-11 h-0 ml-4">
-                  <IconedProcessingButton
-                    isLoading={false}
-                    onClick={handleReportClick}
-                    text=""
-                    type="button"
-                    icon={<FlagIcon height={25} width={25} />}
-                    backgroundClassname="primary"
-                  ></IconedProcessingButton>
-                </div>
-              </div>)}
+              )}
             </div>
           </div>
           {showReportForm && (
             <div className="report-form-overlay w-150 p-0">
               <ReportForm
-                abuser={Number(parts[2])}
+                abuser={Number(parts[2])
                 videoId={null}
                 onSubmitSuccess={handleReportFormClose}
               />
-              <button onClick={handleReportFormClose}>Close Report Form</button>
+              <button onClick={handleReportFormClose}>{t('channel.reportForm.closeButton')}</button>
             </div>
           )}
           {!showReportForm && (

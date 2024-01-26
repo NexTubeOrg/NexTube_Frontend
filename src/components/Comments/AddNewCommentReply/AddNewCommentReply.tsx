@@ -1,4 +1,6 @@
-import { useState } from 'react';
+// src/components/Comments/AddNewCommentReply/AddNewCommentReply.tsx
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SecondaryProcessingButton } from '../../common/buttons/SecondaryProcessingButton';
 import AddNewCommentField from '../AddNewCommentField/AddNewCommentField';
 import classNames from 'classnames';
@@ -8,6 +10,8 @@ const AddNewCommentReply = (props: {
   rootCommentId: number | undefined;
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="w-30">
@@ -19,7 +23,7 @@ const AddNewCommentReply = (props: {
             setIsOpen((o) => !o);
           }}
         >
-          Reply
+          {t('addNewCommentReply.reply')}
         </button>
       </div>
       {isOpen && (
@@ -34,4 +38,5 @@ const AddNewCommentReply = (props: {
     </>
   );
 };
+
 export default AddNewCommentReply;
