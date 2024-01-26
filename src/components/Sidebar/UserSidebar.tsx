@@ -62,6 +62,14 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     return () => document.removeEventListener('click', clickHandler);
   }, []);
 
+  useEffect(() => {
+    console.log('Current win w', window.screen.width);
+    if (window.screen.width < 1024) {
+      setSidebarOpen(false);
+      setSidebarExpanded(false);
+    }
+  }, [window.screen.width]);
+
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
