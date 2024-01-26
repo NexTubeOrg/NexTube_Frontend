@@ -85,7 +85,7 @@ const Header = (props: {
 
         <div className="flex z-9999 items-center gap-3 2xsm:gap-7">
           {/* <!-- User Area --> */}
-          {isAuth && <DropdownUser />}
+          {isAuth && <DropdownUser sidebarOpen={props.sidebarOpen} setSidebarOpen={props.setSidebarOpen} />}
           {!isAuth && (
             <>
               <Link

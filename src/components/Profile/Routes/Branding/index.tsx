@@ -21,29 +21,35 @@ export const ProfileBranding = () => {
     ChannelPhotoFile: null,
   });
   const [banner, setBanner] = useState<File | null>(null);
-
+ 
   const onImageSaveHandler = (file: File) => {
-    console.log('image save handle', file);
+    
+       console.log('image save handle', file);
     setUserData((prevData) => ({
       ...prevData,
       ChannelPhotoFile: file,
+      
     }));
   };
 
   const handleUploadButtonClick = async () => {
     try {
-      console.log("lox");
-
-      await http_api.put('/api/User/UpdateChannelImage', userData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      window.location.reload();
-
+      
+    
+        await http_api.put('/api/User/UpdateChannelImage', userData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+         
+          },
+        });   
+        handleSuccess('Update');
+ 
+           window.location.reload();
+          
     } catch (error) {
       console.error('Error saving changes:', error);
-    }
+      handleError("Channel image upload failed.");
+     }
   };
 
   const onBannerSaveHandler = (file: File) => {
@@ -77,7 +83,7 @@ export const ProfileBranding = () => {
         <h3 className="text-white text-xl mb-2 font-bold">{t('profileBranding.picture')}</h3>
         <div className="flex">
           <div className="left">
-            <div className="w-36 h-36 dark:bg-primary rounded-full mr-6">
+            <div className="w-36 h-36   rounded-full mr-6">
               <ModalCropper
                 onSave={onImageSaveHandler}
                 error={''}
@@ -87,13 +93,16 @@ export const ProfileBranding = () => {
           <div className="right w-80">
             <p className="text-gray text-lg">{t('profileBranding.recommendedDimensions')}</p>
             <div className="w-35 mt-6">
-              <PrimaryProcessingButton
-                onClick={handleUploadButtonClick}
-                isLoading={false}
-                text={t('profileBranding.upload')}
-                type="button"
-              ></PrimaryProcessingButton>
-            </div>
+  {userData && userData.ChannelPhotoFile ? (
+    <PrimaryProcessingButton
+      onClick={handleUploadButtonClick}
+      isLoading={false}
+      text={t('profileBranding.upload')}
+      type="button"
+    />
+  ) : null}
+</div>
+
           </div>
         </div>
       </div>

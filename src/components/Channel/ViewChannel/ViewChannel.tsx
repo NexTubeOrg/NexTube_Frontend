@@ -7,7 +7,8 @@ import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription
 import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
-import { FlagIcon } from '@heroicons/react/24/outline';
+import { FlagIcon } from '@heroicons/react/20/solid';
+import { IUsersubscription, SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
 import { channelRoutes } from '../../../routes';
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
@@ -29,17 +30,19 @@ const ViewChannel = () => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
+  const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+
   useEffect(() => {
     fetchData();
-  }, [setUserData, id]);
+ },  [userSubscriptions ]);
 
   const fetchData = async () => {
     try {
-      console.log('id', id);
+ 
       const response = await http_api.get(`/api/User/GetUser?ChannelId=${id}`);
-      const data = await response.data;
-      console.log('User!!!!!!', response.data);
-      setUserData(data);
+
+      setUserData(response.data);
+
     } catch (error) {
       console.error('Error fetching user data:', error);
     }

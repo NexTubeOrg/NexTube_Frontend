@@ -54,6 +54,7 @@ const VideoItem = (props: { video: IVideoLookup }) => {
                     ? props.video.creator?.lastName?.slice(0, 15) + '...'
                     : props.video.creator?.lastName}
                 </h4>
+
               </Link>
               <h4 className="text-white text-sm">
                 <span className="mr-2">

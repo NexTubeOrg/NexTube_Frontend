@@ -4,15 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import http_api from '../../../services/http_api';
-import { storeToken } from '../../../services/tokenService';
-import GoogleAuthWrapper from '../Google/GoogleAuthWrapper';
-import { handleError, handleSuccess } from '../../../common/handleError';
+import {  storeToken, storeTokenAcount } from '../../../services/tokenService';
+ 
+ import { handleError, handleSuccess } from '../../../common/handleError';
 import { PrimaryProcessingButton } from '../../../components/common/buttons/PrimaryProcessingButton';
 import { ILoginRequest, ILoginResult } from './types';
 import { SignInTitle } from './SignInTitle';
 import { DefaultInput } from '../../common/inputs';
 import CheckboxOne from '../../CheckboxOne';
 import { LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
+import GoogleAuthWrapper from '../Google/GoogleAuthWrapper';
+import { IAuthUser } from '../../../store/reducers/auth/types';
+ 
+import { useSelector } from 'react-redux';
+ 
 import { useTranslation } from 'react-i18next';
 
 const SignInWidget = () => {
@@ -35,7 +40,8 @@ const SignInWidget = () => {
       .required(t('auth.signIn.passwordLabel'))
       .min(8, t('auth.signIn.passwordMinLength')),
   });
-
+ 
+  const {   isAuth } = useSelector((store: any) => store.auth as IAuthUser);
   const onFormSubmit = async (values: ILoginRequest) => {
     try {
       setIsLoading(() => true);
@@ -45,6 +51,8 @@ const SignInWidget = () => {
       if (result.result.succeeded !== true) throw result.result;
 
       const { token } = result;
+     
+      storeTokenAcount(token); 
       storeToken(token);
       handleSuccess(t('auth.signIn.loginSuccess'));
       navigator('/');
@@ -53,6 +61,7 @@ const SignInWidget = () => {
     } finally {
       setIsLoading(() => false);
     }
+  
   };
 
   const formik = useFormik({

@@ -1,14 +1,16 @@
-import axios, { AxiosError } from 'axios';
 import jwtDecode from 'jwt-decode';
 import { AuthUserActionType, IUser } from '../store/reducers/auth/types';
 import http_api from './http_api';
 import { store } from '../store';
+import { AcountSwitchActionType } from '../store/reducers/acountSwitch/types';
 
 export const storeToken = (token: string) => {
   console.log('store token');
   localStorage.setItem('token', `Bearer ${token}`);
   http_api.defaults.headers['Authorization'] = getToken();
   const user: IUser = jwtDecode(token);
+  addToken(user.userId.toString(),token);
+ 
   store.dispatch({
     type: AuthUserActionType.LOGIN_USER,
     payload: {
@@ -84,3 +86,63 @@ export enum Roles {
   User = 'User',
   Unverified = 'Unverified',
 }
+
+ export const saveTokensToLocalStorage = (tokens: { key: string, value: string }[]) => {
+  localStorage.setItem('tokens', JSON.stringify(tokens));
+};
+
+ export const getTokensFromLocalStorage = (): { key: string, value: string }[] => {
+  const tokensString = localStorage.getItem('tokens');
+  return tokensString ? JSON.parse(tokensString) : [];
+};
+
+export const addToken = (key: string, newToken: string) => {
+  const tokens = getTokensFromLocalStorage();
+
+   const existingTokenIndex = tokens.findIndex(token => token.key === key);
+
+  if (existingTokenIndex === -1) {
+     tokens.push({ key, value: newToken });
+    saveTokensToLocalStorage(tokens);
+  } else {
+     tokens[existingTokenIndex].value = newToken;
+    saveTokensToLocalStorage(tokens);
+  }
+};
+
+ export const getTokenByKey = (key: string): string | undefined => {
+  const tokens = getTokensFromLocalStorage();
+  const tokenObject = tokens.find(token => token.key === key);
+  return tokenObject ? tokenObject.value : undefined;
+};
+
+ 
+ 
+export const removeallTokens=()=>{
+  const tokensString = localStorage.getItem('tokens')as string;
+ var tokensArray = JSON.parse(tokensString);
+
+ tokensArray = [];
+
+ localStorage.setItem('tokens', JSON.stringify(tokensArray));
+
+};
+ 
+
+
+
+
+export const storeTokenAcount = (token: string) => {
+  const user: IUser = jwtDecode(token);
+  addToken(user.userId.toString(),token);
+store.dispatch({
+  type: AcountSwitchActionType.LOGIN_USER_ADD,
+  payload: {
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    channelPhoto: user.channelPhoto,
+    roles: user.roles,
+    userId: user.userId,
+  },
+});}

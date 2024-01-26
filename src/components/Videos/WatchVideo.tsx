@@ -1,44 +1,36 @@
-import {
-  ArrowDownTrayIcon,
-  ShareIcon,
-  FlagIcon,
-  ListBulletIcon,
-} from '@heroicons/react/24/outline';
-import React, { useEffect, useRef, useState } from 'react';
+ 
+import { useEffect, useRef, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
-import { Link, useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { CollapseText } from '../common/CollapseText';
+import { Link } from 'react-router-dom';
+ import { CollapseText } from '../common/CollapseText';
 import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
 import { AddVideoReaction } from '../Reactions/AddVideoReaction';
 import VideoCommentsLoader from '../Comments/CommentsContainer/VideoCommentsLoader';
 import { IVideoLookup } from '../../pages/Video/common/types';
 import {
   BigPlayButton,
-  ControlBar,
   LoadingSpinner,
-  PlayToggle,
   Player,
-  PosterImage,
-  Shortcut,
 } from 'video-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import './../../styles/custom-video-react.css';
-
 import ReportForm from '../ReportForm';
 import { handleSuccess } from '../../common/handleError';
-import { APP_CONFIG } from '../../env';
+import http_api from '../../services/http_api';
+import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../store/reducers/auth/types';
-import { SetVideoPlaylist } from '../Playlists/SetVideoPlaylist';
 import MoreVideoActions from './MoreVideoActions';
+import { ShareIcon } from '@heroicons/react/24/outline';
+
 import { useTranslation } from 'react-i18next'; // Import the hook
 
 dayjs.extend(relativeTime);
 
-const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
+const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
   const [showReportForm, setShowReportForm] = useState(false);
+
   const [isAuthUserVideoOwner, setIsAuthUserVideoOwner] = useState(false);
 
   const { user } = useSelector((state: any) => state.auth as IAuthUser);
@@ -50,6 +42,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
     setIsAuthUserVideoOwner(user?.userId == props.video?.creator?.userId);
   }, [user?.userId, props.video]);
 
+
   const handleReportClick = () => {
     setShowReportForm((prevShowReportForm) => !prevShowReportForm);
   };
@@ -58,6 +51,22 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
     setShowReportForm(false);
   };
 
+  const [userData, setUserData] = useState<IUserInfo>();
+
+  const {  isAuth } = useSelector((store: any) => store.auth as IAuthUser);
+const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+
+  useEffect(() => {
+  if(isAuth){  const fetchData = async () => {
+ 
+         const response = await http_api.get(`/api/User/GetUser?ChannelId=${props.video?.creator?.userId}`);
+          setUserData(response.data);
+          
+       };
+    fetchData();}
+ }, [  userSubscriptions]);
+ 
+ 
   useEffect(() => {
     player.current.load();
   }, [props.video]);
@@ -118,9 +127,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                         ? props.video!.creator?.lastName?.slice(0, 15) + '...'
                         : props.video!.creator?.lastName}
                     </h3>
-                    <h3 className="text-gray text-md">
-                      3.23M {t('watchVideo.subscribers')}
-                    </h3>
+                    <h3 className="text-gray text-md"> {userData?.subsciptions} {t('watchVideo.subscribers')}</h3>
                   </div>
                 </div>
               </Link>

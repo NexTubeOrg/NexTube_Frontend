@@ -8,6 +8,7 @@ import { ILoginResult, IUserUpdate } from '../../../../pages/UpdateUser/types';
 import http_api from '../../../../services/http_api';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../../../store/reducers/auth/types';
+import { handleError, handleSuccess } from '../../../../common/handleError';
 import { useTranslation } from 'react-i18next'; // Import the hook
 
 export const ProfileInfo = () => {
@@ -49,9 +50,11 @@ export const ProfileInfo = () => {
       console.log("Update", userData);
       await http_api.put<ILoginResult>('/api/user/updateuser', userData);
       window.location.reload();
-      console.log('Changes saved successfully!');
+      handleSuccess('Update');
     } catch (error) {
       console.error('Error saving changes:', error);
+      handleError(error);
+
     }
   };
 
