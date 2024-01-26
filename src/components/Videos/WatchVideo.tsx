@@ -97,10 +97,10 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
           </div>
 
           {/* actions section */}
-          <div className="ml-5 flex justify-between items-center">
+          <div className="ml-5 mt-2.5 flex justify-between items-center">
             <div className="flex items-center">
               <Link to={`/channel/${props.video?.creator?.userId}`}>
-                <div className="flex mt-5 items-center">
+                <div className="flex items-center">
                   <img
                     className="rounded-full h-16 w-16"
                     src={
@@ -118,17 +118,18 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                         ? props.video!.creator?.lastName?.slice(0, 15) + '...'
                         : props.video!.creator?.lastName}
                     </h3>
-                    <h3 className="text-gray text-md">3.23M {t("watchVideo.subscribers")}</h3>
+                    <h3 className="text-gray text-md">
+                      3.23M {t('watchVideo.subscribers')}
+                    </h3>
                   </div>
                 </div>
               </Link>
-
               {!isAuthUserVideoOwner && (
                 <div className="w-30 ml-5">
                   <SubscribeButton
                     isLoading={false}
                     onClick={() => {}}
-                    text={t("watchVideo.subscribe")}
+                    text={t('watchVideo.subscribe')}
                     type="button"
                     backgroundClassname="primary"
                     subscribeId={props.video?.creator?.userId.toString()}
@@ -148,7 +149,7 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                     navigator.clipboard.writeText(window.location.href);
                     handleSuccess('Copied link to clipboard');
                   }}
-                  text={t("watchVideo.share")}
+                  text={t('watchVideo.share')}
                   type="button"
                   icon={<ShareIcon></ShareIcon>}
                   backgroundClassname="secondary"
@@ -170,13 +171,17 @@ const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
                 videoId={props.video?.id}
                 onSubmitSuccess={handleReportFormClose}
               />
-              <button onClick={handleReportFormClose}>{t("watchVideo.closeReportForm")}</button>
+              <button onClick={handleReportFormClose}>
+                {t('watchVideo.closeReportForm')}
+              </button>
             </div>
           )}
 
           <div className="description bg-secondary p-5 mt-5 rounded-lg">
             <h3 className="text-white text-2xl">
-              <span className="mr-3">{props.video?.views} {t("watchVideo.views")}</span>
+              <span className="mr-3">
+                {props.video?.views} {t('watchVideo.views')}
+              </span>
               <span>{dayjs(props.video?.dateCreated).fromNow()}</span>
             </h3>
             <CollapseText text={props.video?.description}></CollapseText>

@@ -1,299 +1,293 @@
 {
-    "auth": {
-      "recover": {
-        "title": "Password Recovery",
-        "emailInputLabel": "Enter your email",
-        "resetButton": "Reset",
-        "successMessage": "Password recovery initiated successfully",
-        "alreadyRecoveredMessage": "Already recovered? ",
-        "signInLinkText":"Sign in",
-        "emailError":"Wrong email"
+  "auth": {
+    "recover": {
+      "title": "Password Recovery",
+      "emailInputLabel": "Enter your email",
+      "resetButton": "Reset",
+      "successMessage": "Password recovery initiated successfully",
+      "alreadyRecoveredMessage": "Already recovered? ",
+      "signInLinkText": "Sign in",
+      "emailError": "Wrong email"
+    },
+    "recoverTitle": {
+      "line1": "Forgot",
+      "line2": "your",
+      "line3": "Password?"
+    },
+    "signIn": {
+      "googleAuthLoading": "Signing in with Google...",
+      "title": {
+        "line1": "Authorization",
+        "line2": "of your ",
+        "line3": "account"
       },
-      "recoverTitle": {
-        "line1": "Forgot",
-        "line2": "your",
-        "line3": "Password?"
-      },
-      "signIn": {
-        "googleAuthLoading": "Signing in with Google...",
-        "title": {
-          "line1": "Authorization",
-          "line2": "of your ",
-          "line3": "account"
-        },
-        "emailLabel": "Enter your email",
-        "passwordLabel": "Enter your password",
-        "loginButton": "Login",
-        "rememberMe": "Remember me",
-        "noAccountText": "Don’t have any account? ",
-        "signupLink": "Sign Up",
-        "forgotPasswordText": "Forgot your Password? ",
-        "recoverLink": "Recover",
-        "emailValidation":"Wrong email",
-        "passwordMinLength":"Too short password"
-      },
-      "signUp": {
-        "title": "Sign up",
-        "yourFirstName": "Your first name",
-        "yourLastName": "Your last name",
-        "yourEmail": "Your e-mail",
-        "yourPassword": "Your password",
-        "repeatPassword": "Repeat password",
-        "imageError": "Image is required",
-        "signUpButton": "Sign up",
-        "alreadyHaveAccount": "Already have account?",
+      "emailLabel": "Enter your email",
+      "passwordLabel": "Enter your password",
+      "loginButton": "Login",
+      "rememberMe": "Remember me",
+      "noAccountText": "Don’t have any account? ",
+      "signupLink": "Sign Up",
+      "forgotPasswordText": "Forgot your Password? ",
+      "recoverLink": "Recover",
+      "emailValidation": "Wrong email",
+      "passwordMinLength": "Too short password",
+      "loginSuccess": "Logged in successfully"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "yourFirstName": "Your first name",
+      "yourLastName": "Your last name",
+      "yourEmail": "Your e-mail",
+      "yourPassword": "Your password",
+      "repeatPassword": "Repeat password",
+      "imageError": "Image is required",
+      "signUpButton": "Sign up",
+      "alreadyHaveAccount": "Already have account?",
+      "loginEasily": "You can login easily",
+      "signInButton": "Sign in",
+      "forgotPasswordButton": "Forgot password",
+
+      "emailValidation": "Wrong email",
+      "passwordMinLength": "Too short password",
+      "passwordMismatch": "Password mismatch",
+      "successMessage": "Registered succesfully",
+      "emailVerifiedSuccessfully": "Verified succesfully"
+    },
+    "verifyMail": {
+      "checkEmail": "Check your email 📧",
+      "verificationCode": "verification code",
+      "verifyButton": "Verify",
+      "alreadyHaveAccount": {
+        "title": "Already have",
+        "account": "account?",
         "loginEasily": "You can login easily",
         "signInButton": "Sign in",
-        "forgotPasswordButton": "Forgot password",
-
-
-        "emailValidation":"Wrong email",
-        "passwordMinLength":"Too short password",
-        "passwordMismatch":"Password mismatch",
-        "successMessage":"Registered succesfully",
-        "emailVerifiedSuccessfully":"Verified succesfully"
-      },
-      "verifyMail": {
-        "checkEmail": "Check your email 📧",
-        "verificationCode": "verification code",
-        "verifyButton": "Verify",
-        "alreadyHaveAccount": {
-          "title": "Already have",
-          "account": "account?",
-          "loginEasily": "You can login easily",
-          "signInButton": "Sign in",
         "forgotPasswordButton": "Forgot password"
-        }
       }
     }
-    ,
-    "channel": {
-        "loading": "Loading...",
-        "subscribeButton": "Subscribe",
-        "videos": "videos",
-        "subscribers": "subscribers",
-        "channelLinks": "Channel links",
-        "reportForm": {
-          "closeButton": "Close Report Form"
-        }
-      },
-      "commentRepliesLoader": {
-        "loadMore": "Load more",
-        "replies": "replies"
-      }
-      ,
-      "commentsContainer": {
-        "comments": "comments"
-      },
-      "videoCommentsLoader": {
-        "comments": "Comments"
-      },
-      "deleteComment": {
-        "remove": "Remove"
-      },
-      "addNewCommentReply": {
-        "reply": "Reply"
-      },
-      "mainPoster": {
-        "watchNow": "Watch now",
-        "title": "William Blacke",
-        "description": "is an English clown, pointer, and black man"
-      },
-      "dropdownNotification": {
-        "notification": "Notification",
-        "newVideoInChannel": "New video in channel",
-        "watchVideo": "Watch Video"
-      },
-      "channelPlaylists": {
-        "createdPlaylists": "Created playlists"
-      },
-      "playlistItem": {
-        "noPreview": "No preview",
-        "viewFullPlaylist": "View full playlist"
-      },
-      "setVideoPlaylist": {
-        "saveVideo": "Save video",
-        "createNewPlaylist": "Create new playlist"
-      },
-      "profile": {
-        "loading": "Loading...",
-        "yourChannel": "Your channel",
-        "channelTitle": "Channel title"
-        
-      },
-      "profileBranding": {
-        "picture": "Picture",
-        "bannerImage": "Banner image",
-        "videoWatermark": "Video watermark",
-        "recommendedDimensions": "It`s recommended that you use a picture that`s at least 98 x 98 pixels and 4 MB or less. Use any known file type.",
-        "bestResultsBanner": "For the best results on all devices, use an image that`s at least 2048 x 1152 pixels and 6 MB or less.",
-        "videoWatermarkDescription": "An image that has 1:1 aspect ratio (square). Use any known format file that`s 1 MB or less.",
-        "upload": "Upload"
-        
-      },
-      "profileInfo": {
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "handle": "Handle",
-        "description": "Description",
-        "channelNamePlaceholder": "Enter channel name",
-        "handlePlaceholder": "Set your handle",
-        "tellViewersPlaceholder": "Tell viewers about the channel",
-        "saveButton": "Save"
-        
-      },
-      "createPlaylistOverlay": {
-        "title": "Title",
-        "createButton": "Create",
-        "details": "Details",
-        "enterTitle": "Enter playlist title",
-        "selectPreview": "Select playlist preview"
-      },
-      "editPlaylists": {
-        "createPlaylist": "Create playlist",
-        "playlists":"Playlists",
-        "countVideos": "Count videos"
-      },
-      "addVideoOverlay": {
-        "saveButton": "Save",
-        "cancelButton": "Cancel",
-        "detailsHeading": "Details",
-        "videoTitleLabel": "Enter video title",
-        "videoDescriptionLabel": "Tell viewers about your video",
-        "saveOrPublishLabel": "Save or publish",
-        "publicLabel": "Public",
-        "privateLabel": "Private",
-        "makeVideoPublicOrPrivateDescription": "Make your video public or private",
-        "everyoneCanWatchDescription": "Everyone can watch your video",
-        "onlyYouCanWatchDescription": "Only you can watch the video",
-        "videoFilenameLabel": "Video Filename",
-        "selectVideoPreviewLabel": "Select video preview",
-        
-        "videoUploadSuccess":"Succesfully uploaded"
-      },
-      "editVideoOverlay": {
-        "enterName": "Enter name",
-        "enterDescription": "Enter description",
-        "videoUpdatedSuccessfully": "Video updated successfully",
-        "saveButton": "Save",
-        "detailsHeading": "Details",
-        "videoTitleLabel": "Enter video title",
-        "videoDescriptionLabel": "Tell viewers about your video",
-        "makeVideoPublicOrPrivateDescription": "Make your video public or private",
-        "saveOrPublishLabel": "Save or publish",
-        "everyoneCanWatchDescription": "Everyone can watch your video",
-        "publicLabel": "Public",
-        "onlyYouCanWatchDescription": "Only you can watch the video",
-        "privateLabel": "Private"
-      },
-      "profileVideos": {
-        "confirmDelete": "Confirm Delete?",
-        "videoDeletedSuccessfully": "Video successfully deleted",
-        "enterName": "Enter name",
-        "enterDescription": "Enter description",
-        "videoUpdatedSuccessfully": "Video updated successfully",
-        "saveButton": "Save",
-        "detailsHeading": "Details",
-        "videoTitleLabel": "Enter video title",
-        "videoDescriptionLabel": "Tell viewers about your video",
-        "makeVideoPublicOrPrivateDescription": "Make your video public or private",
-        "saveOrPublishLabel": "Save or publish",
-        "everyoneCanWatchDescription": "Everyone can watch your video",
-        "publicLabel": "Public",
-        "onlyYouCanWatchDescription": "Only you can watch the video",
-        "privateLabel": "Private",
-        "videoDraftEditLabel": "Edit draft",
-        "videoDraftDeleteLabel": "Delete",
-        "videoAddedSuccessfully": "Video added successfully",
-        "addButtonTitle": "Add"
-      },
-      "searchResults": {
-        "noResult": "No result"
-      },
-      "userSidebar": {
-        "home": "Home",
-        "profile": "Profile",
-        "friends": "Friends",
-        "library": "Library",
-        "history": "History",
-        "likedVideos": "Liked videos",
-        "watchLater": "Watch later",
-        "subscriptions": "Subscriptions",
-        "settings": "Settings",
-        "reportHistory": "Report history",
-        "help": "Help"
-      },
-      "videoItem": {
-        "views": "views",
-        "timeAgo": "ago"
-      },
-        "watchVideo": {
-          "views": "views",
-          "timeAgo": "ago",
-          "subscribers": "subscribers",
-          "copiedLink": "Copied link to clipboard",
-          
-          
-          "subscribe": "Subscribe",
-          "share":"Share",
-          "report":"Report",
-          "download":"Download",
-          "saveToPlaylist":"Save to playlist",
-          "subscribed":"Subscribed"
+  },
+  "channel": {
+    "loading": "Loading...",
+    "subscribeButton": "Subscribe",
+    "videos": "videos",
+    "subscribers": "subscribers",
+    "channelLinks": "Channel links",
+    "reportForm": {
+      "closeButton": "Close Report Form"
+    }
+  },
+  "commentRepliesLoader": {
+    "loadMore": "Load more",
+    "replies": "replies"
+  },
+  "commentsContainer": {
+    "comments": "comments"
+  },
+  "videoCommentsLoader": {
+    "comments": "Comments"
+  },
+  "deleteComment": {
+    "remove": "Remove"
+  },
+  "addNewCommentReply": {
+    "reply": "Reply"
+  },
+  "mainPoster": {
+    "watchNow": "Watch now",
+    "title": "William Blacke",
+    "description": "is an English clown, pointer, and black man"
+  },
+  "dropdownNotification": {
+    "notification": "Notification",
+    "newVideoInChannel": "New video in channel",
+    "watchVideo": "Watch Video"
+  },
+  "channelPlaylists": {
+    "createdPlaylists": "Created playlists"
+  },
+  "playlistItem": {
+    "noPreview": "No preview",
+    "viewFullPlaylist": "View full playlist",
+    "firstPlaylist": "Create your first playlist",
+    "noPlaylists": "No created playlists"
+  },
+  "setVideoPlaylist": {
+    "saveVideo": "Save video",
+    "createNewPlaylist": "Create new playlist"
+  },
+  "profile": {
+    "loading": "Loading...",
+    "yourChannel": "Your channel",
+    "channelTitle": "Channel title"
+  },
+  "profileBranding": {
+    "picture": "Picture",
+    "bannerImage": "Banner image",
+    "videoWatermark": "Video watermark",
+    "recommendedDimensions": "It`s recommended that you use a picture that`s at least 98 x 98 pixels and 4 MB or less. Use any known file type.",
+    "bestResultsBanner": "For the best results on all devices, use an image that`s at least 2048 x 1152 pixels and 6 MB or less.",
+    "videoWatermarkDescription": "An image that has 1:1 aspect ratio (square). Use any known format file that`s 1 MB or less.",
+    "upload": "Upload"
+  },
+  "profileInfo": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "handle": "Handle",
+    "description": "Description",
+    "channelNamePlaceholder": "Enter channel name",
+    "handlePlaceholder": "Set your handle",
+    "tellViewersPlaceholder": "Tell viewers about the channel",
+    "saveButton": "Save"
+  },
+  "createPlaylistOverlay": {
+    "title": "Title",
+    "createButton": "Create",
+    "details": "Details",
+    "enterTitle": "Enter playlist title",
+    "selectPreview": "Select playlist preview"
+  },
+  "editPlaylists": {
+    "createPlaylist": "Create playlist",
+    "playlists": "Playlists",
+    "countVideos": "Count videos"
+  },
+  "addVideoOverlay": {
+    "saveButton": "Save",
+    "cancelButton": "Cancel",
+    "detailsHeading": "Details",
+    "videoTitleLabel": "Enter video title",
+    "videoDescriptionLabel": "Tell viewers about your video",
+    "saveOrPublishLabel": "Save or publish",
+    "publicLabel": "Public",
+    "privateLabel": "Private",
+    "makeVideoPublicOrPrivateDescription": "Make your video public or private",
+    "everyoneCanWatchDescription": "Everyone can watch your video",
+    "onlyYouCanWatchDescription": "Only you can watch the video",
+    "videoFilenameLabel": "Video Filename",
+    "selectVideoPreviewLabel": "Select video preview",
 
-        },
-        "dropdownUser": {
-            "verifyMail": "❗Verify Mail",
-            "adminPanel": "Admin panel",
-            "yourChannel": "Your channel",
-            "switchAccount": "Switch account",
-            "language": "Language",
-            "location": "Location",
-            "signOut": "Sign Out",
-            "settings": "Settings"
-          },
-          "search":"Search",
-          "homePage": {
-            "signInToAct": "Sign in to act",
-            "createVideo": "Create a video"
-          },
-          "routes": {
-            "calendar": "Calendar",
-            "formsElements": "Forms Elements",
-            "formLayouts": "Form Layouts",
-            "tables": "Tables",
-            "settings": "Settings",
-            "chart": "Chart",
-            "alerts": "Alerts",
-            "buttons": "Buttons",
-            "home": "Home",
-            "videos": "Videos",
-            "live": "Live",
-            "community": "Community",
-            "playlists": "Playlists",
-            "branding": "Branding",
-            "basicInfo": "Basic Info",
-            "addVideo": "Add Video",
-            "editVideo": "Edit Video",
-            "addPlaylist": "Add Playlist",
-            "editPlaylist": "Playlists",
-            "all": "All",
-            "gaming": "Gaming",
-            "music": "Music",
-            "history": "History",
-            "news": "News"
-          }, "comments":{"addComment":"Add comment...",
-          "addComment1":"Add comment",
-          "cancel":"Cancel"
-      },
-      "videos":{
-       "videos":"Videos",
-       "views":"Views",
-       "comments":"Comments",
-       "actions":"Actions"
-    
-      }
-          
-      
+    "videoUploadSuccess": "Succesfully uploaded"
+  },
+  "editVideoOverlay": {
+    "enterName": "Enter name",
+    "enterDescription": "Enter description",
+    "videoUpdatedSuccessfully": "Video updated successfully",
+    "saveButton": "Save",
+    "detailsHeading": "Details",
+    "videoTitleLabel": "Enter video title",
+    "videoDescriptionLabel": "Tell viewers about your video",
+    "makeVideoPublicOrPrivateDescription": "Make your video public or private",
+    "saveOrPublishLabel": "Save or publish",
+    "everyoneCanWatchDescription": "Everyone can watch your video",
+    "publicLabel": "Public",
+    "onlyYouCanWatchDescription": "Only you can watch the video",
+    "privateLabel": "Private"
+  },
+  "profileVideos": {
+    "confirmDelete": "Confirm Delete?",
+    "videoDeletedSuccessfully": "Video successfully deleted",
+    "enterName": "Enter name",
+    "enterDescription": "Enter description",
+    "videoUpdatedSuccessfully": "Video updated successfully",
+    "saveButton": "Save",
+    "detailsHeading": "Details",
+    "videoTitleLabel": "Enter video title",
+    "videoDescriptionLabel": "Tell viewers about your video",
+    "makeVideoPublicOrPrivateDescription": "Make your video public or private",
+    "saveOrPublishLabel": "Save or publish",
+    "everyoneCanWatchDescription": "Everyone can watch your video",
+    "publicLabel": "Public",
+    "onlyYouCanWatchDescription": "Only you can watch the video",
+    "privateLabel": "Private",
+    "videoDraftEditLabel": "Edit draft",
+    "videoDraftDeleteLabel": "Delete",
+    "videoAddedSuccessfully": "Video added successfully",
+    "addButtonTitle": "Add"
+  },
+  "searchResults": {
+    "noResult": "No result"
+  },
+  "userSidebar": {
+    "home": "Home",
+    "profile": "Profile",
+    "friends": "Friends",
+    "library": "Library",
+    "history": "History",
+    "likedVideos": "Liked videos",
+    "watchLater": "Watch later",
+    "subscriptions": "Subscriptions",
+    "settings": "Settings",
+    "reportHistory": "Report history",
+    "help": "Help",
+    "signIn": "Sign in"
+  },
+  "videoItem": {
+    "views": "views",
+    "timeAgo": "ago"
+  },
+  "watchVideo": {
+    "views": "views",
+    "timeAgo": "ago",
+    "subscribers": "subscribers",
+    "copiedLink": "Copied link to clipboard",
+
+    "subscribe": "Subscribe",
+    "share": "Share",
+    "report": "Report",
+    "download": "Download",
+    "saveToPlaylist": "Save to playlist",
+    "subscribed": "Subscribed"
+  },
+  "dropdownUser": {
+    "verifyMail": "❗Verify Mail",
+    "adminPanel": "Admin panel",
+    "yourChannel": "Your channel",
+    "switchAccount": "Switch account",
+    "language": "Language",
+    "location": "Location",
+    "signOut": "Sign Out",
+    "settings": "Settings"
+  },
+  "search": "Search",
+  "homePage": {
+    "signInToAct": "Sign in to act",
+    "createVideo": "Create a video"
+  },
+  "routes": {
+    "calendar": "Calendar",
+    "formsElements": "Forms Elements",
+    "formLayouts": "Form Layouts",
+    "tables": "Tables",
+    "settings": "Settings",
+    "chart": "Chart",
+    "alerts": "Alerts",
+    "buttons": "Buttons",
+    "home": "Home",
+    "videos": "Videos",
+    "live": "Live",
+    "community": "Community",
+    "playlists": "Playlists",
+    "branding": "Branding",
+    "basicInfo": "Basic Info",
+    "addVideo": "Add Video",
+    "editVideo": "Edit Video",
+    "addPlaylist": "Add Playlist",
+    "editPlaylist": "Playlists",
+    "all": "All",
+    "gaming": "Gaming",
+    "music": "Music",
+    "history": "History",
+    "news": "News"
+  },
+  "comments": {
+    "addComment": "Add comment...",
+    "addComment1": "Add comment",
+    "cancel": "Cancel"
+  },
+  "videos": {
+    "videos": "Videos",
+    "views": "Views",
+    "comments": "Comments",
+    "actions": "Actions"
+  }
 }
-  

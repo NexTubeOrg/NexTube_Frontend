@@ -24,7 +24,7 @@ export const DoubleIconedProcessingButton = (props: {
       <button
         onClick={props.onClickLeft}
         type={props.typeLeft}
-        className={`w-full h-12  min-w-[5em] cursor-pointer rounded-l-lg border border-${props.backgroundClassnameLeft} bg-${props.backgroundClassnameLeft} p-2 text-white transition hover:bg-opacity-90`}
+        className={`w-full h-12 cursor-pointer rounded-l-lg border border-${props.backgroundClassnameLeft} bg-${props.backgroundClassnameLeft} p-2 text-white transition hover:bg-opacity-90`}
       >
         {props.isLoadingLeft && <OperationLoader></OperationLoader>}
         {!props.isLoadingLeft && (
@@ -41,7 +41,7 @@ export const DoubleIconedProcessingButton = (props: {
       <button
         onClick={props.onClickRight}
         type={props.typeRight}
-        className={`w-full min-w-[5em] h-12 cursor-pointer rounded-r-lg border border-${props.backgroundClassnameRight} bg-${props.backgroundClassnameRight} p-2 text-white transition hover:bg-opacity-90`}
+        className={`w-full  h-12 cursor-pointer rounded-r-lg border border-${props.backgroundClassnameRight} bg-${props.backgroundClassnameRight} p-2 text-white transition hover:bg-opacity-90`}
       >
         {props.isLoadingRight && <OperationLoader></OperationLoader>}
         {!props.isLoadingRight && (

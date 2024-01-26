@@ -26,8 +26,14 @@ const SignInWidget = () => {
   };
 
   const requestSchema = yup.object({
-    email: yup.string().required(t('auth.signIn.emailLabel')).email(t('auth.signIn.emailValidation')),
-    password: yup.string().required(t('auth.signIn.passwordLabel')).min(8, t('auth.signIn.passwordMinLength')),
+    email: yup
+      .string()
+      .required(t('auth.signIn.emailLabel'))
+      .email(t('auth.signIn.emailValidation')),
+    password: yup
+      .string()
+      .required(t('auth.signIn.passwordLabel'))
+      .min(8, t('auth.signIn.passwordMinLength')),
   });
 
   const onFormSubmit = async (values: ILoginRequest) => {
@@ -43,7 +49,7 @@ const SignInWidget = () => {
       handleSuccess(t('auth.signIn.loginSuccess'));
       navigator('/');
     } catch (error) {
-      handleError(error);
+      // handleError(error);
     } finally {
       setIsLoading(() => false);
     }

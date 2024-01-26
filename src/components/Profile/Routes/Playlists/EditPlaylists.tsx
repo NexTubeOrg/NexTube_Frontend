@@ -20,7 +20,6 @@ import {
 import HandleOnVisible from '../../../HandleOnVisible';
 
 const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
- 
   return (
     <>
       <tr className="border-t-2 border-primary">
@@ -51,7 +50,7 @@ const EditPlaylistsItem = (props: { playlist: IPlaylistLookup }) => {
             </div>
 
             <div className="text">
-              <Link to={`/playlists/${props.playlist.id}`}>
+              <Link to={`/video/watch/playlist/${props.playlist.id}`}>
                 <h3 className="text-white text-lg">{props.playlist.title}</h3>
               </Link>
             </div>
@@ -119,7 +118,7 @@ export const EditPlaylists = () => {
       console.error('Error fetching users:', error);
     }
   };
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   return (
     <>
       <Outlet></Outlet>
@@ -137,7 +136,7 @@ export const EditPlaylists = () => {
                   <div className="w-30">
                     <PrimaryButtonLink
                       urlTo="addPlaylist"
-                      title={t("setVideoPlaylist.createNewPlaylist")}
+                      title={t('setVideoPlaylist.createNewPlaylist')}
                     ></PrimaryButtonLink>
                   </div>
                 </div>
@@ -149,8 +148,8 @@ export const EditPlaylists = () => {
           <th className="pb-2 text-left">
             <CheckboxOne text="" onChange={() => {}}></CheckboxOne>
           </th>
-          <th className="pb-2 text-left">{t("editPlaylists.playlists")}</th>
-          <th className="pb-2 text-left">{t("editPlaylists.countVideos")}</th>
+          <th className="pb-2 text-left">{t('editPlaylists.playlists')}</th>
+          <th className="pb-2 text-left">{t('editPlaylists.countVideos')}</th>
           <th className="pb-2 text-right"></th>
         </tr>
         <>
@@ -168,6 +167,6 @@ export const EditPlaylists = () => {
           </tbody>
         </>
       </table>
-    </> 
+    </>
   );
 };

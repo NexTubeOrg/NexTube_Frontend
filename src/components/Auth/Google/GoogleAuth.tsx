@@ -12,8 +12,9 @@ import http_api from '../../../services/http_api';
 import { ILoginResult } from '../SignIn/types';
 import { APP_CONFIG } from '../../../env';
 import useColorMode from '../../../hooks/useColorMode';
-import { handleError } from '../../../common/handleError';
+import { handleError, handleSuccess } from '../../../common/handleError';
 import { BsGoogle } from 'react-icons/bs';
+import { t } from 'i18next';
 
 const GoogleAuth = (props: { onLoading: EventHandler<any> }) => {
   const navigator = useNavigate();
@@ -36,6 +37,7 @@ const GoogleAuth = (props: { onLoading: EventHandler<any> }) => {
 
       const { token } = result;
       storeToken(token);
+      handleSuccess(t('auth.signIn.loginSuccess'));
       navigator('/');
     } catch (errors) {
       let e: string[] | string;
