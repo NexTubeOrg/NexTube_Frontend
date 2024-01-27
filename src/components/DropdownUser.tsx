@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
  import { Link, NavLink, useLocation } from 'react-router-dom';
 import {  useSelector } from 'react-redux';
 import { IAuthUser, IUser } from '../store/reducers/auth/types';
-import { Roles,  decodeToken,   getTokenByKey,  getTokensFromLocalStorage,  storeToken, isAdmin,isUnverified  } from '../services/tokenService';
+import { Roles,  decodeToken,   getTokenByKey,  getTokensFromLocalStorage,  storeToken, isAdmin,isUnverified  ,isMod} from '../services/tokenService';
  
 import { ChannelPhoto } from './ChannelPhoto';
 import http_api from '../services/http_api';
@@ -249,6 +249,21 @@ useEffect(() => {
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                 onClick={() => (window.location.href = '/admin')}
                 to={`/admin`}
+              >
+                <div className="icon w-8 relative dark:text-white">
+                  <CommandLineIcon></CommandLineIcon>
+                </div>
+                {t('dropdownUser.adminPanel')}
+              </Link>
+            </li>
+          )}
+
+{isMod(user) && !isAdmin(user) &&(
+            <li>
+              <Link
+                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                onClick={() => (window.location.href = '/moderator')}
+                to={`/moderator`}
               >
                 <div className="icon w-8 relative dark:text-white">
                   <CommandLineIcon></CommandLineIcon>
