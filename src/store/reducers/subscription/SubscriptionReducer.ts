@@ -28,7 +28,9 @@ export const SubscriptionReducer = (state = initState, action: any): any => {
         ...state,
         subscriptions: subscriptionsList,
       };
-    }
+     } case  SubscriptionReducerActionsType.CLEAR_SUBSCRIPTION:
+  {   return { ...state, subscriptions: [] };}
+ 
     default:
       return state;
   }

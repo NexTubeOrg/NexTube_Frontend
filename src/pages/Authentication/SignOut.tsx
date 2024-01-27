@@ -6,6 +6,7 @@ import { store } from '../../store';
 import { AcountSwitchActionType } from '../../store/reducers/acountSwitch/types';
 import { ProfilePlaylistsActionType } from '../../store/reducers/profilePlaylists/types';
 import { NotificationType } from '../../store/reducers/notifications/types';
+import { SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
 
 const SignOut = () => {
   const navigator = useNavigate();
@@ -23,6 +24,9 @@ const SignOut = () => {
     });
     store.dispatch ({
       type:AcountSwitchActionType.CLEAR_TOKENS,
+    });
+    store.dispatch ({
+      type:SubscriptionReducerActionsType.CLEAR_SUBSCRIPTION,
     });
     store.dispatch({
       type: NotificationType.RESET_NOTIFICATIONS,
