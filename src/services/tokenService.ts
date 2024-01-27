@@ -75,6 +75,14 @@ export const isUnverified = (user: IUser | undefined): boolean => {
   );
 };
 
+export const isMod = (user: IUser | undefined): boolean => {
+  return (
+    user != null &&
+    user.roles != null &&
+    (user?.roles as string[]).find((r) => r == 'Moderator') != null
+  );
+};
+
 export const isSignedIn = (): boolean => {
   let t = getToken();
   // todo add overdue check
