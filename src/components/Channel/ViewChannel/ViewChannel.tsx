@@ -34,7 +34,7 @@ const ViewChannel = () => {
 
   useEffect(() => {
     fetchData();
- },  [userSubscriptions ]);
+ },  [userSubscriptions,id ]);
 
   const fetchData = async () => {
     try {
