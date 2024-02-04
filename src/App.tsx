@@ -16,15 +16,15 @@ import { ChannelHome } from './components/Channel/Routes/Home/index.tsx';
 import { Profile } from './components/Profile/Profile.tsx';
 import { ProfileBranding } from './components/Profile/Routes/Branding/index.tsx';
 import Moderator from './pages/Dashboard/Moderator/Moderator.tsx';
- import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
+import RecoverPassword from './components/Auth/RecoverPassword/RecoverPassword.tsx';
 import { SearchResults } from './components/Search/SearchResults.tsx';
 import PlaylistVideosContainer from './components/Playlists/PlaylistVideosContainer.tsx';
 import useColorMode from './hooks/useColorMode.tsx';
 import VerifyMailPage from './pages/Authentication/VerifyMail/VerifyMail.tsx';
 import { HistoryVideoContainer } from './components/History/index.tsx';
 import './i18n';
+import { NotFoundPage } from './pages/ErrorPages/NotFoundPage.tsx';
 const AdminLayout = lazy(() => import('./layout/AdminLayout.tsx'));
-
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -91,6 +91,7 @@ function App() {
               </Route>
             ))}
           </Route>
+          <Route path="*" element={<NotFoundPage />}></Route>
         </Route>
 
         <Route path={'/auth'} element={<DefaultLayout />}>
@@ -121,15 +122,14 @@ function App() {
           <Route path={'search'} element={<SearchResults />}>
             <Route index path={':name'} element={<SearchResults />} />
           </Route>
-          
         </Route>
 
         <Route path={'/playlists'} element={<DefaultLayout />}>
           <Route index path={':id'} element={<PlaylistVideosContainer />} />
         </Route>
 
-        <Route path={'/history'} element={<DefaultLayout/>}>
-          <Route index element={<HistoryVideoContainer/>}/>
+        <Route path={'/history'} element={<DefaultLayout />}>
+          <Route index element={<HistoryVideoContainer />} />
         </Route>
 
         <Route path={'/admin'} element={<AdminLayout />}>
