@@ -56,6 +56,8 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
  };
 
    const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+   const [accountDropdownOpen , setAccountDropdownOpen] = useState(false);
+
    const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -300,7 +302,7 @@ useEffect(() => {
                   {languageDropdownOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
                 </div></div>
                </li>      
-              {languageDropdownOpen && (
+               {languageDropdownOpen && (
                 <div className="flex items-center gap-3">
                   <button
                     className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -331,83 +333,58 @@ useEffect(() => {
            
           
 
-          <li>
-          <div className="flex justify-between">
-                   <SidebarLinkGroup activeCondition={true}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <NavLink
-                        to="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-0 font-medium text-bodydark1 duration-300 ease-in-out  ${
-                          (pathname === '/auth' || pathname.includes('auth')) &&
-                          'bg-graydark dark:bg-meta-4'
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-            <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-                  <div className="icon w-8 relative dark:text-white">
-                    <UserGroupIcon></UserGroupIcon>
-                  </div>
-                  <span>{t('dropdownUser.switchAccount')}</span>
-                </div>
-
-               
-           
-            </NavLink>
-                      {/* <!-- Dropdown Menu Start --> */}
-                      <div
-                        className={`translate transform overflow-hidden ${
-                          !open && 'hidden'
-                        }`}
-                      >
-                     
-
-                     <ul>
-         {users.map((user:IUser, index:any) => (
-        <li key={index}>
-          <SidebarItem
-            active={true}
-            url={user.userId}
-            title={`${user.firstName} ${user.lastName}`}
-            icon={ <div className="thumb bg-danger rounded-full w-8 h-8">
-            <img className="h-12 w-12 rounded-full" src={"/api/Photo/GetPhotoUrl/"+user.channelPhoto+"/50"} alt="User" />
-          </div>}
-          />
-        </li>
-      ))}
-    <li >
-              <Link
-                to="/auth/signin"
-                className="flex items-center gap-3.5 text-sm px-20 font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-            >
-                Sign In
-              </Link>
-      </li>
-      </ul> </div>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              {/* <!-- Menu Item Auth Pages --> */}
-            
-         
+           <li>
+      <div className="flex justify-between items-center" onClick={() => setAccountDropdownOpen(!accountDropdownOpen)}>
+        <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <div className="icon w-8 relative dark:text-white">
-                  <ChevronRightIcon></ChevronRightIcon>
-                </div>
-              </div> 
-           
+            <UserGroupIcon />
+          </div>
+          <span>{t('dropdownUser.switchAccount')}</span>
+        </div>
+        <div className="icon w-8 relative dark:text-white">
+          {accountDropdownOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
+        </div>
+      </div>
+      </li>
+      {accountDropdownOpen && (
+        <div className="scrollable-container">
+          <div className="no-scrollbar flex flex-col   overflow-y-auto max-h-20">
           
-          </li>
+            <ul>
+              {users.map((user:any, index:any) => (
+                <li key={index}>
+                  <SidebarItem
+                    active={true}
+                    url={user.userId}
+                    title={`${user.firstName} ${user.lastName}`}
+                    icon={
+                      <div className="thumb bg-danger rounded-full w-8 h-8">
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={`/api/Photo/GetPhotoUrl/${user.channelPhoto}/50`}
+                          alt="User"
+                        />
+                      </div>
+                    }
+                  />
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/auth/signin"
+                  className="flex items-center gap-3.5 text-sm px-20 font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                >
+                     Sing In  
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
+   
 
        
-
+        
           <li>
             <Link to={'#'} className="">
               <div className="flex justify-between">
