@@ -348,7 +348,7 @@ useEffect(() => {
       </li>
       {accountDropdownOpen && (
         <div className="scrollable-container">
-          <div className="no-scrollbar flex flex-col   overflow-y-auto max-h-20">
+          <div className="no-scrollbar flex flex-col   overflow-y-auto max-h-30">
           
             <ul>
               {users.map((user:any, index:any) => (

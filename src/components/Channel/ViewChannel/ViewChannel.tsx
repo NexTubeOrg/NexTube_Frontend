@@ -1,6 +1,6 @@
 // src/components/Channel/ViewChannel/ViewChannel.tsx
 import React, { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { Navbar } from '../../common/navbars/Navbar';
 import './styles.css';
 import SubscribeButton from '../../../pages/Subscription/UpdateUser/Subscription';
@@ -91,20 +91,33 @@ const ViewChannel = () => {
                 </span>
                 <span className="">{userData.video} {t('channel.videos')}</span>
               </h4>
+          
+             
               {/* Channel description */}
-              <h4 className="text-gray text-md  mb-2">
-                {userData.description}
-              </h4>
-              {/* Channel links */}
               <h4 className="text-md  mb-2">
-                <span>
-                  <a className="mr-1 text-primary" href="#">
-                    (5) I spent a day with *EMOs* - NexTube
-                  </a>
-                  <span className="text-white">{t('channel.channelLinks')}</span>
-                </span>
+                  <span className="text-white"> {userData.description}</span>
+      
               </h4>
               {/* Subscribe to channel */}
+              { user?.userId  === id&& (
+  <div className="w-35 ">
+     <Link
+    to={'/profile'}
+    className="f`w-full h-12 cursor-pointer rounded-md   bg-secondary  p-2 px-10     text-white transition hover:bg-opacity-90`"
+  >
+    Profile
+  </Link>
+  <Link
+    to={'/profile/videos'}
+    className="f`w-full h-12 cursor-pointer rounded-md   bg-secondary  p-2 px-10 m-2    text-white transition hover:bg-opacity-90`"
+  >
+   Video
+  </Link>
+    
+    
+     </div>
+)}
+
               {id !== user?.userId && (
                 <div className="channel-tools">
                   <div className="w-35 ">
