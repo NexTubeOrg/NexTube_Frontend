@@ -240,7 +240,8 @@
     "language": "Мова",
     "location": "Місцезнаходження",
     "signOut": "Вийти",
-    "settings": "Налаштування"
+    "settings": "Налаштування",
+    "addNewAccount": "Додати ще один аккаунт"
   },
   "search": "Пошук",
   "homePage": {

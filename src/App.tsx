@@ -41,7 +41,7 @@ function App() {
   return loading ? (
     <Loader />
   ) : (
-    <>
+    <div className="!select-text">
       <Toaster
         position="top-right"
         reverseOrder={false}
@@ -163,7 +163,7 @@ function App() {
         </Route>
       </Routes>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

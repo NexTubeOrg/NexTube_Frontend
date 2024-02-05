@@ -35,6 +35,7 @@ import {
   UserGroupIcon,
   UserIcon,
   EnvelopeIcon,
+  PlusIcon,
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
@@ -91,6 +92,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
         return;
       setDropdownOpen(false);
       setLanguageDropdownOpen(false);
+      setAccountDropdownOpen(false);
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
@@ -216,7 +218,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           dropdownOpen === true ? 'block' : 'hidden'
         }`}
       >
-        <ul className="flex flex-col h-150 gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark text-white">
+        <ul className="flex select-none flex-col h-150 gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark text-white">
           <li>
             <div className="flex items-center mb-3">
               <div className="mr-6">
@@ -244,7 +246,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 to={`/auth/verifymail`}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <EnvelopeIcon></EnvelopeIcon>
                 </div>
                 {t('dropdownUser.verifyMail')}
@@ -259,7 +261,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 onClick={() => (window.location.href = '/admin')}
                 to={`/admin`}
               >
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <CommandLineIcon></CommandLineIcon>
                 </div>
                 {t('dropdownUser.adminPanel')}
@@ -274,7 +276,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                 onClick={() => (window.location.href = '/moderator')}
                 to={`/moderator`}
               >
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <CommandLineIcon></CommandLineIcon>
                 </div>
                 {t('dropdownUser.adminPanel')}
@@ -287,7 +289,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
               to={`/channel/${user?.userId}`}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 <UserIcon></UserIcon>
               </div>
               {t('dropdownUser.yourChannel')}
@@ -300,12 +302,12 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
               onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
             >
               <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base cursor-pointer">
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <LanguageIcon></LanguageIcon>
                 </div>
                 <span>{t('dropdownUser.language')}</span>
               </div>{' '}
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 {languageDropdownOpen ? (
                   <ChevronDownIcon />
                 ) : (
@@ -353,16 +355,16 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
 
           <li>
             <div
-              className="flex justify-between items-center"
+              className="flex cursor-pointer justify-between items-center"
               onClick={() => setAccountDropdownOpen(!accountDropdownOpen)}
             >
               <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <UserGroupIcon />
                 </div>
                 <span>{t('dropdownUser.switchAccount')}</span>
               </div>
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 {accountDropdownOpen ? (
                   <ChevronDownIcon />
                 ) : (
@@ -373,7 +375,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           </li>
           {accountDropdownOpen && (
             <div className="scrollable-container">
-              <div className="no-scrollbar flex flex-col   overflow-y-auto max-h-30">
+              <div className="flex overflow-x-hidden default-custom-scrollbar flex-col cursor-pointer  overflow-y-auto max-h-30">
                 <ul>
                   {users.map((user: any, index: any) => (
                     <li key={index}>
@@ -396,9 +398,14 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
                   <li>
                     <Link
                       to="/auth/signin"
-                      className="flex items-center gap-3.5 text-sm px-20 font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                      className="text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
-                      Sing In
+                      <div className="flex justify-start items-center">
+                        <div className="w-8 h-8 ">
+                          <PlusIcon></PlusIcon>
+                        </div>
+                        {t('dropdownUser.addNewAccount')}
+                      </div>
                     </Link>
                   </li>
                 </ul>
@@ -410,13 +417,13 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
             <Link to={'#'} className="">
               <div className="flex justify-between">
                 <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-                  <div className="icon w-8 relative dark:text-white">
+                  <div className="icon w-8 relative ">
                     <MapPinIcon></MapPinIcon>
                   </div>
                   <span>{t('dropdownUser.location')}</span>
                 </div>
 
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <ChevronRightIcon></ChevronRightIcon>
                 </div>
               </div>
@@ -428,7 +435,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
               to={'/auth/signout'}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 <ArrowRightOnRectangleIcon></ArrowRightOnRectangleIcon>
               </div>
               {t('dropdownUser.signOut')}
@@ -444,7 +451,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
               to={'/profile/info'}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 <Cog6ToothIcon></Cog6ToothIcon>
               </div>
               {t('dropdownUser.settings')}

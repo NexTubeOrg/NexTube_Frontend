@@ -22,7 +22,10 @@ import {
 import http_api from '../../services/http_api';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
- import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
+import {
+  IUsersubscription,
+  SubscriptionReducerActionsType,
+} from '../../store/reducers/subscription/types';
 import { store } from '../../store';
 
 interface UserSidebarProps {
@@ -85,9 +88,14 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     }
   }, [sidebarExpanded]);
 
-  const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
-  console.log("store",userSubscriptions.subscriptions.map(c=>c.channelPhotoFileId));
-    const {   user } = useSelector((store: any) => store.auth as IAuthUser);
+  const userSubscriptions = useSelector(
+    (store: any) => store.subscription as IUsersubscription,
+  );
+  console.log(
+    'store',
+    userSubscriptions.subscriptions.map((c) => c.channelPhotoFileId),
+  );
+  const { user } = useSelector((store: any) => store.auth as IAuthUser);
   useEffect(() => {
     const fetchSubscriptions = async () => {
       if (window.localStorage.token != undefined) {
@@ -112,7 +120,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     <>
       <aside
         ref={sidebar}
-        className={`absolute left-0 top-0 z-[9999999] flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
+        className={`absolute select-none left-0 top-0 z-[9999999] flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -146,7 +154,7 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
           </NavLink>
         </div>
 
-        <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+        <div className="no-scrollbar select-none flex flex-col overflow-y-auto duration-300 ease-linear">
           <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
             <div>
               <ul className="mb-6 flex flex-col gap-1.5">

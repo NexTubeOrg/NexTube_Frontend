@@ -1,11 +1,16 @@
 .default-custom-scrollbar {
   overflow-y: scroll;
   scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #666873 #f5f5f5; /* Firefox */
+  scrollbar-color: #666873 #f5f5f500; /* Firefox */
+  border-radius: 0.3rem;
 }
 
 .default-custom-scrollbar::-webkit-scrollbar {
-  width: 12px; /* Safari and Chrome */
+  width: 24px; /* Safari and Chrome */
+}
+
+.default-custom-scrollbar::-webkit-track {
+  border-radius: 10px;
 }
 
 .default-custom-scrollbar::-webkit-scrollbar-thumb {
