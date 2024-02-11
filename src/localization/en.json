@@ -96,7 +96,7 @@
     "watchNow": "Watch now",
     "title": "William Blacke",
     "description": "is an English clown, pointer, and black man",
-    "from":"from"
+    "from": "from"
   },
   "dropdownNotification": {
     "notification": "Notification",
@@ -247,7 +247,8 @@
     "language": "Language",
     "location": "Location",
     "signOut": "Sign Out",
-    "settings": "Settings"
+    "settings": "Settings",
+    "addNewAccount": "Add one more account"
   },
   "search": "Search",
   "homePage": {

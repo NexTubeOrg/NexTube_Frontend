@@ -8,7 +8,10 @@ import http_api from '../../../services/http_api';
 import { IconedProcessingButton } from '../../common/buttons/IconedButton';
 import ReportForm from '../../ReportForm';
 import { FlagIcon } from '@heroicons/react/20/solid';
-import { IUsersubscription, SubscriptionReducerActionsType } from '../../../store/reducers/subscription/types';
+import {
+  IUsersubscription,
+  SubscriptionReducerActionsType,
+} from '../../../store/reducers/subscription/types';
 import { channelRoutes } from '../../../routes';
 import { IAuthUser } from '../../../store/reducers/auth/types';
 import { useSelector } from 'react-redux';
@@ -20,7 +23,7 @@ const ViewChannel = () => {
   const { id } = useParams();
   const parts = location.pathname.split('/');
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
- 
+
   const [showReportForm, setShowReportForm] = useState(false);
 
   const handleReportClick = () => {
@@ -30,25 +33,24 @@ const ViewChannel = () => {
   const handleReportFormClose = () => {
     setShowReportForm(false);
   };
-  const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+  const userSubscriptions = useSelector(
+    (store: any) => store.subscription as IUsersubscription,
+  );
 
   useEffect(() => {
     fetchData();
- },  [userSubscriptions,id ]);
+  }, [userSubscriptions, id]);
 
   const fetchData = async () => {
     try {
- 
       const response = await http_api.get(`/api/User/GetUser?ChannelId=${id}`);
 
       setUserData(response.data);
-
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
   };
-   
- 
+
   if (!userData) {
     return <div>{t('channel.loading')}</div>;
   }
@@ -89,34 +91,32 @@ const ViewChannel = () => {
                 <span className="mr-4">
                   {userData.subsciptions} {t('channel.subscribers')}
                 </span>
-                <span className="">{userData.video} {t('channel.videos')}</span>
+                <span className="">
+                  {userData.video} {t('channel.videos')}
+                </span>
               </h4>
-          
-             
+
               {/* Channel description */}
               <h4 className="text-md  mb-2">
-                  <span className="text-white"> {userData.description}</span>
-      
+                <span className="text-white"> {userData.description}</span>
               </h4>
               {/* Subscribe to channel */}
-              { user?.userId  === id&& (
-  <div className="w-35 ">
-     <Link
-    to={'/profile'}
-    className="f`w-full h-12 cursor-pointer rounded-md   bg-secondary  p-2 px-10     text-white transition hover:bg-opacity-90`"
-  >
-    Profile
-  </Link>
-  <Link
-    to={'/profile/videos'}
-    className="f`w-full h-12 cursor-pointer rounded-md   bg-secondary  p-2 px-10 m-2    text-white transition hover:bg-opacity-90`"
-  >
-   Video
-  </Link>
-    
-    
-     </div>
-)}
+              {user?.userId === id && (
+                <div className="w-35 ">
+                  <Link
+                    to={'/profile'}
+                    className="f`w-full h-12 cursor-pointer rounded-md   bg-secondary  p-2 px-10     text-white transition hover:bg-opacity-90`"
+                  >
+                    Profile
+                  </Link>
+                  <Link
+                    to={'/profile/videos'}
+                    className="f`w-full h-12 cursor-pointer rounded-md   bg-secondary  p-2 px-10 m-2    text-white transition hover:bg-opacity-90`"
+                  >
+                    Video
+                  </Link>
+                </div>
+              )}
 
               {id !== user?.userId && (
                 <div className="channel-tools">
@@ -151,7 +151,9 @@ const ViewChannel = () => {
                 videoId={null}
                 onSubmitSuccess={handleReportFormClose}
               />
-              <button onClick={handleReportFormClose}>{t('channel.reportForm.closeButton')}</button>
+              <button onClick={handleReportFormClose}>
+                {t('channel.reportForm.closeButton')}
+              </button>
             </div>
           )}
           {!showReportForm && (

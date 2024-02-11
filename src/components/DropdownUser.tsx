@@ -1,76 +1,87 @@
 import { useEffect, useRef, useState } from 'react';
- import { Link, NavLink, useLocation } from 'react-router-dom';
-import {  useSelector } from 'react-redux';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { IAuthUser, IUser } from '../store/reducers/auth/types';
-import { Roles,  decodeToken,   getTokenByKey,  getTokensFromLocalStorage,  storeToken, isAdmin,isUnverified  ,isMod} from '../services/tokenService';
- 
+import {
+  Roles,
+  decodeToken,
+  getTokenByKey,
+  getTokensFromLocalStorage,
+  storeToken,
+  isAdmin,
+  isUnverified,
+  isMod,
+} from '../services/tokenService';
+
 import { ChannelPhoto } from './ChannelPhoto';
 import http_api from '../services/http_api';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import React from 'react';
 import { store } from '../store';
 import { AcountSwitchActionType } from '../store/reducers/acountSwitch/types';
- 
-    import 'dayjs/locale/de';
+
+import 'dayjs/locale/de';
 import 'dayjs/locale/en';
 import 'dayjs/locale/uk';
 import 'dayjs/locale/es';
 import {
   ArrowRightOnRectangleIcon,
-   ChevronRightIcon,
+  ChevronRightIcon,
   ChevronUpIcon,
-   Cog6ToothIcon,
+  Cog6ToothIcon,
   CommandLineIcon,
   LanguageIcon,
   MapPinIcon,
-   UserGroupIcon,
+  UserGroupIcon,
   UserIcon,
   EnvelopeIcon,
+  PlusIcon,
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
- import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
- 
 
- interface UserSidebarProps {
+interface UserSidebarProps {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg: boolean) => void;
 }
 const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const {isAuth,   user } = useSelector((store: any) => store.auth as IAuthUser);
+  const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
   const [userData, setUserData] = useState<IUserInfo>();
- 
-  useEffect(() => {    
-  if(isAuth){  fetchData();
- }}, [ setUserData,user]);
 
- const fetchData = async () => {
+  useEffect(() => {
+    if (isAuth) {
+      fetchData();
+    }
+  }, [setUserData, user]);
+
+  const fetchData = async () => {
     try {
-      const response = await http_api.get(`/api/User/GetUser?ChannelId=${user?.userId}`);
+      const response = await http_api.get(
+        `/api/User/GetUser?ChannelId=${user?.userId}`,
+      );
       setUserData(response.data);
-
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
- };
+  };
 
-   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
-   const [accountDropdownOpen , setAccountDropdownOpen] = useState(false);
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
 
-   const trigger = useRef<any>(null);
+  const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
-  const changeLang = (lang:string)=>{
-    localStorage.setItem("defaultLanguage", lang);
-    changeLanguage(lang); dayjs.locale(lang);
+  const changeLang = (lang: string) => {
+    localStorage.setItem('defaultLanguage', lang);
+    changeLanguage(lang);
+    dayjs.locale(lang);
   };
- 
 
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-   
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
       if (
@@ -81,6 +92,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
         return;
       setDropdownOpen(false);
       setLanguageDropdownOpen(false);
+      setAccountDropdownOpen(false);
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
@@ -101,11 +113,9 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     setLanguageDropdownOpen(false);
   };
 
-
   const location = useLocation();
   const { pathname } = location;
 
- 
   const sidebar = useRef<any>(null);
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
@@ -138,9 +148,7 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   }, []);
-   
 
- 
   useEffect(() => {
     localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
     if (sidebarExpanded) {
@@ -150,36 +158,37 @@ const DropdownUser = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
     }
   }, [sidebarExpanded]);
 
-const users = useSelector((store:any)=>store.acountSwitch.user  ); 
-useEffect(() => {
-  const updateTokens = () => {
-    const tokens = getTokensFromLocalStorage();  
-    
-    tokens.forEach(async (token) => {
-      try {
-        const users = decodeToken(token.value)as IUser  ;
-        const response = (await http_api.get(`/api/User/GetUser?ChannelId=${users.userId}`)).data;
-         store.dispatch({
-          type: AcountSwitchActionType.LOGIN_USER_ADD,
-          payload: {
-            email: users.email,
-            firstName: response.firstName,
-            lastName: response.lastName,
-            channelPhoto: response.channelPhotoFileId,
-            roles: users.roles,
-            userId: users.userId,
-          },});
-      } catch (error) {
-        console.error('Помилка розшифрування токена:', error);
-      }
-    });
-  };
-  updateTokens();
-}, [user]);
+  const users = useSelector((store: any) => store.acountSwitch.user);
+  useEffect(() => {
+    const updateTokens = () => {
+      const tokens = getTokensFromLocalStorage();
 
+      tokens.forEach(async (token) => {
+        try {
+          const users = decodeToken(token.value) as IUser;
+          const response = (
+            await http_api.get(`/api/User/GetUser?ChannelId=${users.userId}`)
+          ).data;
+          store.dispatch({
+            type: AcountSwitchActionType.LOGIN_USER_ADD,
+            payload: {
+              email: users.email,
+              firstName: response.firstName,
+              lastName: response.lastName,
+              channelPhoto: response.channelPhotoFileId,
+              roles: users.roles,
+              userId: users.userId,
+            },
+          });
+        } catch (error) {
+          console.error('Помилка розшифрування токена:', error);
+        }
+      });
+    };
+    updateTokens();
+  }, [user]);
 
-
- return (
+  return (
     <div className="relative">
       <div
         ref={trigger}
@@ -209,7 +218,7 @@ useEffect(() => {
           dropdownOpen === true ? 'block' : 'hidden'
         }`}
       >
-        <ul className="flex flex-col h-150 gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark text-white">
+        <ul className="flex select-none flex-col h-150 gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark text-white">
           <li>
             <div className="flex items-center mb-3">
               <div className="mr-6">
@@ -237,7 +246,7 @@ useEffect(() => {
                 to={`/auth/verifymail`}
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <EnvelopeIcon></EnvelopeIcon>
                 </div>
                 {t('dropdownUser.verifyMail')}
@@ -252,7 +261,7 @@ useEffect(() => {
                 onClick={() => (window.location.href = '/admin')}
                 to={`/admin`}
               >
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <CommandLineIcon></CommandLineIcon>
                 </div>
                 {t('dropdownUser.adminPanel')}
@@ -260,14 +269,14 @@ useEffect(() => {
             </li>
           )}
 
-{isMod(user) && !isAdmin(user) &&(
+          {isMod(user) && !isAdmin(user) && (
             <li>
               <Link
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                 onClick={() => (window.location.href = '/moderator')}
                 to={`/moderator`}
               >
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <CommandLineIcon></CommandLineIcon>
                 </div>
                 {t('dropdownUser.adminPanel')}
@@ -280,7 +289,7 @@ useEffect(() => {
               to={`/channel/${user?.userId}`}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 <UserIcon></UserIcon>
               </div>
               {t('dropdownUser.yourChannel')}
@@ -288,114 +297,133 @@ useEffect(() => {
           </li>
 
           <li>
-            <div className="flex justify-between items-center" onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}>
-              <div
-                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base cursor-pointer"
-                
-              >
-                <div className="icon w-8 relative dark:text-white" >
+            <div
+              className="flex justify-between items-center"
+              onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+            >
+              <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base cursor-pointer">
+                <div className="icon w-8 relative ">
                   <LanguageIcon></LanguageIcon>
                 </div>
                 <span>{t('dropdownUser.language')}</span>
-               
-              </div>  <div className="icon w-8 relative dark:text-white" >
-                  {languageDropdownOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-                </div></div>
-               </li>      
-               {languageDropdownOpen && (
-                <div className="flex items-center gap-3">
-                  <button
-                    className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-                    onClick={() => {changeLang("en")} }
-                  >
-                    EN
-                  </button>
-                  <button
-                    className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-                    onClick={() => {changeLang("uk")}}
-                  >
-                    UK
-                  </button>
-                  <button
-                    className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-                    onClick={() => {changeLang("de")}}
-                  >
-                    DE
-                  </button>
-                  <button
-                    className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-                    onClick={() => {changeLang("es")}}
-                  >
-                    ES
-                  </button>
+              </div>{' '}
+              <div className="icon w-8 relative ">
+                {languageDropdownOpen ? (
+                  <ChevronDownIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </div>
+            </div>
+          </li>
+          {languageDropdownOpen && (
+            <div className="flex items-center gap-3">
+              <button
+                className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                onClick={() => {
+                  changeLang('en');
+                }}
+              >
+                EN
+              </button>
+              <button
+                className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                onClick={() => {
+                  changeLang('uk');
+                }}
+              >
+                UK
+              </button>
+              <button
+                className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                onClick={() => {
+                  changeLang('de');
+                }}
+              >
+                DE
+              </button>
+              <button
+                className="flex items-center gap-2 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                onClick={() => {
+                  changeLang('es');
+                }}
+              >
+                ES
+              </button>
+            </div>
+          )}
+
+          <li>
+            <div
+              className="flex cursor-pointer justify-between items-center"
+              onClick={() => setAccountDropdownOpen(!accountDropdownOpen)}
+            >
+              <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+                <div className="icon w-8 relative ">
+                  <UserGroupIcon />
                 </div>
-              )}
-           
-          
-
-           <li>
-      <div className="flex justify-between items-center" onClick={() => setAccountDropdownOpen(!accountDropdownOpen)}>
-        <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-          <div className="icon w-8 relative dark:text-white">
-            <UserGroupIcon />
-          </div>
-          <span>{t('dropdownUser.switchAccount')}</span>
-        </div>
-        <div className="icon w-8 relative dark:text-white">
-          {accountDropdownOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-        </div>
-      </div>
-      </li>
-      {accountDropdownOpen && (
-        <div className="scrollable-container">
-          <div className="no-scrollbar flex flex-col   overflow-y-auto max-h-30">
-          
-            <ul>
-              {users.map((user:any, index:any) => (
-                <li key={index}>
-                  <SidebarItem
-                    active={true}
-                    url={user.userId}
-                    title={`${user.firstName} ${user.lastName}`}
-                    icon={
-                      <div className="thumb bg-danger rounded-full w-8 h-8">
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={`/api/Photo/GetPhotoUrl/${user.channelPhoto}/50`}
-                          alt="User"
-                        />
+                <span>{t('dropdownUser.switchAccount')}</span>
+              </div>
+              <div className="icon w-8 relative ">
+                {accountDropdownOpen ? (
+                  <ChevronDownIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </div>
+            </div>
+          </li>
+          {accountDropdownOpen && (
+            <div className="scrollable-container">
+              <div className="flex overflow-x-hidden default-custom-scrollbar flex-col cursor-pointer  overflow-y-auto max-h-30">
+                <ul>
+                  {users.map((user: any, index: any) => (
+                    <li key={index}>
+                      <SidebarItem
+                        active={true}
+                        url={user.userId}
+                        title={`${user.firstName} ${user.lastName}`}
+                        icon={
+                          <div className="thumb bg-danger rounded-full w-8 h-8">
+                            <img
+                              className="h-8 w-8 rounded-full"
+                              src={`/api/Photo/GetPhotoUrl/${user.channelPhoto}/50`}
+                              alt="User"
+                            />
+                          </div>
+                        }
+                      />
+                    </li>
+                  ))}
+                  <li>
+                    <Link
+                      to="/auth/signin"
+                      className="text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                    >
+                      <div className="flex justify-start items-center">
+                        <div className="w-8 h-8 ">
+                          <PlusIcon></PlusIcon>
+                        </div>
+                        {t('dropdownUser.addNewAccount')}
                       </div>
-                    }
-                  />
-                </li>
-              ))}
-              <li>
-                <Link
-                  to="/auth/signin"
-                  className="flex items-center gap-3.5 text-sm px-20 font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-                >
-                     Sing In  
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      )}
-   
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
 
-       
-        
           <li>
             <Link to={'#'} className="">
               <div className="flex justify-between">
                 <div className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-                  <div className="icon w-8 relative dark:text-white">
+                  <div className="icon w-8 relative ">
                     <MapPinIcon></MapPinIcon>
                   </div>
                   <span>{t('dropdownUser.location')}</span>
                 </div>
 
-                <div className="icon w-8 relative dark:text-white">
+                <div className="icon w-8 relative ">
                   <ChevronRightIcon></ChevronRightIcon>
                 </div>
               </div>
@@ -407,7 +435,7 @@ useEffect(() => {
               to={'/auth/signout'}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 <ArrowRightOnRectangleIcon></ArrowRightOnRectangleIcon>
               </div>
               {t('dropdownUser.signOut')}
@@ -423,13 +451,12 @@ useEffect(() => {
               to={'/profile/info'}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              <div className="icon w-8 relative dark:text-white">
+              <div className="icon w-8 relative ">
                 <Cog6ToothIcon></Cog6ToothIcon>
               </div>
               {t('dropdownUser.settings')}
             </Link>
           </li>
-          
         </ul>
       </div>
       {/* Dropdown End */}
@@ -442,17 +469,12 @@ const SidebarItem = (props: {
   icon: any;
   active: boolean;
 }) => {
- 
-  
-  
-
   const handleClick = () => {
-  const url = props.url?.toString();
-  const token = getTokenByKey(url) as string ;
-  console.log("url",url);
-  storeToken(token);
-  window.location.reload();
-
+    const url = props.url?.toString();
+    const token = getTokenByKey(url) as string;
+    console.log('url', url);
+    storeToken(token);
+    window.location.reload();
   };
 
   return (
@@ -460,7 +482,6 @@ const SidebarItem = (props: {
       <div
         onClick={handleClick}
         className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
-      
       >
         <div className="icon w-8 relative dark:text-white">{props.icon}</div>
         {props.title}

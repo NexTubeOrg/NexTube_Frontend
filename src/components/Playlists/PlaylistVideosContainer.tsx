@@ -140,7 +140,7 @@ const PlaylistVideosContainer = () => {
 
   return (
     <>
-      <div className="outer border-2 border-secondary rounded-lg">
+      <div className="outer h-150 border-2 border-secondary rounded-lg">
         <div className="bg-secondary px-4 pb-2 pt-2">
           <h1 className="text-white text-3xl">{title}</h1>
           <div className="mt-1 mb-6 flex">
@@ -159,7 +159,7 @@ const PlaylistVideosContainer = () => {
           </div>
         </div>
         <div>
-          <ul className="w-full h-100 overflow-y-scroll default-custom-scrollbar overscroll-contain">
+          <ul className="w-full h-[30em] overflow-y-scroll default-custom-scrollbar overscroll-contain">
             {videos.map((v, position) => (
               <li
                 onClick={() => {

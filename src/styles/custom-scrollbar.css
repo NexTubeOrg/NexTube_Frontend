@@ -1,11 +1,15 @@
 .default-custom-scrollbar {
   overflow-y: scroll;
   scrollbar-width: auto; /* Firefox */
-  scrollbar-color: hsl(0,0%,67%) transparent; /* Firefox */
+  scrollbar-color: hsl(0, 0%, 67%) transparent; /* Firefox */
 }
 
 .default-custom-scrollbar::-webkit-scrollbar {
-  width: 12px; /* Safari and Chrome */
+  width: 24px; /* Safari and Chrome */
+}
+
+.default-custom-scrollbar::-webkit-track {
+  border-radius: 10px;
 }
 
 .default-custom-scrollbar::-webkit-scrollbar-thumb {
