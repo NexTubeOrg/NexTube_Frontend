@@ -85,7 +85,8 @@
   "mainPoster": {
     "watchNow": "Jetzt ansehen",
     "title": "William Blacke",
-    "description": "ist ein englischer Clown, Zeiger und Schwarzer Mann"
+    "description": "ist ein englischer Clown, Zeiger und Schwarzer Mann",
+    "from": "von"
   },
   "dropdownNotification": {
     "notification": "Benachrichtigung",

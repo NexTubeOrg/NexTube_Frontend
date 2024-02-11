@@ -1,14 +1,27 @@
 // src/components/Home/MainPoster.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './style.css';
+import { IGetVideoResult, IVideoLookup } from '../../pages/Video/common/types';
+import http_api from '../../services/http_api';
 
 export const MainPoster = () => {
   const { t } = useTranslation();
+  const [randomVideo, setVideo] = useState<IVideoLookup>();
+
+  useEffect(() => {
+    const loadRandomVideoAsync = async () => {
+      const result = (
+        await http_api.get<IGetVideoResult>(`/api/video/getRandomVideo`)
+      ).data;
+      setVideo(result.video);
+    };
+    loadRandomVideoAsync();
+  }, []);
 
   return (
     <>
-      <div className="h-[50vh]">
+      <div className="h-[50vh] p-20">
         <div className="h-full flex items-center justify-between">
           <div className="flex z-[9997] flex-col min-[1000px]:w-[32em] min-[1364px]:w-[64em]">
             <div className="mb-2">
@@ -17,30 +30,47 @@ export const MainPoster = () => {
               </h1>
             </div>
             <div className="mb-2">
-              <h2 className=" font-semibold text-primary  text-5xl">
-                {t('mainPoster.title')}
-              </h2>
+              <a href={'/video/watch/' + randomVideo?.id}>
+                <h2 className=" font-semibold text-primary  text-5xl">
+                  {randomVideo?.name}
+                </h2>{' '}
+              </a>
             </div>
             <div className="mb-2">
-              <p className="font-semibold text-white text-3xl">
-                {t('mainPoster.description')}
-              </p>
+              <a href={'/channel/' + randomVideo?.creator?.userId}>
+                {' '}
+                <p className="font-semibold text-white text-3xl">
+                  {t('mainPoster.from') +
+                    '  ' +
+                    randomVideo?.creator?.firstName +
+                    ' ' +
+                    randomVideo?.creator?.lastName}
+                </p>
+              </a>
             </div>
           </div>
-          <div className="relative h-full w-full">
+
+          <a
+            className="relative h-full w-full "
+            href={'/video/watch/' + randomVideo?.id}
+          >
             <div className="absolute z-[99] -top-[4em] -left-[20em] h-full w-[64em]">
               <div className="h-full w-full flex justify-end">
                 <div
                   className={`banner h-[130%] w-full bg-cover bg-gray`}
                   style={{
-                    backgroundImage: `url('/banner.jpg')`,
+                    backgroundImage: `url(${
+                      '/api/photo/getPhotoUrl/' +
+                      randomVideo?.previewPhotoFile +
+                      '/1920'
+                    })`,
                   }}
                 ></div>
 
                 <div className="fade-gradient w-full h-[130%] absolute"></div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </>

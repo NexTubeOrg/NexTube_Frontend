@@ -1,8 +1,7 @@
 .default-custom-scrollbar {
   overflow-y: scroll;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #666873 #f5f5f500; /* Firefox */
-  border-radius: 0.3rem;
+  scrollbar-width: auto; /* Firefox */
+  scrollbar-color: hsl(0, 0%, 67%) transparent; /* Firefox */
 }
 
 .default-custom-scrollbar::-webkit-scrollbar {

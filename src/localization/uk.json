@@ -91,7 +91,8 @@
   "mainPoster": {
     "watchNow": "Дивіться зараз",
     "title": "Вільям Блек",
-    "description": "англійський клоун, пойнтер і чорний чоловік"
+    "description": "англійський клоун, пойнтер і чорний чоловік",
+    "from": "від"
   },
   "dropdownNotification": {
     "notification": "Сповіщення",
