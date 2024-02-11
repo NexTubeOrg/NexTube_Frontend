@@ -21,7 +21,7 @@ export const MainPoster = () => {
 
   return (
     <>
-      <div className="h-[50vh] p-20">
+      <div className="h-[50vh]">
         <div className="h-full flex items-center justify-between">
           <div className="flex z-[9997] flex-col min-[1000px]:w-[32em] min-[1364px]:w-[64em]">
             <div className="mb-2">
