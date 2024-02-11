@@ -134,7 +134,10 @@
     "channelNamePlaceholder": "Введіть назву каналу",
     "handlePlaceholder": "Встановіть свій ім'я користувача",
     "tellViewersPlaceholder": "Розкажіть глядачам про канал",
-    "saveButton": "Зберегти"
+    "saveButton": "Зберегти",
+    "changePassword": "Змінити пароль",
+    "oldPassword":"Старий пароль",
+    "newPassword":"Новий пароль"
   },
   "createPlaylistOverlay": {
     "title": "Назва",

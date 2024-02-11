@@ -126,7 +126,10 @@
     "channelNamePlaceholder": "Kanalnamen eingeben",
     "handlePlaceholder": "Legen Sie Ihren Griff fest",
     "tellViewersPlaceholder": "Sagen Sie den Zuschauern etwas über den Kanal",
-    "saveButton": "Speichern"
+    "saveButton": "Speichern",
+    "changePassword": "Passwort aendern",
+    "oldPassword":"Alte passwort",
+    "newPassword":"Neue passwort"
   },
   "createPlaylistOverlay": {
     "title": "Titel",
