@@ -1,20 +1,14 @@
 .custom-scrollbar {
   overflow-y: scroll;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #888 #f5f5f5; /* Firefox */
-  /* padding: 30px; */
+  scrollbar-width:auto; 
+  scrollbar-color: hsl(0,0%,67%) transparent; /* Firefox */
+   padding: 30px;
   height: 600px;
+
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 12px; /* Safari and Chrome */
-}
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #666873; /* Scrollbar thumb color */
 
-  border-radius: 0.3rem;
-}
 
 .user-item {
   text-align: left;
