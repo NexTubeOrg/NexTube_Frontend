@@ -138,7 +138,10 @@
     "channelNamePlaceholder": "Enter channel name",
     "handlePlaceholder": "Set your handle",
     "tellViewersPlaceholder": "Tell viewers about the channel",
-    "saveButton": "Save"
+    "saveButton": "Save",
+    "changePassword": "Change password",
+    "oldPassword":"Old password",
+    "newPassword":"New password"
   },
   "createPlaylistOverlay": {
     "title": "Title",

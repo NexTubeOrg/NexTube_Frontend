@@ -4,7 +4,7 @@ import {
   FieldBasicEditBigInput,
   FieldBasicEditInput,
 } from '../../../common/inputs';
-import { ILoginResult, IUserUpdate } from '../../../../pages/UpdateUser/types';
+import { ILoginResult, IUserUpdate,IPasswordChange } from '../../../../pages/UpdateUser/types';
 import http_api from '../../../../services/http_api';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../../../store/reducers/auth/types';
@@ -19,6 +19,8 @@ export const ProfileInfo = () => {
     lastName: '',
     nickname: '',
     description: '',
+    oldPassword: '',
+    newPassword: ''
   });
 
   const { isAuth, user } = useSelector((store: any) => store.auth as IAuthUser);
@@ -49,6 +51,9 @@ export const ProfileInfo = () => {
     try {
       console.log("Update", userData);
       await http_api.put<ILoginResult>('/api/user/updateuser', userData);
+      if(userData.newPassword !='' && userData.oldPassword !='' ){
+        await http_api.post<IPasswordChange>('/api/auth/changePassword',{password:userData.oldPassword,newPassword:userData.newPassword});
+      }
       window.location.reload();
       handleSuccess('Update');
     } catch (error) {
@@ -106,6 +111,28 @@ export const ProfileInfo = () => {
           handleChange={handleInputChange}
           error=""
         />
+      </div>
+      <div className="mb-6">
+        <FieldBasicEditInput 
+          name="oldPassword"
+          title={t('profileInfo.changePassword')+" ⚠️ "}
+          description=""
+          placeholder={t('profileInfo.oldPassword')}
+          value={userData.oldPassword}
+          handleChange={handleInputChange}
+          error=""
+          type="password"
+        />
+        <FieldBasicEditInput
+          name="newPassword"
+          title={""}
+          description=""
+          placeholder={t('profileInfo.newPassword')}
+          value={userData.newPassword}
+          handleChange={handleInputChange}
+          error=""
+          type="password"
+        />  
       </div>
       <div className="mb-5">
         <button
