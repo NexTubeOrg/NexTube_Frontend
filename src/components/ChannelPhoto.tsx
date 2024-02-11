@@ -1,9 +1,11 @@
-export const ChannelPhoto = (props: { photoFileId: string | undefined |  null}) => {
+export const ChannelPhoto = (props: {
+  photoFileId: string | undefined | null;
+}) => {
   return (
     <>
       <span>
         <img
-          className="h-12 w-12 rounded-full"
+          className="h-12 min-w-[3rem] min-h-[3rem] w-12 rounded-full"
           src={'/api/Photo/GetPhotoUrl/' + props.photoFileId + '/50'}
           alt="User"
         />
