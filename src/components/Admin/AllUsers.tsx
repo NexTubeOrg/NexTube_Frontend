@@ -42,7 +42,7 @@ const AllUsers: React.FC = () => {
         dataLength={users.length}
         next={fetchUsers}
         hasMore={hasMore}
-        loader={<h4 className='text-white'>Loading...</h4>}
+        loader={<h4 className='text-white'></h4>}
         scrollableTarget="custom-scrollbar"
       >
         <div className="user-list">

@@ -85,7 +85,8 @@
   "mainPoster": {
     "watchNow": "Ver ahora",
     "title": "William Blacke",
-    "description": "es un payaso inglés, apuntador y hombre negro"
+    "description": "es un payaso inglés, apuntador y hombre negro",
+    "from":"de"
   },
   "dropdownNotification": {
     "notification": "Notificación",
