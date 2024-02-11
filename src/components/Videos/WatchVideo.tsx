@@ -1,24 +1,22 @@
- 
 import { useEffect, useRef, useState } from 'react';
 import { IconedProcessingButton } from '../common/buttons/IconedButton';
 import { Link } from 'react-router-dom';
- import { CollapseText } from '../common/CollapseText';
+import { CollapseText } from '../common/CollapseText';
 import SubscribeButton from '../../pages/Subscription/UpdateUser/Subscription';
 import { AddVideoReaction } from '../Reactions/AddVideoReaction';
 import VideoCommentsLoader from '../Comments/CommentsContainer/VideoCommentsLoader';
 import { IVideoLookup } from '../../pages/Video/common/types';
-import {
-  BigPlayButton,
-  LoadingSpinner,
-  Player,
-} from 'video-react';
+import { BigPlayButton, LoadingSpinner, Player } from 'video-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import './../../styles/custom-video-react.css';
 import ReportForm from '../ReportForm';
 import { handleSuccess } from '../../common/handleError';
 import http_api from '../../services/http_api';
-import { IUsersubscription, SubscriptionReducerActionsType } from '../../store/reducers/subscription/types';
+import {
+  IUsersubscription,
+  SubscriptionReducerActionsType,
+} from '../../store/reducers/subscription/types';
 import { useSelector } from 'react-redux';
 import { IAuthUser } from '../../store/reducers/auth/types';
 import MoreVideoActions from './MoreVideoActions';
@@ -28,7 +26,7 @@ import { useTranslation } from 'react-i18next'; // Import the hook
 
 dayjs.extend(relativeTime);
 
-const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
+const WatchVideo = (props: { video: IVideoLookup | undefined }) => {
   const [showReportForm, setShowReportForm] = useState(false);
 
   const [isAuthUserVideoOwner, setIsAuthUserVideoOwner] = useState(false);
@@ -42,7 +40,6 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
     setIsAuthUserVideoOwner(user?.userId == props.video?.creator?.userId);
   }, [user?.userId, props.video]);
 
-
   const handleReportClick = () => {
     setShowReportForm((prevShowReportForm) => !prevShowReportForm);
   };
@@ -53,20 +50,23 @@ const WatchVideo =     (props: { video: IVideoLookup | undefined }) => {
 
   const [userData, setUserData] = useState<IUserInfo>();
 
-  const {  isAuth } = useSelector((store: any) => store.auth as IAuthUser);
-const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersubscription  );
+  const { isAuth } = useSelector((store: any) => store.auth as IAuthUser);
+  const userSubscriptions = useSelector(
+    (store: any) => store.subscription as IUsersubscription,
+  );
 
   useEffect(() => {
-  if(isAuth){  const fetchData = async () => {
- 
-         const response = await http_api.get(`/api/User/GetUser?ChannelId=${props.video?.creator?.userId}`);
-          setUserData(response.data);
-          
-       };
-    fetchData();}
- }, [  userSubscriptions]);
- 
- 
+    if (isAuth) {
+      const fetchData = async () => {
+        const response = await http_api.get(
+          `/api/User/GetUser?ChannelId=${props.video?.creator?.userId}`,
+        );
+        setUserData(response.data);
+      };
+      fetchData();
+    }
+  }, [userSubscriptions]);
+
   useEffect(() => {
     player.current.load();
   }, [props.video]);
@@ -75,8 +75,8 @@ const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersu
     <>
       <div className="warp my-6">
         {/* video player */}
-        <div className="video w-full">
-          <div className="flex">
+        <div className="video w-full pl-6 ">
+          <div className="flex rounded-xl">
             {props.video && (
               <Player
                 ref={player}
@@ -127,7 +127,10 @@ const userSubscriptions = useSelector((store:any)=>store.subscription as IUsersu
                         ? props.video!.creator?.lastName?.slice(0, 15) + '...'
                         : props.video!.creator?.lastName}
                     </h3>
-                    <h3 className="text-gray text-md"> {userData?.subsciptions} {t('watchVideo.subscribers')}</h3>
+                    <h3 className="text-gray text-md">
+                      {' '}
+                      {userData?.subsciptions} {t('watchVideo.subscribers')}
+                    </h3>
                   </div>
                 </div>
               </Link>

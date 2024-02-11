@@ -212,6 +212,7 @@
 }
 
 .video-react {
+  border-radius: 0.5em !important;
   display: block;
   vertical-align: top;
   box-sizing: border-box;
@@ -476,18 +477,18 @@ body.video-react-full-window .video-react-fullscreen {
   font-size: 1.2em;
   text-align: center;
 }
-.video-react-menu li:focus,
+/* .video-react-menu li:focus,
 .video-react-menu li:hover {
   outline: 0;
   background-color: #73859f;
   background-color: rgba(115, 133, 159, 0.5);
-}
-.video-react-menu li.video-react-selected,
+} */
+/* .video-react-menu li.video-react-selected,
 .video-react-menu li.video-react-selected:focus,
 .video-react-menu li.video-react-selected:hover {
   background-color: #fff;
   color: #2b333f;
-}
+} */
 .video-react-menu li.vjs-menu-title {
   text-align: center;
   text-transform: uppercase;
@@ -592,6 +593,7 @@ body.video-react-full-window .video-react-fullscreen {
 }
 
 .video-react .video-react-poster {
+  border-radius: 0.5em !important;
   display: inline-block;
   vertical-align: middle;
   background-repeat: no-repeat;
@@ -645,13 +647,6 @@ body.video-react-full-window .video-react-fullscreen {
   font-size: 1.8em;
   line-height: 1.67;
 }
-.video-react .video-react-control:focus:before,
-.video-react .video-react-control:hover:before,
-.video-react .video-react-control:focus {
-  text-shadow:
-    0em 0em 1em #fff,
-    0em 0em 0.5em #fff;
-}
 
 .video-react .video-react-control-text {
   border: 0;
@@ -672,6 +667,7 @@ body.video-react-full-window .video-react-fullscreen {
 .video-react .video-react-control-bar {
   display: none;
   width: 100%;
+  /* background: #1e1e2044; */
   position: absolute;
   bottom: 0em;
   left: 0;

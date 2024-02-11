@@ -92,7 +92,7 @@
     "watchNow": "Дивіться зараз",
     "title": "Вільям Блек",
     "description": "англійський клоун, пойнтер і чорний чоловік",
-    "from":"від"
+    "from": "від"
   },
   "dropdownNotification": {
     "notification": "Сповіщення",
@@ -244,7 +244,8 @@
     "language": "Мова",
     "location": "Місцезнаходження",
     "signOut": "Вийти",
-    "settings": "Налаштування"
+    "settings": "Налаштування",
+    "addNewAccount": "Додати ще один аккаунт"
   },
   "search": "Пошук",
   "homePage": {
