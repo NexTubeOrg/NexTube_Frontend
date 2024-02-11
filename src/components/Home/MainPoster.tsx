@@ -50,7 +50,7 @@ export const MainPoster = () => {
               <div className="h-full w-full flex justify-end">
                 <div
                   className={`banner h-[130%] w-full bg-cover bg-gray`}
-                  style={{backgroundImage: `url(${'/api/photo/getPhotoUrl/' + randomVideo?.previewPhotoFile + '/600'})`}}
+                  style={{backgroundImage: `url(${'/api/photo/getPhotoUrl/' + randomVideo?.previewPhotoFile + '/1920'})`}}
                 ></div>
 
                 <div className="fade-gradient w-full h-[130%] absolute"></div>
