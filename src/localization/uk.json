@@ -110,7 +110,7 @@
   },
   "setVideoPlaylist": {
     "saveVideo": "Зберегти відео",
-    "createNewPlaylist": "Створити новий плейлист"
+    "createNewPlaylist": "Створити"
   },
   "profile": {
     "loading": "Завантаження...",
@@ -136,8 +136,8 @@
     "tellViewersPlaceholder": "Розкажіть глядачам про канал",
     "saveButton": "Зберегти",
     "changePassword": "Змінити пароль",
-    "oldPassword":"Старий пароль",
-    "newPassword":"Новий пароль"
+    "oldPassword": "Старий пароль",
+    "newPassword": "Новий пароль"
   },
   "createPlaylistOverlay": {
     "title": "Назва",
