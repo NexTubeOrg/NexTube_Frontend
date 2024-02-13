@@ -51,7 +51,7 @@ export const ProfileInfo = () => {
     try {
       console.log("Update", userData);
       await http_api.put<ILoginResult>('/api/user/updateuser', userData);
-      if(userData.newPassword !='' && userData.oldPassword !='' ){
+      if(userData.newPassword != null && userData.oldPassword !=null ){
         await http_api.post<IPasswordChange>('/api/auth/changePassword',{password:userData.oldPassword,newPassword:userData.newPassword});
       }
       window.location.reload();
