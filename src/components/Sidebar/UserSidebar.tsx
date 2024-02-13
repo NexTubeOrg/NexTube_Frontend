@@ -108,8 +108,9 @@ const UserSidebar = ({ sidebarOpen, setSidebarOpen }: UserSidebarProps) => {
         });
       }
     };
-
-    fetchSubscriptions();
+    if (user && (user?.roles as string[]).find((r) => r != 'Unverified')) {
+      fetchSubscriptions();
+    }
   }, [
     user,
     SubscriptionReducerActionsType.ADD_SUBSCRIBER,
